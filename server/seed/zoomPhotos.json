@@ -1,0 +1,598 @@
+[
+  {
+    "id": "zm_01",
+    "category": "dieren_dinos",
+    "answer": "T-Rex (Tyrannosaurus Rex)",
+    "acceptedHints": [
+      "T-Rex",
+      "Dino",
+      "Dinosaurus"
+    ],
+    "illustrationId": "trex",
+    "focalPoint": {
+      "x": 62,
+      "y": 28
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_02",
+    "category": "dieren_dinos",
+    "answer": "Triceratops (Dino met 3 hoorns)",
+    "acceptedHints": [
+      "Triceratops",
+      "Dino met hoorns"
+    ],
+    "illustrationId": "triceratops",
+    "focalPoint": {
+      "x": 28,
+      "y": 42
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_03",
+    "category": "dieren_dinos",
+    "answer": "Uitbarstende Vulkaan",
+    "acceptedHints": [
+      "Vulkaan",
+      "Lava"
+    ],
+    "illustrationId": "volcano",
+    "focalPoint": {
+      "x": 50,
+      "y": 22
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_04",
+    "category": "dieren_dinos",
+    "answer": "Olifant",
+    "acceptedHints": [
+      "Olifant",
+      "Slurf"
+    ],
+    "illustrationId": "elephant",
+    "focalPoint": {
+      "x": 72,
+      "y": 54
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_05",
+    "category": "films_magie",
+    "answer": "Magische Eenhoorn (Unicorn)",
+    "acceptedHints": [
+      "Eenhoorn",
+      "Unicorn"
+    ],
+    "illustrationId": "unicorn",
+    "focalPoint": {
+      "x": 65,
+      "y": 24
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_06",
+    "category": "films_magie",
+    "answer": "Regenboog",
+    "acceptedHints": [
+      "Regenboog"
+    ],
+    "illustrationId": "rainbow",
+    "focalPoint": {
+      "x": 48,
+      "y": 38
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_07",
+    "category": "films_magie",
+    "answer": "K-Pop Microfoon (HUNTR/X)",
+    "acceptedHints": [
+      "Microfoon",
+      "K-Pop",
+      "HUNTR/X"
+    ],
+    "illustrationId": "kpop_mic",
+    "focalPoint": {
+      "x": 52,
+      "y": 30
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_08",
+    "category": "films_magie",
+    "answer": "Gitaar",
+    "acceptedHints": [
+      "Gitaar",
+      "Muziekinstrument"
+    ],
+    "illustrationId": "guitar",
+    "focalPoint": {
+      "x": 46,
+      "y": 55
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_09",
+    "category": "games_avontuur",
+    "answer": "Blauwe Egel (Sonic the Hedgehog)",
+    "acceptedHints": [
+      "Sonic",
+      "Blauwe egel"
+    ],
+    "illustrationId": "sonic_hedgehog",
+    "focalPoint": {
+      "x": 55,
+      "y": 35
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_10",
+    "category": "games_avontuur",
+    "answer": "Gouden Sonic Ring",
+    "acceptedHints": [
+      "Gouden ring",
+      "Ring"
+    ],
+    "illustrationId": "golden_ring",
+    "focalPoint": {
+      "x": 68,
+      "y": 32
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_11",
+    "category": "games_avontuur",
+    "answer": "Tros Gele Bananen (Donkey Kong)",
+    "acceptedHints": [
+      "Banaan",
+      "Bananen"
+    ],
+    "illustrationId": "banana",
+    "focalPoint": {
+      "x": 54,
+      "y": 48
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_12",
+    "category": "games_avontuur",
+    "answer": "Tropisch Eiland (Animal Crossing)",
+    "acceptedHints": [
+      "Eiland",
+      "Palmboom",
+      "Animal Crossing"
+    ],
+    "illustrationId": "island",
+    "focalPoint": {
+      "x": 50,
+      "y": 32
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_13",
+    "category": "games_avontuur",
+    "answer": "Rood-Witte Power-Paddenstoel (Mario)",
+    "acceptedHints": [
+      "Paddenstoel",
+      "Mario paddenstoel"
+    ],
+    "illustrationId": "mushroom",
+    "focalPoint": {
+      "x": 45,
+      "y": 36
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_14",
+    "category": "sport_eten",
+    "answer": "Pizza",
+    "acceptedHints": [
+      "Pizza"
+    ],
+    "illustrationId": "pizza",
+    "focalPoint": {
+      "x": 58,
+      "y": 46
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_15",
+    "category": "sport_eten",
+    "answer": "IJsje met drie bolletjes",
+    "acceptedHints": [
+      "IJsje",
+      "IJs"
+    ],
+    "illustrationId": "ice_cream",
+    "focalPoint": {
+      "x": 50,
+      "y": 28
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_16",
+    "category": "sport_eten",
+    "answer": "Voetbal",
+    "acceptedHints": [
+      "Voetbal",
+      "Bal"
+    ],
+    "illustrationId": "soccer_ball",
+    "focalPoint": {
+      "x": 50,
+      "y": 50
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_17",
+    "category": "wereld_raadsels",
+    "answer": "Ruimteraket",
+    "acceptedHints": [
+      "Raket",
+      "Ruimteraket"
+    ],
+    "illustrationId": "rocket",
+    "focalPoint": {
+      "x": 50,
+      "y": 25
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_18",
+    "category": "wereld_raadsels",
+    "answer": "Rode Brandweerauto",
+    "acceptedHints": [
+      "Brandweerauto",
+      "Brandweer"
+    ],
+    "illustrationId": "firetruck",
+    "focalPoint": {
+      "x": 65,
+      "y": 42
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_19",
+    "category": "wereld_raadsels",
+    "answer": "Vuurtoren aan zee",
+    "acceptedHints": [
+      "Vuurtoren"
+    ],
+    "illustrationId": "lighthouse",
+    "focalPoint": {
+      "x": 50,
+      "y": 24
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_20",
+    "category": "wereld_raadsels",
+    "answer": "Planeet Saturnus (met ringen)",
+    "acceptedHints": [
+      "Planeet",
+      "Saturnus",
+      "Ruimte"
+    ],
+    "illustrationId": "planet_saturn",
+    "focalPoint": {
+      "x": 62,
+      "y": 44
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_21",
+    "category": "ons_gezin",
+    "answer": "Lieve Kat",
+    "acceptedHints": [
+      "Kat",
+      "Poes"
+    ],
+    "illustrationId": "cat",
+    "focalPoint": {
+      "x": 50,
+      "y": 38
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_22",
+    "category": "ons_gezin",
+    "answer": "Ons Gezellige Familiehuis",
+    "acceptedHints": [
+      "Huis",
+      "Ons huis",
+      "Familiehuis"
+    ],
+    "illustrationId": "house_family",
+    "focalPoint": {
+      "x": 52,
+      "y": 36
+    },
+    "packId": "basis"
+  },
+  {
+    "id": "zm_23",
+    "category": "dieren_dinos",
+    "packId": "kids_special",
+    "answer": "Ankylosaurus (Pantser-dino met knotsstaart)",
+    "illustrationId": "ankylosaurus",
+    "focalPoint": {
+      "x": 78,
+      "y": 62
+    }
+  },
+  {
+    "id": "zm_24",
+    "category": "dieren_dinos",
+    "packId": "kids_special",
+    "answer": "Spinosaurus (Dino met rugzeil)",
+    "illustrationId": "spinosaurus",
+    "focalPoint": {
+      "x": 52,
+      "y": 36
+    }
+  },
+  {
+    "id": "zm_25",
+    "category": "dieren_dinos",
+    "packId": "kids_special",
+    "answer": "Pteranodon (Vliegende dino)",
+    "illustrationId": "pteranodon",
+    "focalPoint": {
+      "x": 48,
+      "y": 34
+    }
+  },
+  {
+    "id": "zm_26",
+    "category": "dieren_dinos",
+    "packId": "basis",
+    "answer": "Gespikkeld Dino-ei",
+    "illustrationId": "dino_egg",
+    "focalPoint": {
+      "x": 58,
+      "y": 48
+    }
+  },
+  {
+    "id": "zm_27",
+    "category": "dieren_dinos",
+    "packId": "basis",
+    "answer": "Giraffe met vlekken",
+    "illustrationId": "giraffe",
+    "focalPoint": {
+      "x": 54,
+      "y": 26
+    }
+  },
+  {
+    "id": "zm_28",
+    "category": "dieren_dinos",
+    "packId": "basis",
+    "answer": "Zebra met strepen",
+    "illustrationId": "zebra",
+    "focalPoint": {
+      "x": 46,
+      "y": 48
+    }
+  },
+  {
+    "id": "zm_29",
+    "category": "dieren_dinos",
+    "packId": "basis",
+    "answer": "Zeeschildpad",
+    "illustrationId": "turtle",
+    "focalPoint": {
+      "x": 64,
+      "y": 52
+    }
+  },
+  {
+    "id": "zm_30",
+    "category": "dieren_dinos",
+    "packId": "basis",
+    "answer": "Octopus (Inktvis)",
+    "illustrationId": "octopus",
+    "focalPoint": {
+      "x": 50,
+      "y": 42
+    }
+  },
+  {
+    "id": "zm_31",
+    "category": "dieren_dinos",
+    "packId": "basis",
+    "answer": "Blauwe Vinvis (Walvis)",
+    "illustrationId": "whale",
+    "focalPoint": {
+      "x": 38,
+      "y": 44
+    }
+  },
+  {
+    "id": "zm_32",
+    "category": "dieren_dinos",
+    "packId": "basis",
+    "answer": "Reuzenpanda",
+    "illustrationId": "panda",
+    "focalPoint": {
+      "x": 44,
+      "y": 40
+    }
+  },
+  {
+    "id": "zm_33",
+    "category": "dieren_dinos",
+    "packId": "basis",
+    "answer": "Roze Flamingo",
+    "illustrationId": "flamingo",
+    "focalPoint": {
+      "x": 66,
+      "y": 38
+    }
+  },
+  {
+    "id": "zm_34",
+    "category": "games_avontuur",
+    "packId": "kids_special",
+    "answer": "Chaos Emerald Diamant (Sonic)",
+    "illustrationId": "chaos_emerald",
+    "focalPoint": {
+      "x": 52,
+      "y": 46
+    }
+  },
+  {
+    "id": "zm_35",
+    "category": "games_avontuur",
+    "packId": "kids_special",
+    "answer": "Shadow de Egel",
+    "illustrationId": "shadow_hedgehog",
+    "focalPoint": {
+      "x": 56,
+      "y": 44
+    }
+  },
+  {
+    "id": "zm_36",
+    "category": "games_avontuur",
+    "packId": "basis",
+    "answer": "Gouden Schatkist",
+    "illustrationId": "treasure_chest",
+    "focalPoint": {
+      "x": 50,
+      "y": 52
+    }
+  },
+  {
+    "id": "zm_37",
+    "category": "wereld_raadsels",
+    "packId": "basis",
+    "answer": "Helikopter",
+    "illustrationId": "helicopter",
+    "focalPoint": {
+      "x": 48,
+      "y": 36
+    }
+  },
+  {
+    "id": "zm_38",
+    "category": "wereld_raadsels",
+    "packId": "basis",
+    "answer": "Groene Boerderijtractor",
+    "illustrationId": "tractor",
+    "focalPoint": {
+      "x": 60,
+      "y": 58
+    }
+  },
+  {
+    "id": "zm_39",
+    "category": "wereld_raadsels",
+    "packId": "basis",
+    "answer": "Gele Duikboot",
+    "illustrationId": "submarine",
+    "focalPoint": {
+      "x": 50,
+      "y": 56
+    }
+  },
+  {
+    "id": "zm_40",
+    "category": "wereld_raadsels",
+    "packId": "basis",
+    "answer": "Kleurrijke Luchtballon",
+    "illustrationId": "hot_air_balloon",
+    "focalPoint": {
+      "x": 50,
+      "y": 38
+    }
+  },
+  {
+    "id": "zm_41",
+    "category": "ons_gezin",
+    "packId": "kerst",
+    "answer": "Vrolijke Sneeuwpop",
+    "illustrationId": "snowman",
+    "focalPoint": {
+      "x": 52,
+      "y": 38
+    }
+  },
+  {
+    "id": "zm_42",
+    "category": "ons_gezin",
+    "packId": "kerst",
+    "answer": "Versierde Kerstboom",
+    "illustrationId": "christmas_tree",
+    "focalPoint": {
+      "x": 50,
+      "y": 32
+    }
+  },
+  {
+    "id": "zm_43",
+    "category": "ons_gezin",
+    "packId": "sinterklaas",
+    "answer": "Stoomboot van Sinterklaas",
+    "illustrationId": "steamboat",
+    "focalPoint": {
+      "x": 58,
+      "y": 42
+    }
+  },
+  {
+    "id": "zm_44",
+    "category": "ons_gezin",
+    "packId": "verjaardag",
+    "answer": "Feestcadeau met gouden strik",
+    "illustrationId": "gift_box",
+    "focalPoint": {
+      "x": 50,
+      "y": 36
+    }
+  },
+  {
+    "id": "zm_45",
+    "category": "ons_gezin",
+    "packId": "zomer",
+    "answer": "Kampeertent op vakantie",
+    "illustrationId": "tent_camp",
+    "focalPoint": {
+      "x": 50,
+      "y": 48
+    }
+  },
+  {
+    "id": "zm_46",
+    "category": "sport_eten",
+    "packId": "zomer",
+    "answer": "Watermeloen",
+    "illustrationId": "watermelon",
+    "focalPoint": {
+      "x": 52,
+      "y": 54
+    }
+  }
+]

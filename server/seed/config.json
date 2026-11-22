@@ -1,0 +1,54 @@
+{
+  "showTitle": "De Grote Familie Bongers Show",
+  "subtitle": "Live vanuit onze eigen huiskamer op de 65\" OLED!",
+  "profiles": [
+    {
+      "id": "profile_lucas",
+      "name": "Lucas",
+      "ageLabel": "5 jaar · Ontdekker",
+      "level": "ontdekker",
+      "defaultAvatarId": "trex",
+      "avatarOptions": ["trex", "sonic_hedgehog", "jungle_ape", "star"],
+      "color": "#22C55E",
+      "isHostDefault": false,
+      "isCoHostDefault": false,
+      "autoSpeak": true
+    },
+    {
+      "id": "profile_lana",
+      "name": "Lana",
+      "ageLabel": "7 jaar · Avonturier",
+      "level": "avonturier",
+      "defaultAvatarId": "unicorn",
+      "avatarOptions": ["unicorn", "rainbow", "island_friend", "kpop_star"],
+      "color": "#A855F7",
+      "isHostDefault": false,
+      "isCoHostDefault": false,
+      "autoSpeak": false
+    },
+    {
+      "id": "profile_papa",
+      "name": "Papa",
+      "ageLabel": "Meester · Showhost",
+      "level": "meester",
+      "defaultAvatarId": "showmaster",
+      "avatarOptions": ["showmaster", "owl", "rocket", "gamepad"],
+      "color": "#3B82F6",
+      "isHostDefault": true,
+      "isCoHostDefault": false,
+      "autoSpeak": false
+    },
+    {
+      "id": "profile_mama",
+      "name": "Mama",
+      "ageLabel": "Meester · Co-Host",
+      "level": "meester",
+      "defaultAvatarId": "crown",
+      "avatarOptions": ["crown", "fox", "star", "music_note"],
+      "color": "#EC4899",
+      "isHostDefault": false,
+      "isCoHostDefault": true,
+      "autoSpeak": false
+    }
+  ]
+}

@@ -1,0 +1,1428 @@
+[
+  {
+    "id": "snd_01",
+    "category": "dieren_dinos",
+    "prompt": "Welk groot oerdier brult er hier door de jungle?",
+    "soundType": "synth",
+    "soundKey": "trex_roar",
+    "options": [
+      {
+        "id": "a",
+        "label": "T-Rex Dino",
+        "illustrationId": "trex"
+      },
+      {
+        "id": "b",
+        "label": "Kikker",
+        "illustrationId": "frog"
+      },
+      {
+        "id": "c",
+        "label": "Vlinder",
+        "illustrationId": "butterfly"
+      },
+      {
+        "id": "d",
+        "label": "Pinguïn",
+        "illustrationId": "penguin"
+      }
+    ],
+    "correctOptionId": "a",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_02",
+    "category": "dieren_dinos",
+    "prompt": "Kwaak kwaak! Wie springt er hier in de vijver?",
+    "soundType": "synth",
+    "soundKey": "frog_croak",
+    "options": [
+      {
+        "id": "a",
+        "label": "Paard",
+        "illustrationId": "horse"
+      },
+      {
+        "id": "b",
+        "label": "Groene Kikker",
+        "illustrationId": "frog"
+      },
+      {
+        "id": "c",
+        "label": "Leeuw",
+        "illustrationId": "lion"
+      },
+      {
+        "id": "d",
+        "label": "Uil",
+        "illustrationId": "owl"
+      }
+    ],
+    "correctOptionId": "b",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_03",
+    "category": "dieren_dinos",
+    "prompt": "Wie trompettert er zo hard met zijn lange slurf?",
+    "soundType": "synth",
+    "soundKey": "elephant_trumpet",
+    "options": [
+      {
+        "id": "a",
+        "label": "Kat",
+        "illustrationId": "cat"
+      },
+      {
+        "id": "b",
+        "label": "Vos",
+        "illustrationId": "fox"
+      },
+      {
+        "id": "c",
+        "label": "Olifant",
+        "illustrationId": "elephant"
+      },
+      {
+        "id": "d",
+        "label": "Dolfijn",
+        "illustrationId": "dolphin"
+      }
+    ],
+    "correctOptionId": "c",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_04",
+    "category": "dieren_dinos",
+    "prompt": "Oehoe! Welke vogel roept er 's nachts in het donkere bos?",
+    "soundType": "synth",
+    "soundKey": "owl_hoot",
+    "options": [
+      {
+        "id": "a",
+        "label": "Koe",
+        "illustrationId": "cow"
+      },
+      {
+        "id": "b",
+        "label": "Haai",
+        "illustrationId": "shark"
+      },
+      {
+        "id": "c",
+        "label": "Hond",
+        "illustrationId": "dog"
+      },
+      {
+        "id": "d",
+        "label": "Wijze Uil",
+        "illustrationId": "owl"
+      }
+    ],
+    "correctOptionId": "d",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_05",
+    "category": "dieren_dinos",
+    "prompt": "Boeoe! Wie staat er lekker in het groene gras op de boerderij?",
+    "soundType": "synth",
+    "soundKey": "cow_moo",
+    "options": [
+      {
+        "id": "a",
+        "label": "Boerderijkoe",
+        "illustrationId": "cow"
+      },
+      {
+        "id": "b",
+        "label": "Triceratops",
+        "illustrationId": "triceratops"
+      },
+      {
+        "id": "c",
+        "label": "Pinguïn",
+        "illustrationId": "penguin"
+      },
+      {
+        "id": "d",
+        "label": "Vlinder",
+        "illustrationId": "butterfly"
+      }
+    ],
+    "correctOptionId": "a",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_06",
+    "category": "dieren_dinos",
+    "prompt": "Woef woef! Welk huisdier blaft er vrolijk bij de voordeur?",
+    "soundType": "synth",
+    "soundKey": "dog_bark",
+    "options": [
+      {
+        "id": "a",
+        "label": "Kat",
+        "illustrationId": "cat"
+      },
+      {
+        "id": "b",
+        "label": "Blije Hond",
+        "illustrationId": "dog"
+      },
+      {
+        "id": "c",
+        "label": "Paard",
+        "illustrationId": "horse"
+      },
+      {
+        "id": "d",
+        "label": "Dolfijn",
+        "illustrationId": "dolphin"
+      }
+    ],
+    "correctOptionId": "b",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_07",
+    "category": "dieren_dinos",
+    "prompt": "Miauw! Wie spint en miauwt er zachtjes op de bank?",
+    "soundType": "synth",
+    "soundKey": "cat_meow",
+    "options": [
+      {
+        "id": "a",
+        "label": "Leeuw",
+        "illustrationId": "lion"
+      },
+      {
+        "id": "b",
+        "label": "Kikker",
+        "illustrationId": "frog"
+      },
+      {
+        "id": "c",
+        "label": "Lieve Kat",
+        "illustrationId": "cat"
+      },
+      {
+        "id": "d",
+        "label": "Olifant",
+        "illustrationId": "elephant"
+      }
+    ],
+    "correctOptionId": "c",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_08",
+    "category": "games_avontuur",
+    "prompt": "Ting-rinkel! Wat pakt Sonic the Hedgehog hier op volle snelheid?",
+    "soundType": "synth",
+    "soundKey": "sonic_ring",
+    "options": [
+      {
+        "id": "a",
+        "label": "Houten Ton",
+        "illustrationId": "barrel"
+      },
+      {
+        "id": "b",
+        "label": "Vishengel",
+        "illustrationId": "fishing_rod"
+      },
+      {
+        "id": "c",
+        "label": "Voetbal",
+        "illustrationId": "soccer_ball"
+      },
+      {
+        "id": "d",
+        "label": "Gouden Ring",
+        "illustrationId": "golden_ring"
+      }
+    ],
+    "correctOptionId": "d",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_09",
+    "category": "games_avontuur",
+    "prompt": "Power-up! Wat pakt Mario waardoor hij ineens supergroot wordt?",
+    "soundType": "synth",
+    "soundKey": "mario_powerup",
+    "options": [
+      {
+        "id": "a",
+        "label": "Power-Paddenstoel",
+        "illustrationId": "mushroom"
+      },
+      {
+        "id": "b",
+        "label": "Banaan",
+        "illustrationId": "banana"
+      },
+      {
+        "id": "c",
+        "label": "Tandenborstel",
+        "illustrationId": "toothbrush"
+      },
+      {
+        "id": "d",
+        "label": "Vuurtoren",
+        "illustrationId": "lighthouse"
+      }
+    ],
+    "correctOptionId": "a",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_10",
+    "category": "games_avontuur",
+    "prompt": "Boem-rommel! Wat rolt Donkey Kong hier van de heuvel af?",
+    "soundType": "synth",
+    "soundKey": "dk_barrel",
+    "options": [
+      {
+        "id": "a",
+        "label": "Eenhoorn",
+        "illustrationId": "unicorn"
+      },
+      {
+        "id": "b",
+        "label": "Houten Jungle-Ton",
+        "illustrationId": "barrel"
+      },
+      {
+        "id": "c",
+        "label": "IJsje",
+        "illustrationId": "ice_cream"
+      },
+      {
+        "id": "d",
+        "label": "Vlinder",
+        "illustrationId": "butterfly"
+      }
+    ],
+    "correctOptionId": "b",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_11",
+    "category": "games_avontuur",
+    "prompt": "Plons-blub! Wat doet Lana op haar Animal Crossing eiland bij de zee?",
+    "soundType": "synth",
+    "soundKey": "water_splash",
+    "options": [
+      {
+        "id": "a",
+        "label": "Raket lanceren",
+        "illustrationId": "rocket"
+      },
+      {
+        "id": "b",
+        "label": "Pannenkoek bakken",
+        "illustrationId": "pancake"
+      },
+      {
+        "id": "c",
+        "label": "Vissen met de Vishengel",
+        "illustrationId": "fishing_rod"
+      },
+      {
+        "id": "d",
+        "label": "Trompet spelen",
+        "illustrationId": "trumpet"
+      }
+    ],
+    "correctOptionId": "c",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_12",
+    "category": "films_magie",
+    "prompt": "Welk muziekinstrument met zwart-witte toetsen hoor je hier spelen?",
+    "soundType": "synth",
+    "soundKey": "piano_melody",
+    "options": [
+      {
+        "id": "a",
+        "label": "Drumstel",
+        "illustrationId": "drums"
+      },
+      {
+        "id": "b",
+        "label": "Trompet",
+        "illustrationId": "trumpet"
+      },
+      {
+        "id": "c",
+        "label": "Gitaar",
+        "illustrationId": "guitar"
+      },
+      {
+        "id": "d",
+        "label": "Piano",
+        "illustrationId": "piano"
+      }
+    ],
+    "correctOptionId": "d",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_13",
+    "category": "films_magie",
+    "prompt": "Welk instrument met snaren tokkelt hier een vrolijk liedje?",
+    "soundType": "synth",
+    "soundKey": "guitar_strum",
+    "options": [
+      {
+        "id": "a",
+        "label": "Gitaar",
+        "illustrationId": "guitar"
+      },
+      {
+        "id": "b",
+        "label": "Trompet",
+        "illustrationId": "trumpet"
+      },
+      {
+        "id": "c",
+        "label": "Drumstel",
+        "illustrationId": "drums"
+      },
+      {
+        "id": "d",
+        "label": "Wekker",
+        "illustrationId": "clock_alarm"
+      }
+    ],
+    "correctOptionId": "a",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_14",
+    "category": "films_magie",
+    "prompt": "Boem-tsjak-boem! Op welk instrument sla je met twee stokken?",
+    "soundType": "synth",
+    "soundKey": "drum_beat",
+    "options": [
+      {
+        "id": "a",
+        "label": "Piano",
+        "illustrationId": "piano"
+      },
+      {
+        "id": "b",
+        "label": "Drumstel",
+        "illustrationId": "drums"
+      },
+      {
+        "id": "c",
+        "label": "Toverstaf",
+        "illustrationId": "magic_wand"
+      },
+      {
+        "id": "d",
+        "label": "Gitaar",
+        "illustrationId": "guitar"
+      }
+    ],
+    "correctOptionId": "b",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_15",
+    "category": "films_magie",
+    "prompt": "Tetteretet! Welk gouden blaasinstrument blaast een koninklijke fanfare?",
+    "soundType": "synth",
+    "soundKey": "trumpet_call",
+    "options": [
+      {
+        "id": "a",
+        "label": "Piano",
+        "illustrationId": "piano"
+      },
+      {
+        "id": "b",
+        "label": "Gitaar",
+        "illustrationId": "guitar"
+      },
+      {
+        "id": "c",
+        "label": "Gouden Trompet",
+        "illustrationId": "trumpet"
+      },
+      {
+        "id": "d",
+        "label": "Popcorn",
+        "illustrationId": "popcorn"
+      }
+    ],
+    "correctOptionId": "c",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_16",
+    "category": "films_magie",
+    "prompt": "Twinkel-glitter! Wat spreidt hier magische eenhoorn- en Honmoon-vonkjes?",
+    "soundType": "synth",
+    "soundKey": "magic_sparkle",
+    "options": [
+      {
+        "id": "a",
+        "label": "Brandweerauto",
+        "illustrationId": "firetruck"
+      },
+      {
+        "id": "b",
+        "label": "Voetbal",
+        "illustrationId": "soccer_ball"
+      },
+      {
+        "id": "c",
+        "label": "Pizza",
+        "illustrationId": "pizza"
+      },
+      {
+        "id": "d",
+        "label": "Toverstaf & Magie",
+        "illustrationId": "magic_wand"
+      }
+    ],
+    "correctOptionId": "d",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_17",
+    "category": "wereld_raadsels",
+    "prompt": "Tatú-tatú! Welk grote rode voertuig rijdt met sirene naar een brand?",
+    "soundType": "synth",
+    "soundKey": "firetruck_siren",
+    "options": [
+      {
+        "id": "a",
+        "label": "Brandweerauto",
+        "illustrationId": "firetruck"
+      },
+      {
+        "id": "b",
+        "label": "Fiets",
+        "illustrationId": "bicycle"
+      },
+      {
+        "id": "c",
+        "label": "Vliegtuig",
+        "illustrationId": "airplane"
+      },
+      {
+        "id": "d",
+        "label": "Luchtballon",
+        "illustrationId": "hot_air_balloon"
+      }
+    ],
+    "correctOptionId": "a",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_18",
+    "category": "wereld_raadsels",
+    "prompt": "Tsjoek-tsjoek, toet-toet! Wat rijdt er over het spoor?",
+    "soundType": "synth",
+    "soundKey": "train_horn",
+    "options": [
+      {
+        "id": "a",
+        "label": "Raket",
+        "illustrationId": "rocket"
+      },
+      {
+        "id": "b",
+        "label": "Snelle Trein",
+        "illustrationId": "train"
+      },
+      {
+        "id": "c",
+        "label": "Raceauto",
+        "illustrationId": "race_kart"
+      },
+      {
+        "id": "d",
+        "label": "Fiets",
+        "illustrationId": "bicycle"
+      }
+    ],
+    "correctOptionId": "b",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_19",
+    "category": "wereld_raadsels",
+    "prompt": "3... 2... 1... Woesjjj! Wat vliegt er met vuur naar de ruimte en planeten?",
+    "soundType": "synth",
+    "soundKey": "rocket_launch",
+    "options": [
+      {
+        "id": "a",
+        "label": "Fiets",
+        "illustrationId": "bicycle"
+      },
+      {
+        "id": "b",
+        "label": "Trein",
+        "illustrationId": "train"
+      },
+      {
+        "id": "c",
+        "label": "Ruimteraket",
+        "illustrationId": "rocket"
+      },
+      {
+        "id": "d",
+        "label": "Vuurtoren",
+        "illustrationId": "lighthouse"
+      }
+    ],
+    "correctOptionId": "c",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_20",
+    "category": "sport_eten",
+    "prompt": "Tring-tring! Wat rinkelt er als je lekker buiten fietst?",
+    "soundType": "synth",
+    "soundKey": "bicycle_bell",
+    "options": [
+      {
+        "id": "a",
+        "label": "Voetbal",
+        "illustrationId": "soccer_ball"
+      },
+      {
+        "id": "b",
+        "label": "Zwembad",
+        "illustrationId": "swimming"
+      },
+      {
+        "id": "c",
+        "label": "Verjaardagstaart",
+        "illustrationId": "cake"
+      },
+      {
+        "id": "d",
+        "label": "Fiets met Fietsbel",
+        "illustrationId": "bicycle"
+      }
+    ],
+    "correctOptionId": "d",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_21",
+    "category": "sport_eten",
+    "prompt": "Pŕŕŕt! Wat blaast de scheidsrechter bij een voetbalwedstrijd?",
+    "soundType": "synth",
+    "soundKey": "referee_whistle",
+    "options": [
+      {
+        "id": "a",
+        "label": "Voetbalwedstrijd",
+        "illustrationId": "soccer_ball"
+      },
+      {
+        "id": "b",
+        "label": "IJsje eten",
+        "illustrationId": "ice_cream"
+      },
+      {
+        "id": "c",
+        "label": "Pannenkoek",
+        "illustrationId": "pancake"
+      },
+      {
+        "id": "d",
+        "label": "Aardbei",
+        "illustrationId": "strawberry"
+      }
+    ],
+    "correctOptionId": "a",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_22",
+    "category": "ons_gezin",
+    "prompt": "Tringgg-tringgg! Wat maakt ons 's ochtends wakker in huis?",
+    "soundType": "synth",
+    "soundKey": "alarm_clock",
+    "options": [
+      {
+        "id": "a",
+        "label": "Tandenborstel",
+        "illustrationId": "toothbrush"
+      },
+      {
+        "id": "b",
+        "label": "Rinkelende Wekker",
+        "illustrationId": "clock_alarm"
+      },
+      {
+        "id": "c",
+        "label": "Hoge Hoed",
+        "illustrationId": "top_hat"
+      },
+      {
+        "id": "d",
+        "label": "Banaan",
+        "illustrationId": "banana"
+      }
+    ],
+    "correctOptionId": "b",
+    "packId": "basis"
+  },
+  {
+    "id": "snd_23",
+    "category": "dieren_dinos",
+    "packId": "basis",
+    "prompt": "ROAAAR! Welke koning van de savanne brult hier zo machtig?",
+    "soundType": "synth",
+    "soundKey": "lion_roar",
+    "options": [
+      {
+        "id": "a",
+        "label": "Kip",
+        "illustrationId": "chicken"
+      },
+      {
+        "id": "b",
+        "label": "Konijn",
+        "illustrationId": "rabbit"
+      },
+      {
+        "id": "c",
+        "label": "Schildpad",
+        "illustrationId": "turtle"
+      },
+      {
+        "id": "d",
+        "label": "Leeuw",
+        "illustrationId": "lion"
+      }
+    ],
+    "correctOptionId": "d"
+  },
+  {
+    "id": "snd_24",
+    "category": "dieren_dinos",
+    "packId": "basis",
+    "prompt": "Oeh-oeh-aah-aah! Wie slingert er vrolijk tussen de lianen?",
+    "soundType": "synth",
+    "soundKey": "monkey_chatter",
+    "options": [
+      {
+        "id": "a",
+        "label": "Vrolijk Aapje",
+        "illustrationId": "monkey"
+      },
+      {
+        "id": "b",
+        "label": "Walvis",
+        "illustrationId": "whale"
+      },
+      {
+        "id": "c",
+        "label": "Sneeuwpop",
+        "illustrationId": "snowman"
+      },
+      {
+        "id": "d",
+        "label": "Koe",
+        "illustrationId": "cow"
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": "snd_25",
+    "category": "dieren_dinos",
+    "packId": "basis",
+    "prompt": "Bzzzzz! Welk geel-zwarte insect vliegt van bloem naar bloem voor honing?",
+    "soundType": "synth",
+    "soundKey": "bee_buzz",
+    "options": [
+      {
+        "id": "a",
+        "label": "Olifant",
+        "illustrationId": "elephant"
+      },
+      {
+        "id": "b",
+        "label": "Zoemende Bij",
+        "illustrationId": "bee"
+      },
+      {
+        "id": "c",
+        "label": "Pinguïn",
+        "illustrationId": "penguin"
+      },
+      {
+        "id": "d",
+        "label": "Paard",
+        "illustrationId": "horse"
+      }
+    ],
+    "correctOptionId": "b"
+  },
+  {
+    "id": "snd_26",
+    "category": "dieren_dinos",
+    "packId": "basis",
+    "prompt": "Kwak-kwak-kwak! Wie zwemt er gezellig in de sloot?",
+    "soundType": "synth",
+    "soundKey": "duck_quack",
+    "options": [
+      {
+        "id": "a",
+        "label": "Leeuw",
+        "illustrationId": "lion"
+      },
+      {
+        "id": "b",
+        "label": "Giraffe",
+        "illustrationId": "giraffe"
+      },
+      {
+        "id": "c",
+        "label": "Gele Eend",
+        "illustrationId": "duck"
+      },
+      {
+        "id": "d",
+        "label": "Vos",
+        "illustrationId": "fox"
+      }
+    ],
+    "correctOptionId": "c"
+  },
+  {
+    "id": "snd_27",
+    "category": "dieren_dinos",
+    "packId": "basis",
+    "prompt": "Bèèèh! Welk wollige dier staat er op de kinderboerderij?",
+    "soundType": "synth",
+    "soundKey": "sheep_baa",
+    "options": [
+      {
+        "id": "a",
+        "label": "Haai",
+        "illustrationId": "shark"
+      },
+      {
+        "id": "b",
+        "label": "T-Rex",
+        "illustrationId": "trex"
+      },
+      {
+        "id": "c",
+        "label": "Uil",
+        "illustrationId": "owl"
+      },
+      {
+        "id": "d",
+        "label": "Wollig Schaap",
+        "illustrationId": "sheep"
+      }
+    ],
+    "correctOptionId": "d"
+  },
+  {
+    "id": "snd_28",
+    "category": "dieren_dinos",
+    "packId": "basis",
+    "prompt": "Knor-knor! Wie rolt er graag in het modderbad op de boerderij?",
+    "soundType": "synth",
+    "soundKey": "pig_oink",
+    "options": [
+      {
+        "id": "a",
+        "label": "Boerderijvarken",
+        "illustrationId": "pig"
+      },
+      {
+        "id": "b",
+        "label": "Vlinder",
+        "illustrationId": "butterfly"
+      },
+      {
+        "id": "c",
+        "label": "Dolfijn",
+        "illustrationId": "dolphin"
+      },
+      {
+        "id": "d",
+        "label": "Adelaar",
+        "illustrationId": "owl"
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": "snd_29",
+    "category": "dieren_dinos",
+    "packId": "basis",
+    "prompt": "Tok-tok-tok! Wie legt er elke ochtend een vers eitje?",
+    "soundType": "synth",
+    "soundKey": "chicken_cluck",
+    "options": [
+      {
+        "id": "a",
+        "label": "Kangoeroe",
+        "illustrationId": "kangaroo"
+      },
+      {
+        "id": "b",
+        "label": "Boerderijkip",
+        "illustrationId": "chicken"
+      },
+      {
+        "id": "c",
+        "label": "Zebra",
+        "illustrationId": "zebra"
+      },
+      {
+        "id": "d",
+        "label": "Octopus",
+        "illustrationId": "octopus"
+      }
+    ],
+    "correctOptionId": "b"
+  },
+  {
+    "id": "snd_30",
+    "category": "dieren_dinos",
+    "packId": "basis",
+    "prompt": "Hiii-hahaha! Welk edele dier hinnikt er in de stal?",
+    "soundType": "synth",
+    "soundKey": "horse_neigh",
+    "options": [
+      {
+        "id": "a",
+        "label": "Kikker",
+        "illustrationId": "frog"
+      },
+      {
+        "id": "b",
+        "label": "Schildpad",
+        "illustrationId": "turtle"
+      },
+      {
+        "id": "c",
+        "label": "Paard",
+        "illustrationId": "horse"
+      },
+      {
+        "id": "d",
+        "label": "Bij",
+        "illustrationId": "bee"
+      }
+    ],
+    "correctOptionId": "c"
+  },
+  {
+    "id": "snd_31",
+    "category": "dieren_dinos",
+    "packId": "zomer",
+    "prompt": "Klik-klik-fluit! Welke slimme zwemmer springt boven de golven uit?",
+    "soundType": "synth",
+    "soundKey": "dolphin_clicks",
+    "options": [
+      {
+        "id": "a",
+        "label": "Kameel",
+        "illustrationId": "camel"
+      },
+      {
+        "id": "b",
+        "label": "Beer",
+        "illustrationId": "bear"
+      },
+      {
+        "id": "c",
+        "label": "Kip",
+        "illustrationId": "chicken"
+      },
+      {
+        "id": "d",
+        "label": "Dolfijn",
+        "illustrationId": "dolphin"
+      }
+    ],
+    "correctOptionId": "d"
+  },
+  {
+    "id": "snd_32",
+    "category": "dieren_dinos",
+    "packId": "basis",
+    "prompt": "Welke reus van de oceaan zingt dit diepe onderwaterlied?",
+    "soundType": "synth",
+    "soundKey": "whale_song",
+    "options": [
+      {
+        "id": "a",
+        "label": "Blauwe Vinvis (Walvis)",
+        "illustrationId": "whale"
+      },
+      {
+        "id": "b",
+        "label": "Lieveheersbeestje",
+        "illustrationId": "ladybug"
+      },
+      {
+        "id": "c",
+        "label": "Konijn",
+        "illustrationId": "rabbit"
+      },
+      {
+        "id": "d",
+        "label": "Eekhoorn",
+        "illustrationId": "squirrel"
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": "snd_33",
+    "category": "wereld_raadsels",
+    "packId": "basis",
+    "prompt": "Flap-flap-flap! Welk luchtvaartuig stijgt recht omhoog met draaiende wieken?",
+    "soundType": "synth",
+    "soundKey": "helicopter_chop",
+    "options": [
+      {
+        "id": "a",
+        "label": "Zeilboot",
+        "illustrationId": "sailboat"
+      },
+      {
+        "id": "b",
+        "label": "Helikopter",
+        "illustrationId": "helicopter"
+      },
+      {
+        "id": "c",
+        "label": "Fiets",
+        "illustrationId": "bicycle"
+      },
+      {
+        "id": "d",
+        "label": "Duikboot",
+        "illustrationId": "submarine"
+      }
+    ],
+    "correctOptionId": "b"
+  },
+  {
+    "id": "snd_34",
+    "category": "wereld_raadsels",
+    "packId": "basis",
+    "prompt": "Wieuw-wieuw! Wie scheurt er met blauwe zwaailichten achter de boeven aan?",
+    "soundType": "synth",
+    "soundKey": "police_siren",
+    "options": [
+      {
+        "id": "a",
+        "label": "Tractor",
+        "illustrationId": "tractor"
+      },
+      {
+        "id": "b",
+        "label": "Luchtballon",
+        "illustrationId": "hot_air_balloon"
+      },
+      {
+        "id": "c",
+        "label": "Politieauto",
+        "illustrationId": "police_car"
+      },
+      {
+        "id": "d",
+        "label": "Kampeertent",
+        "illustrationId": "tent_camp"
+      }
+    ],
+    "correctOptionId": "c"
+  },
+  {
+    "id": "snd_35",
+    "category": "wereld_raadsels",
+    "packId": "basis",
+    "prompt": "Welk witte hulpvoertuig brengt mensen snel naar het ziekenhuis?",
+    "soundType": "synth",
+    "soundKey": "ambulance_siren",
+    "options": [
+      {
+        "id": "a",
+        "label": "Graafmachine",
+        "illustrationId": "excavator"
+      },
+      {
+        "id": "b",
+        "label": "Piratenschip",
+        "illustrationId": "pirate_ship"
+      },
+      {
+        "id": "c",
+        "label": "Zeilboot",
+        "illustrationId": "sailboat"
+      },
+      {
+        "id": "d",
+        "label": "Ambulance",
+        "illustrationId": "ambulance"
+      }
+    ],
+    "correctOptionId": "d"
+  },
+  {
+    "id": "snd_36",
+    "category": "ons_gezin",
+    "packId": "sinterklaas",
+    "prompt": "Toet-toet! Welke feestelijke boot vaart vanuit Spanje de haven binnen?",
+    "soundType": "synth",
+    "soundKey": "steamboat_horn",
+    "options": [
+      {
+        "id": "a",
+        "label": "Stoomboot van Sinterklaas",
+        "illustrationId": "steamboat"
+      },
+      {
+        "id": "b",
+        "label": "Ruimteraket",
+        "illustrationId": "rocket"
+      },
+      {
+        "id": "c",
+        "label": "Tractor",
+        "illustrationId": "tractor"
+      },
+      {
+        "id": "d",
+        "label": "Fiets",
+        "illustrationId": "bicycle"
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": "snd_37",
+    "category": "sport_eten",
+    "packId": "basis",
+    "prompt": "Vroemmm! Wie scheurt er hier over de finishlijn op het circuit?",
+    "soundType": "synth",
+    "soundKey": "racecar_zoom",
+    "options": [
+      {
+        "id": "a",
+        "label": "Zeilboot",
+        "illustrationId": "sailboat"
+      },
+      {
+        "id": "b",
+        "label": "Snelle Raceauto / Kart",
+        "illustrationId": "race_kart"
+      },
+      {
+        "id": "c",
+        "label": "Luchtballon",
+        "illustrationId": "hot_air_balloon"
+      },
+      {
+        "id": "d",
+        "label": "Schildpad",
+        "illustrationId": "turtle"
+      }
+    ],
+    "correctOptionId": "b"
+  },
+  {
+    "id": "snd_38",
+    "category": "wereld_raadsels",
+    "packId": "basis",
+    "prompt": "Ping... Ping... Welk gele vaartuig luistert diep onder de zeespiegel met sonar?",
+    "soundType": "synth",
+    "soundKey": "submarine_sonar",
+    "options": [
+      {
+        "id": "a",
+        "label": "Brandweerauto",
+        "illustrationId": "firetruck"
+      },
+      {
+        "id": "b",
+        "label": "Helikopter",
+        "illustrationId": "helicopter"
+      },
+      {
+        "id": "c",
+        "label": "Gele Duikboot",
+        "illustrationId": "submarine"
+      },
+      {
+        "id": "d",
+        "label": "Tractor",
+        "illustrationId": "tractor"
+      }
+    ],
+    "correctOptionId": "c"
+  },
+  {
+    "id": "snd_39",
+    "category": "films_magie",
+    "packId": "kids_special",
+    "prompt": "Welke spetterende K-Pop dance-beat van HUNTR/X knalt hier uit de speakers?",
+    "soundType": "synth",
+    "soundKey": "kpop_synth_beat",
+    "options": [
+      {
+        "id": "a",
+        "label": "Boerderijtractor",
+        "illustrationId": "tractor"
+      },
+      {
+        "id": "b",
+        "label": "Dino-Fossiel",
+        "illustrationId": "fossil"
+      },
+      {
+        "id": "c",
+        "label": "Graafmachine",
+        "illustrationId": "excavator"
+      },
+      {
+        "id": "d",
+        "label": "HUNTR/X K-Pop Podium",
+        "illustrationId": "kpop_stage"
+      }
+    ],
+    "correctOptionId": "d"
+  },
+  {
+    "id": "snd_40",
+    "category": "films_magie",
+    "packId": "kids_special",
+    "prompt": "Welk betoverende harpgeluid klinkt er als een eenhoorn over de regenboog vliegt?",
+    "soundType": "synth",
+    "soundKey": "unicorn_harp",
+    "options": [
+      {
+        "id": "a",
+        "label": "Magische Eenhoorn",
+        "illustrationId": "unicorn"
+      },
+      {
+        "id": "b",
+        "label": "Politieauto",
+        "illustrationId": "police_car"
+      },
+      {
+        "id": "c",
+        "label": "Graafmachine",
+        "illustrationId": "excavator"
+      },
+      {
+        "id": "d",
+        "label": "Houten Ton",
+        "illustrationId": "barrel"
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": "snd_41",
+    "category": "games_avontuur",
+    "packId": "kids_special",
+    "prompt": "Welke glanzende diamant geeft Sonic en Shadow superkrachten met dit geluid?",
+    "soundType": "synth",
+    "soundKey": "chaos_emerald_hum",
+    "options": [
+      {
+        "id": "a",
+        "label": "Tandenborstel",
+        "illustrationId": "toothbrush"
+      },
+      {
+        "id": "b",
+        "label": "Chaos Emerald Diamant",
+        "illustrationId": "chaos_emerald"
+      },
+      {
+        "id": "c",
+        "label": "Wortel",
+        "illustrationId": "carrot"
+      },
+      {
+        "id": "d",
+        "label": "Frietjes",
+        "illustrationId": "fries"
+      }
+    ],
+    "correctOptionId": "b"
+  },
+  {
+    "id": "snd_42",
+    "category": "games_avontuur",
+    "packId": "basis",
+    "prompt": "Pling! Wat verzamelt Mario als hij tegen een geel blokje springt?",
+    "soundType": "synth",
+    "soundKey": "mario_coin",
+    "options": [
+      {
+        "id": "a",
+        "label": "Sneeuwpop",
+        "illustrationId": "snowman"
+      },
+      {
+        "id": "b",
+        "label": "Paraplu",
+        "illustrationId": "rainbow"
+      },
+      {
+        "id": "c",
+        "label": "Gouden Superster & Muntje",
+        "illustrationId": "super_star"
+      },
+      {
+        "id": "d",
+        "label": "Boerderijkip",
+        "illustrationId": "chicken"
+      }
+    ],
+    "correctOptionId": "c"
+  },
+  {
+    "id": "snd_43",
+    "category": "ons_gezin",
+    "packId": "sinterklaas",
+    "prompt": "BOEM-BOEM-BOEM op de voordeur! Wie strooit er pepernoten naar binnen?",
+    "soundType": "synth",
+    "soundKey": "sinterklaas_knock",
+    "options": [
+      {
+        "id": "a",
+        "label": "Zeeschildpad",
+        "illustrationId": "turtle"
+      },
+      {
+        "id": "b",
+        "label": "Duikboot",
+        "illustrationId": "submarine"
+      },
+      {
+        "id": "c",
+        "label": "Kameel",
+        "illustrationId": "camel"
+      },
+      {
+        "id": "d",
+        "label": "Sinterklaas & Pepernoten",
+        "illustrationId": "pepernoten"
+      }
+    ],
+    "correctOptionId": "d"
+  },
+  {
+    "id": "snd_44",
+    "category": "ons_gezin",
+    "packId": "kerst",
+    "prompt": "Rinkel-rinkel! Wat hoor je rinkelen bij de kerstboom en de arrenslee?",
+    "soundType": "synth",
+    "soundKey": "sleigh_bells",
+    "options": [
+      {
+        "id": "a",
+        "label": "Versierde Kerstboom",
+        "illustrationId": "christmas_tree"
+      },
+      {
+        "id": "b",
+        "label": "Graafmachine",
+        "illustrationId": "excavator"
+      },
+      {
+        "id": "c",
+        "label": "Haai",
+        "illustrationId": "shark"
+      },
+      {
+        "id": "d",
+        "label": "Vulkaan",
+        "illustrationId": "volcano"
+      }
+    ],
+    "correctOptionId": "a"
+  },
+  {
+    "id": "snd_45",
+    "category": "ons_gezin",
+    "packId": "verjaardag",
+    "prompt": "Tuuuut-hoera! Wat blazen we als de jarige de kamer binnenkomt?",
+    "soundType": "synth",
+    "soundKey": "birthday_horn",
+    "options": [
+      {
+        "id": "a",
+        "label": "Tandenborstel",
+        "illustrationId": "toothbrush"
+      },
+      {
+        "id": "b",
+        "label": "Verjaardagstaart & Feest!",
+        "illustrationId": "cake"
+      },
+      {
+        "id": "c",
+        "label": "Uil",
+        "illustrationId": "owl"
+      },
+      {
+        "id": "d",
+        "label": "Duikboot",
+        "illustrationId": "submarine"
+      }
+    ],
+    "correctOptionId": "b"
+  },
+  {
+    "id": "snd_46",
+    "category": "wereld_raadsels",
+    "packId": "basis",
+    "prompt": "Kaboem-rommel! Welk natuurverschijnsel hoor je na een flits in een donkere wolk?",
+    "soundType": "synth",
+    "soundKey": "thunder_storm",
+    "options": [
+      {
+        "id": "a",
+        "label": "IJsje",
+        "illustrationId": "ice_cream"
+      },
+      {
+        "id": "b",
+        "label": "Vlinder",
+        "illustrationId": "butterfly"
+      },
+      {
+        "id": "c",
+        "label": "Onweer & Bliksem",
+        "illustrationId": "volcano"
+      },
+      {
+        "id": "d",
+        "label": "Schildpad",
+        "illustrationId": "turtle"
+      }
+    ],
+    "correctOptionId": "c"
+  }
+]

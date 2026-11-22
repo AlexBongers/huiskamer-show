@@ -1,0 +1,4142 @@
+[
+  {
+    "id": "ts_ont_01",
+    "category": "dieren_dinos",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_1_1",
+        "word": "T-Rex Dino",
+        "illustrationId": "trex"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_02",
+    "category": "dieren_dinos",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_2_1",
+        "word": "Triceratops",
+        "illustrationId": "triceratops"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_03",
+    "category": "dieren_dinos",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_3_1",
+        "word": "Langnek-Dino",
+        "illustrationId": "brachiosaurus"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_04",
+    "category": "dieren_dinos",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_4_1",
+        "word": "Uitbarstende Vulkaan",
+        "illustrationId": "volcano"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_05",
+    "category": "dieren_dinos",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_5_1",
+        "word": "Groene Kikker",
+        "illustrationId": "frog"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_06",
+    "category": "films_magie",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_6_1",
+        "word": "Eenhoorn",
+        "illustrationId": "unicorn"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_07",
+    "category": "films_magie",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_7_1",
+        "word": "Regenboog",
+        "illustrationId": "rainbow"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_08",
+    "category": "films_magie",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_8_1",
+        "word": "Gitaar",
+        "illustrationId": "guitar"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_09",
+    "category": "films_magie",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_9_1",
+        "word": "Gouden Kroon",
+        "illustrationId": "crown"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_10",
+    "category": "films_magie",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_10_1",
+        "word": "Drumstel",
+        "illustrationId": "drums"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_11",
+    "category": "games_avontuur",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_11_1",
+        "word": "Blauwe Egel (Sonic)",
+        "illustrationId": "sonic_hedgehog"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_12",
+    "category": "games_avontuur",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_12_1",
+        "word": "Gouden Ring",
+        "illustrationId": "golden_ring"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_13",
+    "category": "games_avontuur",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_13_1",
+        "word": "Jungle-Aap (Donkey Kong)",
+        "illustrationId": "jungle_ape"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_14",
+    "category": "games_avontuur",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_14_1",
+        "word": "Gele Banaan",
+        "illustrationId": "banana"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_15",
+    "category": "games_avontuur",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_15_1",
+        "word": "Power-Paddenstoel",
+        "illustrationId": "mushroom"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_16",
+    "category": "sport_eten",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_16_1",
+        "word": "Pizza",
+        "illustrationId": "pizza"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_17",
+    "category": "sport_eten",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_17_1",
+        "word": "Pannenkoek",
+        "illustrationId": "pancake"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_18",
+    "category": "sport_eten",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_18_1",
+        "word": "IJsje",
+        "illustrationId": "ice_cream"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_19",
+    "category": "sport_eten",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_19_1",
+        "word": "Voetbal",
+        "illustrationId": "soccer_ball"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_20",
+    "category": "sport_eten",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_20_1",
+        "word": "Fiets",
+        "illustrationId": "bicycle"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_21",
+    "category": "wereld_raadsels",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_21_1",
+        "word": "Rode Brandweerauto",
+        "illustrationId": "firetruck"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_22",
+    "category": "wereld_raadsels",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_22_1",
+        "word": "Ruimteraket",
+        "illustrationId": "rocket"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_23",
+    "category": "wereld_raadsels",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_23_1",
+        "word": "Snelle Raceauto",
+        "illustrationId": "race_kart"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_24",
+    "category": "wereld_raadsels",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_24_1",
+        "word": "Snelle Trein",
+        "illustrationId": "train"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_25",
+    "category": "wereld_raadsels",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_25_1",
+        "word": "Stralende Zon",
+        "illustrationId": "sun"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_26",
+    "category": "ons_gezin",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_26_1",
+        "word": "Olifant",
+        "illustrationId": "elephant"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_27",
+    "category": "ons_gezin",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_27_1",
+        "word": "Tandenborstel",
+        "illustrationId": "toothbrush"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_28",
+    "category": "ons_gezin",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_28_1",
+        "word": "Blije Hond",
+        "illustrationId": "dog"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_29",
+    "category": "ons_gezin",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_29_1",
+        "word": "Lieve Kat",
+        "illustrationId": "cat"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_30",
+    "category": "ons_gezin",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_30_1",
+        "word": "Verjaardagstaart",
+        "illustrationId": "cake"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_ont_31",
+    "category": "dieren_dinos",
+    "level": "ontdekker",
+    "packId": "kids_special",
+    "items": [
+      {
+        "id": "item_31_1",
+        "word": "Ankylosaurus Dino",
+        "illustrationId": "ankylosaurus"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_32",
+    "category": "dieren_dinos",
+    "level": "ontdekker",
+    "packId": "kids_special",
+    "items": [
+      {
+        "id": "item_32_1",
+        "word": "Spinosaurus Dino",
+        "illustrationId": "spinosaurus"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_33",
+    "category": "dieren_dinos",
+    "level": "ontdekker",
+    "packId": "kids_special",
+    "items": [
+      {
+        "id": "item_33_1",
+        "word": "Vliegende Dino (Pteranodon)",
+        "illustrationId": "pteranodon"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_34",
+    "category": "dieren_dinos",
+    "level": "ontdekker",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_34_1",
+        "word": "Gespikkeld Dino-ei",
+        "illustrationId": "dino_egg"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_35",
+    "category": "dieren_dinos",
+    "level": "ontdekker",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_35_1",
+        "word": "Giraffe met lange nek",
+        "illustrationId": "giraffe"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_36",
+    "category": "films_magie",
+    "level": "ontdekker",
+    "packId": "kids_special",
+    "items": [
+      {
+        "id": "item_36_1",
+        "word": "K-Pop Microfoon",
+        "illustrationId": "kpop_mic"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_37",
+    "category": "films_magie",
+    "level": "ontdekker",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_37_1",
+        "word": "Toverstaf",
+        "illustrationId": "magic_wand"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_38",
+    "category": "films_magie",
+    "level": "ontdekker",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_38_1",
+        "word": "Sprookjeskasteel",
+        "illustrationId": "castle"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_39",
+    "category": "films_magie",
+    "level": "ontdekker",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_39_1",
+        "word": "Piano",
+        "illustrationId": "piano"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_40",
+    "category": "films_magie",
+    "level": "ontdekker",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_40_1",
+        "word": "Gouden Trompet",
+        "illustrationId": "trumpet"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_41",
+    "category": "games_avontuur",
+    "level": "ontdekker",
+    "packId": "kids_special",
+    "items": [
+      {
+        "id": "item_41_1",
+        "word": "Tails (Vliegende Vos)",
+        "illustrationId": "tails_fox"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_42",
+    "category": "games_avontuur",
+    "level": "ontdekker",
+    "packId": "kids_special",
+    "items": [
+      {
+        "id": "item_42_1",
+        "word": "Rode Knuckles",
+        "illustrationId": "knuckles_red"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_43",
+    "category": "games_avontuur",
+    "level": "ontdekker",
+    "packId": "kids_special",
+    "items": [
+      {
+        "id": "item_43_1",
+        "word": "Groene Dino Yoshi",
+        "illustrationId": "yoshi_dino"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_44",
+    "category": "games_avontuur",
+    "level": "ontdekker",
+    "packId": "kids_special",
+    "items": [
+      {
+        "id": "item_44_1",
+        "word": "Houten Jungle-Ton",
+        "illustrationId": "barrel"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_45",
+    "category": "games_avontuur",
+    "level": "ontdekker",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_45_1",
+        "word": "Gouden Schatkist",
+        "illustrationId": "treasure_chest"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_46",
+    "category": "sport_eten",
+    "level": "ontdekker",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_46_1",
+        "word": "Zoete Aardbei",
+        "illustrationId": "strawberry"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_47",
+    "category": "sport_eten",
+    "level": "ontdekker",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_47_1",
+        "word": "Oranje Wortel",
+        "illustrationId": "carrot"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_48",
+    "category": "sport_eten",
+    "level": "ontdekker",
+    "packId": "zomer",
+    "items": [
+      {
+        "id": "item_48_1",
+        "word": "Watermeloen",
+        "illustrationId": "watermelon"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_49",
+    "category": "sport_eten",
+    "level": "ontdekker",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_49_1",
+        "word": "Frietjes",
+        "illustrationId": "fries"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_50",
+    "category": "sport_eten",
+    "level": "ontdekker",
+    "packId": "zomer",
+    "items": [
+      {
+        "id": "item_50_1",
+        "word": "Zwembad & Zwembril",
+        "illustrationId": "swimming"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_51",
+    "category": "wereld_raadsels",
+    "level": "ontdekker",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_51_1",
+        "word": "Helikopter",
+        "illustrationId": "helicopter"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_52",
+    "category": "wereld_raadsels",
+    "level": "ontdekker",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_52_1",
+        "word": "Groene Tractor",
+        "illustrationId": "tractor"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_53",
+    "category": "wereld_raadsels",
+    "level": "ontdekker",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_53_1",
+        "word": "Gele Graafmachine",
+        "illustrationId": "excavator"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_54",
+    "category": "wereld_raadsels",
+    "level": "ontdekker",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_54_1",
+        "word": "Kleurrijke Luchtballon",
+        "illustrationId": "hot_air_balloon"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_55",
+    "category": "wereld_raadsels",
+    "level": "ontdekker",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_55_1",
+        "word": "Gele Duikboot",
+        "illustrationId": "submarine"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_56",
+    "category": "ons_gezin",
+    "level": "ontdekker",
+    "packId": "sinterklaas",
+    "items": [
+      {
+        "id": "item_56_1",
+        "word": "Stoomboot van Sinterklaas",
+        "illustrationId": "steamboat"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_57",
+    "category": "ons_gezin",
+    "level": "ontdekker",
+    "packId": "sinterklaas",
+    "items": [
+      {
+        "id": "item_57_1",
+        "word": "Mijter & Pepernoten",
+        "illustrationId": "pepernoten"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_58",
+    "category": "ons_gezin",
+    "level": "ontdekker",
+    "packId": "kerst",
+    "items": [
+      {
+        "id": "item_58_1",
+        "word": "Vrolijke Sneeuwpop",
+        "illustrationId": "snowman"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_59",
+    "category": "ons_gezin",
+    "level": "ontdekker",
+    "packId": "kerst",
+    "items": [
+      {
+        "id": "item_59_1",
+        "word": "Versierde Kerstboom",
+        "illustrationId": "christmas_tree"
+      }
+    ]
+  },
+  {
+    "id": "ts_ont_60",
+    "category": "ons_gezin",
+    "level": "ontdekker",
+    "packId": "verjaardag",
+    "items": [
+      {
+        "id": "item_60_1",
+        "word": "Feestcadeau met strik",
+        "illustrationId": "gift_box"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_01",
+    "category": "dieren_dinos",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_1_1",
+        "word": "T-Rex Dino",
+        "illustrationId": "trex"
+      },
+      {
+        "id": "item_1_2",
+        "word": "Uitbarstende Vulkaan",
+        "illustrationId": "volcano"
+      },
+      {
+        "id": "item_1_3",
+        "word": "Groene Kikker",
+        "illustrationId": "frog"
+      },
+      {
+        "id": "item_1_4",
+        "word": "Olifant met slurf",
+        "illustrationId": "elephant"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_02",
+    "category": "dieren_dinos",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_2_1",
+        "word": "Triceratops",
+        "illustrationId": "triceratops"
+      },
+      {
+        "id": "item_2_2",
+        "word": "Brullende Leeuw",
+        "illustrationId": "lion"
+      },
+      {
+        "id": "item_2_3",
+        "word": "Kleurrijke Vlinder",
+        "illustrationId": "butterfly"
+      },
+      {
+        "id": "item_2_4",
+        "word": "Dolfijn in de zee",
+        "illustrationId": "dolphin"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_03",
+    "category": "dieren_dinos",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_3_1",
+        "word": "Langnek-Dino",
+        "illustrationId": "brachiosaurus"
+      },
+      {
+        "id": "item_3_2",
+        "word": "Pinguïn op het ijs",
+        "illustrationId": "penguin"
+      },
+      {
+        "id": "item_3_3",
+        "word": "Wijze Uil",
+        "illustrationId": "owl"
+      },
+      {
+        "id": "item_3_4",
+        "word": "Galopperend Paard",
+        "illustrationId": "horse"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_04",
+    "category": "dieren_dinos",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_4_1",
+        "word": "Stegosaurus",
+        "illustrationId": "stegosaurus"
+      },
+      {
+        "id": "item_4_2",
+        "word": "Slimme Vos",
+        "illustrationId": "fox"
+      },
+      {
+        "id": "item_4_3",
+        "word": "Boerderijkoe",
+        "illustrationId": "cow"
+      },
+      {
+        "id": "item_4_4",
+        "word": "Haai in de oceaan",
+        "illustrationId": "shark"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_05",
+    "category": "dieren_dinos",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_5_1",
+        "word": "Blije Hond",
+        "illustrationId": "dog"
+      },
+      {
+        "id": "item_5_2",
+        "word": "Spinnende Kat",
+        "illustrationId": "cat"
+      },
+      {
+        "id": "item_5_3",
+        "word": "Dino-ei",
+        "illustrationId": "trex"
+      },
+      {
+        "id": "item_5_4",
+        "word": "Jungleboom",
+        "illustrationId": "island"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_06",
+    "category": "films_magie",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_6_1",
+        "word": "Magische Eenhoorn",
+        "illustrationId": "unicorn"
+      },
+      {
+        "id": "item_6_2",
+        "word": "Regenboog",
+        "illustrationId": "rainbow"
+      },
+      {
+        "id": "item_6_3",
+        "word": "K-Pop Ster (HUNTR/X)",
+        "illustrationId": "kpop_mic"
+      },
+      {
+        "id": "item_6_4",
+        "word": "Toverstaf",
+        "illustrationId": "magic_wand"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_07",
+    "category": "films_magie",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_7_1",
+        "word": "Rumi van HUNTR/X",
+        "illustrationId": "kpop_stage"
+      },
+      {
+        "id": "item_7_2",
+        "word": "Sprookjeskasteel",
+        "illustrationId": "castle"
+      },
+      {
+        "id": "item_7_3",
+        "word": "Gouden Kroon",
+        "illustrationId": "crown"
+      },
+      {
+        "id": "item_7_4",
+        "word": "Bioscoop Popcorn",
+        "illustrationId": "popcorn"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_08",
+    "category": "films_magie",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_8_1",
+        "word": "Mira & Zoey (K-Pop)",
+        "illustrationId": "kpop_mic"
+      },
+      {
+        "id": "item_8_2",
+        "word": "Gitaar spelen",
+        "illustrationId": "guitar"
+      },
+      {
+        "id": "item_8_3",
+        "word": "Piano toetsen",
+        "illustrationId": "piano"
+      },
+      {
+        "id": "item_8_4",
+        "word": "Gouden Trompet",
+        "illustrationId": "trumpet"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_09",
+    "category": "films_magie",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_9_1",
+        "word": "Honmoon Magie",
+        "illustrationId": "magic_wand"
+      },
+      {
+        "id": "item_9_2",
+        "word": "Drumstel",
+        "illustrationId": "drums"
+      },
+      {
+        "id": "item_9_3",
+        "word": "Dansen op het podium",
+        "illustrationId": "kpop_stage"
+      },
+      {
+        "id": "item_9_4",
+        "word": "Vliegende Eenhoorn",
+        "illustrationId": "unicorn"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_10",
+    "category": "films_magie",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_10_1",
+        "word": "Saja Boys",
+        "illustrationId": "kpop_mic"
+      },
+      {
+        "id": "item_10_2",
+        "word": "Hoge Goochelhoed",
+        "illustrationId": "top_hat"
+      },
+      {
+        "id": "item_10_3",
+        "word": "Glitter Regenboog",
+        "illustrationId": "rainbow"
+      },
+      {
+        "id": "item_10_4",
+        "word": "Prinsessenkroon",
+        "illustrationId": "crown"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_11",
+    "category": "games_avontuur",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_11_1",
+        "word": "Animal Crossing Eiland",
+        "illustrationId": "island"
+      },
+      {
+        "id": "item_11_2",
+        "word": "Tom Nook Wasbeer",
+        "illustrationId": "nook_raccoon"
+      },
+      {
+        "id": "item_11_3",
+        "word": "Vissen met een Vishengel",
+        "illustrationId": "fishing_rod"
+      },
+      {
+        "id": "item_11_4",
+        "word": "Nintendo Switch Controller",
+        "illustrationId": "gamepad"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_12",
+    "category": "games_avontuur",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_12_1",
+        "word": "Sonic the Hedgehog",
+        "illustrationId": "sonic_hedgehog"
+      },
+      {
+        "id": "item_12_2",
+        "word": "Gouden Ring",
+        "illustrationId": "golden_ring"
+      },
+      {
+        "id": "item_12_3",
+        "word": "Tails met twee staarten",
+        "illustrationId": "tails_fox"
+      },
+      {
+        "id": "item_12_4",
+        "word": "Rode Knuckles",
+        "illustrationId": "knuckles_red"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_13",
+    "category": "games_avontuur",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_13_1",
+        "word": "Donkey Kong Aap",
+        "illustrationId": "jungle_ape"
+      },
+      {
+        "id": "item_13_2",
+        "word": "Tros Gele Bananen",
+        "illustrationId": "banana"
+      },
+      {
+        "id": "item_13_3",
+        "word": "Rollende Houten Ton",
+        "illustrationId": "barrel"
+      },
+      {
+        "id": "item_13_4",
+        "word": "Dokter Eggman Robot",
+        "illustrationId": "eggman_robot"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_14",
+    "category": "games_avontuur",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_14_1",
+        "word": "Mario Paddenstoel",
+        "illustrationId": "mushroom"
+      },
+      {
+        "id": "item_14_2",
+        "word": "Groene Dino Yoshi",
+        "illustrationId": "yoshi_dino"
+      },
+      {
+        "id": "item_14_3",
+        "word": "Gouden Superster",
+        "illustrationId": "super_star"
+      },
+      {
+        "id": "item_14_4",
+        "word": "Mario Kart Raceauto",
+        "illustrationId": "race_kart"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_15",
+    "category": "games_avontuur",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_15_1",
+        "word": "Isabelle & K.K. Slider",
+        "illustrationId": "guitar"
+      },
+      {
+        "id": "item_15_2",
+        "word": "Eiland Huisje bouwen",
+        "illustrationId": "house_family"
+      },
+      {
+        "id": "item_15_3",
+        "word": "Vlinders vangen",
+        "illustrationId": "butterfly"
+      },
+      {
+        "id": "item_15_4",
+        "word": "Appels plukken op je eiland",
+        "illustrationId": "apple"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_16",
+    "category": "sport_eten",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_16_1",
+        "word": "Warme Pizza met kaas",
+        "illustrationId": "pizza"
+      },
+      {
+        "id": "item_16_2",
+        "word": "Stapel Pannenkoeken",
+        "illustrationId": "pancake"
+      },
+      {
+        "id": "item_16_3",
+        "word": "IJsje met drie bolletjes",
+        "illustrationId": "ice_cream"
+      },
+      {
+        "id": "item_16_4",
+        "word": "Zoete Aardbei",
+        "illustrationId": "strawberry"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_17",
+    "category": "sport_eten",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_17_1",
+        "word": "Voetbalwedstrijd",
+        "illustrationId": "soccer_ball"
+      },
+      {
+        "id": "item_17_2",
+        "word": "Snel Fietsen",
+        "illustrationId": "bicycle"
+      },
+      {
+        "id": "item_17_3",
+        "word": "Duiken in het Zwembad",
+        "illustrationId": "swimming"
+      },
+      {
+        "id": "item_17_4",
+        "word": "Gouden Kampioensbeker",
+        "illustrationId": "trophy"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_18",
+    "category": "sport_eten",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_18_1",
+        "word": "Verjaardagstaart met kaarsjes",
+        "illustrationId": "cake"
+      },
+      {
+        "id": "item_18_2",
+        "word": "Rode Appel",
+        "illustrationId": "apple"
+      },
+      {
+        "id": "item_18_3",
+        "word": "Gele Banaan",
+        "illustrationId": "banana"
+      },
+      {
+        "id": "item_18_4",
+        "word": "Knapperige Frietjes",
+        "illustrationId": "fries"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_19",
+    "category": "sport_eten",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_19_1",
+        "word": "Doelpunt schieten",
+        "illustrationId": "soccer_ball"
+      },
+      {
+        "id": "item_19_2",
+        "word": "Zwembril opzetten",
+        "illustrationId": "swimming"
+      },
+      {
+        "id": "item_19_3",
+        "word": "Pannenkoek omdraaien",
+        "illustrationId": "pancake"
+      },
+      {
+        "id": "item_19_4",
+        "word": "Gouden Medaille",
+        "illustrationId": "trophy"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_20",
+    "category": "sport_eten",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_20_1",
+        "word": "Slagroomijsje",
+        "illustrationId": "ice_cream"
+      },
+      {
+        "id": "item_20_2",
+        "word": "Fietsbel rinkelen",
+        "illustrationId": "bicycle"
+      },
+      {
+        "id": "item_20_3",
+        "word": "Aardbeientaart",
+        "illustrationId": "strawberry"
+      },
+      {
+        "id": "item_20_4",
+        "word": "Pizzapunt",
+        "illustrationId": "pizza"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_21",
+    "category": "wereld_raadsels",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_21_1",
+        "word": "Ruimteraket naar de maan",
+        "illustrationId": "rocket"
+      },
+      {
+        "id": "item_21_2",
+        "word": "Planeet Saturnus",
+        "illustrationId": "planet_saturn"
+      },
+      {
+        "id": "item_21_3",
+        "word": "Stralende Zon",
+        "illustrationId": "sun"
+      },
+      {
+        "id": "item_21_4",
+        "word": "Maan en Sterren",
+        "illustrationId": "moon_stars"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_22",
+    "category": "wereld_raadsels",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_22_1",
+        "word": "Rode Brandweerauto",
+        "illustrationId": "firetruck"
+      },
+      {
+        "id": "item_22_2",
+        "word": "Politieauto met sirene",
+        "illustrationId": "police_car"
+      },
+      {
+        "id": "item_22_3",
+        "word": "Snelle Trein op het spoor",
+        "illustrationId": "train"
+      },
+      {
+        "id": "item_22_4",
+        "word": "Vliegtuig in de wolken",
+        "illustrationId": "airplane"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_23",
+    "category": "wereld_raadsels",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_23_1",
+        "word": "Vuurtoren aan de zee",
+        "illustrationId": "lighthouse"
+      },
+      {
+        "id": "item_23_2",
+        "word": "Tropisch Eiland",
+        "illustrationId": "island"
+      },
+      {
+        "id": "item_23_3",
+        "word": "Kleurrijke Regenboog",
+        "illustrationId": "rainbow"
+      },
+      {
+        "id": "item_23_4",
+        "word": "Zwevende Luchtballon",
+        "illustrationId": "hot_air_balloon"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_24",
+    "category": "wereld_raadsels",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_24_1",
+        "word": "Astronaut in de ruimte",
+        "illustrationId": "rocket"
+      },
+      {
+        "id": "item_24_2",
+        "word": "Vallende Ster",
+        "illustrationId": "super_star"
+      },
+      {
+        "id": "item_24_3",
+        "word": "Snelle Raceauto",
+        "illustrationId": "race_kart"
+      },
+      {
+        "id": "item_24_4",
+        "word": "Rinkelende Wekker",
+        "illustrationId": "clock_alarm"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_25",
+    "category": "wereld_raadsels",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_25_1",
+        "word": "Zonnestraal",
+        "illustrationId": "sun"
+      },
+      {
+        "id": "item_25_2",
+        "word": "Brandweerslang",
+        "illustrationId": "firetruck"
+      },
+      {
+        "id": "item_25_3",
+        "word": "Vliegveld",
+        "illustrationId": "airplane"
+      },
+      {
+        "id": "item_25_4",
+        "word": "Treinstation",
+        "illustrationId": "train"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_26",
+    "category": "ons_gezin",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_26_1",
+        "word": "Ons Familiehuis",
+        "illustrationId": "house_family"
+      },
+      {
+        "id": "item_26_2",
+        "word": "Tandenpoetsen voor het slapen",
+        "illustrationId": "toothbrush"
+      },
+      {
+        "id": "item_26_3",
+        "word": "Gezellige Familie-Picknick",
+        "illustrationId": "heart_family"
+      },
+      {
+        "id": "item_26_4",
+        "word": "Gezellig samen Gamen",
+        "illustrationId": "gamepad"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_27",
+    "category": "ons_gezin",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_27_1",
+        "word": "Lucas doet een T-Rex na",
+        "illustrationId": "trex"
+      },
+      {
+        "id": "item_27_2",
+        "word": "Lana zingt een K-Pop liedje",
+        "illustrationId": "kpop_mic"
+      },
+      {
+        "id": "item_27_3",
+        "word": "Papa als Showmaster",
+        "illustrationId": "top_hat"
+      },
+      {
+        "id": "item_27_4",
+        "word": "Mama met de Gouden Kroon",
+        "illustrationId": "crown"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_28",
+    "category": "ons_gezin",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_28_1",
+        "word": "Pannenkoeken eten aan tafel",
+        "illustrationId": "pancake"
+      },
+      {
+        "id": "item_28_2",
+        "word": "Filmavond met Popcorn",
+        "illustrationId": "popcorn"
+      },
+      {
+        "id": "item_28_3",
+        "word": "Verjaardagstaart uitblazen",
+        "illustrationId": "cake"
+      },
+      {
+        "id": "item_28_4",
+        "word": "Groot Gezinshart",
+        "illustrationId": "heart_family"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_29",
+    "category": "ons_gezin",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_29_1",
+        "word": "Op vakantie naar een Eiland",
+        "illustrationId": "island"
+      },
+      {
+        "id": "item_29_2",
+        "word": "Knuffelen op de bank",
+        "illustrationId": "heart_family"
+      },
+      {
+        "id": "item_29_3",
+        "word": "Samen Mario Kart racen",
+        "illustrationId": "race_kart"
+      },
+      {
+        "id": "item_29_4",
+        "word": "IJsje halen in de zomer",
+        "illustrationId": "ice_cream"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_30",
+    "category": "ons_gezin",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_30_1",
+        "word": "Voorlezen in bed",
+        "illustrationId": "moon_stars"
+      },
+      {
+        "id": "item_30_2",
+        "word": "Dansen in de woonkamer",
+        "illustrationId": "kpop_stage"
+      },
+      {
+        "id": "item_30_3",
+        "word": "Fietsen door de buurt",
+        "illustrationId": "bicycle"
+      },
+      {
+        "id": "item_30_4",
+        "word": "Zwemmen in het zwembad",
+        "illustrationId": "swimming"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_avo_31",
+    "category": "dieren_dinos",
+    "level": "avonturier",
+    "packId": "kids_special",
+    "items": [
+      {
+        "id": "item_31_1",
+        "word": "Ankylosaurus met knotsstaart",
+        "illustrationId": "ankylosaurus"
+      },
+      {
+        "id": "item_31_2",
+        "word": "Spinosaurus met rugzeil",
+        "illustrationId": "spinosaurus"
+      },
+      {
+        "id": "item_31_3",
+        "word": "Vliegende Pteranodon",
+        "illustrationId": "pteranodon"
+      },
+      {
+        "id": "item_31_4",
+        "word": "Dino-Fossiel opgraven",
+        "illustrationId": "fossil"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_32",
+    "category": "dieren_dinos",
+    "level": "avonturier",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_32_1",
+        "word": "Giraffe met lange nek",
+        "illustrationId": "giraffe"
+      },
+      {
+        "id": "item_32_2",
+        "word": "Zebra met strepen",
+        "illustrationId": "zebra"
+      },
+      {
+        "id": "item_32_3",
+        "word": "Slingerend Aapje",
+        "illustrationId": "monkey"
+      },
+      {
+        "id": "item_32_4",
+        "word": "Kameel in de woestijn",
+        "illustrationId": "camel"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_33",
+    "category": "dieren_dinos",
+    "level": "avonturier",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_33_1",
+        "word": "Zeeschildpad",
+        "illustrationId": "turtle"
+      },
+      {
+        "id": "item_33_2",
+        "word": "Octopus met 8 armen",
+        "illustrationId": "octopus"
+      },
+      {
+        "id": "item_33_3",
+        "word": "Blauwe Vinvis (Walvis)",
+        "illustrationId": "whale"
+      },
+      {
+        "id": "item_33_4",
+        "word": "Roze Flamingo",
+        "illustrationId": "flamingo"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_34",
+    "category": "dieren_dinos",
+    "level": "avonturier",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_34_1",
+        "word": "Reuzenpanda met bamboe",
+        "illustrationId": "panda"
+      },
+      {
+        "id": "item_34_2",
+        "word": "Koala in een boom",
+        "illustrationId": "koala"
+      },
+      {
+        "id": "item_34_3",
+        "word": "Springende Kangoeroe",
+        "illustrationId": "kangaroo"
+      },
+      {
+        "id": "item_34_4",
+        "word": "Bruine Beer",
+        "illustrationId": "bear"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_35",
+    "category": "dieren_dinos",
+    "level": "avonturier",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_35_1",
+        "word": "Zoemende Honingbij",
+        "illustrationId": "bee"
+      },
+      {
+        "id": "item_35_2",
+        "word": "Rood Lieveheersbeestje",
+        "illustrationId": "ladybug"
+      },
+      {
+        "id": "item_35_3",
+        "word": "Eekhoorn met eikel",
+        "illustrationId": "squirrel"
+      },
+      {
+        "id": "item_35_4",
+        "word": "Stekelige Bos-Egel",
+        "illustrationId": "hedgehog"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_36",
+    "category": "films_magie",
+    "level": "avonturier",
+    "packId": "kids_special",
+    "items": [
+      {
+        "id": "item_36_1",
+        "word": "HUNTR/X Concertpodium",
+        "illustrationId": "kpop_stage"
+      },
+      {
+        "id": "item_36_2",
+        "word": "Rumi’s Magische Microfoon",
+        "illustrationId": "kpop_mic"
+      },
+      {
+        "id": "item_36_3",
+        "word": "Vliegende Alicorn Eenhoorn",
+        "illustrationId": "unicorn"
+      },
+      {
+        "id": "item_36_4",
+        "word": "Dubbele Regenboog",
+        "illustrationId": "rainbow"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_37",
+    "category": "films_magie",
+    "level": "avonturier",
+    "packId": "kids_special",
+    "items": [
+      {
+        "id": "item_37_1",
+        "word": "Mira & Zoey Dansmove",
+        "illustrationId": "kpop_stage"
+      },
+      {
+        "id": "item_37_2",
+        "word": "Glitter Toverstaf",
+        "illustrationId": "magic_wand"
+      },
+      {
+        "id": "item_37_3",
+        "word": "Gouden Koningskroon",
+        "illustrationId": "crown"
+      },
+      {
+        "id": "item_37_4",
+        "word": "Sprookjeskasteel met torens",
+        "illustrationId": "castle"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_38",
+    "category": "films_magie",
+    "level": "avonturier",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_38_1",
+        "word": "Elektrische Gitaar",
+        "illustrationId": "guitar"
+      },
+      {
+        "id": "item_38_2",
+        "word": "Concertpiano",
+        "illustrationId": "piano"
+      },
+      {
+        "id": "item_38_3",
+        "word": "Groot Drumstel",
+        "illustrationId": "drums"
+      },
+      {
+        "id": "item_38_4",
+        "word": "Schitterende K-Pop Microfoon",
+        "illustrationId": "kpop_mic"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_39",
+    "category": "films_magie",
+    "level": "avonturier",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_39_1",
+        "word": "Filmklapper in de Bioscoop",
+        "illustrationId": "popcorn"
+      },
+      {
+        "id": "item_39_2",
+        "word": "Goochelaar met Hoge Hoed",
+        "illustrationId": "top_hat"
+      },
+      {
+        "id": "item_39_3",
+        "word": "Vallende Wensster",
+        "illustrationId": "super_star"
+      },
+      {
+        "id": "item_39_4",
+        "word": "Pauw met mooie veren",
+        "illustrationId": "peacock"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_40",
+    "category": "films_magie",
+    "level": "avonturier",
+    "packId": "verjaardag",
+    "items": [
+      {
+        "id": "item_40_1",
+        "word": "Feestmuziek zingen",
+        "illustrationId": "kpop_mic"
+      },
+      {
+        "id": "item_40_2",
+        "word": "Vrolijke Feesttaart aansnijden",
+        "illustrationId": "cake"
+      },
+      {
+        "id": "item_40_3",
+        "word": "Groot Feestcadeau",
+        "illustrationId": "gift_box"
+      },
+      {
+        "id": "item_40_4",
+        "word": "Regenboog Ballonnen",
+        "illustrationId": "rainbow"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_41",
+    "category": "games_avontuur",
+    "level": "avonturier",
+    "packId": "kids_special",
+    "items": [
+      {
+        "id": "item_41_1",
+        "word": "Shadow de Zwarte Egel",
+        "illustrationId": "shadow_hedgehog"
+      },
+      {
+        "id": "item_41_2",
+        "word": "Amy Rose met haar hamer",
+        "illustrationId": "amy_pink"
+      },
+      {
+        "id": "item_41_3",
+        "word": "Groene Chaos Emerald",
+        "illustrationId": "chaos_emerald"
+      },
+      {
+        "id": "item_41_4",
+        "word": "Gouden Sonic Ring",
+        "illustrationId": "golden_ring"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_42",
+    "category": "games_avontuur",
+    "level": "avonturier",
+    "packId": "kids_special",
+    "items": [
+      {
+        "id": "item_42_1",
+        "word": "Tom Nook’s Winkel",
+        "illustrationId": "nook_raccoon"
+      },
+      {
+        "id": "item_42_2",
+        "word": "K.K. Slider Gitaarconcert",
+        "illustrationId": "guitar"
+      },
+      {
+        "id": "item_42_3",
+        "word": "Tropisch Eiland in Animal Crossing",
+        "illustrationId": "island"
+      },
+      {
+        "id": "item_42_4",
+        "word": "Schatkist opgraven",
+        "illustrationId": "treasure_chest"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_43",
+    "category": "games_avontuur",
+    "level": "avonturier",
+    "packId": "kids_special",
+    "items": [
+      {
+        "id": "item_43_1",
+        "word": "Donkey Kong Bananengrot",
+        "illustrationId": "banana"
+      },
+      {
+        "id": "item_43_2",
+        "word": "Raket-Ton van Diddy Kong",
+        "illustrationId": "barrel"
+      },
+      {
+        "id": "item_43_3",
+        "word": "Yoshi’s Dino-Ei",
+        "illustrationId": "dino_egg"
+      },
+      {
+        "id": "item_43_4",
+        "word": "Rainbow Road in Mario Kart",
+        "illustrationId": "race_kart"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_44",
+    "category": "games_avontuur",
+    "level": "avonturier",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_44_1",
+        "word": "Piratenschip op zee",
+        "illustrationId": "pirate_ship"
+      },
+      {
+        "id": "item_44_2",
+        "word": "Gouden Schatkist openen",
+        "illustrationId": "treasure_chest"
+      },
+      {
+        "id": "item_44_3",
+        "word": "Spelcomputer Controller",
+        "illustrationId": "gamepad"
+      },
+      {
+        "id": "item_44_4",
+        "word": "Gouden Ringen verzamelen",
+        "illustrationId": "golden_ring"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_45",
+    "category": "games_avontuur",
+    "level": "avonturier",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_45_1",
+        "word": "Super Mario Paddenstoel",
+        "illustrationId": "mushroom"
+      },
+      {
+        "id": "item_45_2",
+        "word": "Glanzende Chaos Emerald",
+        "illustrationId": "chaos_emerald"
+      },
+      {
+        "id": "item_45_3",
+        "word": "Dr. Eggman’s Vliegende Robot",
+        "illustrationId": "eggman_robot"
+      },
+      {
+        "id": "item_45_4",
+        "word": "Blauwe Egel Sonic",
+        "illustrationId": "sonic_hedgehog"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_46",
+    "category": "sport_eten",
+    "level": "avonturier",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_46_1",
+        "word": "Puntzak Frietjes",
+        "illustrationId": "fries"
+      },
+      {
+        "id": "item_46_2",
+        "word": "Hollandse Kaas",
+        "illustrationId": "cheese"
+      },
+      {
+        "id": "item_46_3",
+        "word": "Oranje Wortel",
+        "illustrationId": "carrot"
+      },
+      {
+        "id": "item_46_4",
+        "word": "Zure Gele Citroen",
+        "illustrationId": "lemon"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_47",
+    "category": "sport_eten",
+    "level": "avonturier",
+    "packId": "zomer",
+    "items": [
+      {
+        "id": "item_47_1",
+        "word": "Sappige Watermeloen",
+        "illustrationId": "watermelon"
+      },
+      {
+        "id": "item_47_2",
+        "word": "IJsje op het strand",
+        "illustrationId": "ice_cream"
+      },
+      {
+        "id": "item_47_3",
+        "word": "Zonnebril opzetten",
+        "illustrationId": "sunglasses"
+      },
+      {
+        "id": "item_47_4",
+        "word": "Bommetje in het Zwembad",
+        "illustrationId": "swimming"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_48",
+    "category": "sport_eten",
+    "level": "avonturier",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_48_1",
+        "word": "Boerderijkip en een Ei",
+        "illustrationId": "chicken"
+      },
+      {
+        "id": "item_48_2",
+        "word": "Wollig Schaap",
+        "illustrationId": "sheep"
+      },
+      {
+        "id": "item_48_3",
+        "word": "Roze Varken in de modder",
+        "illustrationId": "pig"
+      },
+      {
+        "id": "item_48_4",
+        "word": "Gele Eend in de vijver",
+        "illustrationId": "duck"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_49",
+    "category": "sport_eten",
+    "level": "avonturier",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_49_1",
+        "word": "Penalty schieten bij voetbal",
+        "illustrationId": "soccer_ball"
+      },
+      {
+        "id": "item_49_2",
+        "word": "Wielrennen op de fiets",
+        "illustrationId": "bicycle"
+      },
+      {
+        "id": "item_49_3",
+        "word": "Stoere Motor rijden",
+        "illustrationId": "motorcycle"
+      },
+      {
+        "id": "item_49_4",
+        "word": "Eerste Prijs Trofee",
+        "illustrationId": "trophy"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_50",
+    "category": "sport_eten",
+    "level": "avonturier",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_50_1",
+        "word": "Zelf Pizza versieren",
+        "illustrationId": "pizza"
+      },
+      {
+        "id": "item_50_2",
+        "word": "Pannenkoeken met stroop",
+        "illustrationId": "pancake"
+      },
+      {
+        "id": "item_50_3",
+        "word": "Zoete Aardbeien plukken",
+        "illustrationId": "strawberry"
+      },
+      {
+        "id": "item_50_4",
+        "word": "Zomerse Watermeloen",
+        "illustrationId": "watermelon"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_51",
+    "category": "wereld_raadsels",
+    "level": "avonturier",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_51_1",
+        "word": "Helikopter in de lucht",
+        "illustrationId": "helicopter"
+      },
+      {
+        "id": "item_51_2",
+        "word": "Kleurrijke Luchtballon",
+        "illustrationId": "hot_air_balloon"
+      },
+      {
+        "id": "item_51_3",
+        "word": "Gele Duikboot onder water",
+        "illustrationId": "submarine"
+      },
+      {
+        "id": "item_51_4",
+        "word": "Witte Zeilboot op zee",
+        "illustrationId": "sailboat"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_52",
+    "category": "wereld_raadsels",
+    "level": "avonturier",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_52_1",
+        "word": "Groene Boerderijtractor",
+        "illustrationId": "tractor"
+      },
+      {
+        "id": "item_52_2",
+        "word": "Gele Graafmachine",
+        "illustrationId": "excavator"
+      },
+      {
+        "id": "item_52_3",
+        "word": "Ambulance met zwaailicht",
+        "illustrationId": "ambulance"
+      },
+      {
+        "id": "item_52_4",
+        "word": "Snelle Politieauto",
+        "illustrationId": "police_car"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_53",
+    "category": "wereld_raadsels",
+    "level": "avonturier",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_53_1",
+        "word": "Hoge Besneeuwde Bergtop",
+        "illustrationId": "mountain"
+      },
+      {
+        "id": "item_53_2",
+        "word": "Gele Duikboot onder Zee",
+        "illustrationId": "submarine"
+      },
+      {
+        "id": "item_53_3",
+        "word": "Rood-Witte Vuurtoren",
+        "illustrationId": "lighthouse"
+      },
+      {
+        "id": "item_53_4",
+        "word": "Onbewoond Eiland",
+        "illustrationId": "island"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_54",
+    "category": "wereld_raadsels",
+    "level": "avonturier",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_54_1",
+        "word": "Planeet Saturnus met ringen",
+        "illustrationId": "planet_saturn"
+      },
+      {
+        "id": "item_54_2",
+        "word": "Raket naar de Maan",
+        "illustrationId": "rocket"
+      },
+      {
+        "id": "item_54_3",
+        "word": "Stralende Zomerzon",
+        "illustrationId": "sun"
+      },
+      {
+        "id": "item_54_4",
+        "word": "Halve Maan en Sterren",
+        "illustrationId": "moon_stars"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_55",
+    "category": "wereld_raadsels",
+    "level": "avonturier",
+    "packId": "zomer",
+    "items": [
+      {
+        "id": "item_55_1",
+        "word": "Kamperen in een Tent",
+        "illustrationId": "tent_camp"
+      },
+      {
+        "id": "item_55_2",
+        "word": "Vliegen met een Vliegtuig",
+        "illustrationId": "airplane"
+      },
+      {
+        "id": "item_55_3",
+        "word": "Snelle Treinreis",
+        "illustrationId": "train"
+      },
+      {
+        "id": "item_55_4",
+        "word": "Zonnebril op het strand",
+        "illustrationId": "sunglasses"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_56",
+    "category": "ons_gezin",
+    "level": "avonturier",
+    "packId": "sinterklaas",
+    "items": [
+      {
+        "id": "item_56_1",
+        "word": "Stoomboot uit Spanje",
+        "illustrationId": "steamboat"
+      },
+      {
+        "id": "item_56_2",
+        "word": "Pepernoten en Kruidnoten",
+        "illustrationId": "pepernoten"
+      },
+      {
+        "id": "item_56_3",
+        "word": "Wortel in je schoen zetten",
+        "illustrationId": "carrot"
+      },
+      {
+        "id": "item_56_4",
+        "word": "Pakjesavond Cadeautjes",
+        "illustrationId": "gift_box"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_57",
+    "category": "ons_gezin",
+    "level": "avonturier",
+    "packId": "kerst",
+    "items": [
+      {
+        "id": "item_57_1",
+        "word": "Kerstboom versieren met ballen",
+        "illustrationId": "christmas_tree"
+      },
+      {
+        "id": "item_57_2",
+        "word": "Sneeuwpop met een wortelneus",
+        "illustrationId": "snowman"
+      },
+      {
+        "id": "item_57_3",
+        "word": "Cadeautjes onder de boom",
+        "illustrationId": "gift_box"
+      },
+      {
+        "id": "item_57_4",
+        "word": "Sterren aan de winterhemel",
+        "illustrationId": "moon_stars"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_58",
+    "category": "ons_gezin",
+    "level": "avonturier",
+    "packId": "zomer",
+    "items": [
+      {
+        "id": "item_58_1",
+        "word": "Slapen in een Kampeertent",
+        "illustrationId": "tent_camp"
+      },
+      {
+        "id": "item_58_2",
+        "word": "Zonnebril en Zonnebrand",
+        "illustrationId": "sunglasses"
+      },
+      {
+        "id": "item_58_3",
+        "word": "Watermeloen eten in de tuin",
+        "illustrationId": "watermelon"
+      },
+      {
+        "id": "item_58_4",
+        "word": "Zwemmen in het buitenbad",
+        "illustrationId": "swimming"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_59",
+    "category": "ons_gezin",
+    "level": "avonturier",
+    "packId": "verjaardag",
+    "items": [
+      {
+        "id": "item_59_1",
+        "word": "Kaarsjes op de Taart uitblazen",
+        "illustrationId": "cake"
+      },
+      {
+        "id": "item_59_2",
+        "word": "Verjaardagscadeau uitpakken",
+        "illustrationId": "gift_box"
+      },
+      {
+        "id": "item_59_3",
+        "word": "Lang zal ze leven zingen",
+        "illustrationId": "kpop_mic"
+      },
+      {
+        "id": "item_59_4",
+        "word": "Frietjes en Pannenkoeken feest",
+        "illustrationId": "fries"
+      }
+    ]
+  },
+  {
+    "id": "ts_avo_60",
+    "category": "ons_gezin",
+    "level": "avonturier",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_60_1",
+        "word": "Konijn aaien op de kinderboerderij",
+        "illustrationId": "rabbit"
+      },
+      {
+        "id": "item_60_2",
+        "word": "Samen bouwen in de woonkamer",
+        "illustrationId": "house_family"
+      },
+      {
+        "id": "item_60_3",
+        "word": "Tandenpoetsen voor bedtijd",
+        "illustrationId": "toothbrush"
+      },
+      {
+        "id": "item_60_4",
+        "word": "Spelletjesavond op de Bank",
+        "illustrationId": "gamepad"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_01",
+    "category": "dieren_dinos",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_1_1",
+        "word": "Tyrannosaurus Rex"
+      },
+      {
+        "id": "item_1_2",
+        "word": "Blauwe Vinvis"
+      },
+      {
+        "id": "item_1_3",
+        "word": "Kameleon"
+      },
+      {
+        "id": "item_1_4",
+        "word": "Fotosynthese"
+      },
+      {
+        "id": "item_1_5",
+        "word": "Waddenzee"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_02",
+    "category": "dieren_dinos",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_2_1",
+        "word": "Triceratops"
+      },
+      {
+        "id": "item_2_2",
+        "word": "Vogelbekdier"
+      },
+      {
+        "id": "item_2_3",
+        "word": "Koraalrif"
+      },
+      {
+        "id": "item_2_4",
+        "word": "Winterslaap"
+      },
+      {
+        "id": "item_2_5",
+        "word": "Galapagoseilanden"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_03",
+    "category": "dieren_dinos",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_3_1",
+        "word": "Archaeopteryx"
+      },
+      {
+        "id": "item_3_2",
+        "word": "Sneeuwluipaard"
+      },
+      {
+        "id": "item_3_3",
+        "word": "Amazonegebied"
+      },
+      {
+        "id": "item_3_4",
+        "word": "Echolocatie"
+      },
+      {
+        "id": "item_3_5",
+        "word": "Veluwe"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_04",
+    "category": "dieren_dinos",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_4_1",
+        "word": "Brachiosaurus"
+      },
+      {
+        "id": "item_4_2",
+        "word": "Kolibrie"
+      },
+      {
+        "id": "item_4_3",
+        "word": "Metamorfose"
+      },
+      {
+        "id": "item_4_4",
+        "word": "Sekwoia (Reuzenboom)"
+      },
+      {
+        "id": "item_4_5",
+        "word": "Serengeti"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_05",
+    "category": "dieren_dinos",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_5_1",
+        "word": "Meteorietinslag"
+      },
+      {
+        "id": "item_5_2",
+        "word": "Keizerspinguïn"
+      },
+      {
+        "id": "item_5_3",
+        "word": "Roofvogel"
+      },
+      {
+        "id": "item_5_4",
+        "word": "Bijenkorf"
+      },
+      {
+        "id": "item_5_5",
+        "word": "Trekkende Gnoes"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_06",
+    "category": "films_magie",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_6_1",
+        "word": "The Lion King"
+      },
+      {
+        "id": "item_6_2",
+        "word": "Harry Potter"
+      },
+      {
+        "id": "item_6_3",
+        "word": "Soundtrack"
+      },
+      {
+        "id": "item_6_4",
+        "word": "Eurovisie Songfestival"
+      },
+      {
+        "id": "item_6_5",
+        "word": "KPop Demon Hunters"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_07",
+    "category": "films_magie",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_7_1",
+        "word": "Back to the Future"
+      },
+      {
+        "id": "item_7_2",
+        "word": "Koningin Maxima"
+      },
+      {
+        "id": "item_7_3",
+        "word": "Stuntman"
+      },
+      {
+        "id": "item_7_4",
+        "word": "Rode Loper"
+      },
+      {
+        "id": "item_7_5",
+        "word": "Symphonieorkest"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_08",
+    "category": "films_magie",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_8_1",
+        "word": "Jurassic Park"
+      },
+      {
+        "id": "item_8_2",
+        "word": "Bohemian Rhapsody"
+      },
+      {
+        "id": "item_8_3",
+        "word": "Oscar-beeldje"
+      },
+      {
+        "id": "item_8_4",
+        "word": "Hans Zimmer"
+      },
+      {
+        "id": "item_8_5",
+        "word": "Toverstaf"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_09",
+    "category": "films_magie",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_9_1",
+        "word": "Toy Story"
+      },
+      {
+        "id": "item_9_2",
+        "word": "Cliffhanger"
+      },
+      {
+        "id": "item_9_3",
+        "word": "Regisseur"
+      },
+      {
+        "id": "item_9_4",
+        "word": "Draaiorgel"
+      },
+      {
+        "id": "item_9_5",
+        "word": "Abba"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_10",
+    "category": "films_magie",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_10_1",
+        "word": "Frozen"
+      },
+      {
+        "id": "item_10_2",
+        "word": "Tijdmachine"
+      },
+      {
+        "id": "item_10_3",
+        "word": "Buikspreker"
+      },
+      {
+        "id": "item_10_4",
+        "word": "Geluidsstudio"
+      },
+      {
+        "id": "item_10_5",
+        "word": "Festival"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_11",
+    "category": "games_avontuur",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_11_1",
+        "word": "Sonic the Hedgehog"
+      },
+      {
+        "id": "item_11_2",
+        "word": "Nintendo Switch"
+      },
+      {
+        "id": "item_11_3",
+        "word": "Animal Crossing"
+      },
+      {
+        "id": "item_11_4",
+        "word": "Donkey Kong"
+      },
+      {
+        "id": "item_11_5",
+        "word": "Mario Kart"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_12",
+    "category": "games_avontuur",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_12_1",
+        "word": "Tom Nook"
+      },
+      {
+        "id": "item_12_2",
+        "word": "Regenboogbaan (Rainbow Road)"
+      },
+      {
+        "id": "item_12_3",
+        "word": "Pac-Man"
+      },
+      {
+        "id": "item_12_4",
+        "word": "Tetris"
+      },
+      {
+        "id": "item_12_5",
+        "word": "Kolonisten van Catan"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_13",
+    "category": "games_avontuur",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_13_1",
+        "word": "Game Boy"
+      },
+      {
+        "id": "item_13_2",
+        "word": "Dr. Eggman"
+      },
+      {
+        "id": "item_13_3",
+        "word": "Zelda"
+      },
+      {
+        "id": "item_13_4",
+        "word": "Triviant"
+      },
+      {
+        "id": "item_13_5",
+        "word": "30 Seconds"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_14",
+    "category": "games_avontuur",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_14_1",
+        "word": "Super Mario Bros"
+      },
+      {
+        "id": "item_14_2",
+        "word": "Pikachu"
+      },
+      {
+        "id": "item_14_3",
+        "word": "Joystick"
+      },
+      {
+        "id": "item_14_4",
+        "word": "Highscore"
+      },
+      {
+        "id": "item_14_5",
+        "word": "Escape Room"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_15",
+    "category": "games_avontuur",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_15_1",
+        "word": "Luigi"
+      },
+      {
+        "id": "item_15_2",
+        "word": "Yoshi"
+      },
+      {
+        "id": "item_15_3",
+        "word": "Minecraft"
+      },
+      {
+        "id": "item_15_4",
+        "word": "Bordspelavond"
+      },
+      {
+        "id": "item_15_5",
+        "word": "Valsspelen"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_16",
+    "category": "sport_eten",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_16_1",
+        "word": "Olympische Spelen"
+      },
+      {
+        "id": "item_16_2",
+        "word": "Pannenkoekenboot"
+      },
+      {
+        "id": "item_16_3",
+        "word": "Buitenspel"
+      },
+      {
+        "id": "item_16_4",
+        "word": "Stroopwafel"
+      },
+      {
+        "id": "item_16_5",
+        "word": "Tour de France"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_17",
+    "category": "sport_eten",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_17_1",
+        "word": "Max Verstappen"
+      },
+      {
+        "id": "item_17_2",
+        "word": "Napolitaanse Pizza"
+      },
+      {
+        "id": "item_17_3",
+        "word": "Elfstedentocht"
+      },
+      {
+        "id": "item_17_4",
+        "word": "Sushi"
+      },
+      {
+        "id": "item_17_5",
+        "word": "Penaltyreeks"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_18",
+    "category": "sport_eten",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_18_1",
+        "word": "Wimbledon"
+      },
+      {
+        "id": "item_18_2",
+        "word": "Bitterballen"
+      },
+      {
+        "id": "item_18_3",
+        "word": "Marathon"
+      },
+      {
+        "id": "item_18_4",
+        "word": "Chocoladefontein"
+      },
+      {
+        "id": "item_18_5",
+        "word": "Scheidsrechter"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_19",
+    "category": "sport_eten",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_19_1",
+        "word": "Oranje Leeuwinnen"
+      },
+      {
+        "id": "item_19_2",
+        "word": "Appeltaart"
+      },
+      {
+        "id": "item_19_3",
+        "word": "Pitstop"
+      },
+      {
+        "id": "item_19_4",
+        "word": "Barbecue"
+      },
+      {
+        "id": "item_19_5",
+        "word": "Kunstschaatsen"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_20",
+    "category": "sport_eten",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_20_1",
+        "word": "Kampioensbeker"
+      },
+      {
+        "id": "item_20_2",
+        "word": "Poffertjeskraam"
+      },
+      {
+        "id": "item_20_3",
+        "word": "Estafette"
+      },
+      {
+        "id": "item_20_4",
+        "word": "Espresso"
+      },
+      {
+        "id": "item_20_5",
+        "word": "Spierpijn"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_21",
+    "category": "wereld_raadsels",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_21_1",
+        "word": "Eiffeltoren"
+      },
+      {
+        "id": "item_21_2",
+        "word": "Zwaartekracht"
+      },
+      {
+        "id": "item_21_3",
+        "word": "Noorderlicht"
+      },
+      {
+        "id": "item_21_4",
+        "word": "Zonnestelsel"
+      },
+      {
+        "id": "item_21_5",
+        "word": "Deltawerken"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_22",
+    "category": "wereld_raadsels",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_22_1",
+        "word": "Piramides van Gizeh"
+      },
+      {
+        "id": "item_22_2",
+        "word": "Ruimtestation ISS"
+      },
+      {
+        "id": "item_22_3",
+        "word": "Kompas"
+      },
+      {
+        "id": "item_22_4",
+        "word": "Schrikkeljaar"
+      },
+      {
+        "id": "item_22_5",
+        "word": "Mount Everest"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_23",
+    "category": "wereld_raadsels",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_23_1",
+        "word": "Chinese Muur"
+      },
+      {
+        "id": "item_23_2",
+        "word": "Vulkaanuitbarsting"
+      },
+      {
+        "id": "item_23_3",
+        "word": "Tijdzone"
+      },
+      {
+        "id": "item_23_4",
+        "word": "Vuurtoren"
+      },
+      {
+        "id": "item_23_5",
+        "word": "waterkringloop"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_24",
+    "category": "wereld_raadsels",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_24_1",
+        "word": "Melkwegstelsel"
+      },
+      {
+        "id": "item_24_2",
+        "word": "Stoomlocomotief"
+      },
+      {
+        "id": "item_24_3",
+        "word": "Evenaar"
+      },
+      {
+        "id": "item_24_4",
+        "word": "Zonsverduistering"
+      },
+      {
+        "id": "item_24_5",
+        "word": "Windmolen"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_25",
+    "category": "wereld_raadsels",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_25_1",
+        "word": "Kanaaltunnel"
+      },
+      {
+        "id": "item_25_2",
+        "word": "Blikseminslag"
+      },
+      {
+        "id": "item_25_3",
+        "word": "Wereldkaart"
+      },
+      {
+        "id": "item_25_4",
+        "word": "Telescoop"
+      },
+      {
+        "id": "item_25_5",
+        "word": "Poolcirkel"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_26",
+    "category": "ons_gezin",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_26_1",
+        "word": "Zaterdagavond Spelshow"
+      },
+      {
+        "id": "item_26_2",
+        "word": "Uitslapen in het weekend"
+      },
+      {
+        "id": "item_26_3",
+        "word": "Voorleesverhaaltje"
+      },
+      {
+        "id": "item_26_4",
+        "word": "Lego-steentje op de vloer"
+      },
+      {
+        "id": "item_26_5",
+        "word": "Gezinsvakantie"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_27",
+    "category": "ons_gezin",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_27_1",
+        "word": "Tandenpoetsen"
+      },
+      {
+        "id": "item_27_2",
+        "word": "Knuffelbeer kwijt"
+      },
+      {
+        "id": "item_27_3",
+        "word": "Pannenkoeken bakken"
+      },
+      {
+        "id": "item_27_4",
+        "word": "65 inch OLED TV"
+      },
+      {
+        "id": "item_27_5",
+        "word": "Kietelgevecht"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_28",
+    "category": "ons_gezin",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_28_1",
+        "word": "Boodschappenlijstje"
+      },
+      {
+        "id": "item_28_2",
+        "word": "Verstoppertje spelen"
+      },
+      {
+        "id": "item_28_3",
+        "word": "Sinterklaasavond"
+      },
+      {
+        "id": "item_28_4",
+        "word": "Kinderfeestje"
+      },
+      {
+        "id": "item_28_5",
+        "word": "Afstandsbediening"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_29",
+    "category": "ons_gezin",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_29_1",
+        "word": "Zwemles"
+      },
+      {
+        "id": "item_29_2",
+        "word": "Pyjamadag"
+      },
+      {
+        "id": "item_29_3",
+        "word": "Achterbank van de auto"
+      },
+      {
+        "id": "item_29_4",
+        "word": "Snoeppot"
+      },
+      {
+        "id": "item_29_5",
+        "word": "Kerstboom optuigen"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_30",
+    "category": "ons_gezin",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_30_1",
+        "word": "Logeerpartijtje"
+      },
+      {
+        "id": "item_30_2",
+        "word": "Wasmachine"
+      },
+      {
+        "id": "item_30_3",
+        "word": "Dansen in de huiskamer"
+      },
+      {
+        "id": "item_30_4",
+        "word": "Verjaardagsslingers"
+      },
+      {
+        "id": "item_30_5",
+        "word": "Familiefoto"
+      }
+    ],
+    "packId": "basis"
+  },
+  {
+    "id": "ts_mee_31",
+    "category": "dieren_dinos",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_31_1",
+        "word": "Ankylosaurus"
+      },
+      {
+        "id": "item_31_2",
+        "word": "Spinosaurus"
+      },
+      {
+        "id": "item_31_3",
+        "word": "Pteranodon"
+      },
+      {
+        "id": "item_31_4",
+        "word": "Velociraptor"
+      },
+      {
+        "id": "item_31_5",
+        "word": "Fossiel"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_32",
+    "category": "dieren_dinos",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_32_1",
+        "word": "Koraalduivel"
+      },
+      {
+        "id": "item_32_2",
+        "word": "Stokstaartje"
+      },
+      {
+        "id": "item_32_3",
+        "word": "Luiaard"
+      },
+      {
+        "id": "item_32_4",
+        "word": "Orka"
+      },
+      {
+        "id": "item_32_5",
+        "word": "Trekvogels"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_33",
+    "category": "dieren_dinos",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_33_1",
+        "word": "Bijenkoningin"
+      },
+      {
+        "id": "item_33_2",
+        "word": "Reuzenpanda"
+      },
+      {
+        "id": "item_33_3",
+        "word": "Bamboebos"
+      },
+      {
+        "id": "item_33_4",
+        "word": "Zeeschildpad"
+      },
+      {
+        "id": "item_33_5",
+        "word": "Camouflage"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_34",
+    "category": "dieren_dinos",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_34_1",
+        "word": "albatros"
+      },
+      {
+        "id": "item_34_2",
+        "word": "Steenbok"
+      },
+      {
+        "id": "item_34_3",
+        "word": "Mierenhoop"
+      },
+      {
+        "id": "item_34_4",
+        "word": "Beverdam"
+      },
+      {
+        "id": "item_34_5",
+        "word": "Voedselketen"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_35",
+    "category": "dieren_dinos",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_35_1",
+        "word": "Dolfijnensprong"
+      },
+      {
+        "id": "item_35_2",
+        "word": "Walvisgezang"
+      },
+      {
+        "id": "item_35_3",
+        "word": "Flamingokolonie"
+      },
+      {
+        "id": "item_35_4",
+        "word": "Poolvos"
+      },
+      {
+        "id": "item_35_5",
+        "word": "Savanne"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_36",
+    "category": "films_magie",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_36_1",
+        "word": "Indiana Jones"
+      },
+      {
+        "id": "item_36_2",
+        "word": "Star Wars"
+      },
+      {
+        "id": "item_36_3",
+        "word": "Pixar"
+      },
+      {
+        "id": "item_36_4",
+        "word": "Studio Ghibli"
+      },
+      {
+        "id": "item_36_5",
+        "word": "De Efteling"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_37",
+    "category": "films_magie",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_37_1",
+        "word": "Queen"
+      },
+      {
+        "id": "item_37_2",
+        "word": "Michael Jackson"
+      },
+      {
+        "id": "item_37_3",
+        "word": "Zuid-Korea (K-Pop)"
+      },
+      {
+        "id": "item_37_4",
+        "word": "Gouden Kalf"
+      },
+      {
+        "id": "item_37_5",
+        "word": "Musical"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_38",
+    "category": "films_magie",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_38_1",
+        "word": "James Bond"
+      },
+      {
+        "id": "item_38_2",
+        "word": "Lord of the Rings"
+      },
+      {
+        "id": "item_38_3",
+        "word": "Toverdrank"
+      },
+      {
+        "id": "item_38_4",
+        "word": "Illusionist"
+      },
+      {
+        "id": "item_38_5",
+        "word": "première"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_39",
+    "category": "films_magie",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_39_1",
+        "word": "Annie M.G. Schmidt"
+      },
+      {
+        "id": "item_39_2",
+        "word": "Rupsje Nooitgenoeg"
+      },
+      {
+        "id": "item_39_3",
+        "word": "Jip en Janneke"
+      },
+      {
+        "id": "item_39_4",
+        "word": "Sprookjesbos"
+      },
+      {
+        "id": "item_39_5",
+        "word": "Fata Morgana"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_40",
+    "category": "films_magie",
+    "level": "meester",
+    "packId": "kids_special",
+    "items": [
+      {
+        "id": "item_40_1",
+        "word": "HUNTR/X"
+      },
+      {
+        "id": "item_40_2",
+        "word": "Rumi, Mira & Zoey"
+      },
+      {
+        "id": "item_40_3",
+        "word": "Saja Boys"
+      },
+      {
+        "id": "item_40_4",
+        "word": "Honmoon"
+      },
+      {
+        "id": "item_40_5",
+        "word": "Choreografie"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_41",
+    "category": "games_avontuur",
+    "level": "meester",
+    "packId": "kids_special",
+    "items": [
+      {
+        "id": "item_41_1",
+        "word": "Shadow the Hedgehog"
+      },
+      {
+        "id": "item_41_2",
+        "word": "Chaos Emeralds"
+      },
+      {
+        "id": "item_41_3",
+        "word": "Master Emerald"
+      },
+      {
+        "id": "item_41_4",
+        "word": "Green Hill Zone"
+      },
+      {
+        "id": "item_41_5",
+        "word": "Miles \"Tails\" Prower"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_42",
+    "category": "games_avontuur",
+    "level": "meester",
+    "packId": "kids_special",
+    "items": [
+      {
+        "id": "item_42_1",
+        "word": "K.K. Slider"
+      },
+      {
+        "id": "item_42_2",
+        "word": "Isabelle"
+      },
+      {
+        "id": "item_42_3",
+        "word": "Bells (Klingels)"
+      },
+      {
+        "id": "item_42_4",
+        "word": "Blathers het Museum-uiltje"
+      },
+      {
+        "id": "item_42_5",
+        "word": "Diddy Kong"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_43",
+    "category": "games_avontuur",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_43_1",
+        "word": "Ganzenbord"
+      },
+      {
+        "id": "item_43_2",
+        "word": "Risk"
+      },
+      {
+        "id": "item_43_3",
+        "word": "Monopoly"
+      },
+      {
+        "id": "item_43_4",
+        "word": "Mens erger je niet"
+      },
+      {
+        "id": "item_43_5",
+        "word": "Schaken"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_44",
+    "category": "games_avontuur",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_44_1",
+        "word": "Blauw Schild (Mario Kart)"
+      },
+      {
+        "id": "item_44_2",
+        "word": "Bananenschil"
+      },
+      {
+        "id": "item_44_3",
+        "word": "Super Nintendo"
+      },
+      {
+        "id": "item_44_4",
+        "word": "Arcadehal"
+      },
+      {
+        "id": "item_44_5",
+        "word": "Flipperkast"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_45",
+    "category": "games_avontuur",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_45_1",
+        "word": "Schatzoeken"
+      },
+      {
+        "id": "item_45_2",
+        "word": "Kompasnaald"
+      },
+      {
+        "id": "item_45_3",
+        "word": "Geheime Gang"
+      },
+      {
+        "id": "item_45_4",
+        "word": "Zandloper"
+      },
+      {
+        "id": "item_45_5",
+        "word": "Dobbelsteen"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_46",
+    "category": "sport_eten",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_46_1",
+        "word": "Circuit Zandvoort"
+      },
+      {
+        "id": "item_46_2",
+        "word": "Johan Cruijff"
+      },
+      {
+        "id": "item_46_3",
+        "word": "Goudse Stroopwafel"
+      },
+      {
+        "id": "item_46_4",
+        "word": "Oliebollenkraam"
+      },
+      {
+        "id": "item_46_5",
+        "word": "Haringkar"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_47",
+    "category": "sport_eten",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_47_1",
+        "word": "Giro d'Italia"
+      },
+      {
+        "id": "item_47_2",
+        "word": "Gele Trui"
+      },
+      {
+        "id": "item_47_3",
+        "word": "Penalty"
+      },
+      {
+        "id": "item_47_4",
+        "word": "Doellijntechnologie"
+      },
+      {
+        "id": "item_47_5",
+        "word": "Waterpolo"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_48",
+    "category": "sport_eten",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_48_1",
+        "word": "Tiramisu"
+      },
+      {
+        "id": "item_48_2",
+        "word": "Guacamole"
+      },
+      {
+        "id": "item_48_3",
+        "word": "Croissant"
+      },
+      {
+        "id": "item_48_4",
+        "word": "Tapas"
+      },
+      {
+        "id": "item_48_5",
+        "word": "Boerenkool met worst"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_49",
+    "category": "sport_eten",
+    "level": "meester",
+    "packId": "zomer",
+    "items": [
+      {
+        "id": "item_49_1",
+        "word": "Strandpaviljoen"
+      },
+      {
+        "id": "item_49_2",
+        "word": "Watermeloen"
+      },
+      {
+        "id": "item_49_3",
+        "word": "Barbecuerooster"
+      },
+      {
+        "id": "item_49_4",
+        "word": "IJsco-kar"
+      },
+      {
+        "id": "item_49_5",
+        "word": "Beachvolleybal"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_50",
+    "category": "sport_eten",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_50_1",
+        "word": "Saffraan"
+      },
+      {
+        "id": "item_50_2",
+        "word": "Zuurdesembrood"
+      },
+      {
+        "id": "item_50_3",
+        "word": "Kaasfondue"
+      },
+      {
+        "id": "item_50_4",
+        "word": "Wokpan"
+      },
+      {
+        "id": "item_50_5",
+        "word": "Kookwekker"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_51",
+    "category": "wereld_raadsels",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_51_1",
+        "word": "Waddeneilanden"
+      },
+      {
+        "id": "item_51_2",
+        "word": "Afsluitdijk"
+      },
+      {
+        "id": "item_51_3",
+        "word": "Rijksmuseum"
+      },
+      {
+        "id": "item_51_4",
+        "word": "Kinderdijk"
+      },
+      {
+        "id": "item_51_5",
+        "word": "Keukenhof"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_52",
+    "category": "wereld_raadsels",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_52_1",
+        "word": "Apollo 11"
+      },
+      {
+        "id": "item_52_2",
+        "word": "Marsrover"
+      },
+      {
+        "id": "item_52_3",
+        "word": "Zonnepanelen"
+      },
+      {
+        "id": "item_52_4",
+        "word": "Getijden (Eb en Vloed)"
+      },
+      {
+        "id": "item_52_5",
+        "word": "Regenwoud"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_53",
+    "category": "wereld_raadsels",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_53_1",
+        "word": "Colosseum (Rome)"
+      },
+      {
+        "id": "item_53_2",
+        "word": "Vrijheidsbeeld"
+      },
+      {
+        "id": "item_53_3",
+        "word": "Taj Mahal"
+      },
+      {
+        "id": "item_53_4",
+        "word": "Machu Picchu"
+      },
+      {
+        "id": "item_53_5",
+        "word": "Big Ben"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_54",
+    "category": "wereld_raadsels",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_54_1",
+        "word": "Schaal van Richter"
+      },
+      {
+        "id": "item_54_2",
+        "word": "Schaal van Beaufort"
+      },
+      {
+        "id": "item_54_3",
+        "word": "Lichtsnelheid"
+      },
+      {
+        "id": "item_54_4",
+        "word": "Kompasroos"
+      },
+      {
+        "id": "item_54_5",
+        "word": "Schrikkeldag"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_55",
+    "category": "wereld_raadsels",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_55_1",
+        "word": "Duikboot"
+      },
+      {
+        "id": "item_55_2",
+        "word": "Luchtballonvaart"
+      },
+      {
+        "id": "item_55_3",
+        "word": "Suezkanaal"
+      },
+      {
+        "id": "item_55_4",
+        "word": "Panamakanaal"
+      },
+      {
+        "id": "item_55_5",
+        "word": "Vuurtorenwachter"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_56",
+    "category": "ons_gezin",
+    "level": "meester",
+    "packId": "sinterklaas",
+    "items": [
+      {
+        "id": "item_56_1",
+        "word": "Pakjesavond"
+      },
+      {
+        "id": "item_56_2",
+        "word": "Stoomboot uit Spanje"
+      },
+      {
+        "id": "item_56_3",
+        "word": "Chocoladeletter"
+      },
+      {
+        "id": "item_56_4",
+        "word": "Pepernoten bakken"
+      },
+      {
+        "id": "item_56_5",
+        "word": "Schoentje zetten"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_57",
+    "category": "ons_gezin",
+    "level": "meester",
+    "packId": "kerst",
+    "items": [
+      {
+        "id": "item_57_1",
+        "word": "Kerstboompiek"
+      },
+      {
+        "id": "item_57_2",
+        "word": "Kerststol"
+      },
+      {
+        "id": "item_57_3",
+        "word": "Sneeuwballengevecht"
+      },
+      {
+        "id": "item_57_4",
+        "word": "Warme chocolademelk"
+      },
+      {
+        "id": "item_57_5",
+        "word": "Gourmetstel"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_58",
+    "category": "ons_gezin",
+    "level": "meester",
+    "packId": "zomer",
+    "items": [
+      {
+        "id": "item_58_1",
+        "word": "Kampeertent opzetten"
+      },
+      {
+        "id": "item_58_2",
+        "word": "Zandkasteel bouwen"
+      },
+      {
+        "id": "item_58_3",
+        "word": "Achterbank (\"Zijn we er al?\")"
+      },
+      {
+        "id": "item_58_4",
+        "word": "Luchtbed oppompen"
+      },
+      {
+        "id": "item_58_5",
+        "word": "Zonnebrandcrème"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_59",
+    "category": "ons_gezin",
+    "level": "meester",
+    "packId": "verjaardag",
+    "items": [
+      {
+        "id": "item_59_1",
+        "word": "Verjaardagstaart"
+      },
+      {
+        "id": "item_59_2",
+        "word": "Stoelendans"
+      },
+      {
+        "id": "item_59_3",
+        "word": "Koekhappen"
+      },
+      {
+        "id": "item_59_4",
+        "word": "Slingers ophangen"
+      },
+      {
+        "id": "item_59_5",
+        "word": "Traktatie op school"
+      }
+    ]
+  },
+  {
+    "id": "ts_mee_60",
+    "category": "ons_gezin",
+    "level": "meester",
+    "packId": "basis",
+    "items": [
+      {
+        "id": "item_60_1",
+        "word": "Kussenfort bouwen"
+      },
+      {
+        "id": "item_60_2",
+        "word": "Slaapliedje zingen"
+      },
+      {
+        "id": "item_60_3",
+        "word": "Pannenkoekenavond"
+      },
+      {
+        "id": "item_60_4",
+        "word": "Zondagochtend ontbijt"
+      },
+      {
+        "id": "item_60_5",
+        "word": "Familieknuffel"
+      }
+    ]
+  }
+]

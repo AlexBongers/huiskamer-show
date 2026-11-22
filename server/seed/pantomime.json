@@ -1,0 +1,272 @@
+[
+  {
+    "id": "pan_01",
+    "category": "dieren_dinos",
+    "level": "ontdekker",
+    "packId": "basis",
+    "prompt": "Brullende T-Rex met korte armpjes",
+    "hint": "Stamp met je voeten en houd twee kleine dino-armpjes voor je borst!",
+    "illustrationId": "trex"
+  },
+  {
+    "id": "pan_02",
+    "category": "dieren_dinos",
+    "level": "ontdekker",
+    "packId": "basis",
+    "prompt": "Springende Groene Kikker",
+    "hint": "Ga door je knieën en maak hoge kikkersprongen door de kamer!",
+    "illustrationId": "frog"
+  },
+  {
+    "id": "pan_03",
+    "category": "dieren_dinos",
+    "level": "ontdekker",
+    "packId": "basis",
+    "prompt": "Olifant met een lange slurf",
+    "hint": "Zwaai met één arm voor je neus als een grote slurf!",
+    "illustrationId": "elephant"
+  },
+  {
+    "id": "pan_04",
+    "category": "dieren_dinos",
+    "level": "ontdekker",
+    "packId": "basis",
+    "prompt": "Waggelende Pinguïn op het ijs",
+    "hint": "Houd je armen strak langs je zij en waggel met kleine stapjes!",
+    "illustrationId": "penguin"
+  },
+  {
+    "id": "pan_05",
+    "category": "games_avontuur",
+    "level": "ontdekker",
+    "packId": "kids_special",
+    "prompt": "Donkey Kong die op zijn borst trommelt en een banaan pelt",
+    "hint": "Trommel met twee vuisten op je borst en pel een denkbeeldige banaan!",
+    "illustrationId": "jungle_ape"
+  },
+  {
+    "id": "pan_06",
+    "category": "games_avontuur",
+    "level": "ontdekker",
+    "packId": "kids_special",
+    "prompt": "Sonic the Hedgehog die supersnel op zijn plek rent",
+    "hint": "Ren razendsnel op je plek en maak een looping-sprong!",
+    "illustrationId": "sonic_hedgehog"
+  },
+  {
+    "id": "pan_07",
+    "category": "films_magie",
+    "level": "ontdekker",
+    "packId": "kids_special",
+    "prompt": "Vliegende Eenhoorn met een hoorn op het voorhoofd",
+    "hint": "Maak met één vinger een hoorn op je voorhoofd en galoppeer rond!",
+    "illustrationId": "unicorn"
+  },
+  {
+    "id": "pan_08",
+    "category": "films_magie",
+    "level": "ontdekker",
+    "packId": "basis",
+    "prompt": "Rockster die gitaar speelt",
+    "hint": "Speel luchtgitaar in de woonkamer!",
+    "illustrationId": "guitar"
+  },
+  {
+    "id": "pan_09",
+    "category": "sport_eten",
+    "level": "ontdekker",
+    "packId": "basis",
+    "prompt": "Pannenkoek in de lucht omdraaien met een koekenpan",
+    "hint": "Houd een pan vast, gooi de pannenkoek omhoog en vang hem op!",
+    "illustrationId": "pancake"
+  },
+  {
+    "id": "pan_10",
+    "category": "ons_gezin",
+    "level": "ontdekker",
+    "packId": "basis",
+    "prompt": "Tandenpoetsen voor de spiegel",
+    "hint": "Poets je tanden heen en weer en spoel je mond!",
+    "illustrationId": "toothbrush"
+  },
+  {
+    "id": "pan_11",
+    "category": "films_magie",
+    "level": "avonturier",
+    "packId": "kids_special",
+    "prompt": "K-Pop Ster van HUNTR/X die danst met een microfoon",
+    "hint": "Doe een strakke K-Pop dansmove terwijl je in een microfoon zingt!",
+    "illustrationId": "kpop_stage"
+  },
+  {
+    "id": "pan_12",
+    "category": "games_avontuur",
+    "level": "avonturier",
+    "packId": "kids_special",
+    "prompt": "Een grote vis vangen met een vishengel in Animal Crossing",
+    "hint": "Gooi je hengel uit, wacht... en draai met moeite een enorme vis binnen!",
+    "illustrationId": "fishing_rod"
+  },
+  {
+    "id": "pan_13",
+    "category": "games_avontuur",
+    "level": "avonturier",
+    "packId": "basis",
+    "prompt": "Mario Kart racen en uitglijden over een bananenschil",
+    "hint": "Stuur scherp door de bocht en draai plotseling in het rond!",
+    "illustrationId": "race_kart"
+  },
+  {
+    "id": "pan_14",
+    "category": "dieren_dinos",
+    "level": "avonturier",
+    "packId": "kids_special",
+    "prompt": "Vliegende Pteranodon dino boven een vulkaan",
+    "hint": "Spreid je lange vleugels wijd uit en zweef door de lucht!",
+    "illustrationId": "pteranodon"
+  },
+  {
+    "id": "pan_15",
+    "category": "dieren_dinos",
+    "level": "avonturier",
+    "packId": "basis",
+    "prompt": "Kangoeroe die hoog springt met een baby in de buidel",
+    "hint": "Houd je handen als pootjes voor je buik en spring rond!",
+    "illustrationId": "kangaroo"
+  },
+  {
+    "id": "pan_16",
+    "category": "dieren_dinos",
+    "level": "avonturier",
+    "packId": "basis",
+    "prompt": "Roze Flamingo die op één been balanceert",
+    "hint": "Ga op één been staan met je handen als een snavel!",
+    "illustrationId": "flamingo"
+  },
+  {
+    "id": "pan_17",
+    "category": "sport_eten",
+    "level": "avonturier",
+    "packId": "basis",
+    "prompt": "Keeper die een spectaculaire duik maakt om een voetbal te stoppen",
+    "hint": "Spring opzij met uitgestrekte armen en klem de bal vast!",
+    "illustrationId": "soccer_ball"
+  },
+  {
+    "id": "pan_18",
+    "category": "sport_eten",
+    "level": "avonturier",
+    "packId": "zomer",
+    "prompt": "IJsje met drie bolletjes dat bijna van het hoorntje smelt",
+    "hint": "Lik snel rondom je ijsje voordat het op je hand drupt!",
+    "illustrationId": "ice_cream"
+  },
+  {
+    "id": "pan_19",
+    "category": "wereld_raadsels",
+    "level": "avonturier",
+    "packId": "basis",
+    "prompt": "Astronaut die gewichtloos rondzweeft op de maan",
+    "hint": "Maak hele langzame, zwevende reuzensprongen in slow-motion!",
+    "illustrationId": "rocket"
+  },
+  {
+    "id": "pan_20",
+    "category": "ons_gezin",
+    "level": "avonturier",
+    "packId": "sinterklaas",
+    "prompt": "Piet die over het dak sluipt en pepernoten strooit",
+    "hint": "Loop op je tenen over een schuin dak en strooi met grote bogen!",
+    "illustrationId": "pepernoten"
+  },
+  {
+    "id": "pan_21",
+    "category": "ons_gezin",
+    "level": "meester",
+    "packId": "basis",
+    "prompt": "In het donker met blote voeten op een LEGO-steentje stappen",
+    "hint": "Sluip zachtjes en grijp plotseling geluidloos naar je voetzool!",
+    "illustrationId": "house_family"
+  },
+  {
+    "id": "pan_22",
+    "category": "films_magie",
+    "level": "meester",
+    "packId": "basis",
+    "prompt": "Dirigent van een groot symfonieorkest",
+    "hint": "Zwaai dramatisch met een stokje voor violen en trompetten!",
+    "illustrationId": "trumpet"
+  },
+  {
+    "id": "pan_23",
+    "category": "sport_eten",
+    "level": "meester",
+    "packId": "basis",
+    "prompt": "Italiaanse pizzabakker die pizzadeeg hoog in de lucht ronddraait",
+    "hint": "Kneed het deeg plat en laat het op één vinger boven je hoofd tollen!",
+    "illustrationId": "pizza"
+  },
+  {
+    "id": "pan_24",
+    "category": "wereld_raadsels",
+    "level": "meester",
+    "packId": "basis",
+    "prompt": "Brandweerman die een zware spuitende brandweerslang onder controle houdt",
+    "hint": "Houd met twee handen een wild kronkelende waterslang vast!",
+    "illustrationId": "firetruck"
+  },
+  {
+    "id": "pan_25",
+    "category": "games_avontuur",
+    "level": "meester",
+    "packId": "basis",
+    "prompt": "Pac-Man die bolletjes hapt en plotseling wegrent voor een spookje",
+    "hint": "Loop met happende armen vooruit en draai ineens in paniek om!",
+    "illustrationId": "gamepad"
+  },
+  {
+    "id": "pan_26",
+    "category": "dieren_dinos",
+    "level": "meester",
+    "packId": "basis",
+    "prompt": "Octopus die met acht armen tegelijk probeert te drummen",
+    "hint": "Beweeg armen en benen als golvende tentakels!",
+    "illustrationId": "octopus"
+  },
+  {
+    "id": "pan_27",
+    "category": "ons_gezin",
+    "level": "meester",
+    "packId": "kerst",
+    "prompt": "Een enorme sneeuwpop rollen en zijn wortelneus opzetten",
+    "hint": "Rol drie zware sneeuwballen op elkaar en prik de wortel erin!",
+    "illustrationId": "snowman"
+  },
+  {
+    "id": "pan_28",
+    "category": "ons_gezin",
+    "level": "meester",
+    "packId": "zomer",
+    "prompt": "Een eigenwijze kampeertent opzetten in de harde wind",
+    "hint": "Worstelen met tentstokken en haringen in de grond slaan!",
+    "illustrationId": "tent_camp"
+  },
+  {
+    "id": "pan_29",
+    "category": "ons_gezin",
+    "level": "meester",
+    "packId": "verjaardag",
+    "prompt": "Twintig kaarsjes op een verjaardagstaart in één adem uitblazen",
+    "hint": "Haal heel diep adem en blaas alle kaarsjes één voor één uit!",
+    "illustrationId": "cake"
+  },
+  {
+    "id": "pan_30",
+    "category": "wereld_raadsels",
+    "level": "meester",
+    "packId": "basis",
+    "prompt": "Kapitein in een duikboot die door een periscoop tuurt",
+    "hint": "Pak twee handvatten vast en draai 360 graden rond terwijl je door één oog kijkt!",
+    "illustrationId": "submarine"
+  }
+]

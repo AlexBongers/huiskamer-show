@@ -1,0 +1,21 @@
+{
+  "name": "de-grote-huiskamer-show",
+  "version": "1.0.0",
+  "private": true,
+  "description": "De Grote Huiskamer Show - Zelf-gehoste TV-spelshow voor de hele familie (65 inch LG OLED + Android telefoons & tablets)",
+  "workspaces": [
+    "shared",
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n SERVER,CLIENT -c cyan,magenta \"npm run dev --workspace=server\" \"npm run dev --workspace=client\"",
+    "build": "npm run build --workspace=shared && npm run build --workspace=client && npm run build --workspace=server",
+    "start": "npm run start --workspace=server",
+    "test": "npm run test --workspace=server"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.4.5"
+  }
+}
