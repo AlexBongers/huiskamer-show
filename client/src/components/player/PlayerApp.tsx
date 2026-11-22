@@ -310,8 +310,9 @@ export const PlayerApp: React.FC = () => {
   // ============================================================================
   if (!session || !myPlayer) {
     return (
-      <div className="min-h-screen studio-stage-bg p-4 md:p-8 flex flex-col justify-between max-w-3xl mx-auto select-none">
-        <header className="text-center py-3">
+      <div className="min-h-screen w-full studio-stage-bg select-none">
+        <div className="min-h-screen p-4 md:p-8 flex flex-col justify-between max-w-3xl mx-auto">
+          <header className="text-center py-3">
           <div className="text-[#F5C542] font-display text-lg uppercase tracking-wider">
             🎬 {gameState.showTitle}
           </div>
@@ -528,6 +529,7 @@ export const PlayerApp: React.FC = () => {
             </form>
           )}
         </footer>
+        </div>
       </div>
     );
   }
@@ -549,8 +551,9 @@ export const PlayerApp: React.FC = () => {
       onClick={() => {
         if (!hasUserInteracted) setHasUserInteracted(true);
       }}
-      className="min-h-screen studio-stage-bg flex flex-col justify-between p-3 sm:p-5 max-w-3xl mx-auto select-none"
+      className="min-h-screen w-full studio-stage-bg select-none"
     >
+      <div className="min-h-screen flex flex-col justify-between p-3 sm:p-5 max-w-3xl mx-auto">
       {/* Connection Lost Banner */}
       {!socketConnected && (
         <div className="mb-3 px-4 py-2.5 rounded-2xl bg-rose-600 text-white font-display text-base flex items-center justify-center gap-2 animate-pulse shadow-lg">
@@ -2134,6 +2137,7 @@ export const PlayerApp: React.FC = () => {
       <footer className="text-center text-xs text-slate-500 pt-3">
         Niveau: {myPlayer.level.toUpperCase()} · Kamer: {gameState.roomCode}
       </footer>
+      </div>
     </div>
   );
 };

@@ -1042,8 +1042,9 @@ export const AdminApp: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen studio-stage-bg p-4 md:p-8 max-w-6xl mx-auto">
-      {/* Toast Notifications */}
+    <div className="min-h-screen w-full studio-stage-bg">
+      <div className="p-4 md:p-8 max-w-7xl mx-auto">
+        {/* Toast Notifications */}
       {toast && (
         <div className="fixed bottom-6 right-6 z-50 px-6 py-4 rounded-2xl bg-[#22C55E] text-[#070B18] font-display text-xl font-bold shadow-2xl flex items-center gap-2">
           <CheckCircle2 className="w-6 h-6" /> {toast}
@@ -1110,7 +1111,7 @@ export const AdminApp: React.FC = () => {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2.5 rounded-2xl font-display text-base border-2 transition-all ${
+            className={`px-3.5 py-2.5 rounded-2xl font-display text-sm xl:text-base whitespace-nowrap border-2 transition-all ${
               activeTab === tab.id
                 ? 'bg-[#F5C542] text-[#070B18] border-white font-bold shadow-lg'
                 : 'bg-[#111936] text-white border-white/15 hover:border-[#F5C542]/50'
@@ -2671,9 +2672,9 @@ export const AdminApp: React.FC = () => {
                 {config.profiles.map((prof, idx) => (
                   <div
                     key={prof.id}
-                    className="p-4 rounded-2xl bg-[#070B18]/80 border border-white/15 flex flex-col gap-2.5"
+                    className="p-4 rounded-2xl bg-[#070B18]/80 border border-white/15 flex flex-col gap-3 min-w-0 overflow-hidden"
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 min-w-0">
                       <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 border border-white/20">
                         <IllustrationView
                           illustrationId={
@@ -2690,11 +2691,11 @@ export const AdminApp: React.FC = () => {
                           next[idx] = { ...prof, name: e.target.value };
                           setConfig({ ...config, profiles: next });
                         }}
-                        className="flex-1 px-3 py-1.5 rounded-xl bg-[#111936] border border-white/20 font-display text-xl text-white"
+                        className="flex-1 min-w-0 w-full px-3 py-1.5 rounded-xl bg-[#111936] border border-white/20 font-display text-xl text-white"
                       />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-2 min-w-0">
                       <select
                         value={prof.level}
                         onChange={(e) => {
@@ -2705,7 +2706,7 @@ export const AdminApp: React.FC = () => {
                           };
                           setConfig({ ...config, profiles: next });
                         }}
-                        className="px-2.5 py-1.5 rounded-xl bg-[#111936] border border-white/20 text-xs text-[#F5C542]"
+                        className="min-w-0 w-full px-2.5 py-1.5 rounded-xl bg-[#111936] border border-white/20 text-xs text-[#F5C542]"
                       >
                         <option value="ontdekker">Ontdekker (5j)</option>
                         <option value="avonturier">Avonturier (7j)</option>
@@ -2722,7 +2723,7 @@ export const AdminApp: React.FC = () => {
                           };
                           setConfig({ ...config, profiles: next });
                         }}
-                        className="px-2.5 py-1.5 rounded-xl bg-[#111936] border border-white/20 text-xs text-white"
+                        className="min-w-0 w-full px-2.5 py-1.5 rounded-xl bg-[#111936] border border-white/20 text-xs text-white"
                       >
                         {Object.values(AVATAR_CATALOG).map((av) => (
                           <option key={av.id} value={av.id}>
@@ -2732,7 +2733,7 @@ export const AdminApp: React.FC = () => {
                       </select>
                     </div>
 
-                    <label className="flex items-center gap-2 text-xs text-slate-300">
+                    <label className="flex items-center gap-2 text-xs text-slate-300 cursor-pointer">
                       <input
                         type="checkbox"
                         checked={prof.autoSpeak}
@@ -2742,7 +2743,7 @@ export const AdminApp: React.FC = () => {
                           setConfig({ ...config, profiles: next });
                         }}
                       />
-                      Automatisch Nederlands voorlezen (`nl-NL`)
+                      <span>Automatisch Nederlands voorlezen (nl-NL)</span>
                     </label>
                   </div>
                 ))}
@@ -2811,7 +2812,7 @@ export const AdminApp: React.FC = () => {
                 kinderen niet per ongeluk in <code>/admin</code> alle antwoorden
                 zien.
               </p>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 min-w-0">
                 <input
                   type="password"
                   inputMode="numeric"
@@ -2825,13 +2826,13 @@ export const AdminApp: React.FC = () => {
                   placeholder={
                     pinRequired ? 'Nieuwe 4-cijfer PIN' : 'Bijv. 1234'
                   }
-                  className="flex-1 px-3 py-2 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                  className="flex-1 min-w-0 w-full px-3 py-2 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
                 />
                 <button
                   type="button"
                   onClick={() => handleUpdatePinSetting(newPinSetting)}
                   disabled={newPinSetting.length !== 4}
-                  className="px-4 py-2 rounded-xl bg-[#F5C542] text-[#070B18] font-display text-sm font-bold disabled:opacity-40"
+                  className="px-4 py-2 rounded-xl bg-[#F5C542] text-[#070B18] font-display text-sm font-bold disabled:opacity-40 flex-shrink-0"
                 >
                   PIN Instellen
                 </button>
@@ -2839,7 +2840,7 @@ export const AdminApp: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => handleUpdatePinSetting(null)}
-                    className="px-3 py-2 rounded-xl bg-rose-950/80 text-rose-200 font-display text-xs"
+                    className="px-3 py-2 rounded-xl bg-rose-950/80 text-rose-200 font-display text-xs flex-shrink-0"
                   >
                     Uitzetten
                   </button>
@@ -2966,6 +2967,7 @@ export const AdminApp: React.FC = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };
