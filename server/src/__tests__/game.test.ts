@@ -918,4 +918,75 @@ describe('De Grote Huiskamer Show — Complete Verification & Code-Check Suite',
     const awards = AwardsEngine.computeAwards([p1, p2], 'solo');
     expect(awards.some((a) => a.id === 'award_estimate' && a.playerId === p2.id)).toBe(true);
   });
+
+  it('10. LG Magic Remote tv:control works exclusively for joined TV sockets and blocks unsafe actions', async () => {
+    const serverInstance = await createAppServer({
+      dataDir: tmpDataDir,
+      seedDir,
+      publicUrl: 'http://127.0.0.1:0',
+      enableTimers: false,
+      deterministicCycles: true,
+    });
+
+    await new Promise<void>((resolve) =>
+      serverInstance.httpServer.listen(0, '127.0.0.1', () => resolve())
+    );
+    const addr = serverInstance.httpServer.address();
+    const port = typeof addr === 'object' && addr ? addr.port : 0;
+    const baseUrl = `http://127.0.0.1:${port}`;
+
+    const tvSock: ClientSocket = ClientIO(baseUrl, { transports: ['websocket'] });
+    const playerSock: ClientSocket = ClientIO(baseUrl, { transports: ['websocket'] });
+
+    let latestState: GameStatePayload | null = null;
+    tvSock.on('state:update', (s: GameStatePayload) => {
+      latestState = s;
+    });
+
+    await new Promise<void>((resolve) => tvSock.on('connect', () => resolve()));
+    await new Promise<void>((resolve) => playerSock.on('connect', () => resolve()));
+
+    // Non-TV player socket tries tv:control toggleMute -> MUST be ignored
+    playerSock.emit('tv:control', { action: 'toggleMute' });
+    await new Promise((r) => setTimeout(r, 80));
+    expect(latestState?.tvMuted).toBe(false);
+
+    // Join TV socket, then send toggleMute -> MUST succeed
+    tvSock.emit('tv:join', { origin: baseUrl });
+    await new Promise((r) => setTimeout(r, 80));
+    tvSock.emit('tv:control', { action: 'toggleMute' });
+    await new Promise((r) => setTimeout(r, 80));
+    expect(latestState?.tvMuted).toBe(true);
+
+    // Start a game and test pause / resume from TV remote, while blocking resetToLobby
+    serverInstance.engine.joinOrReconnectPlayer({
+      profileId: 'profile_papa',
+      name: 'Papa',
+      avatarId: 'showmaster',
+      level: 'meester',
+    });
+    serverInstance.engine.startGame();
+    serverInstance.engine.enterRoundIntro();
+    serverInstance.engine.enterRoundActive();
+    expect(serverInstance.engine.phase).toBe('ROUND_ACTIVE');
+
+    tvSock.emit('tv:control', { action: 'pause' });
+    await new Promise((r) => setTimeout(r, 80));
+    expect(serverInstance.engine.phase).toBe('PAUSED');
+
+    // Disallowed action via tv:control MUST be ignored
+    tvSock.emit('tv:control', { action: 'resetToLobby' });
+    await new Promise((r) => setTimeout(r, 80));
+    expect(serverInstance.engine.phase).toBe('PAUSED');
+
+    tvSock.emit('tv:control', { action: 'resume' });
+    await new Promise((r) => setTimeout(r, 80));
+    expect(serverInstance.engine.phase).toBe('ROUND_ACTIVE');
+
+    tvSock.disconnect();
+    playerSock.disconnect();
+    await new Promise<void>((resolve) =>
+      serverInstance.httpServer.close(() => resolve())
+    );
+  });
 });

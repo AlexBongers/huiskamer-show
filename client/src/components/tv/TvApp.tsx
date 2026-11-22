@@ -13,7 +13,25 @@ import {
   ROUND_TYPE_META,
   SfxCue,
 } from '@huiskamer-show/shared';
-import { Volume2, VolumeX, Sparkles, Lock, CheckCircle2, XCircle, Trophy, Crown, WifiOff } from 'lucide-react';
+import {
+  Volume2,
+  VolumeX,
+  Sparkles,
+  Lock,
+  CheckCircle2,
+  XCircle,
+  Trophy,
+  Crown,
+  WifiOff,
+  Maximize2,
+  Minimize2,
+  Pause,
+  Play,
+  SkipForward,
+  PlusCircle,
+  BellRing,
+  RotateCcw,
+} from 'lucide-react';
 import { socketService } from '../../services/socket';
 import { soundEngine } from '../../services/soundEngine';
 import { IllustrationView } from '../illustrations/IllustrationLibrary';
@@ -26,10 +44,67 @@ export const TvApp: React.FC = () => {
   );
   const [gameState, setGameState] = useState<GameStatePayload | null>(null);
   const [socketConnected, setSocketConnected] = useState<boolean>(true);
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [remoteToast, setRemoteToast] = useState<string | null>(null);
+  const remoteToastTimerRef = useRef<number | null>(null);
+  const startBtnRef = useRef<HTMLButtonElement | null>(null);
+  const resumeBtnRef = useRef<HTMLButtonElement | null>(null);
   const antiSaverCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const antiSaverVideoRef = useRef<HTMLVideoElement | null>(null);
   const prevPlayerCountRef = useRef<number>(0);
   const prevPhaseRef = useRef<string>('LOBBY');
+
+  const showRemoteToast = (msg: string) => {
+    setRemoteToast(msg);
+    if (remoteToastTimerRef.current) {
+      window.clearTimeout(remoteToastTimerRef.current);
+    }
+    remoteToastTimerRef.current = window.setTimeout(() => {
+      setRemoteToast(null);
+    }, 2400);
+  };
+
+  const sendTvControl = (
+    action:
+      | 'pause'
+      | 'resume'
+      | 'addTime'
+      | 'skip'
+      | 'toggleMute'
+      | 'testSound'
+      | 'replaySound',
+    toastMsg?: string
+  ) => {
+    socketService.socket.emit('tv:control', { action });
+    if (toastMsg) showRemoteToast(toastMsg);
+  };
+
+  const toggleFullscreen = async () => {
+    try {
+      if (document.fullscreenElement) {
+        await document.exitFullscreen();
+        showRemoteToast('🗗 Vensterweergave');
+      } else if (document.documentElement.requestFullscreen) {
+        await document.documentElement.requestFullscreen();
+        showRemoteToast('⛶ Volledig scherm');
+      }
+    } catch {
+      // ignore if browser blocks fullscreen
+    }
+  };
+
+  useEffect(() => {
+    const onFsChange = () => {
+      setIsFullscreen(Boolean(document.fullscreenElement));
+    };
+    document.addEventListener('fullscreenchange', onFsChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', onFsChange);
+      if (remoteToastTimerRef.current) {
+        window.clearTimeout(remoteToastTimerRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const sock = socketService.socket;
@@ -175,9 +250,152 @@ export const TvApp: React.FC = () => {
     }
   };
 
+  // Auto-focus primary CTA for LG Magic Remote D-pad / OK button
+  useEffect(() => {
+    if (!started) {
+      startBtnRef.current?.focus();
+    } else if (gameState?.phase === 'PAUSED') {
+      resumeBtnRef.current?.focus();
+    }
+  }, [started, gameState?.phase]);
+
+  // LG Magic Remote hardware keys (OK, Color buttons 403-406, Media keys 412/415/417/19, D-pad)
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      const code = e.keyCode || e.which;
+
+      // Splash screen: OK / Enter / Space / Play starts the show immediately
+      if (!started) {
+        if (
+          e.key === 'Enter' ||
+          e.key === ' ' ||
+          code === 13 ||
+          code === 32 ||
+          code === 415
+        ) {
+          e.preventDefault();
+          void handleStartShowClick();
+        }
+        return;
+      }
+
+      const curPhase = gameState?.phase;
+      const inActiveGame = Boolean(
+        curPhase && curPhase !== 'LOBBY' && curPhase !== 'FINALE'
+      );
+
+      // D-pad Left / Right cycles focus cleanly across TV header controls
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        const controls = Array.from(
+          document.querySelectorAll<HTMLButtonElement>('[data-tv-control="1"]')
+        );
+        if (controls.length > 0) {
+          e.preventDefault();
+          const idx = controls.indexOf(
+            document.activeElement as HTMLButtonElement
+          );
+          const next =
+            idx === -1
+              ? 0
+              : e.key === 'ArrowRight'
+              ? (idx + 1) % controls.length
+              : (idx - 1 + controls.length) % controls.length;
+          controls[next]?.focus();
+        }
+        return;
+      }
+
+      // Red button (403) / Pause (19) / Play (415) / MediaPlayPause / 'p' -> Pause / Resume
+      if (
+        code === 403 ||
+        code === 19 ||
+        code === 415 ||
+        e.key === 'MediaPlayPause' ||
+        e.key === 'MediaPause' ||
+        e.key === 'MediaPlay' ||
+        e.key.toLowerCase() === 'p'
+      ) {
+        if (curPhase === 'PAUSED') {
+          e.preventDefault();
+          sendTvControl('resume', '▶️ Show hervat!');
+        } else if (inActiveGame) {
+          e.preventDefault();
+          sendTvControl('pause', '⏸️ Show gepauzeerd');
+        }
+        return;
+      }
+
+      // When PAUSED, pressing OK / Space resumes right away (unless another header TV button is focused)
+      if (
+        curPhase === 'PAUSED' &&
+        (e.key === 'Enter' || e.key === ' ' || code === 13 || code === 32)
+      ) {
+        const activeEl = document.activeElement as HTMLElement | null;
+        if (activeEl?.getAttribute('data-tv-control') === '1') {
+          return;
+        }
+        e.preventDefault();
+        sendTvControl('resume', '▶️ Show hervat!');
+        return;
+      }
+
+      // Green button (404) -> Test sound in Lobby, +15s during active game
+      if (code === 404) {
+        e.preventDefault();
+        if (curPhase === 'LOBBY') {
+          sendTvControl('testSound', '🔊 Geluidstest afgespeeld!');
+        } else if (inActiveGame) {
+          sendTvControl('addTime', '⏱️ +15 seconden extra!');
+        }
+        return;
+      }
+
+      // Yellow button (405) / 'm' -> Toggle TV Mute
+      if (code === 405 || e.key.toLowerCase() === 'm') {
+        e.preventDefault();
+        const willMute = !gameState?.tvMuted;
+        sendTvControl(
+          'toggleMute',
+          willMute ? '🔇 TV-geluid gedempt' : '🔊 TV-geluid weer aan'
+        );
+        return;
+      }
+
+      // Blue button (406) / 'f' -> Toggle Fullscreen
+      if (code === 406 || e.key.toLowerCase() === 'f') {
+        e.preventDefault();
+        void toggleFullscreen();
+        return;
+      }
+
+      // FastForward (417) / MediaTrackNext -> Skip / Next step during game
+      if (code === 417 || e.key === 'MediaFastForward' || e.key === 'MediaTrackNext') {
+        if (inActiveGame) {
+          e.preventDefault();
+          sendTvControl('skip', '⏭️ Volgende stap');
+        }
+        return;
+      }
+
+      // Rewind (412) -> Replay audio clip in Sound Challenge
+      if (code === 412 || e.key === 'MediaRewind') {
+        if (gameState?.activeRound?.roundType === 'sound') {
+          e.preventDefault();
+          sendTvControl('replaySound', '🔊 Geluid opnieuw afgespeeld!');
+        }
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [started, gameState?.phase, gameState?.tvMuted, gameState?.activeRound?.roundType]);
+
   if (!started) {
     return (
-      <div className="min-h-screen w-full studio-stage-bg flex flex-col items-center justify-center p-8 text-center select-none">
+      <div
+        onContextMenu={(e) => e.preventDefault()}
+        className="min-h-screen w-full studio-stage-bg flex flex-col items-center justify-center p-8 text-center select-none"
+      >
         <div className="studio-panel-gold rounded-3xl p-12 max-w-3xl w-full flex flex-col items-center gap-8">
           <div className="w-28 h-28 rounded-3xl bg-[#F5C542]/20 border-2 border-[#F5C542] flex items-center justify-center text-6xl shadow-[0_0_30px_rgba(245,197,66,0.4)]">
             🎬
@@ -190,17 +408,28 @@ export const TvApp: React.FC = () => {
               {gameState?.showTitle || 'De Grote Familie Bongers Show'}
             </h1>
             <p className="text-2xl text-slate-300 max-w-xl mx-auto">
-              Klik één keer met de afstandsbediening om het TV-geluid en het
-              showpodium te activeren. Daarna bestuur je alles vanaf de
-              telefoons!
+              Richt de LG Magic Remote en klik één keer — of druk direct op{' '}
+              <span className="text-[#F5C542] font-bold">OK (wiel)</span> — om
+              het TV-geluid en het showpodium op volledig scherm te starten!
             </p>
           </div>
           <button
+            ref={startBtnRef}
+            autoFocus
             onClick={handleStartShowClick}
-            className="px-12 py-6 rounded-2xl bg-gradient-to-r from-[#F5C542] to-[#F59E0B] text-[#070B18] font-display text-4xl font-bold shadow-[0_0_40px_rgba(245,197,66,0.6)] hover:scale-105 active:scale-95 transition-transform"
+            className="tv-focusable px-14 py-7 rounded-2xl bg-gradient-to-r from-[#F5C542] to-[#F59E0B] text-[#070B18] font-display text-4xl font-bold shadow-[0_0_40px_rgba(245,197,66,0.6)] hover:scale-105 active:scale-95 transition-transform"
           >
             🎬 START DE SHOW
           </button>
+          <div className="text-lg text-slate-300 flex flex-wrap items-center justify-center gap-4 pt-2 border-t border-white/10 w-full">
+            <span className="px-3 py-1 rounded-lg bg-white/10 text-[#F5C542] font-semibold">
+              ✨ OK / Klik = Starten
+            </span>
+            <span>🔴 Pauze</span>
+            <span>🟢 Geluidstest / +15s</span>
+            <span>🟡 Geluid aan/uit</span>
+            <span>🔵 Volledig scherm</span>
+          </div>
         </div>
       </div>
     );
@@ -233,7 +462,16 @@ export const TvApp: React.FC = () => {
   const modeMeta = GAME_MODE_META[settings.gameMode];
 
   return (
-    <div className="tv-safe-area studio-stage-bg relative select-none">
+    <div
+      onContextMenu={(e) => e.preventDefault()}
+      className="tv-safe-area studio-stage-bg relative select-none"
+    >
+      {/* LG Magic Remote Action Toast */}
+      {remoteToast && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 px-7 py-3 rounded-2xl bg-[#070B18]/95 border-2 border-[#F5C542] text-[#F5C542] font-display text-2xl shadow-[0_0_30px_rgba(245,197,66,0.55)] pointer-events-none">
+          {remoteToast}
+        </div>
+      )}
       {/* Animated OLED Studio Spotlights */}
       <div
         className="pointer-events-none fixed inset-0 overflow-hidden z-0"
@@ -326,8 +564,8 @@ export const TvApp: React.FC = () => {
           )}
         </div>
 
-        {/* Co-op Family Crown OR TV Audio Status */}
-        <div className="flex items-center gap-5">
+        {/* Co-op Family Crown + LG Magic Remote Controls */}
+        <div className="flex items-center gap-3">
           {settings.gameMode === 'coop' && (
             <div className="flex items-center gap-2 bg-[#1B2752] px-4 py-2 rounded-xl border border-[#F5C542]">
               <Crown className="w-6 h-6 text-[#F5C542]" />
@@ -357,13 +595,115 @@ export const TvApp: React.FC = () => {
             </div>
           )}
 
-          <div className="flex items-center gap-2 text-slate-300 text-lg">
+          {/* Contextual LG Magic Remote Controls (large air-mouse + D-pad buttons) */}
+          {phase === 'LOBBY' && (
+            <button
+              type="button"
+              data-tv-control="1"
+              onClick={() =>
+                sendTvControl('testSound', '🔊 Geluidstest afgespeeld!')
+              }
+              title="Geluidstest (Groene knop)"
+              className="tv-focusable min-h-[48px] px-4 py-2 rounded-xl bg-[#1B2752] border border-emerald-400/50 text-emerald-300 font-display text-lg flex items-center gap-2 hover:bg-emerald-500/20"
+            >
+              <BellRing className="w-5 h-5" />
+              <span>Test</span>
+            </button>
+          )}
+
+          {phase !== 'LOBBY' && phase !== 'FINALE' && (
+            <>
+              <button
+                type="button"
+                data-tv-control="1"
+                onClick={() =>
+                  phase === 'PAUSED'
+                    ? sendTvControl('resume', '▶️ Show hervat!')
+                    : sendTvControl('pause', '⏸️ Show gepauzeerd')
+                }
+                title="Pauze / Hervat (Rode knop)"
+                className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-[#1B2752] border border-rose-400/50 text-white font-display text-lg flex items-center gap-1.5 hover:bg-rose-500/20"
+              >
+                {phase === 'PAUSED' ? (
+                  <Play className="w-5 h-5 text-[#4ADE80]" />
+                ) : (
+                  <Pause className="w-5 h-5 text-amber-300" />
+                )}
+              </button>
+
+              <button
+                type="button"
+                data-tv-control="1"
+                onClick={() =>
+                  sendTvControl('addTime', '⏱️ +15 seconden extra!')
+                }
+                title="+15 seconden (Groene knop)"
+                className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-[#1B2752] border border-emerald-400/50 text-emerald-300 font-display text-lg flex items-center gap-1 hover:bg-emerald-500/20"
+              >
+                <PlusCircle className="w-5 h-5" />
+                <span>15s</span>
+              </button>
+
+              {activeRound?.roundType === 'sound' && (
+                <button
+                  type="button"
+                  data-tv-control="1"
+                  onClick={() =>
+                    sendTvControl('replaySound', '🔊 Geluid opnieuw!')
+                  }
+                  title="Geluid opnieuw (Terugspoelen)"
+                  className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-[#1B2752] border border-sky-400/50 text-sky-300 font-display text-lg flex items-center gap-1 hover:bg-sky-500/20"
+                >
+                  <RotateCcw className="w-5 h-5" />
+                </button>
+              )}
+
+              <button
+                type="button"
+                data-tv-control="1"
+                onClick={() => sendTvControl('skip', '⏭️ Volgende stap')}
+                title="Volgende stap (Doorspoelen)"
+                className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-[#1B2752] border border-white/25 text-slate-200 font-display text-lg flex items-center gap-1 hover:bg-white/15"
+              >
+                <SkipForward className="w-5 h-5" />
+              </button>
+            </>
+          )}
+
+          <button
+            type="button"
+            data-tv-control="1"
+            onClick={() =>
+              sendTvControl(
+                'toggleMute',
+                !gameState.tvMuted
+                  ? '🔇 TV-geluid gedempt'
+                  : '🔊 TV-geluid weer aan'
+              )
+            }
+            title="TV-geluid aan/uit (Gele knop)"
+            className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-[#1B2752] border border-amber-400/40 flex items-center justify-center hover:bg-amber-400/15"
+          >
             {gameState.tvMuted ? (
-              <VolumeX className="w-7 h-7 text-red-400" />
+              <VolumeX className="w-6 h-6 text-red-400" />
             ) : (
-              <Volume2 className="w-7 h-7 text-[#22C55E]" />
+              <Volume2 className="w-6 h-6 text-[#22C55E]" />
             )}
-          </div>
+          </button>
+
+          <button
+            type="button"
+            data-tv-control="1"
+            onClick={toggleFullscreen}
+            title="Volledig scherm (Blauwe knop)"
+            className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-[#1B2752] border border-sky-400/40 text-sky-300 flex items-center justify-center hover:bg-sky-400/15"
+          >
+            {isFullscreen ? (
+              <Minimize2 className="w-6 h-6" />
+            ) : (
+              <Maximize2 className="w-6 h-6" />
+            )}
+          </button>
         </div>
       </header>
 
@@ -571,6 +911,18 @@ export const TvApp: React.FC = () => {
                     )}
                   </div>
                 )}
+
+              {/* LG Magic Remote Sneltoetsen Legend */}
+              <div className="studio-panel rounded-2xl px-5 py-2.5 flex flex-wrap items-center justify-between gap-3 text-base text-slate-200">
+                <span className="font-display text-lg text-[#F5C542]">
+                  📺 LG Magic Remote:
+                </span>
+                <span>🔴 Pauze / Hervat</span>
+                <span>🟢 Test / +15s</span>
+                <span>🟡 Geluid aan/uit</span>
+                <span>🔵 Volledig scherm</span>
+                <span>⏩ Volgende</span>
+              </div>
             </div>
           </div>
         )}
@@ -1616,15 +1968,26 @@ export const TvApp: React.FC = () => {
         {/* PAUSE OVERLAY */}
         {phase === 'PAUSED' && (
           <div className="absolute inset-0 bg-[#070B18]/90 backdrop-blur-md z-40 flex items-center justify-center">
-            <div className="studio-panel-gold rounded-3xl p-12 text-center max-w-2xl">
-              <div className="text-7xl mb-4">⏸️</div>
-              <h2 className="font-display text-6xl text-[#F5C542] mb-3">
+            <div className="studio-panel-gold rounded-3xl p-12 text-center max-w-2xl flex flex-col items-center gap-6">
+              <div className="text-7xl">⏸️</div>
+              <h2 className="font-display text-6xl text-[#F5C542]">
                 PAUZE — Zo weer verder!
               </h2>
               <p className="text-2xl text-slate-300">
-                Alle klokken staan netjes stil. Druk op de Host-telefoon op
-                &quot;Hervat&quot; zodra iedereen weer zit!
+                Alle klokken staan netjes stil. Druk op de Host-telefoon of op
+                de LG Magic Remote (<span className="text-[#F5C542] font-bold">OK</span> of{' '}
+                <span className="text-rose-400 font-bold">Rood</span>) zodra
+                iedereen weer zit!
               </p>
+              <button
+                ref={resumeBtnRef}
+                type="button"
+                autoFocus
+                onClick={() => sendTvControl('resume', '▶️ Show hervat!')}
+                className="tv-focusable px-10 py-5 rounded-2xl bg-gradient-to-r from-[#22C55E] to-emerald-500 text-[#070B18] font-display text-3xl font-bold shadow-[0_0_30px_rgba(34,197,94,0.5)] hover:scale-105 transition-transform"
+              >
+                ▶️ HERVAT DE SHOW
+              </button>
             </div>
           </div>
         )}

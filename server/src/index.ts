@@ -347,6 +347,26 @@ export async function createAppServer(options?: {
       }
     });
 
+    // Safe TV-side remote controls (e.g., LG Magic Remote buttons on /tv)
+    const ALLOWED_TV_ACTIONS = new Set([
+      'pause',
+      'resume',
+      'addTime',
+      'skip',
+      'toggleMute',
+      'testSound',
+      'replaySound',
+    ]);
+    socket.on('tv:control', (payload: { action?: string }) => {
+      if (!tvSockets.has(socket.id)) return;
+      if (
+        typeof payload?.action === 'string' &&
+        ALLOWED_TV_ACTIONS.has(payload.action)
+      ) {
+        engine.handleHostControl(payload.action);
+      }
+    });
+
     socket.on('disconnect', () => {
       tvSockets.delete(socket.id);
       const pid = engine.roomManager.unbindSocket(socket.id);

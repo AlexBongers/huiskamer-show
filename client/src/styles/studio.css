@@ -30,6 +30,27 @@ textarea {
   min-width: 0;
 }
 
+/* LG Magic Remote & D-pad Spatial Navigation Focus Ring (visible from 3m on 65" OLED) */
+.tv-focusable {
+  outline: none;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.tv-focusable:focus,
+.tv-focusable:focus-visible,
+.tv-focusable:hover {
+  outline: none;
+  border-color: #FFFFFF !important;
+  box-shadow: 0 0 0 4px rgba(245, 197, 66, 0.95), 0 0 36px rgba(245, 197, 66, 0.55);
+  transform: scale(1.04);
+}
+
+.tv-safe-area {
+  overscroll-behavior: none;
+  touch-action: manipulation;
+}
+
 h1, h2, h3, h4, .font-display {
   font-family: 'Fredoka', sans-serif;
 }
