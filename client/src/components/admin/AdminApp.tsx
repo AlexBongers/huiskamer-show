@@ -38,6 +38,7 @@ import {
   IllustrationView,
 } from '../illustrations/IllustrationLibrary';
 import { SOUND_PRESET_LIST, soundEngine } from '../../services/soundEngine';
+import { speechService } from '../../services/speechService';
 import {
   THEMES,
   getThemeOverride,
@@ -62,7 +63,17 @@ export const AdminApp: React.FC = () => {
   const [errorToast, setErrorToast] = useState<string>('');
 
   const [config, setConfig] = useState<ShowConfig | null>(null);
+  const [qartIds, setQartIds] = useState<Set<string>>(() => new Set());
   const [quizList, setQuizList] = useState<QuizQuestion[]>([]);
+
+  useEffect(() => {
+    fetch('/api/qart/manifest')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { ids?: string[] } | null) => {
+        if (d && Array.isArray(d.ids)) setQartIds(new Set(d.ids));
+      })
+      .catch(() => {});
+  }, []);
   const [thirtyList, setThirtyList] = useState<ThirtySecondsCard[]>([]);
   const [soundList, setSoundList] = useState<SoundChallenge[]>([]);
   const [zoomList, setZoomList] = useState<ZoomPhotoChallenge[]>([]);
@@ -1387,34 +1398,56 @@ export const AdminApp: React.FC = () => {
                   key={q.id}
                   className="p-4 rounded-2xl bg-studio-bg/80 border border-white/15 flex items-start justify-between gap-4"
                 >
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs px-2 py-0.5 rounded bg-studio-cardLight text-studio-gold font-bold">
-                        {q.level.toUpperCase()}
-                      </span>
-                      <span className="text-xs text-slate-400">
-                        {q.category}
-                      </span>
-                    </div>
-                    <div className="font-display text-lg text-white">
-                      {q.prompt}
-                    </div>
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {q.options.map((o) => (
-                        <span
-                          key={o.id}
-                          className={`text-xs px-2.5 py-1 rounded-lg ${
-                            o.id === q.correctOptionId
-                              ? 'bg-emerald-900 text-emerald-200 border border-emerald-400 font-bold'
-                              : 'bg-slate-900 text-slate-300'
-                          }`}
-                        >
-                          {o.label}
+                  <div className="flex items-start gap-3.5 min-w-0 flex-1">
+                    {qartIds.has(q.id) && (
+                      <div className="w-28 aspect-video rounded-xl overflow-hidden border border-white/15 bg-studio-bg flex-shrink-0 hidden sm:block">
+                        <img
+                          src={`/qart/${q.id}.jpg`}
+                          alt={q.id}
+                          loading="lazy"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xs px-2 py-0.5 rounded bg-studio-cardLight text-studio-gold font-bold">
+                          {q.level.toUpperCase()}
                         </span>
-                      ))}
+                        <span className="text-xs text-slate-400">
+                          {q.category}
+                        </span>
+                      </div>
+                      <div className="font-display text-lg text-white">
+                        {q.prompt}
+                      </div>
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {q.options.map((o) => (
+                          <span
+                            key={o.id}
+                            className={`text-xs px-2.5 py-1 rounded-lg ${
+                              o.id === q.correctOptionId
+                                ? 'bg-emerald-900 text-emerald-200 border border-emerald-400 font-bold'
+                                : 'bg-slate-900 text-slate-300'
+                            }`}
+                          >
+                            {o.label}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                   <div className="flex items-center gap-1.5 flex-shrink-0">
+                    <button
+                      onClick={() => {
+                        speechService.unlock();
+                        speechService.speak(q.spokenPrompt || q.prompt);
+                      }}
+                      className="p-2 rounded-xl bg-studio-cardLight text-sky-300 hover:bg-sky-900/60"
+                      title="Luister naar Roos"
+                    >
+                      <Volume2 className="w-4 h-4" />
+                    </button>
                     <button
                       onClick={() => startEditQuiz(q)}
                       className="p-2 rounded-xl bg-studio-cardLight text-studio-gold hover:bg-amber-900/50"

@@ -93,10 +93,22 @@ export const PlayerApp: React.FC = () => {
   const lastSpokenQuestionIdRef = useRef<string>('');
   const lastVibratedSecondRef = useRef<number>(-1);
   const lastSpokenSoundPromptRef = useRef<string>('');
+  const prevPhaseRef = useRef<string>('LOBBY');
+  const latestSoundOptionsRef = useRef<Array<{ label: string }>>([]);
   const [speakingOptionIdx, setSpeakingOptionIdx] = useState<number | null>(
     null
   );
   const [qartIds, setQartIds] = useState<Set<string>>(() => new Set());
+
+  // Unlock HTML5 Audio on the very first touch/click anywhere (critical for iOS Safari & Android Chrome auto-speak!)
+  useEffect(() => {
+    const unlockOnce = () => {
+      speechService.unlock();
+      setHasUserInteracted(true);
+    };
+    window.addEventListener('pointerdown', unlockOnce, { once: true, passive: true });
+    return () => window.removeEventListener('pointerdown', unlockOnce);
+  }, []);
 
   const speakWithColorOptions = (
     promptText: string | null,
@@ -110,19 +122,27 @@ export const PlayerApp: React.FC = () => {
         onStart: () => setSpeakingOptionIdx(null),
       });
     }
-    options.slice(0, 4).forEach((opt, idx) => {
-      const col = ANSWER_COLOR_META[idx % ANSWER_COLOR_META.length];
-      steps.push({
-        text: col.name,
-        pauseMs: 90,
-        onStart: () => setSpeakingOptionIdx(idx),
+    const opts = options.slice(0, 4);
+    const allOptionsRecorded =
+      opts.length > 0 &&
+      opts.every((opt) => speechService.hasStudioRecording(opt.label));
+
+    // Only append color+answer clips when all options have Roos studio recordings (or when reading options-only in Sound round)
+    if (allOptionsRecorded || !promptText) {
+      opts.forEach((opt, idx) => {
+        const col = ANSWER_COLOR_META[idx % ANSWER_COLOR_META.length];
+        steps.push({
+          text: col.name,
+          pauseMs: 90,
+          onStart: () => setSpeakingOptionIdx(idx),
+        });
+        steps.push({
+          text: opt.label,
+          pauseMs: 260,
+          onStart: () => setSpeakingOptionIdx(idx),
+        });
       });
-      steps.push({
-        text: opt.label,
-        pauseMs: 260,
-        onStart: () => setSpeakingOptionIdx(idx),
-      });
-    });
+    }
     speechService.speakSequence(steps, () => setSpeakingOptionIdx(null));
   };
 
@@ -244,37 +264,52 @@ export const PlayerApp: React.FC = () => {
     return () => window.clearTimeout(t);
   }, [confirmReset]);
 
-  // Automatic Dutch TTS reading (question + 4 color-coded options) when autoSpeak is enabled (e.g. Lucas)
+  // Stop Roos cleanly whenever leaving ROUND_ACTIVE, and reset spoken refs on new show (LOBBY)
   useEffect(() => {
-    if (gameState?.phase !== 'ROUND_ACTIVE') {
+    const curPhase = gameState?.phase || 'LOBBY';
+    if (prevPhaseRef.current === 'ROUND_ACTIVE' && curPhase !== 'ROUND_ACTIVE') {
+      speechService.stop();
       setSpeakingOptionIdx(null);
-      return;
     }
-    if (!myPlayer || !privateView?.myQuizQuestion) return;
+    if (curPhase === 'LOBBY') {
+      lastSpokenQuestionIdRef.current = '';
+      lastSpokenSoundPromptRef.current = '';
+    }
+    prevPhaseRef.current = curPhase;
+  }, [gameState?.phase]);
 
-    const q = privateView.myQuizQuestion;
+  // Automatic Dutch TTS reading (question + 4 color-coded options) when autoSpeak is enabled (e.g. Lucas)
+  const activeQuizId = privateView?.myQuizQuestion?.id;
+  useEffect(() => {
+    if (gameState?.phase !== 'ROUND_ACTIVE') return;
+    const q = privateView?.myQuizQuestion;
+    if (!myPlayer || !q) return;
+
     if (shouldAutoSpeak && lastSpokenQuestionIdRef.current !== q.id) {
       lastSpokenQuestionIdRef.current = q.id;
       speakWithColorOptions(q.spokenPrompt || q.prompt, q.options);
     }
-  }, [myPlayer, shouldAutoSpeak, privateView?.myQuizQuestion, gameState?.phase]);
+  }, [myPlayer?.id, shouldAutoSpeak, activeQuizId, gameState?.phase]);
 
-  // Automatic Dutch TTS reading of color-coded options in Sound Challenge (after TV sound plays)
+  // Keep latest Sound Challenge options in a ref so 1-second timer updates never cancel the 2.4s auto-speak delay!
+  if (privateView?.mySoundChallenge?.options) {
+    latestSoundOptionsRef.current = privateView.mySoundChallenge.options;
+  }
+  const activeSoundPrompt = privateView?.mySoundChallenge?.prompt;
   useEffect(() => {
     if (gameState?.phase !== 'ROUND_ACTIVE') return;
-    const sc = privateView?.mySoundChallenge;
-    if (!myPlayer || !sc || !shouldAutoSpeak) return;
-    const key = `${gameState.activeRound?.roundNumber}:${sc.prompt}`;
+    if (!myPlayer || !activeSoundPrompt || !shouldAutoSpeak) return;
+    const key = `${gameState.activeRound?.roundNumber}:${activeSoundPrompt}`;
     if (lastSpokenSoundPromptRef.current === key) return;
     lastSpokenSoundPromptRef.current = key;
     const t = window.setTimeout(() => {
-      speakWithColorOptions(null, sc.options);
+      speakWithColorOptions(null, latestSoundOptionsRef.current);
     }, 2400);
     return () => window.clearTimeout(t);
   }, [
-    myPlayer,
+    myPlayer?.id,
     shouldAutoSpeak,
-    privateView?.mySoundChallenge,
+    activeSoundPrompt,
     gameState?.phase,
     gameState?.activeRound?.roundNumber,
   ]);
@@ -342,6 +377,7 @@ export const PlayerApp: React.FC = () => {
 
   const handleJoinFamilyProfile = (prof: FamilyProfile, avatarOverride?: string) => {
     setHasUserInteracted(true);
+    speechService.unlock();
     vibrateDevice(30);
     socketService.socket.emit('player:join', {
       profileId: prof.id,
@@ -356,6 +392,7 @@ export const PlayerApp: React.FC = () => {
     e.preventDefault();
     if (!guestName.trim()) return;
     setHasUserInteracted(true);
+    speechService.unlock();
     vibrateDevice(30);
     socketService.socket.emit('player:join', {
       name: guestName.trim(),
@@ -1420,9 +1457,10 @@ export const PlayerApp: React.FC = () => {
                                     {currentItem.word}
                                   </div>
                                   <button
-                                    onClick={() =>
-                                      speechService.speak(currentItem.word)
-                                    }
+                                    onClick={() => {
+                                      speechService.unlock();
+                                      speechService.speak(currentItem.word);
+                                    }}
                                     className="px-5 py-2.5 rounded-2xl bg-[#3B82F6] text-white font-display text-lg flex items-center gap-2"
                                   >
                                     <Volume2 className="w-6 h-6" /> 🔊 Fluister
@@ -2118,13 +2156,14 @@ export const PlayerApp: React.FC = () => {
 
               {(isOntdekker || isAvonturier) && (
                 <button
-                  onClick={() =>
+                  onClick={() => {
+                    speechService.unlock();
                     speechService.speak(
                       privateView.myEstimateChallenge?.spokenPrompt ||
                         privateView.myEstimateChallenge?.prompt ||
                         ''
-                    )
-                  }
+                    );
+                  }}
                   className="py-2.5 rounded-xl bg-[#3B82F6] text-white font-display text-lg flex items-center justify-center gap-2"
                 >
                   <Volume2 className="w-5 h-5" /> 🔊 Lees schattingsvraag voor

@@ -94,11 +94,12 @@ def collect_texts() -> list[tuple[str, str]]:
     for c in ANSWER_COLOR_WORDS:
         raw_items.append(("answer_colors", c))
 
-    # Priority 1b: Answer option labels for Ontdekker (Lucas) & Sound Challenges
-    for q in quiz:
-        if q.get("level") == "ontdekker":
-            for opt in q.get("options", []):
-                raw_items.append(("ontdekker_opt", opt["label"]))
+    # Priority 1b: Answer option labels for Ontdekker (Lucas), Avonturier (Lana) & Sound Challenges
+    for lvl in ["ontdekker", "avonturier"]:
+        for q in quiz:
+            if q.get("level") == lvl:
+                for opt in q.get("options", []):
+                    raw_items.append((f"{lvl}_opt", opt["label"]))
     for s in snd:
         for opt in s.get("options", []):
             raw_items.append(("sound_opt", opt["label"]))

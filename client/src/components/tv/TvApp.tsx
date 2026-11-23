@@ -278,6 +278,10 @@ export const TvApp: React.FC = () => {
     }
 
     const phase = gameState.phase;
+    if (phase === 'LOBBY') {
+      lastSpokenPhaseKeyRef.current = '';
+      return;
+    }
     const roundNum = gameState.activeRound?.roundNumber || 0;
     const roundType = gameState.activeRound?.roundType || '';
     const key = `${phase}:${roundNum}:${roundType}`;
@@ -287,15 +291,22 @@ export const TvApp: React.FC = () => {
     lastSpokenPhaseKeyRef.current = key;
 
     if (phase === 'ROUND_INTRO' && TV_ROUND_INTRO_VOICE[roundType]) {
-      speechService.speak(TV_ROUND_INTRO_VOICE[roundType]);
+      // Brief 400ms delay so the studio wheel-stop jingle finishes cleanly before Roos speaks
+      const t = window.setTimeout(() => {
+        speechService.speak(TV_ROUND_INTRO_VOICE[roundType]);
+      }, 400);
+      return () => window.clearTimeout(t);
     } else if (phase === 'PAUSED') {
       speechService.speak('Even pauze! Alle klokken staan netjes stil.');
-    } else if (prevKey.startsWith('PAUSED:') && phase !== 'LOBBY') {
+    } else if (prevKey.startsWith('PAUSED:')) {
       speechService.speak('We gaan weer verder! Veel succes allemaal!');
     } else if (phase === 'FINALE') {
-      speechService.speak(
-        'En dat was de grote finale! Wat een fantastische show, applaus voor iedereen!'
-      );
+      const t = window.setTimeout(() => {
+        speechService.speak(
+          'En dat was de grote finale! Wat een fantastische show, applaus voor iedereen!'
+        );
+      }, 650);
+      return () => window.clearTimeout(t);
     }
   }, [
     started,
