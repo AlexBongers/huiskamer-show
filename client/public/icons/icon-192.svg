@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
-  <rect width="192" height="192" rx="40" fill="#070B18"/>
-  <circle cx="96" cy="96" r="76" fill="#111936" stroke="#F5C542" stroke-width="6"/>
-  <polygon points="96,34 113,70 152,75 124,102 131,142 96,123 61,142 68,102 40,75 79,70" fill="#F5C542"/>
+  <rect width="192" height="192" rx="40" fill="#0F2A3A"/>
+  <circle cx="96" cy="96" r="76" fill="#173A4E" stroke="#FFD23F" stroke-width="6"/>
+  <polygon points="96,34 113,70 152,75 124,102 131,142 96,123 61,142 68,102 40,75 79,70" fill="#FFD23F"/>
   <circle cx="96" cy="96" r="18" fill="#EC4899"/>
 </svg>

@@ -232,11 +232,56 @@ const ALLOWED_AUDIO_MIME_TO_EXT: Record<string, string> = {
   'audio/webm': '.webm',
 };
 
+
+/**
+ * Eenvoudige rem op PIN-pogingen: na 5 foute pogingen binnen 10 minuten blokkeert een IP-adres 5 minuten.
+ * Een pincode van 4 cijfers heeft maar 10.000 mogelijkheden, dus zonder rem is hij snel te raden.
+ */
+const PIN_MAX_FAILURES = 5;
+const PIN_WINDOW_MS = 10 * 60 * 1000;
+const PIN_BLOCK_MS = 5 * 60 * 1000;
+
+function createPinLimiter() {
+  const failures = new Map<
+    string,
+    { count: number; firstAt: number; blockedUntil: number }
+  >();
+
+  return {
+    /** Aantal milliseconden dat dit adres nog geblokkeerd is (0 = niet geblokkeerd). */
+    blockedMs(ip: string): number {
+      const rec = failures.get(ip);
+      if (!rec) return 0;
+      const left = rec.blockedUntil - Date.now();
+      if (left > 0) return left;
+      if (rec.blockedUntil > 0) failures.delete(ip);
+      return 0;
+    },
+    fail(ip: string): void {
+      const now = Date.now();
+      let rec = failures.get(ip);
+      if (!rec || now - rec.firstAt > PIN_WINDOW_MS) {
+        rec = { count: 0, firstAt: now, blockedUntil: 0 };
+      }
+      rec.count += 1;
+      if (rec.count >= PIN_MAX_FAILURES) {
+        rec.blockedUntil = now + PIN_BLOCK_MS;
+        rec.count = 0;
+      }
+      failures.set(ip, rec);
+    },
+    succeed(ip: string): void {
+      failures.delete(ip);
+    },
+  };
+}
+
 export function createAdminRouter(
   store: DataStore,
   onConfigUpdated: () => void
 ): express.Router {
   const router = express.Router();
+  const pinLimiter = createPinLimiter();
 
   const imageStorage = multer.diskStorage({
     destination: (_req, _file, cb) => cb(null, store.imagesDir),
@@ -321,22 +366,45 @@ export function createAdminRouter(
   });
 
   router.post('/admin/pin-verify', (req, res) => {
+    const ip = req.ip || 'onbekend';
+    const blocked = pinLimiter.blockedMs(ip);
+    if (blocked > 0) {
+      res.setHeader('Retry-After', String(Math.ceil(blocked / 1000)));
+      res.status(429).json({
+        valid: false,
+        error: 'Te veel pogingen. Probeer het over een paar minuten opnieuw.',
+      });
+      return;
+    }
     const pin = String(req.body?.pin || '');
     const ok = store.verifyAdminPin(pin);
     if (!ok) {
+      pinLimiter.fail(ip);
       res.status(401).json({ valid: false, error: 'Onjuiste Ouder-PIN' });
       return;
     }
+    pinLimiter.succeed(ip);
     res.json({ valid: true });
   });
 
   // Optional Parent PIN protection middleware for all other /admin/* routes
   router.use('/admin', (req, res, next) => {
+    const ip = req.ip || 'onbekend';
+    const blocked = pinLimiter.blockedMs(ip);
+    if (blocked > 0) {
+      res.setHeader('Retry-After', String(Math.ceil(blocked / 1000)));
+      res.status(429).json({
+        error: 'Te veel pogingen. Probeer het over een paar minuten opnieuw.',
+      });
+      return;
+    }
     const pinHeader = req.header('X-Admin-Pin');
     if (!store.verifyAdminPin(pinHeader)) {
+      pinLimiter.fail(ip);
       res.status(401).json({ error: 'Ouder-PIN vereist voor Gezins-Editor' });
       return;
     }
+    pinLimiter.succeed(ip);
     next();
   });
 
@@ -415,11 +483,17 @@ export function createAdminRouter(
       res.status(400).json({ error: parsed.error.flatten() });
       return;
     }
-    if (
-      parsed.data.options &&
-      parsed.data.correctOptionId &&
-      !parsed.data.options.some((o) => o.id === parsed.data.correctOptionId)
-    ) {
+    const existingQuiz = store
+      .getQuizQuestions()
+      .find((q) => q.id === req.params.id);
+    if (!existingQuiz) {
+      res.status(404).json({ error: 'Quizvraag niet gevonden' });
+      return;
+    }
+    const mergedQuizOptions = parsed.data.options ?? existingQuiz.options;
+    const mergedQuizCorrect =
+      parsed.data.correctOptionId ?? existingQuiz.correctOptionId;
+    if (!mergedQuizOptions.some((o) => o.id === mergedQuizCorrect)) {
       res.status(400).json({
         error: 'correctOptionId moet overeenkomen met een van de opties',
       });
@@ -485,11 +559,17 @@ export function createAdminRouter(
       res.status(400).json({ error: parsed.error.flatten() });
       return;
     }
-    if (
-      parsed.data.options &&
-      parsed.data.correctOptionId &&
-      !parsed.data.options.some((o) => o.id === parsed.data.correctOptionId)
-    ) {
+    const existingSound = store
+      .getSoundChallenges()
+      .find((c) => c.id === req.params.id);
+    if (!existingSound) {
+      res.status(404).json({ error: 'Geluidsuitdaging niet gevonden' });
+      return;
+    }
+    const mergedSoundOptions = parsed.data.options ?? existingSound.options;
+    const mergedSoundCorrect =
+      parsed.data.correctOptionId ?? existingSound.correctOptionId;
+    if (!mergedSoundOptions.some((o) => o.id === mergedSoundCorrect)) {
       res.status(400).json({
         error: 'correctOptionId moet overeenkomen met een van de opties',
       });
@@ -521,7 +601,7 @@ export function createAdminRouter(
 
   router.post('/admin/zoom-photos/batch', (req, res) => {
     const batchSchema = z.object({
-      items: z.array(zoomPhotoSchema).min(1),
+      items: z.array(zoomPhotoSchema).min(1).max(200),
     });
     const parsed = batchSchema.safeParse(req.body);
     if (!parsed.success) {

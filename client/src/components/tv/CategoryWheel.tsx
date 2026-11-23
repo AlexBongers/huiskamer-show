@@ -52,7 +52,7 @@ export const CategoryWheel: React.FC<CategoryWheelProps> = ({
       <div className="relative w-[380px] h-[380px] xl:w-[450px] xl:h-[450px] flex items-center justify-center">
         {/* Top Golden Pointer */}
         <div className="absolute -top-5 z-20 flex flex-col items-center">
-          <div className="w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent border-t-[36px] border-t-studio-gold drop-shadow-[0_4px_12px_rgba(255, 210, 63,0.9)]" />
+          <div className="w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent border-t-[36px] border-t-studio-gold" />
         </div>
 
         {/* Spinning SVG Wheel */}

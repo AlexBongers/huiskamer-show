@@ -6,10 +6,37 @@ import os from 'os';
 import path from 'path';
 import QRCode from 'qrcode';
 import { Server as SocketIOServer } from 'socket.io';
-import { SfxCue } from '@huiskamer-show/shared';
+import { DifficultyLevel, SfxCue } from '@huiskamer-show/shared';
 import { GameEngine } from './engine/GameEngine';
 import { createAdminRouter } from './routes/adminApi';
 import { DataStore } from './storage/DataStore';
+
+const VALID_LEVELS = new Set<string>(['ontdekker', 'avonturier', 'meester']);
+
+/** Korte, veilige tekst uit een socket-bericht (geen onbeperkte lengtes). */
+function cleanText(value: unknown, maxLen: number): string | undefined {
+  if (typeof value !== 'string') return undefined;
+  const trimmed = value.trim().slice(0, maxLen);
+  return trimmed.length > 0 ? trimmed : undefined;
+}
+
+/**
+ * Een TV mag het QR-adres alleen aanpassen naar het adres waarmee hij zelf verbonden is.
+ * Zo kan een ander apparaat in het netwerk de QR-code niet naar een vreemde site laten wijzen.
+ */
+function originMatchesHandshake(
+  origin: string,
+  headers: Record<string, string | string[] | undefined>
+): boolean {
+  try {
+    const originHost = new URL(origin).host;
+    const hostHeader = headers.host;
+    const host = Array.isArray(hostHeader) ? hostHeader[0] : hostHeader;
+    return Boolean(host) && originHost === host;
+  } catch {
+    return false;
+  }
+}
 
 function getLocalLanIp(): string {
   const nets = os.networkInterfaces();
@@ -109,7 +136,7 @@ export async function createAppServer(options?: {
         margin: 1,
         width: 280,
         color: {
-          dark: '#070B18',
+          dark: '#0F2A3A',
           light: '#FFFFFF',
         },
       });
@@ -211,6 +238,20 @@ export async function createAppServer(options?: {
     });
   }
 
+  // Vangnet voor onverwachte fouten in routes: een nette JSON-melding, geen stacktrace naar de browser
+  app.use(
+    (
+      err: unknown,
+      _req: express.Request,
+      res: express.Response,
+      _next: express.NextFunction
+    ) => {
+      console.error('Onverwachte serverfout:', err);
+      if (res.headersSent) return;
+      res.status(500).json({ error: 'Er ging iets mis op de server.' });
+    }
+  );
+
   // Helper to verify host permission on socket events
   const requireHost = (socketId: string): boolean => {
     const pid = engine.roomManager.getPlayerIdBySocket(socketId);
@@ -228,6 +269,7 @@ export async function createAppServer(options?: {
         (!process.env.PUBLIC_URL || process.env.PUBLIC_URL.trim() === '') &&
         typeof payload?.origin === 'string' &&
         /^https?:\/\/[^/\s]+$/i.test(payload.origin.trim()) &&
+        originMatchesHandshake(payload.origin.trim(), socket.handshake.headers) &&
         !payload.origin.includes('localhost') &&
         !payload.origin.includes('127.0.0.1')
       ) {
@@ -244,11 +286,13 @@ export async function createAppServer(options?: {
 
         // Strip any client-supplied isHost — server derives Host/Co-Host strictly!
         const { player, sessionToken } = engine.joinOrReconnectPlayer({
-          profileId: payload.profileId,
-          name: String(payload.name || 'Gast'),
-          avatarId: String(payload.avatarId || 'star'),
-          level: payload.level,
-          sessionToken: payload.sessionToken,
+          profileId: cleanText(payload.profileId, 64),
+          name: cleanText(payload.name, 24) || 'Gast',
+          avatarId: cleanText(payload.avatarId, 64) || 'star',
+          level: (VALID_LEVELS.has(payload.level)
+            ? payload.level
+            : undefined) as DifficultyLevel,
+          sessionToken: cleanText(payload.sessionToken, 128),
         });
 
         engine.roomManager.bindSocket(socket.id, player.id);

@@ -989,4 +989,135 @@ describe('De Grote Huiskamer Show — Complete Verification & Code-Check Suite',
       serverInstance.httpServer.close(() => resolve())
     );
   });
+
+  it('11. Code-review hardening: PIN-rem, scrypt-migratie, correctOptionId-check bij bewerken, startGame-guard & ongeldige join-invoer', async () => {
+    const serverInstance = await createAppServer({
+      dataDir: tmpDataDir,
+      seedDir,
+      port: 0,
+      autoAdvanceTimers: false,
+      deterministicMode: true,
+    });
+    await new Promise<void>((resolve) => {
+      serverInstance.httpServer.listen(0, '127.0.0.1', () => resolve());
+    });
+    const address = serverInstance.httpServer.address() as { port: number };
+    const baseUrl = `http://127.0.0.1:${address.port}`;
+    const json = { 'Content-Type': 'application/json' };
+
+    // --- PIN wordt in het nieuwe scrypt-formaat bewaard ---
+    await fetch(`${baseUrl}/api/admin/pin`, {
+      method: 'PUT',
+      headers: json,
+      body: JSON.stringify({ pin: '2468' }),
+    });
+    const storedHash = serverInstance.store.getConfig().adminPinHash || '';
+    expect(storedHash.startsWith('scrypt$')).toBe(true);
+    expect(serverInstance.store.verifyAdminPin('2468')).toBe(true);
+    expect(serverInstance.store.verifyAdminPin('0000')).toBe(false);
+
+    // --- Een bestaande PIN in het oude sha256-formaat blijft werken en wordt omgezet ---
+    const legacy = (DataStore as unknown as {
+      legacyHashPin: (p: string) => string;
+    }).legacyHashPin('1357');
+    serverInstance.store.getConfig().adminPinHash = legacy;
+    expect(serverInstance.store.verifyAdminPin('1357')).toBe(true);
+    expect(
+      (serverInstance.store.getConfig().adminPinHash || '').startsWith('scrypt$')
+    ).toBe(true);
+    expect(serverInstance.store.verifyAdminPin('1357')).toBe(true);
+    serverInstance.store.setAdminPin('2468');
+
+    // --- correctOptionId moet bij bewerken kloppen met de bestaande opties ---
+    const authHeaders = { ...json, 'X-Admin-Pin': '2468' };
+    const quiz = serverInstance.store.getQuizQuestions()[0];
+    const badQuizRes = await fetch(`${baseUrl}/api/admin/quiz/${quiz.id}`, {
+      method: 'PUT',
+      headers: authHeaders,
+      body: JSON.stringify({ correctOptionId: 'bestaat_niet' }),
+    });
+    expect(badQuizRes.status).toBe(400);
+    const missingQuizRes = await fetch(`${baseUrl}/api/admin/quiz/bestaat_niet`, {
+      method: 'PUT',
+      headers: authHeaders,
+      body: JSON.stringify({ prompt: 'x' }),
+    });
+    expect(missingQuizRes.status).toBe(404);
+    const okQuizRes = await fetch(`${baseUrl}/api/admin/quiz/${quiz.id}`, {
+      method: 'PUT',
+      headers: authHeaders,
+      body: JSON.stringify({ funFact: 'Test' }),
+    });
+    expect(okQuizRes.status).toBe(200);
+
+    // --- Na 5 foute PIN-pogingen volgt een blokkade (ook voor de juiste PIN) ---
+    for (let i = 0; i < 5; i++) {
+      const bad = await fetch(`${baseUrl}/api/admin/pin-verify`, {
+        method: 'POST',
+        headers: json,
+        body: JSON.stringify({ pin: '0000' }),
+      });
+      expect(bad.status).toBe(401);
+    }
+    const blockedRes = await fetch(`${baseUrl}/api/admin/pin-verify`, {
+      method: 'POST',
+      headers: json,
+      body: JSON.stringify({ pin: '2468' }),
+    });
+    expect(blockedRes.status).toBe(429);
+    expect(blockedRes.headers.get('Retry-After')).toBeTruthy();
+    const blockedAdmin = await fetch(`${baseUrl}/api/admin/overview`, {
+      headers: authHeaders,
+    });
+    expect(blockedAdmin.status).toBe(429);
+
+    // --- startGame mag een lopend spel niet opnieuw starten ---
+    const engine = serverInstance.engine;
+    engine.joinOrReconnectPlayer({
+      profileId: 'profile_papa',
+      name: 'Papa',
+      avatarId: 'showmaster',
+      level: 'meester',
+    });
+    engine.startGame();
+    expect(engine.phase).toBe('WHEEL_SPIN');
+    const roundBefore = engine.currentRoundNumber;
+    engine.startGame();
+    expect(engine.currentRoundNumber).toBe(roundBefore);
+    expect(engine.resumeSavedSession()).toBe(false);
+
+    // --- configureGame negeert ongeldige waarden ---
+    const modeBefore = engine.settings.gameMode;
+    engine.configureGame({
+      gameMode: 'hacker_mode' as never,
+      enabledRoundTypes: ['bestaat_niet' as never],
+      enabledPacks: ['onbekend' as never],
+    });
+    expect(engine.settings.gameMode).toBe(modeBefore);
+    expect(engine.settings.enabledRoundTypes).not.toContain('bestaat_niet');
+
+    // --- Ongeldige join-invoer wordt opgeschoond (lange naam, onbekend niveau) ---
+    const sock = ClientIO(baseUrl, { transports: ['websocket'] });
+    await new Promise<void>((resolve) => sock.on('connect', () => resolve()));
+    const session = await new Promise<{ player: { name: string; level: string } }>(
+      (resolve) => {
+        sock.emit(
+          'player:join',
+          {
+            name: 'X'.repeat(200),
+            avatarId: 'star',
+            level: 'superheld',
+          },
+          resolve
+        );
+      }
+    );
+    expect(session.player.name.length).toBeLessThanOrEqual(24);
+    expect(['ontdekker', 'avonturier', 'meester']).toContain(session.player.level);
+
+    sock.disconnect();
+    await new Promise<void>((resolve) =>
+      serverInstance.httpServer.close(() => resolve())
+    );
+  });
 });

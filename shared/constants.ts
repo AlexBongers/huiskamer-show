@@ -196,7 +196,7 @@ export const ROUND_TYPE_META: Record<
     name: '30 Seconds Familie-editie',
     emoji: '⏱️',
     shortDesc: 'Omschrijf, maak geluiden of beeld zo veel mogelijk kaartjes uit!',
-    accentColor: '#F5C542',
+    accentColor: '#FFD23F',
   },
   sound: {
     id: 'sound',

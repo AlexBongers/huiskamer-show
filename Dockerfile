@@ -10,7 +10,8 @@ COPY shared/package.json ./shared/
 COPY server/package.json ./server/
 COPY client/package.json ./client/
 
-RUN npm install
+# npm ci: exact de versies uit package-lock.json, dus elke build is hetzelfde
+RUN npm ci
 
 COPY shared ./shared
 COPY server ./server
@@ -34,7 +35,7 @@ COPY shared/package.json ./shared/
 COPY server/package.json ./server/
 COPY client/package.json ./client/
 
-RUN npm install --omit=dev --workspace=shared --workspace=server
+RUN npm ci --omit=dev --workspace=shared --workspace=server
 
 COPY --from=builder /app/shared/dist ./shared/dist
 COPY --from=builder /app/server/dist ./server/dist

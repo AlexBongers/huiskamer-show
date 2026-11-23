@@ -35,6 +35,29 @@ interface InternalThirtySecondsItem {
   status: 'pending' | 'guessed' | 'skipped';
 }
 
+const VALID_GAME_MODES = new Set<string>([
+  'solo',
+  'duo_fixed',
+  'duo_rotating',
+  'coop',
+]);
+const VALID_ROUND_TYPES = new Set<string>([
+  'quiz',
+  'thirty_seconds',
+  'sound',
+  'zoom_photo',
+  'pantomime',
+  'estimate',
+]);
+const VALID_PACKS = new Set<string>([
+  'basis',
+  'sinterklaas',
+  'kerst',
+  'zomer',
+  'verjaardag',
+  'kids_special',
+]);
+
 export class GameEngine {
   private store: DataStore;
   public roomManager: RoomManager;
@@ -232,7 +255,7 @@ export class GameEngine {
       {
         id: 'team_gold',
         name: 'Team Goud',
-        color: '#F5C542',
+        color: '#FFD23F',
         playerIds: [],
         score: 0,
         stars: [],
@@ -355,7 +378,7 @@ export class GameEngine {
       profileId: payload.profileId,
       name: payload.name.trim() || 'Gast',
       avatarId: payload.avatarId || profile?.defaultAvatarId || 'star',
-      color: profile?.color || '#F5C542',
+      color: profile?.color || '#FFD23F',
       level: payload.level || profile?.level || 'avonturier',
       isHost,
       isCoHost: isProfileCoHost && !isProfileHost,
@@ -471,7 +494,10 @@ export class GameEngine {
     surpriseMode?: boolean;
     teamAssignments?: Record<string, string>;
   }): void {
-    if (configPayload.gameMode) {
+    if (
+      configPayload.gameMode &&
+      VALID_GAME_MODES.has(configPayload.gameMode)
+    ) {
       this.settings.gameMode = configPayload.gameMode;
     }
     if (
@@ -484,17 +510,17 @@ export class GameEngine {
         Math.max(1, Math.round(configPayload.totalRounds))
       );
     }
-    if (
-      Array.isArray(configPayload.enabledRoundTypes) &&
-      configPayload.enabledRoundTypes.length > 0
-    ) {
-      this.settings.enabledRoundTypes = configPayload.enabledRoundTypes;
+    if (Array.isArray(configPayload.enabledRoundTypes)) {
+      const types = configPayload.enabledRoundTypes.filter((t) =>
+        VALID_ROUND_TYPES.has(t)
+      );
+      if (types.length > 0) this.settings.enabledRoundTypes = types;
     }
-    if (
-      Array.isArray(configPayload.enabledPacks) &&
-      configPayload.enabledPacks.length > 0
-    ) {
-      this.settings.enabledPacks = configPayload.enabledPacks;
+    if (Array.isArray(configPayload.enabledPacks)) {
+      const packs = configPayload.enabledPacks.filter((p) =>
+        VALID_PACKS.has(p)
+      );
+      if (packs.length > 0) this.settings.enabledPacks = packs;
     }
     if (typeof configPayload.surpriseMode === 'boolean') {
       this.settings.surpriseMode = configPayload.surpriseMode;
@@ -605,6 +631,8 @@ export class GameEngine {
 
   public startGame(): void {
     if (this.players.length === 0) return;
+    // Alleen vanuit de lobby of de finale: een dubbele tik mag een lopend spel niet opnieuw starten.
+    if (this.phase !== 'LOBBY' && this.phase !== 'FINALE') return;
 
     this.clearTimers();
     this.store.clearActiveSession();
@@ -665,6 +693,7 @@ export class GameEngine {
   }
 
   public resumeSavedSession(): boolean {
+    if (this.phase !== 'LOBBY') return false;
     const saved = this.store.getSavedActiveSession();
     if (!saved) return false;
 

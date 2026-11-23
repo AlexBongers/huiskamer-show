@@ -256,11 +256,19 @@ export class DataStore {
     return this.getPublicConfig();
   }
 
-  public static hashPin(pin: string): string {
+  /** Oud formaat (v1): sha256 met een vaste salt. Alleen nog nodig om bestaande PIN's te herkennen. */
+  private static legacyHashPin(pin: string): string {
     return crypto
       .createHash('sha256')
       .update(`${PIN_SALT}:${pin.trim()}`)
       .digest('hex');
+  }
+
+  /** Nieuw formaat: scrypt met een eigen willekeurige salt per PIN ("scrypt$<salt>$<hash>"). */
+  public static hashPin(pin: string): string {
+    const salt = crypto.randomBytes(16).toString('hex');
+    const hash = crypto.scryptSync(pin.trim(), salt, 32).toString('hex');
+    return `scrypt$${salt}$${hash}`;
   }
 
   public setAdminPin(pin: string | null): ShowConfig {
@@ -280,10 +288,28 @@ export class DataStore {
       return true;
     }
     if (!pin) return false;
-    const candidate = Buffer.from(DataStore.hashPin(pin), 'hex');
-    const stored = Buffer.from(this.config.adminPinHash, 'hex');
-    if (candidate.length !== stored.length) return false;
-    return crypto.timingSafeEqual(candidate, stored);
+    const storedHash = this.config.adminPinHash;
+
+    let ok = false;
+    if (storedHash.startsWith('scrypt$')) {
+      const [, salt, hash] = storedHash.split('$');
+      if (!salt || !hash) return false;
+      const stored = Buffer.from(hash, 'hex');
+      const candidate = crypto.scryptSync(pin.trim(), salt, stored.length);
+      ok = crypto.timingSafeEqual(candidate, stored);
+    } else {
+      const candidate = Buffer.from(DataStore.legacyHashPin(pin), 'hex');
+      const stored = Buffer.from(storedHash, 'hex');
+      ok =
+        candidate.length === stored.length &&
+        crypto.timingSafeEqual(candidate, stored);
+      if (ok) {
+        // Bij de eerste geslaagde controle automatisch naar het veiligere formaat omzetten.
+        this.config.adminPinHash = DataStore.hashPin(pin);
+        this.atomicWrite(path.join(this.dataDir, 'config.json'), this.config);
+      }
+    }
+    return ok;
   }
 
   // ==========================================================================

@@ -219,10 +219,20 @@ export const AdminApp: React.FC = () => {
       const res = await fetch('/api/admin/overview', {
         headers: activePin ? { 'X-Admin-Pin': activePin } : {},
       });
-      if (res.status === 401) {
+      if (res.status === 401 || res.status === 429) {
         setPinUnlocked(false);
+        if (res.status === 429) {
+          const blocked = await res.json().catch(() => null);
+          showError(
+            blocked?.error ||
+              'Te veel pogingen. Probeer het over een paar minuten opnieuw.'
+          );
+        }
         setLoading(false);
         return;
+      }
+      if (!res.ok) {
+        throw new Error(`Overzicht laden mislukt (${res.status})`);
       }
       setPinUnlocked(true);
       const data = await res.json();
@@ -741,15 +751,19 @@ export const AdminApp: React.FC = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ pin: pinInput }),
     });
-    const data = await res.json();
+    const data = await res.json().catch(() => ({}));
     if (data.valid) {
       setAdminPin(pinInput);
       if (typeof window !== 'undefined') {
         sessionStorage.setItem('huiskamer_admin_pin', pinInput);
       }
       await fetchOverview(pinInput);
+    } else if (res.status === 429) {
+      showError(
+        data.error || 'Te veel pogingen. Probeer het over een paar minuten opnieuw.'
+      );
     } else {
-      showError('Ongeldige 4-cijferige Ouder-PIN.');
+      showError('Ongeldige Ouder-PIN.');
     }
   };
 

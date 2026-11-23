@@ -1,3 +1,5 @@
+import crypto from 'crypto';
+
 export interface SessionRecord {
   sessionToken: string;
   playerId: string;
@@ -19,9 +21,8 @@ export class RoomManager {
       const rec = this.sessions.get(existingToken)!;
       return rec;
     }
-    const token =
-      existingToken ||
-      `tok_${playerId}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+    // Tokens worden altijd door de server bedacht (onvoorspelbaar); een onbekend token van een client wordt niet overgenomen.
+    const token = `tok_${crypto.randomBytes(18).toString('hex')}`;
     const record: SessionRecord = {
       sessionToken: token,
       playerId,
