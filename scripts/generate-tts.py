@@ -44,6 +44,9 @@ TV_ANNOUNCEMENTS = [
     "En dat was de grote finale! Wat een fantastische show, applaus voor iedereen!",
 ]
 
+# Fixed 4 answer button colors for non-readers (Lucas)
+ANSWER_COLOR_WORDS = ["Rood", "Blauw", "Groen", "Geel"]
+
 
 def fnv1a_64_hex(text: str) -> str:
     """Deterministic 64-bit FNV-1a hash matching client/server TypeScript implementation."""
@@ -85,9 +88,20 @@ def collect_texts() -> list[tuple[str, str]]:
 
     raw_items: list[tuple[str, str]] = []
 
-    # Priority 1: TV Showmaster announcements
+    # Priority 1: TV Showmaster announcements & 4 answer color words
     for t in TV_ANNOUNCEMENTS:
         raw_items.append(("tv_showmaster", t))
+    for c in ANSWER_COLOR_WORDS:
+        raw_items.append(("answer_colors", c))
+
+    # Priority 1b: Answer option labels for Ontdekker (Lucas) & Sound Challenges
+    for q in quiz:
+        if q.get("level") == "ontdekker":
+            for opt in q.get("options", []):
+                raw_items.append(("ontdekker_opt", opt["label"]))
+    for s in snd:
+        for opt in s.get("options", []):
+            raw_items.append(("sound_opt", opt["label"]))
 
     # Priority 2: Ontdekker (Lucas) & Avonturier (Lana) Quiz questions
     for lvl in ["ontdekker", "avonturier"]:

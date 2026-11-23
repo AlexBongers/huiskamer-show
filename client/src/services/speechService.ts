@@ -14,12 +14,20 @@ export function fnv1a64Hex(text: string): string {
   return h.toString(16).padStart(16, '0');
 }
 
+export interface SpeechSequenceStep {
+  text: string;
+  pauseMs?: number;
+  onStart?: () => void;
+}
+
 class SpeechService {
   private availableHashes = new Set<string>();
   private manifestLoaded = false;
   private manifestPromise: Promise<void> | null = null;
   private activeAudio: HTMLAudioElement | null = null;
   private unlocked = false;
+  private sequenceToken = 0;
+  private pauseTimer: number | null = null;
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -91,82 +99,173 @@ class SpeechService {
   public speak(text: string): void {
     const clean = (text || '').trim();
     if (!clean || typeof window === 'undefined') return;
-
-    this.stop();
-
-    const playNow = () => {
-      const hash = fnv1a64Hex(clean);
-      if (this.availableHashes.has(hash)) {
-        this.playStudioMp3(`/tts/${hash}.mp3`, clean);
-        return;
-      }
-      this.speakFallbackSynthesis(clean);
-    };
-
-    if (!this.manifestLoaded && this.manifestPromise) {
-      void this.manifestPromise.then(playNow);
-    } else {
-      playNow();
-    }
+    this.speakSequence([{ text: clean }]);
   }
 
-  private playStudioMp3(url: string, fallbackText: string): void {
-    try {
-      if (!this.activeAudio) {
-        this.activeAudio = new Audio();
-        this.activeAudio.preload = 'auto';
-      }
-      const audio = this.activeAudio;
-      audio.pause();
-      audio.muted = false;
-      audio.volume = 1.0;
-      audio.src = url;
-      audio.currentTime = 0;
-
-      const playPromise = audio.play();
-      if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch(() => {
-          // If autoplay was blocked or clip failed, fall back cleanly to browser TTS
-          this.speakFallbackSynthesis(fallbackText);
-        });
-      }
-    } catch {
-      this.speakFallbackSynthesis(fallbackText);
-    }
-  }
-
-  private speakFallbackSynthesis(text: string): void {
-    if (
-      typeof window === 'undefined' ||
-      !('speechSynthesis' in window) ||
-      typeof window.SpeechSynthesisUtterance === 'undefined'
-    ) {
+  public speakSequence(
+    steps: SpeechSequenceStep[],
+    onDone?: () => void
+  ): void {
+    if (typeof window === 'undefined') return;
+    const validSteps = steps
+      .map((s) => ({ ...s, text: (s.text || '').trim() }))
+      .filter((s) => s.text.length > 0);
+    if (validSteps.length === 0) {
+      onDone?.();
       return;
     }
-    try {
-      window.speechSynthesis.cancel();
-      const utterance = new window.SpeechSynthesisUtterance(text);
-      utterance.lang = 'nl-NL';
-      utterance.rate = 0.92;
-      utterance.pitch = 1.05;
 
-      const voices = window.speechSynthesis.getVoices();
-      const dutchVoice =
-        voices.find((v) => v.lang.toLowerCase().startsWith('nl-nl')) ||
-        voices.find((v) => v.lang.toLowerCase().startsWith('nl'));
-      if (dutchVoice) {
-        utterance.voice = dutchVoice;
+    this.stop();
+    const myToken = ++this.sequenceToken;
+
+    const run = async () => {
+      if (!this.manifestLoaded && this.manifestPromise) {
+        await this.manifestPromise;
       }
+      for (let i = 0; i < validSteps.length; i++) {
+        if (myToken !== this.sequenceToken) return;
+        const step = validSteps[i];
+        step.onStart?.();
+        await this.playOneClip(step.text, myToken);
+        if (myToken !== this.sequenceToken) return;
+        const pause = step.pauseMs ?? 120;
+        if (pause > 0 && i < validSteps.length - 1) {
+          await this.waitMs(pause, myToken);
+        }
+      }
+      if (myToken === this.sequenceToken) {
+        onDone?.();
+      }
+    };
 
-      window.speechSynthesis.speak(utterance);
-    } catch (err) {
-      console.warn('TTS speak warning:', err);
+    void run();
+  }
+
+  private waitMs(ms: number, token: number): Promise<void> {
+    return new Promise((resolve) => {
+      this.pauseTimer = window.setTimeout(() => {
+        this.pauseTimer = null;
+        if (token === this.sequenceToken) resolve();
+        else resolve();
+      }, ms);
+    });
+  }
+
+  private playOneClip(clean: string, token: number): Promise<void> {
+    const hash = fnv1a64Hex(clean);
+    if (this.availableHashes.has(hash)) {
+      return this.playStudioMp3Async(`/tts/${hash}.mp3`, clean, token);
     }
+    return this.speakFallbackSynthesisAsync(clean, token);
+  }
+
+  private playStudioMp3Async(
+    url: string,
+    fallbackText: string,
+    token: number
+  ): Promise<void> {
+    return new Promise((resolve) => {
+      if (token !== this.sequenceToken) {
+        resolve();
+        return;
+      }
+      try {
+        if (!this.activeAudio) {
+          this.activeAudio = new Audio();
+          this.activeAudio.preload = 'auto';
+        }
+        const audio = this.activeAudio;
+        audio.onended = null;
+        audio.onerror = null;
+        audio.pause();
+        audio.muted = false;
+        audio.volume = 1.0;
+        audio.src = url;
+        audio.currentTime = 0;
+
+        let settled = false;
+        const finish = () => {
+          if (settled) return;
+          settled = true;
+          audio.onended = null;
+          audio.onerror = null;
+          resolve();
+        };
+
+        audio.onended = finish;
+        audio.onerror = () => {
+          if (settled) return;
+          settled = true;
+          audio.onended = null;
+          audio.onerror = null;
+          void this.speakFallbackSynthesisAsync(fallbackText, token).then(resolve);
+        };
+
+        const playPromise = audio.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => {
+            if (settled) return;
+            settled = true;
+            audio.onended = null;
+            audio.onerror = null;
+            void this.speakFallbackSynthesisAsync(fallbackText, token).then(resolve);
+          });
+        }
+      } catch {
+        void this.speakFallbackSynthesisAsync(fallbackText, token).then(resolve);
+      }
+    });
+  }
+
+  private speakFallbackSynthesisAsync(
+    text: string,
+    token: number
+  ): Promise<void> {
+    return new Promise((resolve) => {
+      if (
+        token !== this.sequenceToken ||
+        typeof window === 'undefined' ||
+        !('speechSynthesis' in window) ||
+        typeof window.SpeechSynthesisUtterance === 'undefined'
+      ) {
+        resolve();
+        return;
+      }
+      try {
+        window.speechSynthesis.cancel();
+        const utterance = new window.SpeechSynthesisUtterance(text);
+        utterance.lang = 'nl-NL';
+        utterance.rate = 0.92;
+        utterance.pitch = 1.05;
+
+        const voices = window.speechSynthesis.getVoices();
+        const dutchVoice =
+          voices.find((v) => v.lang.toLowerCase().startsWith('nl-nl')) ||
+          voices.find((v) => v.lang.toLowerCase().startsWith('nl'));
+        if (dutchVoice) {
+          utterance.voice = dutchVoice;
+        }
+
+        utterance.onend = () => resolve();
+        utterance.onerror = () => resolve();
+        window.speechSynthesis.speak(utterance);
+      } catch (err) {
+        console.warn('TTS speak warning:', err);
+        resolve();
+      }
+    });
   }
 
   public stop(): void {
+    this.sequenceToken++;
+    if (this.pauseTimer !== null) {
+      window.clearTimeout(this.pauseTimer);
+      this.pauseTimer = null;
+    }
     try {
       if (this.activeAudio) {
+        this.activeAudio.onended = null;
+        this.activeAudio.onerror = null;
         this.activeAudio.pause();
         this.activeAudio.currentTime = 0;
       }

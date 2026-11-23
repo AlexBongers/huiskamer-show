@@ -1382,35 +1382,69 @@ export const TvApp: React.FC = () => {
                 </div>
               )}
 
-              {/* 4 Big Picture Options on TV */}
+              {/* 4 Big Color-Coded Picture Options on TV (matches phone/tablet colors for Lucas!) */}
               <div className="grid grid-cols-4 gap-6 flex-1">
-                {(activeRound.soundOptions || []).map((opt) => {
+                {(activeRound.soundOptions || []).map((opt, idx) => {
                   const isCorrect =
                     phase === 'ROUND_REVEAL' &&
                     opt.id === activeRound.soundCorrectOptionId;
                   const isDimmed =
                     phase === 'ROUND_REVEAL' &&
                     opt.id !== activeRound.soundCorrectOptionId;
+                  const tvColorStyles = [
+                    {
+                      card: 'bg-[#DC2626] border-[#FCA5A5] text-white',
+                      badge: 'bg-black/25 text-white',
+                      dot: '🔴',
+                      name: 'Rood',
+                    },
+                    {
+                      card: 'bg-[#2563EB] border-[#93C5FD] text-white',
+                      badge: 'bg-black/25 text-white',
+                      dot: '🔵',
+                      name: 'Blauw',
+                    },
+                    {
+                      card: 'bg-[#16A34A] border-[#86EFAC] text-white',
+                      badge: 'bg-black/25 text-white',
+                      dot: '🟢',
+                      name: 'Groen',
+                    },
+                    {
+                      card: 'bg-[#FACC15] border-[#FEF08A] text-[#0F172A]',
+                      badge: 'bg-black/15 text-[#0F172A]',
+                      dot: '🟡',
+                      name: 'Geel',
+                    },
+                  ];
+                  const col = tvColorStyles[idx % tvColorStyles.length];
 
                   return (
                     <div
                       key={opt.id}
-                      className={`rounded-3xl p-5 border-4 flex flex-col items-center justify-center gap-4 transition-all ${
+                      className={`rounded-3xl p-5 border-4 flex flex-col items-center justify-center gap-4 transition-all relative ${
                         isCorrect
-                          ? 'bg-emerald-950/90 border-[#22C55E] scale-105'
+                          ? 'bg-emerald-700 border-white ring-4 ring-[#4ADE80] scale-105 text-white'
                           : isDimmed
-                          ? 'bg-studio-card/40 border-white/10 opacity-40'
-                          : 'bg-studio-card border-[#3B82F6]/50'
+                          ? 'bg-studio-card/40 border-white/10 opacity-35 text-white'
+                          : col.card
                       }`}
                     >
-                      <div className="w-40 h-40 rounded-2xl overflow-hidden">
+                      <div
+                        className={`absolute top-3 left-3 px-3 py-1 rounded-full font-display text-lg font-bold ${
+                          isCorrect || isDimmed ? 'bg-black/30 text-white' : col.badge
+                        }`}
+                      >
+                        {col.dot} {col.name}
+                      </div>
+                      <div className="w-40 h-40 rounded-2xl overflow-hidden bg-black/15 shadow-lg mt-4">
                         <IllustrationView
                           illustrationId={opt.illustrationId}
                           imageUrl={opt.imageUrl}
                           alt={opt.label}
                         />
                       </div>
-                      <div className="font-display text-3xl text-white text-center">
+                      <div className="font-display text-3xl text-center">
                         {opt.label}
                       </div>
                       {isCorrect && (

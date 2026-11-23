@@ -33,15 +33,39 @@ import {
   StoredPlayerSession,
   vibrateDevice,
 } from '../../services/socket';
-import { speechService } from '../../services/speechService';
+import {
+  speechService,
+  SpeechSequenceStep,
+} from '../../services/speechService';
 import { IllustrationView } from '../illustrations/IllustrationLibrary';
 
-const OPTION_COLORS = [
-  'bg-studio-ans1 border-studio-ans1 text-studio-bg',
-  'bg-studio-ans2 border-studio-ans2 text-studio-bg',
-  'bg-studio-ans3 border-studio-ans3 text-studio-bg',
-  'bg-studio-ans4 border-studio-ans4 text-studio-bg',
-];
+// 4 fixed, unmistakable primary colors matching TV & Roos's spoken color names (ideal for non-readers like Lucas!)
+const ANSWER_COLOR_META = [
+  {
+    name: 'Rood',
+    dot: '🔴',
+    btn: 'bg-[#DC2626] border-[#FCA5A5] text-white shadow-lg',
+    badge: 'bg-black/25 text-white',
+  },
+  {
+    name: 'Blauw',
+    dot: '🔵',
+    btn: 'bg-[#2563EB] border-[#93C5FD] text-white shadow-lg',
+    badge: 'bg-black/25 text-white',
+  },
+  {
+    name: 'Groen',
+    dot: '🟢',
+    btn: 'bg-[#16A34A] border-[#86EFAC] text-white shadow-lg',
+    badge: 'bg-black/25 text-white',
+  },
+  {
+    name: 'Geel',
+    dot: '🟡',
+    btn: 'bg-[#FACC15] border-[#FEF08A] text-[#0F172A] shadow-lg',
+    badge: 'bg-black/15 text-[#0F172A]',
+  },
+] as const;
 
 export const PlayerApp: React.FC = () => {
   const [gameState, setGameState] = useState<GameStatePayload | null>(null);
@@ -68,7 +92,39 @@ export const PlayerApp: React.FC = () => {
   const lastTapTimeRef = useRef<number>(0);
   const lastSpokenQuestionIdRef = useRef<string>('');
   const lastVibratedSecondRef = useRef<number>(-1);
+  const lastSpokenSoundPromptRef = useRef<string>('');
+  const [speakingOptionIdx, setSpeakingOptionIdx] = useState<number | null>(
+    null
+  );
   const [qartIds, setQartIds] = useState<Set<string>>(() => new Set());
+
+  const speakWithColorOptions = (
+    promptText: string | null,
+    options: Array<{ label: string }>
+  ) => {
+    const steps: SpeechSequenceStep[] = [];
+    if (promptText && promptText.trim()) {
+      steps.push({
+        text: promptText.trim(),
+        pauseMs: 280,
+        onStart: () => setSpeakingOptionIdx(null),
+      });
+    }
+    options.slice(0, 4).forEach((opt, idx) => {
+      const col = ANSWER_COLOR_META[idx % ANSWER_COLOR_META.length];
+      steps.push({
+        text: col.name,
+        pauseMs: 90,
+        onStart: () => setSpeakingOptionIdx(idx),
+      });
+      steps.push({
+        text: opt.label,
+        pauseMs: 260,
+        onStart: () => setSpeakingOptionIdx(idx),
+      });
+    });
+    speechService.speakSequence(steps, () => setSpeakingOptionIdx(null));
+  };
 
   useEffect(() => {
     fetch('/api/qart/manifest')
@@ -188,17 +244,40 @@ export const PlayerApp: React.FC = () => {
     return () => window.clearTimeout(t);
   }, [confirmReset]);
 
-  // Automatic Dutch TTS reading when autoSpeak is enabled (e.g. Lucas) & a new Quiz question arrives
+  // Automatic Dutch TTS reading (question + 4 color-coded options) when autoSpeak is enabled (e.g. Lucas)
   useEffect(() => {
+    if (gameState?.phase !== 'ROUND_ACTIVE') {
+      setSpeakingOptionIdx(null);
+      return;
+    }
     if (!myPlayer || !privateView?.myQuizQuestion) return;
-    if (gameState?.phase !== 'ROUND_ACTIVE') return;
 
     const q = privateView.myQuizQuestion;
     if (shouldAutoSpeak && lastSpokenQuestionIdRef.current !== q.id) {
       lastSpokenQuestionIdRef.current = q.id;
-      speechService.speak(q.spokenPrompt || q.prompt);
+      speakWithColorOptions(q.spokenPrompt || q.prompt, q.options);
     }
   }, [myPlayer, shouldAutoSpeak, privateView?.myQuizQuestion, gameState?.phase]);
+
+  // Automatic Dutch TTS reading of color-coded options in Sound Challenge (after TV sound plays)
+  useEffect(() => {
+    if (gameState?.phase !== 'ROUND_ACTIVE') return;
+    const sc = privateView?.mySoundChallenge;
+    if (!myPlayer || !sc || !shouldAutoSpeak) return;
+    const key = `${gameState.activeRound?.roundNumber}:${sc.prompt}`;
+    if (lastSpokenSoundPromptRef.current === key) return;
+    lastSpokenSoundPromptRef.current = key;
+    const t = window.setTimeout(() => {
+      speakWithColorOptions(null, sc.options);
+    }, 2400);
+    return () => window.clearTimeout(t);
+  }, [
+    myPlayer,
+    shouldAutoSpeak,
+    privateView?.mySoundChallenge,
+    gameState?.phase,
+    gameState?.activeRound?.roundNumber,
+  ]);
 
   // Initialize estimate slider midpoint & auto-speak when a new Estimate round starts
   useEffect(() => {
@@ -1130,7 +1209,7 @@ export const PlayerApp: React.FC = () => {
                     setHasUserInteracted(true);
                     speechService.unlock();
                     const q = privateView.myQuizQuestion!;
-                    speechService.speak(q.spokenPrompt || q.prompt);
+                    speakWithColorOptions(q.spokenPrompt || q.prompt, q.options);
                   }}
                   className={`mt-3 w-full py-3 rounded-2xl bg-[#3B82F6] text-white font-display text-xl flex items-center justify-center gap-2 shadow-md active:scale-95 ${
                     isOntdekker && !hasUserInteracted
@@ -1141,11 +1220,11 @@ export const PlayerApp: React.FC = () => {
                   <Volume2 className="w-7 h-7" />{' '}
                   {isOntdekker && !hasUserInteracted
                     ? '🔊 TIK HIER OM DE VRAAG TE HOREN!'
-                    : '🔊 LEES VRAAG VOOR'}
+                    : '🔊 LEES VRAAG & KLEUREN VOOR'}
                 </button>
               </div>
 
-              {/* 4 Answer Buttons (Giant >= 120px picture cards for Lucas & Lana!) */}
+              {/* 4 Answer Buttons (Fixed Primary Colors: Rood / Blauw / Groen / Geel + live Roos highlight!) */}
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 {privateView.myQuizQuestion.options.map((opt, idx) => {
                   const selectedId =
@@ -1153,23 +1232,26 @@ export const PlayerApp: React.FC = () => {
                   const correctId = privateView.myQuizQuestion?.correctOptionId;
                   const isSelected = selectedId === opt.id;
                   const isReveal = gameState.phase === 'ROUND_REVEAL';
+                  const isSpeaking =
+                    speakingOptionIdx === idx &&
+                    !selectedId &&
+                    gameState.phase === 'ROUND_ACTIVE';
+                  const col = ANSWER_COLOR_META[idx % ANSWER_COLOR_META.length];
 
-                  let btnStyle = `${
-                    OPTION_COLORS[idx % OPTION_COLORS.length]
-                  }`;
+                  let btnStyle: string = col.btn;
                   if (isReveal) {
                     if (opt.id === correctId) {
                       btnStyle =
-                        'bg-emerald-600 border-4 border-white ring-4 ring-emerald-400 scale-[1.02]';
+                        'bg-emerald-600 text-white border-4 border-white ring-4 ring-emerald-400 scale-[1.02]';
                     } else if (isSelected) {
-                      btnStyle = 'bg-rose-800 border-rose-400 opacity-75';
+                      btnStyle = 'bg-rose-800 text-white border-rose-400 opacity-75';
                     } else {
-                      btnStyle = 'bg-slate-900 border-white/10 opacity-40';
+                      btnStyle = 'bg-slate-900 text-white border-white/10 opacity-40';
                     }
                   } else if (selectedId) {
                     btnStyle = isSelected
                       ? 'bg-studio-gold text-studio-bg border-4 border-white scale-[1.03]'
-                      : 'bg-slate-900/70 border-white/10 opacity-45';
+                      : 'bg-slate-900/70 text-white border-white/10 opacity-45';
                   }
 
                   return (
@@ -1181,20 +1263,33 @@ export const PlayerApp: React.FC = () => {
                       }
                       onClick={() => {
                         if (!canPassDebounce(isOntdekker)) return;
+                        speechService.stop();
+                        setSpeakingOptionIdx(null);
                         vibrateDevice(40);
                         socketService.socket.emit('quiz:answer', {
                           optionId: opt.id,
                         });
                       }}
-                      className={`min-h-[136px] sm:min-h-[164px] rounded-3xl p-3 sm:p-4 border-2 flex flex-col items-center justify-center gap-2 transition-all active:scale-95 ${btnStyle}`}
+                      className={`relative min-h-[144px] sm:min-h-[172px] rounded-3xl p-3 sm:p-4 pt-9 border-2 flex flex-col items-center justify-center gap-2 transition-all active:scale-95 ${btnStyle} ${
+                        isSpeaking
+                          ? 'ring-4 ring-white scale-[1.05] shadow-[0_0_28px_rgba(255,255,255,0.7)]'
+                          : ''
+                      }`}
                     >
+                      <span
+                        className={`absolute top-2 left-2.5 px-2.5 py-0.5 rounded-full font-display text-xs sm:text-sm font-bold ${
+                          isReveal || selectedId ? 'bg-black/30 text-white' : col.badge
+                        }`}
+                      >
+                        {col.dot} {col.name}
+                      </span>
                       {(opt.illustrationId || opt.imageUrl) && (
                         <div
                           className={`${
                             isOntdekker
                               ? 'w-24 h-24 sm:w-32 sm:h-32'
                               : 'w-16 h-16 sm:w-20 sm:h-20'
-                          } rounded-2xl overflow-hidden flex-shrink-0`}
+                          } rounded-2xl overflow-hidden flex-shrink-0 bg-black/15 shadow-md`}
                         >
                           <IllustrationView
                             illustrationId={opt.illustrationId}
@@ -1585,14 +1680,28 @@ export const PlayerApp: React.FC = () => {
                     {privateView.mySoundChallenge.prompt}
                   </h2>
                 </div>
-                {myPlayer.isHost && (
+                <div className="flex items-center gap-2 flex-shrink-0">
                   <button
-                    onClick={() => sendHostControl('replaySound')}
-                    className="px-4 py-2.5 rounded-xl bg-[#3B82F6] text-white font-display text-base flex-shrink-0"
+                    onClick={() => {
+                      speechService.unlock();
+                      speakWithColorOptions(
+                        null,
+                        privateView.mySoundChallenge!.options
+                      );
+                    }}
+                    className="px-3.5 py-2.5 rounded-xl bg-studio-cardLight border border-white/20 text-white font-display text-sm sm:text-base"
                   >
-                    🔁 Speel opnieuw
+                    🔊 Kleuren
                   </button>
-                )}
+                  {myPlayer.isHost && (
+                    <button
+                      onClick={() => sendHostControl('replaySound')}
+                      className="px-4 py-2.5 rounded-xl bg-[#3B82F6] text-white font-display text-base flex-shrink-0"
+                    >
+                      🔁 Speel opnieuw
+                    </button>
+                  )}
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
@@ -1603,21 +1712,24 @@ export const PlayerApp: React.FC = () => {
                     privateView.mySoundChallenge?.correctOptionId;
                   const isSelected = selectedId === opt.id;
                   const isReveal = gameState.phase === 'ROUND_REVEAL';
+                  const isSpeaking =
+                    speakingOptionIdx === idx &&
+                    !selectedId &&
+                    gameState.phase === 'ROUND_ACTIVE';
+                  const col = ANSWER_COLOR_META[idx % ANSWER_COLOR_META.length];
 
-                  let btnStyle = `${
-                    OPTION_COLORS[idx % OPTION_COLORS.length]
-                  }`;
+                  let btnStyle: string = col.btn;
                   if (isReveal) {
                     if (opt.id === correctId) {
                       btnStyle =
-                        'bg-emerald-600 border-4 border-white scale-105';
+                        'bg-emerald-600 text-white border-4 border-white scale-105';
                     } else {
-                      btnStyle = 'bg-slate-900 opacity-40';
+                      btnStyle = 'bg-slate-900 text-white opacity-40';
                     }
                   } else if (selectedId) {
                     btnStyle = isSelected
                       ? 'bg-studio-gold text-studio-bg border-4 border-white scale-105'
-                      : 'bg-slate-900 opacity-40';
+                      : 'bg-slate-900 text-white opacity-40';
                   }
 
                   return (
@@ -1629,14 +1741,27 @@ export const PlayerApp: React.FC = () => {
                       }
                       onClick={() => {
                         if (!canPassDebounce(isOntdekker)) return;
+                        speechService.stop();
+                        setSpeakingOptionIdx(null);
                         vibrateDevice(40);
                         socketService.socket.emit('sound:answer', {
                           optionId: opt.id,
                         });
                       }}
-                      className={`min-h-[140px] sm:min-h-[168px] rounded-3xl p-4 border-2 flex flex-col items-center justify-center gap-2 transition-all active:scale-95 ${btnStyle}`}
+                      className={`relative min-h-[148px] sm:min-h-[176px] rounded-3xl p-4 pt-9 border-2 flex flex-col items-center justify-center gap-2 transition-all active:scale-95 ${btnStyle} ${
+                        isSpeaking
+                          ? 'ring-4 ring-white scale-[1.05] shadow-[0_0_28px_rgba(255,255,255,0.7)]'
+                          : ''
+                      }`}
                     >
-                      <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden">
+                      <span
+                        className={`absolute top-2 left-2.5 px-2.5 py-0.5 rounded-full font-display text-xs sm:text-sm font-bold ${
+                          isReveal || selectedId ? 'bg-black/30 text-white' : col.badge
+                        }`}
+                      >
+                        {col.dot} {col.name}
+                      </span>
+                      <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden bg-black/15 shadow-md">
                         <IllustrationView
                           illustrationId={opt.illustrationId}
                           imageUrl={opt.imageUrl}
