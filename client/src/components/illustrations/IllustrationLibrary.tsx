@@ -1451,6 +1451,10 @@ const STUDIO_ART_MAP: Record<string, string> = {
   sonic_hedgehog: '/art/avatar-sonic.jpg',
   jungle_ape: '/art/avatar-ape.jpg',
   trophy: '/art/show-trophy.jpg',
+  bicycle: '/art/ill-bicycle.jpg',
+  clock_alarm: '/art/ill-clock-alarm.jpg',
+  owl: '/art/ill-owl.jpg',
+  soccer_ball: '/art/ill-soccer-ball.jpg',
 };
 
 export const IllustrationView: React.FC<IllustrationViewProps> = ({
