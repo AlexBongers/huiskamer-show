@@ -6,7 +6,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { GameStatePayload } from '@huiskamer-show/shared';
 import { AwardsEngine } from '../engine/AwardsEngine';
 import { GameEngine } from '../engine/GameEngine';
-import { createAppServer } from '../index';
+import { createAppServer, readTtsClips } from '../index';
 import { DataStore } from '../storage/DataStore';
 
 describe('De Grote Huiskamer Show — Complete Verification & Code-Check Suite', () => {
@@ -1327,5 +1327,98 @@ describe('De Grote Huiskamer Show — Complete Verification & Code-Check Suite',
     }
 
     expect(problems).toEqual([]);
+  });
+
+  it('14. Roos-opnamen: de lijst komt uit de bestanden in de map (niet uit een verouderd manifest), met versie en zonder vreemde namen', async () => {
+    const ttsDir = path.join(tmpDataDir, 'tts');
+    fs.mkdirSync(ttsDir, { recursive: true });
+    fs.writeFileSync(path.join(ttsDir, '0123456789abcdef.mp3'), 'x');
+    fs.writeFileSync(path.join(ttsDir, 'fedcba9876543210.mp3'), 'x');
+    fs.writeFileSync(path.join(ttsDir, 'notities.txt'), 'x');
+    fs.writeFileSync(path.join(ttsDir, 'kort.mp3'), 'x'); // geen geldige hash-naam
+    fs.writeFileSync(path.join(ttsDir, 'ABCDEF0123456789.mp3'), 'x'); // hoofdletters horen er niet bij
+    // verouderd manifest: noemt een bestand dat er niet is en mist de twee echte
+    fs.writeFileSync(
+      path.join(ttsDir, 'manifest.json'),
+      JSON.stringify({
+        voiceName: 'Roos (NL)',
+        modelId: 'eleven_flash_v2_5',
+        targetLufs: -16,
+        count: 1,
+        hashes: ['aaaaaaaaaaaaaaaa'],
+      })
+    );
+
+    const serverInstance = await createAppServer({
+      dataDir: tmpDataDir,
+      seedDir,
+      port: 0,
+      autoAdvanceTimers: false,
+      deterministicMode: true,
+    });
+    await new Promise<void>((resolve) => {
+      serverInstance.httpServer.listen(0, '127.0.0.1', () => resolve());
+    });
+    const address = serverInstance.httpServer.address() as { port: number };
+    const baseUrl = `http://127.0.0.1:${address.port}`;
+    const getManifest = async () => (await fetch(`${baseUrl}/api/tts/manifest`)).json();
+
+    const first = await getManifest();
+    expect(first.hashes).toEqual(['0123456789abcdef', 'fedcba9876543210']);
+    expect(first.count).toBe(2);
+    expect(first.voiceName).toBe('Roos (NL)');
+    expect(first.modelId).toBe('eleven_flash_v2_5');
+    expect(typeof first.version).toBe('string');
+
+    // Een nieuwe opname erbij verschijnt zonder dat manifest.json wordt bijgewerkt, en de versie verandert
+    fs.writeFileSync(path.join(ttsDir, '1111111111111111.mp3'), 'x');
+    const second = await getManifest();
+    expect(second.hashes).toContain('1111111111111111');
+    expect(second.version).not.toBe(first.version);
+
+    // Een opname vervangen door een nieuwere versie (zelfde naam) verandert de versie ook:
+    // zo halen telefoons en tablets, die opnames lang bewaren, de nieuwe op
+    const later = new Date(Date.now() + 60_000);
+    fs.utimesSync(path.join(ttsDir, '0123456789abcdef.mp3'), later, later);
+    const third = await getManifest();
+    expect(third.version).not.toBe(second.version);
+
+    // De opnames worden zelf ook geserveerd
+    const clip = await fetch(`${baseUrl}/tts/0123456789abcdef.mp3?v=${third.version}`);
+    expect(clip.status).toBe(200);
+
+    await new Promise<void>((resolve) =>
+      serverInstance.httpServer.close(() => resolve())
+    );
+
+    // Zonder map: lege lijst in plaats van een fout
+    expect(readTtsClips(path.join(tmpDataDir, 'bestaat-niet')).hashes).toEqual([]);
+  });
+
+  it('15. Elke vaste TV-zin in de app staat ook in het opname-script (anders klinkt die met de computerstem)', () => {
+    const tvSrc = fs.readFileSync(
+      path.resolve(__dirname, '../../../client/src/components/tv/TvApp.tsx'),
+      'utf-8'
+    );
+    const genSrc = fs.readFileSync(
+      path.resolve(__dirname, '../../../scripts/generate-tts.py'),
+      'utf-8'
+    );
+
+    const listStart = genSrc.indexOf('TV_ANNOUNCEMENTS = [');
+    const listBlock = genSrc.slice(listStart, genSrc.indexOf('\n]', listStart));
+    const scriptPhrases = new Set([...listBlock.matchAll(/"([^"]+)"/g)].map((m) => m[1]));
+    expect(scriptPhrases.size).toBeGreaterThanOrEqual(10);
+
+    const introStart = tvSrc.indexOf('const TV_ROUND_INTRO_VOICE');
+    const introBlock = tvSrc.slice(introStart, tvSrc.indexOf('};', introStart));
+    const spoken = new Set<string>([
+      ...[...introBlock.matchAll(/'([^'\n]{12,})'/g)].map((m) => m[1]),
+      ...[...tvSrc.matchAll(/speechService\.speak\(\s*'([^']+)'/g)].map((m) => m[1]),
+    ]);
+    expect(spoken.size).toBeGreaterThanOrEqual(10);
+
+    const missing = [...spoken].filter((t) => !scriptPhrases.has(t));
+    expect(missing, 'TV-zinnen zonder opname in scripts/generate-tts.py').toEqual([]);
   });
 });

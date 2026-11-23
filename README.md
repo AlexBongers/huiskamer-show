@@ -75,6 +75,35 @@ npm test       # Bouwt eerst het gedeelde pakket en draait dan de volledige Vite
 
 ---
 
+## 🔊 Roos-stem (opnamen)
+
+Alle voorleestekst wordt voorgelezen door **Roos** (ElevenLabs Flash v2.5, Nederlands). De opnames zijn mp3's in `<data-map>/tts`
+(standaard `./data/tts`; in Docker de gemounte map `./data`) en horen niet in git. Een tekst zonder opname wordt voorgelezen met de
+computerstem van de browser.
+
+**Opnames installeren** (nieuwste uit de GitHub Releases `tts-vN`, met controlesom):
+```bash
+./scripts/install-tts.sh              # of: npm run tts:install  |  een bepaalde versie: ./scripts/install-tts.sh tts-v3
+```
+Daarna de server (her)starten. Bij het opstarten zie je hoeveel opnames er zijn; staan er geen, dan krijg je een melding.
+
+**Welke teksten missen nog een opname?** (bijvoorbeeld na het toevoegen van eigen vragen in `/admin`)
+```bash
+python3 scripts/generate-tts.py --check      # of: npm run tts:check
+```
+**Ontbrekende opnames maken** (kost ElevenLabs-credits, alleen voor wat ontbreekt; zet `ELEVENLABS_API_KEY=...` in `.env`, die staat niet in git):
+```bash
+python3 scripts/generate-tts.py
+```
+**Volume:** elke opname wordt op **-16 LUFS** gebracht (true peak hooguit -1,5 dBTP), ook losse woorden. ffmpeg's eigen `loudnorm`
+meet korte opnames scheef, daarom meet `scripts/tts_audio.py` zelf. Bestaande opnames controleren of gelijk trekken:
+```bash
+python3 scripts/tts_audio.py check data/tts     # meet en toont de verdeling
+python3 scripts/tts_audio.py fix data/tts       # maakt alles wat er te ver naast zit even hard
+```
+Vervang je opnames door een bewerkte versie, publiceer die dan als nieuwe release (`tts-vN+1`) en draai `install-tts.sh` op elke machine
+(ook op de Proxmox-host). Telefoons en tablets halen vervangen opnames vanzelf opnieuw op.
+
 ## 📦 Meegeleverde Start-Content (`server/seed/`)
 - **450 Quizvragen** (`150` `ontdekker`, `150` `avonturier`, `150` `meester` — 25 per categorie per niveau).
 - **180 30-Seconds Kaarten** (`60` per niveau, zonder dubbele begrippen binnen een niveau).

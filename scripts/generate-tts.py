@@ -1,33 +1,40 @@
 #!/usr/bin/env python3
 """
-Generate Dutch female studio voice-overs for De Grote Huiskamer Show
-using ElevenLabs Flash v2.5 (Voice: Roos, 7qdUFMklKPaaAVMsBTBt)
-with two-pass EBU R128 loudness normalization (-16 LUFS, -1.5 dBTP)
-via ffmpeg so every single spoken clip has uniform volume.
+Roos-opnamen (NL vrouwenstem) voor De Grote Huiskamer Show, met ElevenLabs Flash v2.5
+(stem: Roos, 7qdUFMklKPaaAVMsBTBt).
+
+Elke opname wordt bewerkt door tts_audio.py: zachte voorbewerking en daarna nauwkeurig op -16 LUFS gebracht
+(true peak hooguit -1 dBTP), ook de korte opnames van losse woorden.  Zo klinkt alles even hard.
+
+Gebruik:
+  python3 scripts/generate-tts.py --check      # welke teksten missen nog een opname? (geen sleutel nodig)
+  python3 scripts/generate-tts.py              # maak de ontbrekende opnames (ELEVENLABS_API_KEY in env of in .env)
+
+De map met opnames is <data-map>/tts, dezelfde map waar de server ze vandaan haalt (standaard ./data/tts, of
+$DATA_DIR/tts).  Bestaande opnames worden nooit opnieuw gemaakt; alleen wat ontbreekt kost credits.
+De vragen komen uit server/seed plus de eigen vragen in de data-map (die je in /admin hebt toegevoegd of aangepast).
+Zie ook: python3 scripts/tts_audio.py check|fix <map>  om bestaande opnames te meten en even hard te maken.
 """
+import argparse
 import concurrent.futures
 import json
 import os
 import pathlib
-import re
-import subprocess
 import sys
-import tempfile
 import threading
 import time
 import urllib.error
 import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import tts_audio  # noqa: E402
 SEED_DIR = ROOT / "server" / "seed"
-OUT_DIR = ROOT / "server" / "data" / "tts"
 ENV_FILE = ROOT / ".env"
 
 VOICE_ID = "7qdUFMklKPaaAVMsBTBt"  # Roos — warm Dutch female voice
 MODEL_ID = "eleven_flash_v2_5"
-TARGET_LUFS = -16.0
-TARGET_TP = -1.5
-TARGET_LRA = 7.0
+CREDITS_PER_CHAR = 0.5  # Flash v2.5 rekent 0,5 credit per teken
 MIN_CREDIT_BUFFER = 1500  # Keep safety buffer on shared Starter account
 
 # TV Showmaster studio announcements (played on /tv when not muted)
@@ -78,13 +85,31 @@ def get_subscription(api_key: str) -> dict:
         return json.loads(r.read().decode())
 
 
-def collect_texts() -> list[tuple[str, str]]:
+def default_data_dir() -> pathlib.Path:
+    """Dezelfde keuze als de server: $DATA_DIR, anders ./data in deze repo."""
+    env = os.environ.get("DATA_DIR")
+    return pathlib.Path(env).expanduser() if env else ROOT / "data"
+
+
+def load_content(name: str, data_dir: pathlib.Path | None) -> list[dict]:
+    """Seed-inhoud, aangevuld en overschreven door de eigen inhoud in de data-map (op id)."""
+    items = {it["id"]: it for it in json.loads((SEED_DIR / name).read_text())}
+    if data_dir is not None and (data_dir / name).exists():
+        try:
+            for it in json.loads((data_dir / name).read_text()):
+                items[it["id"]] = it
+        except (json.JSONDecodeError, KeyError, TypeError):
+            print(f"Let op: {data_dir / name} is geen geldige inhoud; alleen de seed wordt gebruikt.", flush=True)
+    return list(items.values())
+
+
+def collect_texts(data_dir: pathlib.Path | None = None) -> list[tuple[str, str]]:
     """Return ordered list of (category_label, text) deduplicated by hash, highest priority first."""
-    quiz = json.loads((SEED_DIR / "quiz.json").read_text())
-    ts = json.loads((SEED_DIR / "thirtySeconds.json").read_text())
-    est = json.loads((SEED_DIR / "estimates.json").read_text())
-    panto = json.loads((SEED_DIR / "pantomime.json").read_text())
-    snd = json.loads((SEED_DIR / "sounds.json").read_text())
+    quiz = load_content("quiz.json", data_dir)
+    ts = load_content("thirtySeconds.json", data_dir)
+    est = load_content("estimates.json", data_dir)
+    panto = load_content("pantomime.json", data_dir)
+    snd = load_content("sounds.json", data_dir)
 
     raw_items: list[tuple[str, str]] = []
 
@@ -144,50 +169,7 @@ def collect_texts() -> list[tuple[str, str]]:
     return ordered
 
 
-def normalize_mp3_loudness(raw_mp3: bytes, out_path: pathlib.Path) -> None:
-    """Broadcast vocal leveling (gentle highpass + plosive compressor + EBU R128 loudnorm -16 LUFS)."""
-    with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_in:
-        tmp_in.write(raw_mp3)
-        in_path = tmp_in.name
-    tmp_out = str(out_path) + ".tmp.mp3"
-    try:
-        af = (
-            "highpass=f=80,"
-            "acompressor=threshold=-20dB:ratio=3.5:attack=5:release=60:makeup=3,"
-            f"loudnorm=I={TARGET_LUFS}:TP={TARGET_TP}:LRA=6"
-        )
-        subprocess.run(
-            [
-                "ffmpeg",
-                "-y",
-                "-hide_banner",
-                "-loglevel",
-                "error",
-                "-i",
-                in_path,
-                "-af",
-                af,
-                "-ar",
-                "44100",
-                "-ac",
-                "1",
-                "-b:a",
-                "64k",
-                tmp_out,
-            ],
-            check=True,
-        )
-        os.replace(tmp_out, out_path)
-    finally:
-        for p in (in_path, tmp_out):
-            try:
-                if os.path.exists(p):
-                    os.unlink(p)
-            except OSError:
-                pass
-
-
-def generate_one(api_key: str, text: str, out_path: pathlib.Path) -> int:
+def generate_one(api_key: str, text: str, out_path: pathlib.Path) -> tuple[int, dict]:
     payload = json.dumps(
         {
             "text": text,
@@ -202,6 +184,8 @@ def generate_one(api_key: str, text: str, out_path: pathlib.Path) -> int:
         }
     ).encode("utf-8")
 
+    raw = b""
+    cost = 0
     for attempt in range(4):
         try:
             req = urllib.request.Request(
@@ -218,67 +202,104 @@ def generate_one(api_key: str, text: str, out_path: pathlib.Path) -> int:
                 cost_hdr = resp.headers.get("character-cost")
                 cost = int(cost_hdr) if cost_hdr and cost_hdr.isdigit() else max(1, len(text) // 2)
                 raw = resp.read()
-            normalize_mp3_loudness(raw, out_path)
-            return cost
+            break
         except urllib.error.HTTPError as e:
             if e.code == 429 or e.code >= 500:
                 time.sleep(1.5 * (attempt + 1))
                 continue
             body = e.read().decode("utf-8", errors="ignore")
             raise RuntimeError(f"HTTP {e.code}: {body[:200]}") from e
-        except Exception:
+        except (urllib.error.URLError, TimeoutError, ConnectionError):
             if attempt < 3:
                 time.sleep(1.0 * (attempt + 1))
                 continue
             raise
-    raise RuntimeError("Max retries exceeded")
+    else:
+        raise RuntimeError("Max retries exceeded")
+
+    # Bewerken gebeurt buiten de herhaal-lus: mislukt dat, dan vragen we de opname niet opnieuw aan (dat kost credits)
+    report = tts_audio.process_raw_mp3(raw, out_path)
+    return cost, report
 
 
-def write_manifest() -> int:
-    files = sorted(p.stem for p in OUT_DIR.glob("*.mp3"))
+def write_manifest(out_dir: pathlib.Path) -> int:
+    """Handig voor mensen en scripts; de server zelf kijkt naar de mp3-bestanden in de map."""
+    files = sorted(p.stem for p in out_dir.glob("*.mp3"))
     manifest = {
         "voiceId": VOICE_ID,
         "voiceName": "Roos (NL)",
         "modelId": MODEL_ID,
-        "targetLufs": TARGET_LUFS,
+        "targetLufs": tts_audio.TARGET_LUFS,
         "count": len(files),
         "hashes": files,
     }
-    (OUT_DIR / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+    (out_dir / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
     return len(files)
 
 
 def main() -> None:
+    ap = argparse.ArgumentParser(description="Roos-opnamen (ElevenLabs Flash v2.5) voor De Grote Huiskamer Show")
+    ap.add_argument("--data-dir", type=pathlib.Path, default=None,
+                    help="data-map van de show (standaard: $DATA_DIR of ./data); daaruit komen eigen vragen en de map tts/")
+    ap.add_argument("--out-dir", type=pathlib.Path, default=None,
+                    help="waar de mp3's heen gaan (standaard: <data-map>/tts)")
+    ap.add_argument("--check", action="store_true",
+                    help="alleen tonen welke teksten nog geen opname hebben; maakt niets en heeft geen sleutel nodig")
+    args = ap.parse_args()
+
+    data_dir = (args.data_dir or default_data_dir()).expanduser().resolve()
+    out_dir = (args.out_dir or data_dir / "tts").expanduser().resolve()
+    print(f"Data-map:      {data_dir}\nOpnamen-map:   {out_dir}", flush=True)
+
+    items = collect_texts(data_dir)
+    todo = [(cat, txt, fnv1a_64_hex(txt)) for cat, txt in items if not (out_dir / f"{fnv1a_64_hex(txt)}.mp3").exists()]
+    chars = sum(len(t) for _, t, _ in todo)
+    print(
+        f"Teksten in totaal: {len(items)} | al opgenomen: {len(items) - len(todo)} | ontbreekt: {len(todo)} "
+        f"({chars:,} tekens, ongeveer {int(chars * CREDITS_PER_CHAR):,} credits)",
+        flush=True,
+    )
+
+    if args.check:
+        for cat, txt, _ in todo[:25]:
+            print(f"  ontbreekt [{cat}] {txt[:100]!r}")
+        if len(todo) > 25:
+            print(f"  ... en nog {len(todo) - 25}")
+        sys.exit(1 if todo else 0)
+
+    if not todo:
+        print("Niets te doen: alle teksten hebben al een opname.")
+        out_dir.mkdir(parents=True, exist_ok=True)
+        write_manifest(out_dir)
+        return
+
     api_key = load_api_key()
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    out_dir.mkdir(parents=True, exist_ok=True)
 
     sub = get_subscription(api_key)
     start_used = sub.get("character_count", 0)
     limit = sub.get("character_limit", 40000)
     max_spend = max(0, (limit - start_used) - MIN_CREDIT_BUFFER)
     print(
-        f"ElevenLabs Starter budget: used={start_used:,} / {limit:,} | "
-        f"remaining={limit - start_used:,} | max_spend (keeping {MIN_CREDIT_BUFFER:,} buffer)={max_spend:,}",
+        f"ElevenLabs-tegoed: gebruikt {start_used:,} / {limit:,} | "
+        f"over {limit - start_used:,} | uitgeven mag tot {max_spend:,} (met {MIN_CREDIT_BUFFER:,} als reserve)",
         flush=True,
     )
-
-    items = collect_texts()
-    todo = [(cat, txt, fnv1a_64_hex(txt)) for cat, txt in items if not (OUT_DIR / f"{fnv1a_64_hex(txt)}.mp3").exists()]
-    print(f"Total unique clips: {len(items)} | Already cached: {len(items) - len(todo)} | To generate: {len(todo)}", flush=True)
 
     spent_credits = 0
     generated = 0
     stopped_budget = False
     lock = threading.Lock()
+    reports: list[dict] = []
     t0 = time.time()
 
-    # Process in small parallel batches of 4 so we stay fast AND respect rate limits + budget cleanly
+    # In kleine groepjes van 4 tegelijk, zodat we snel zijn en de limieten en het budget netjes respecteren
     batch_size = 4
     i = 0
     while i < len(todo):
         if spent_credits >= max_spend:
             stopped_budget = True
-            print(f"Reached safe budget ceiling ({spent_credits:,} / {max_spend:,} credits). Stopping cleanly.", flush=True)
+            print(f"Veilig budget bereikt ({spent_credits:,} / {max_spend:,} credits). Netjes gestopt.", flush=True)
             break
 
         batch = todo[i : i + batch_size]
@@ -286,18 +307,19 @@ def main() -> None:
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=4) as ex:
             futs = {
-                ex.submit(generate_one, api_key, txt, OUT_DIR / f"{h}.mp3"): (cat, txt, h)
+                ex.submit(generate_one, api_key, txt, out_dir / f"{h}.mp3"): (cat, txt, h)
                 for cat, txt, h in batch
             }
             for fut in concurrent.futures.as_completed(futs):
                 cat, txt, h = futs[fut]
                 try:
-                    cost = fut.result()
+                    cost, report = fut.result()
                     with lock:
                         spent_credits += cost
                         generated += 1
+                        reports.append(report)
                 except Exception as e:
-                    print(f"ERROR on [{cat}] {txt[:40]!r}: {e}", flush=True)
+                    print(f"FOUT bij [{cat}] {txt[:40]!r}: {e}", flush=True)
                     if "quota" in str(e).lower() or "401" in str(e) or "402" in str(e):
                         stopped_budget = True
 
@@ -308,18 +330,30 @@ def main() -> None:
             elapsed = time.time() - t0
             rate = generated / max(elapsed, 0.1)
             print(
-                f"Progress: {generated}/{len(todo)} clips | spent~={spent_credits:,} credits | "
-                f"{rate:.1f} clips/s | last_cat={batch[-1][0]}",
+                f"Voortgang: {generated}/{len(todo)} opnames | kosten ~{spent_credits:,} credits | "
+                f"{rate:.1f} opnames/s | laatste categorie: {batch[-1][0]}",
                 flush=True,
             )
 
-    total_cached = write_manifest()
+    total_cached = write_manifest(out_dir)
     sub_after = get_subscription(api_key)
     print(
-        f"\nDONE! Generated={generated} | Total in manifest={total_cached} | "
-        f"Tracked cost={spent_credits:,} | API reported used={sub_after.get('character_count', 0):,} / {sub_after.get('character_limit', 0):,}",
+        f"\nKLAAR! Gemaakt={generated} | In de map={total_cached} | "
+        f"Kosten={spent_credits:,} | ElevenLabs meldt gebruikt: {sub_after.get('character_count', 0):,} / {sub_after.get('character_limit', 0):,}",
         flush=True,
     )
+    if reports:
+        ls = [r["after_lufs"] for r in reports]
+        tp = [r["after_tp"] for r in reports]
+        print(
+            f"Geluidssterkte nieuwe opnames: {min(ls):.2f} tot {max(ls):.2f} LUFS (doel {tts_audio.TARGET_LUFS:g}) | "
+            f"hoogste piek {max(tp):.2f} dBTP",
+            flush=True,
+        )
+    still_missing = len(todo) - generated
+    if still_missing:
+        print(f"Let op: {still_missing} teksten hebben nog geen opname (budget of fout); draai het script opnieuw.", flush=True)
+        sys.exit(1)
 
 
 if __name__ == "__main__":

@@ -22,6 +22,7 @@ export interface SpeechSequenceStep {
 
 class SpeechService {
   private availableHashes = new Set<string>();
+  private clipVersion = '';
   private manifestLoaded = false;
   private manifestPromise: Promise<void> | null = null;
   private activeAudio: HTMLAudioElement | null = null;
@@ -39,9 +40,11 @@ class SpeechService {
     if (this.manifestPromise) return this.manifestPromise;
     this.manifestPromise = fetch('/api/tts/manifest')
       .then((res) => (res.ok ? res.json() : null))
-      .then((data: { hashes?: string[] } | null) => {
+      .then((data: { hashes?: string[]; version?: string } | null) => {
         if (data && Array.isArray(data.hashes)) {
           this.availableHashes = new Set(data.hashes);
+          // Opnames worden lang bewaard; een nieuwe versie (andere opname met dezelfde naam) haalt ze opnieuw op
+          this.clipVersion = typeof data.version === 'string' ? data.version : '';
         }
         this.manifestLoaded = true;
       })
@@ -154,7 +157,14 @@ class SpeechService {
   private playOneClip(clean: string, token: number): Promise<void> {
     const hash = fnv1a64Hex(clean);
     if (this.availableHashes.has(hash)) {
-      return this.playStudioMp3Async(`/tts/${hash}.mp3`, clean, token);
+      const versionQuery = this.clipVersion
+        ? `?v=${encodeURIComponent(this.clipVersion)}`
+        : '';
+      return this.playStudioMp3Async(
+        `/tts/${hash}.mp3${versionQuery}`,
+        clean,
+        token
+      );
     }
     return this.speakFallbackSynthesisAsync(clean, token);
   }

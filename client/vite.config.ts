@@ -25,6 +25,16 @@ export default defineConfig({
         target: 'http://localhost:3000',
         changeOrigin: true,
       },
+      // Roos-opnames en vraag-afbeeldingen komen ook van de server; zonder deze regels krijgt de
+      // browser in ontwikkelmodus de opname niet en valt de show terug op de computerstem.
+      '/tts': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+      '/qart': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
       '/socket.io': {
         target: 'http://localhost:3000',
         ws: true,

@@ -38,6 +38,34 @@ function originMatchesHandshake(
   }
 }
 
+/**
+ * Welke Roos-opnames (mp3, bestandsnaam = hash van de tekst) staan er in de map?
+ * We kijken naar de bestanden zelf en niet naar manifest.json: zet je extra opnames in de map zonder die
+ * lijst bij te werken, dan zou de show ze anders niet "zien" en toch de computerstem gebruiken.
+ * `version` verandert zodra een opname wordt toegevoegd of vervangen, zodat telefoons en tablets
+ * (die opnames lang bewaren) de nieuwe versie ophalen.
+ */
+export function readTtsClips(ttsDir: string): { hashes: string[]; version: string } {
+  let names: string[] = [];
+  try {
+    names = fs.readdirSync(ttsDir).filter((f) => /^[0-9a-f]{16}\.mp3$/.test(f));
+  } catch {
+    return { hashes: [], version: '0' };
+  }
+  let newest = 0;
+  for (const f of names) {
+    try {
+      newest = Math.max(newest, Math.floor(fs.statSync(path.join(ttsDir, f)).mtimeMs));
+    } catch {
+      // bestand verdween net; negeren
+    }
+  }
+  return {
+    hashes: names.map((f) => f.slice(0, -4)).sort(),
+    version: `${names.length}-${newest.toString(36)}`,
+  };
+}
+
 function getLocalLanIp(): string {
   const nets = os.networkInterfaces();
   for (const name of Object.keys(nets)) {
@@ -203,19 +231,23 @@ export async function createAppServer(options?: {
   });
 
   app.get('/api/tts/manifest', (_req, res) => {
-    const manifestPath = path.join(ttsDir, 'manifest.json');
-    if (fs.existsSync(manifestPath)) {
-      try {
-        const raw = fs.readFileSync(manifestPath, 'utf-8');
-        res.setHeader('Content-Type', 'application/json');
-        res.setHeader('Cache-Control', 'no-cache');
-        res.send(raw);
-        return;
-      } catch {
-        // fall through to empty manifest
-      }
+    const { hashes, version } = readTtsClips(ttsDir);
+    // Alleen de beschrijvende velden uit manifest.json overnemen (de lijst zelf komt uit de map)
+    let meta: { voiceName?: unknown; modelId?: unknown; targetLufs?: unknown } = {};
+    try {
+      meta = JSON.parse(fs.readFileSync(path.join(ttsDir, 'manifest.json'), 'utf-8'));
+    } catch {
+      // geen manifest.json of kapot: geen probleem
     }
-    res.json({ count: 0, hashes: [] });
+    res.setHeader('Cache-Control', 'no-cache');
+    res.json({
+      voiceName: typeof meta.voiceName === 'string' ? meta.voiceName : undefined,
+      modelId: typeof meta.modelId === 'string' ? meta.modelId : undefined,
+      targetLufs: typeof meta.targetLufs === 'number' ? meta.targetLufs : undefined,
+      version,
+      count: hashes.length,
+      hashes,
+    });
   });
 
   // Admin & Health API
@@ -490,12 +522,18 @@ export async function createAppServer(options?: {
 
 if (require.main === module) {
   const port = Number(process.env.PORT || 3000);
-  createAppServer({ port }).then(({ httpServer, io, engine }) => {
+  createAppServer({ port }).then(({ httpServer, io, engine, store }) => {
     httpServer.listen(port, '0.0.0.0', () => {
       console.log(`🎬 De Grote Huiskamer Show draait op http://0.0.0.0:${port}`);
       console.log(`📺 TV-Scherm:      ${engine.qrUrl.replace('/play', '/tv')}`);
       console.log(`📱 Spelerscherm:   ${engine.qrUrl}`);
       console.log(`⚙️ Gezins-Editor:  ${engine.qrUrl.replace('/play', '/admin')}`);
+      const clips = readTtsClips(path.join(store.dataDir, 'tts')).hashes.length;
+      console.log(
+        clips > 0
+          ? `🔊 Roos-opnamen:   ${clips} clips in ${path.join(store.dataDir, 'tts')}`
+          : `🔇 Geen Roos-opnamen gevonden in ${path.join(store.dataDir, 'tts')}: de show gebruikt nu de computerstem. Haal ze op met: ./scripts/install-tts.sh`
+      );
     });
 
     const shutdown = (signal: string) => {
