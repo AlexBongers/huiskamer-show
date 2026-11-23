@@ -15,9 +15,15 @@ import {
   ThirtySecondsCard,
   ZoomPhotoChallenge,
 } from '@huiskamer-show/shared';
+import {
+  SeedContentFile,
+  contentHash,
+  loadSeedHistory,
+} from './seedHistory';
 
 const PIN_SALT = 'huiskamer-show-pin-salt-v2';
-const CURRENT_SEED_VERSION = '2.1.0';
+// Verhogen bij nieuwe standaardvragen: bestaande installaties voegen ze dan bij de volgende start toe
+const CURRENT_SEED_VERSION = '2.2.0';
 
 export class DataStore {
   public readonly dataDir: string;
@@ -114,6 +120,73 @@ export class DataStore {
       this.config.seedVersion = CURRENT_SEED_VERSION;
       this.atomicWrite(path.join(this.dataDir, 'config.json'), this.config);
     }
+
+    // Verbeterde standaardvragen doorvoeren (alleen waar niemand ze zelf heeft aangepast)
+    const updated = this.syncUpdatedSeedItems();
+    if (updated.total > 0) {
+      console.log(`📝 ${updated.total} verbeterde standaardvragen/opdrachten bijgewerkt.`);
+    }
+  }
+
+  private contentStores(): Array<{
+    file: SeedContentFile;
+    get: () => Array<{ id: string }>;
+    set: (items: Array<{ id: string }>) => void;
+  }> {
+    return [
+      { file: 'quiz.json', get: () => this.quizQuestions, set: (v) => (this.quizQuestions = v as QuizQuestion[]) },
+      { file: 'thirtySeconds.json', get: () => this.thirtySecondsCards, set: (v) => (this.thirtySecondsCards = v as ThirtySecondsCard[]) },
+      { file: 'sounds.json', get: () => this.soundChallenges, set: (v) => (this.soundChallenges = v as SoundChallenge[]) },
+      { file: 'zoomPhotos.json', get: () => this.zoomPhotos, set: (v) => (this.zoomPhotos = v as ZoomPhotoChallenge[]) },
+      { file: 'pantomime.json', get: () => this.pantomimeChallenges, set: (v) => (this.pantomimeChallenges = v as PantomimeChallenge[]) },
+      { file: 'estimates.json', get: () => this.estimateChallenges, set: (v) => (this.estimateChallenges = v as EstimateChallenge[]) },
+    ];
+  }
+
+  /**
+   * Brengt verbeterde standaardvragen naar deze installatie. Een vraag wordt alleen vervangen als hij
+   * exact gelijk is aan een eerdere versie uit de seed (dus niet zelf aangepast in /admin).
+   */
+  public syncUpdatedSeedItems(): { total: number; perFile: Partial<Record<SeedContentFile, number>> } {
+    const history = loadSeedHistory(this.seedDir);
+    const perFile: Partial<Record<SeedContentFile, number>> = {};
+    let total = 0;
+
+    for (const store of this.contentStores()) {
+      const oldVersionsById = history[store.file];
+      if (!oldVersionsById) continue;
+      const seedPath = path.join(this.seedDir, store.file);
+      if (!fs.existsSync(seedPath)) continue;
+      let seedItems: Array<{ id: string }>;
+      try {
+        seedItems = JSON.parse(fs.readFileSync(seedPath, 'utf-8'));
+      } catch {
+        continue;
+      }
+
+      const current = [...store.get()];
+      const indexById = new Map(current.map((it, i) => [it.id, i]));
+      let changed = 0;
+      for (const seedItem of seedItems) {
+        const oldVersions = oldVersionsById[seedItem.id];
+        if (!oldVersions || oldVersions.length === 0) continue;
+        const idx = indexById.get(seedItem.id);
+        if (idx === undefined) continue;
+        const currentHash = contentHash(current[idx]);
+        if (currentHash === contentHash(seedItem)) continue;
+        if (oldVersions.includes(currentHash)) {
+          current[idx] = seedItem;
+          changed += 1;
+        }
+      }
+      if (changed > 0) {
+        store.set(current);
+        this.atomicWrite(path.join(this.dataDir, store.file), current);
+        perFile[store.file] = changed;
+        total += changed;
+      }
+    }
+    return { total, perFile };
   }
 
   public syncMissingSeedItems(): {
@@ -778,7 +851,7 @@ export class DataStore {
   // ==========================================================================
   public exportFullBackup() {
     return {
-      version: '2.1.0',
+      version: CURRENT_SEED_VERSION,
       exportedAt: new Date().toISOString(),
       config: this.getPublicConfig(),
       quizQuestions: this.quizQuestions,

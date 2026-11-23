@@ -1,9 +1,10 @@
 import fs from 'fs';
+import http from 'http';
 import os from 'os';
 import path from 'path';
 import { io as ClientIO, Socket as ClientSocket } from 'socket.io-client';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { GameStatePayload } from '@huiskamer-show/shared';
+import { GameStatePayload, TIMERS, seasonalPackForDate } from '@huiskamer-show/shared';
 import { AwardsEngine } from '../engine/AwardsEngine';
 import { GameEngine } from '../engine/GameEngine';
 import { createAppServer, readTtsClips } from '../index';
@@ -1421,4 +1422,292 @@ describe('De Grote Huiskamer Show — Complete Verification & Code-Check Suite',
     const missing = [...spoken].filter((t) => !scriptPhrases.has(t));
     expect(missing, 'TV-zinnen zonder opname in scripts/generate-tts.py').toEqual([]);
   });
+
+  it('16. Buzzer-time-out: zonder oordeel van de host komt de buzzer na de wachttijd weer vrij (Zoom-in en Pantomime)', () => {
+    const store = new DataStore(tmpDataDir, seedDir);
+    const engine = new GameEngine(store, () => {}, () => {}, false, true);
+    const join = (profileId: string, name: string, avatarId: string, level: 'ontdekker' | 'avonturier' | 'meester') =>
+      engine.joinOrReconnectPlayer({ profileId, name, avatarId, level }).player;
+    const papa = join('profile_papa', 'Papa', 'showmaster', 'meester');
+    const lucas = join('profile_lucas', 'Lucas', 'trex', 'ontdekker');
+    const lana = join('profile_lana', 'Lana', 'unicorn', 'avonturier');
+    const T = TIMERS.JUDGE_TIMEOUT_SEC;
+
+    // --- Zoom-in
+    engine.configureGame({ gameMode: 'solo', totalRounds: 6, enabledRoundTypes: ['zoom_photo'] });
+    engine.startGame();
+    engine.enterRoundIntro();
+    engine.enterRoundActive();
+    expect(engine.handleZoomBuzz(lucas.id)).toBe(true);
+    expect(engine.getStateForClient(papa.id).activeRound?.judgeRemainingSec).toBe(T);
+    engine.advanceJudgeWait(T - 1);
+    expect(engine.getStateForClient(undefined).activeRound?.zoomBuzzedPlayerId).toBe(lucas.id);
+    expect(engine.getStateForClient(undefined).activeRound?.judgeRemainingSec).toBe(1);
+    engine.advanceJudgeWait(1);
+    expect(engine.getStateForClient(undefined).activeRound?.zoomBuzzedPlayerId).toBeNull();
+    expect(engine.getStateForClient(undefined).activeRound?.judgeRemainingSec).toBeUndefined();
+    // geen straf: Lucas mag meteen weer buzzen, en de wachttijd begint opnieuw
+    expect(engine.handleZoomBuzz(lucas.id)).toBe(true);
+    engine.advanceJudgeWait(T - 1);
+    expect(engine.getStateForClient(undefined).activeRound?.zoomBuzzedPlayerId).toBe(lucas.id);
+    // een oordeel van de host werkt gewoon
+    engine.handleHostJudgeZoom(true);
+    expect(engine.phase).toBe('ROUND_REVEAL');
+    // na de ronde doet de wachttijd niets meer
+    engine.advanceJudgeWait(T * 2);
+    expect(engine.phase).toBe('ROUND_REVEAL');
+
+    // --- Pantomime: tijdens een pauze loopt de wachttijd niet door
+    engine.handleHostControl('reset');
+    engine.configureGame({ enabledRoundTypes: ['pantomime'] });
+    engine.startGame();
+    engine.enterRoundIntro();
+    engine.enterRoundActive();
+    const actorId = engine.getStateForClient(undefined).activeRound!.pantomimeActorId!;
+    const guesser = [papa, lucas, lana].find((p) => p.id !== actorId)!;
+    engine.startPantomimeTurn(actorId);
+    expect(engine.handlePantomimeBuzz(guesser.id)).toBe(true);
+    engine.handleHostControl('pause');
+    engine.advanceJudgeWait(T * 2);
+    engine.handleHostControl('resume');
+    expect(engine.getStateForClient(undefined).activeRound?.pantomimeBuzzedPlayerId).toBe(guesser.id);
+    engine.advanceJudgeWait(T);
+    expect(engine.getStateForClient(undefined).activeRound?.pantomimeBuzzedPlayerId).toBeNull();
+    expect(engine.phase).toBe('ROUND_ACTIVE');
+  });
+
+  it('17. Verbeterde standaardvragen bereiken bestaande installaties, eigen aanpassingen blijven staan', async () => {
+    // Bestaande installatie: data-map met de OUDE versie van qz_mee_176 (zoals die vroeger in de seed stond)
+    // en een vraag die de gebruiker zelf heeft aangepast.
+    const seedQuiz = JSON.parse(fs.readFileSync(path.join(seedDir, 'quiz.json'), 'utf-8')) as Array<{
+      id: string;
+      prompt: string;
+      spokenPrompt?: string;
+    }>;
+    const fixed = seedQuiz.find((q) => q.id === 'qz_mee_176')!;
+    const oldVersion = {
+      ...fixed,
+      prompt: fixed.prompt.replace('"De Herberg"', '"Ganzenbord"'),
+      spokenPrompt: fixed.spokenPrompt?.replace('"De Herberg"', '"Ganzenbord"'),
+    };
+    const userEdited = { ...seedQuiz[0], prompt: 'Onze eigen vraag over opa?' };
+    const dataQuiz = seedQuiz.map((q) =>
+      q.id === oldVersion.id ? oldVersion : q.id === userEdited.id ? userEdited : q
+    );
+    fs.writeFileSync(path.join(tmpDataDir, 'quiz.json'), JSON.stringify(dataQuiz));
+
+    const store = new DataStore(tmpDataDir, seedDir);
+    const after = store.getQuizQuestions();
+    expect(after.find((q) => q.id === 'qz_mee_176')!.prompt).toBe(fixed.prompt); // bijgewerkt
+    expect(after.find((q) => q.id === userEdited.id)!.prompt).toBe('Onze eigen vraag over opa?'); // blijft
+    // ook op schijf bijgewerkt, en een tweede keer verandert er niets meer
+    const onDisk = JSON.parse(fs.readFileSync(path.join(tmpDataDir, 'quiz.json'), 'utf-8'));
+    expect(onDisk.find((q: { id: string }) => q.id === 'qz_mee_176').prompt).toBe(fixed.prompt);
+    expect(store.syncUpdatedSeedItems().total).toBe(0);
+
+    // Een installatie van vóór de seizoensuitbreiding (seed 2.1.0) krijgt de nieuwe vragen bij de volgende start
+    const oldDir = fs.mkdtempSync(path.join(os.tmpdir(), 'huiskamer-oud-'));
+    try {
+      const withoutNew = seedQuiz.filter((q) => !['qz_ont_271', 'qz_avo_361', 'qz_mee_451'].includes(q.id));
+      fs.writeFileSync(path.join(oldDir, 'quiz.json'), JSON.stringify(withoutNew));
+      fs.writeFileSync(
+        path.join(oldDir, 'config.json'),
+        JSON.stringify({ ...JSON.parse(fs.readFileSync(path.join(tmpDataDir, 'config.json'), 'utf-8')), seedVersion: '2.1.0' })
+      );
+      const upgraded = new DataStore(oldDir, seedDir);
+      const ids = new Set(upgraded.getQuizQuestions().map((q) => q.id));
+      expect(ids.has('qz_ont_271') && ids.has('qz_avo_361') && ids.has('qz_mee_451')).toBe(true);
+      expect(upgraded.getConfig().seedVersion).not.toBe('2.1.0');
+    } finally {
+      fs.rmSync(oldDir, { recursive: true, force: true });
+    }
+
+    // seed-history.json moet passen bij de git-geschiedenis (alleen als die er is)
+    const repoRoot = path.resolve(__dirname, '../../..');
+    if (fs.existsSync(path.join(repoRoot, '.git'))) {
+      const { execFileSync } = await import('child_process');
+      const out = execFileSync(
+        process.execPath,
+        [path.join(repoRoot, 'node_modules/tsx/dist/cli.mjs'), path.join(repoRoot, 'scripts/build-seed-history.ts'), '--check'],
+        { cwd: repoRoot }
+      ).toString();
+      expect(out).toContain('actueel');
+    }
+  });
+
+  it('18. Seizoenspakket: gaat automatisch aan op datum (zelfde grenzen als de TV-thema\'s), host kan het overrulen, seizoensvragen gaan voor', async () => {
+    const { themeForDate } = await import('../../../client/src/theme/seasons');
+    const packForTheme: Record<string, string | null> = {
+      sint: 'sinterklaas',
+      kerst: 'kerst',
+      zomer: 'zomer',
+      winter: null,
+      lente: null,
+      herfst: null,
+    };
+    for (let day = 0; day < 366; day++) {
+      const d = new Date(2028, 0, 1 + day, 12);
+      expect(seasonalPackForDate(d), d.toDateString()).toBe(packForTheme[themeForDate(d).id]);
+    }
+
+    const store = new DataStore(tmpDataDir, seedDir);
+    const engine = new GameEngine(store, () => {}, () => {}, false, true);
+    engine.clock = () => new Date(2026, 10, 25, 12); // 25 november: Sinterklaas
+    engine.joinOrReconnectPlayer({ profileId: 'profile_lucas', name: 'Lucas', avatarId: 'trex', level: 'ontdekker' });
+    engine.joinOrReconnectPlayer({ profileId: 'profile_papa', name: 'Papa', avatarId: 'showmaster', level: 'meester' });
+    engine.configureGame({ gameMode: 'solo', totalRounds: 10, enabledRoundTypes: ['quiz'] });
+    engine.startGame();
+    expect(engine.settings.enabledPacks).toEqual(['basis', 'kids_special', 'sinterklaas']);
+
+    // Seizoensvragen gaan voor: speel rondes tot een categorie met Sinterklaas-vragen voor Lucas valt
+    const sintIds = new Set(
+      store.getQuizQuestions().filter((q) => q.packId === 'sinterklaas').map((q) => q.id)
+    );
+    let sawSeasonal = false;
+    for (let round = 0; round < 10 && !sawSeasonal; round++) {
+      if (round > 0) {
+        engine.enterScoreboard();
+        engine.startNextRoundWheel();
+      }
+      engine.enterRoundIntro();
+      engine.enterRoundActive();
+      const st = engine.getStateForClient(engine.players[0].id);
+      const qid = st.privateView?.myQuizQuestion?.id;
+      const cat = engine.currentCategory;
+      const seasonalAvailable = store
+        .getQuizQuestions()
+        .some((q) => q.packId === 'sinterklaas' && q.level === 'ontdekker' && q.category === cat);
+      if (seasonalAvailable) {
+        expect(sintIds.has(qid!)).toBe(true);
+        sawSeasonal = true;
+      }
+      engine.finishQuizRound();
+    }
+    expect(sawSeasonal).toBe(true);
+
+    // In het voorjaar doet er geen seizoenspakket mee
+    engine.handleHostControl('reset');
+    engine.clock = () => new Date(2027, 3, 10, 12);
+    engine.startGame();
+    expect(engine.settings.enabledPacks).toEqual(['basis', 'kids_special']);
+
+    // Kiest de host zelf pakketten, dan blijft die keuze staan, ook als het seizoen wisselt
+    engine.handleHostControl('reset');
+    engine.configureGame({ enabledPacks: ['basis', 'verjaardag'] });
+    engine.clock = () => new Date(2026, 11, 20, 12); // kerst
+    engine.startGame();
+    expect(engine.settings.enabledPacks).toEqual(['basis', 'verjaardag']);
+  });
+
+  it('19. Roos-opnames vanuit /admin: status, zonder sleutel geweigerd, met (nagebootste) ElevenLabs gemaakt en even hard', async () => {
+    const { spawnSync } = await import('child_process');
+    const hasTools =
+      spawnSync('python3', ['--version']).status === 0 &&
+      spawnSync('ffmpeg', ['-version']).status === 0;
+    if (!hasTools) return; // zonder python3/ffmpeg kan dit deel niet draaien
+
+    const repoEnv = path.resolve(__dirname, '../../../.env');
+    const repoEnvHasKey =
+      fs.existsSync(repoEnv) && /ELEVENLABS_API_KEY=\S+/.test(fs.readFileSync(repoEnv, 'utf-8'));
+    const savedKey = process.env.ELEVENLABS_API_KEY;
+    const savedBase = process.env.ELEVENLABS_API_BASE;
+    delete process.env.ELEVENLABS_API_KEY;
+
+    const serverInstance = await createAppServer({
+      dataDir: tmpDataDir,
+      seedDir,
+      port: 0,
+      autoAdvanceTimers: false,
+      deterministicMode: true,
+    });
+    await new Promise<void>((resolve) => {
+      serverInstance.httpServer.listen(0, '127.0.0.1', () => resolve());
+    });
+    const address = serverInstance.httpServer.address() as { port: number };
+    const baseUrl = `http://127.0.0.1:${address.port}`;
+    const json = { 'Content-Type': 'application/json' };
+
+    const status1 = await (await fetch(`${baseUrl}/api/admin/tts/status`)).json();
+    expect(status1.toolsAvailable).toBe(true);
+    expect(status1.missingCount).toBeGreaterThan(0); // lege data-map: nog niets opgenomen
+    expect(status1.total).toBe(status1.missingCount);
+    if (!repoEnvHasKey) {
+      expect(status1.keyConfigured).toBe(false);
+      const noKey = await fetch(`${baseUrl}/api/admin/tts/generate`, { method: 'POST', headers: json, body: '{}' });
+      expect(noKey.status).toBe(400);
+    }
+
+    // Nagebootste ElevenLabs: geeft een (zachte) synthetische opname terug
+    const fakeMp3 = path.join(tmpDataDir, 'nep.mp3');
+    spawnSync('ffmpeg', [
+      '-y', '-hide_banner', '-loglevel', 'error', '-f', 'lavfi', '-i',
+      "aevalsrc='0.3*sin(2*PI*200*t)+0.2*sin(2*PI*900*t)':s=44100:d=1.0",
+      '-af', 'volume=-20dB', '-ac', '1', '-c:a', 'libmp3lame', '-b:a', '128k', fakeMp3,
+    ]);
+    const mp3 = fs.readFileSync(fakeMp3);
+    let ttsCalls = 0;
+    const fake = http.createServer((req, res) => {
+      if (req.url?.startsWith('/v1/user/subscription')) {
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ character_count: 0, character_limit: 100000 }));
+        return;
+      }
+      if (req.url?.startsWith('/v1/text-to-speech/')) {
+        ttsCalls += 1;
+        req.resume();
+        req.on('end', () => {
+          res.setHeader('Content-Type', 'audio/mpeg');
+          res.setHeader('character-cost', '10');
+          res.end(mp3);
+        });
+        return;
+      }
+      res.statusCode = 404;
+      res.end();
+    });
+    await new Promise<void>((resolve) => fake.listen(0, '127.0.0.1', () => resolve()));
+    process.env.ELEVENLABS_API_KEY = 'test-sleutel';
+    process.env.ELEVENLABS_API_BASE = `http://127.0.0.1:${(fake.address() as { port: number }).port}`;
+
+    try {
+      const started = await fetch(`${baseUrl}/api/admin/tts/generate`, {
+        method: 'POST',
+        headers: json,
+        body: JSON.stringify({ limit: 2 }),
+      });
+      expect(started.status).toBe(202);
+
+      let jobState: { running: boolean; exitCode?: number; lines: string[] } = { running: true, lines: [] };
+      for (let i = 0; i < 240 && jobState.running; i++) {
+        await new Promise((r) => setTimeout(r, 250));
+        jobState = await (await fetch(`${baseUrl}/api/admin/tts/job`)).json();
+      }
+      expect(jobState.running).toBe(false);
+      expect(jobState.exitCode, jobState.lines.join('\n')).toBe(0);
+      expect(ttsCalls).toBe(2);
+
+      const clips = fs
+        .readdirSync(path.join(tmpDataDir, 'tts'))
+        .filter((f) => /^[0-9a-f]{16}\.mp3$/.test(f));
+      expect(clips.length).toBe(2);
+      const manifest = await (await fetch(`${baseUrl}/api/tts/manifest`)).json();
+      expect(manifest.count).toBe(2);
+      // de opnames zijn bewerkt: de log meldt de geluidssterkte rond -16 LUFS
+      const loudLine = jobState.lines.find((l) => l.includes('Geluidssterkte nieuwe opnames')) || '';
+      const nums = [...loudLine.matchAll(/(-?\d+\.\d+) tot (-?\d+\.\d+) LUFS/g)][0];
+      expect(nums).toBeTruthy();
+      expect(Math.abs(parseFloat(nums![1]) + 16)).toBeLessThanOrEqual(0.5);
+      expect(Math.abs(parseFloat(nums![2]) + 16)).toBeLessThanOrEqual(0.5);
+
+      const status2 = await (await fetch(`${baseUrl}/api/admin/tts/status`)).json();
+      expect(status2.missingCount).toBe(status1.missingCount - 2);
+    } finally {
+      if (savedKey === undefined) delete process.env.ELEVENLABS_API_KEY;
+      else process.env.ELEVENLABS_API_KEY = savedKey;
+      if (savedBase === undefined) delete process.env.ELEVENLABS_API_BASE;
+      else process.env.ELEVENLABS_API_BASE = savedBase;
+      await new Promise<void>((resolve) => fake.close(() => resolve()));
+      await new Promise<void>((resolve) => serverInstance.httpServer.close(() => resolve()));
+    }
+  }, 120_000);
 });

@@ -23,6 +23,7 @@ export interface SpeechSequenceStep {
 class SpeechService {
   private availableHashes = new Set<string>();
   private clipVersion = '';
+  private manifestFetchedAt = 0;
   private manifestLoaded = false;
   private manifestPromise: Promise<void> | null = null;
   private activeAudio: HTMLAudioElement | null = null;
@@ -41,6 +42,7 @@ class SpeechService {
     this.manifestPromise = fetch('/api/tts/manifest')
       .then((res) => (res.ok ? res.json() : null))
       .then((data: { hashes?: string[]; version?: string } | null) => {
+        this.manifestFetchedAt = Date.now();
         if (data && Array.isArray(data.hashes)) {
           this.availableHashes = new Set(data.hashes);
           // Opnames worden lang bewaard; een nieuwe versie (andere opname met dezelfde naam) haalt ze opnieuw op
@@ -52,6 +54,21 @@ class SpeechService {
         this.manifestLoaded = true;
       });
     return this.manifestPromise;
+  }
+
+  /**
+   * Haal de lijst met opnames opnieuw op (bijvoorbeeld nadat er in /admin nieuwe zijn gemaakt).
+   * Ook vanzelf, hooguit eens per 5 minuten, zodat telefoons nieuwe opnames oppikken zonder te herladen.
+   */
+  public refreshManifest(): Promise<void> {
+    this.manifestPromise = null;
+    return this.loadManifest();
+  }
+
+  private maybeRefreshManifest(): void {
+    if (this.manifestLoaded && Date.now() - this.manifestFetchedAt > 5 * 60 * 1000) {
+      void this.refreshManifest();
+    }
   }
 
   public hasStudioRecording(text: string): boolean {
@@ -119,6 +136,7 @@ class SpeechService {
     }
 
     this.stop();
+    this.maybeRefreshManifest();
     const myToken = ++this.sequenceToken;
 
     const run = async () => {

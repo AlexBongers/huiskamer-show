@@ -1527,6 +1527,11 @@ export const TvApp: React.FC = () => {
                             Roep je antwoord hardop! De Host keurt op de
                             telefoon...
                           </div>
+                          {typeof activeRound.judgeRemainingSec === 'number' && (
+                            <div className="text-lg text-slate-300">
+                              Nog {activeRound.judgeRemainingSec} s voor het oordeel
+                            </div>
+                          )}
                         </div>
                       );
                     })()}
@@ -1635,6 +1640,11 @@ export const TvApp: React.FC = () => {
                           <div className="text-2xl text-studio-gold">
                             Roep hardop wat {actor?.name} uitbeeldt!
                           </div>
+                          {typeof activeRound.judgeRemainingSec === 'number' && (
+                            <div className="text-lg text-slate-300">
+                              Nog {activeRound.judgeRemainingSec} s voor het oordeel
+                            </div>
+                          )}
                         </div>
                       ) : (
                         <div className="flex items-center justify-around w-full py-4">

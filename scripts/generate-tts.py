@@ -35,6 +35,8 @@ ENV_FILE = ROOT / ".env"
 VOICE_ID = "7qdUFMklKPaaAVMsBTBt"  # Roos — warm Dutch female voice
 MODEL_ID = "eleven_flash_v2_5"
 CREDITS_PER_CHAR = 0.5  # Flash v2.5 rekent 0,5 credit per teken
+# Alleen voor tests aan te passen (een nagebootste ElevenLabs op localhost)
+API_BASE = os.environ.get("ELEVENLABS_API_BASE", "https://api.elevenlabs.io").rstrip("/")
 MIN_CREDIT_BUFFER = 1500  # Keep safety buffer on shared Starter account
 
 # TV Showmaster studio announcements (played on /tv when not muted)
@@ -76,9 +78,16 @@ def load_api_key() -> str:
     raise RuntimeError("ELEVENLABS_API_KEY not found in env or .env")
 
 
+def key_configured() -> bool:
+    try:
+        return bool(load_api_key())
+    except RuntimeError:
+        return False
+
+
 def get_subscription(api_key: str) -> dict:
     req = urllib.request.Request(
-        "https://api.elevenlabs.io/v1/user/subscription",
+        f"{API_BASE}/v1/user/subscription",
         headers={"xi-api-key": api_key, "Accept": "application/json"},
     )
     with urllib.request.urlopen(req, timeout=15) as r:
@@ -103,70 +112,75 @@ def load_content(name: str, data_dir: pathlib.Path | None) -> list[dict]:
     return list(items.values())
 
 
-def collect_texts(data_dir: pathlib.Path | None = None) -> list[tuple[str, str]]:
-    """Return ordered list of (category_label, text) deduplicated by hash, highest priority first."""
+def collect_text_entries(data_dir: pathlib.Path | None = None) -> list[tuple[str, str, str]]:
+    """Geordende lijst (categorie, tekst, id van de vraag of opdracht), zonder dubbelen, belangrijkste eerst."""
     quiz = load_content("quiz.json", data_dir)
     ts = load_content("thirtySeconds.json", data_dir)
     est = load_content("estimates.json", data_dir)
     panto = load_content("pantomime.json", data_dir)
     snd = load_content("sounds.json", data_dir)
 
-    raw_items: list[tuple[str, str]] = []
+    raw_items: list[tuple[str, str, str]] = []
 
     # Priority 1: TV Showmaster announcements & 4 answer color words
     for t in TV_ANNOUNCEMENTS:
-        raw_items.append(("tv_showmaster", t))
+        raw_items.append(("tv_showmaster", t, ""))
     for c in ANSWER_COLOR_WORDS:
-        raw_items.append(("answer_colors", c))
+        raw_items.append(("answer_colors", c, ""))
 
     # Priority 1b: Answer option labels for Ontdekker (Lucas), Avonturier (Lana) & Sound Challenges
     for lvl in ["ontdekker", "avonturier"]:
         for q in quiz:
             if q.get("level") == lvl:
                 for opt in q.get("options", []):
-                    raw_items.append((f"{lvl}_opt", opt["label"]))
+                    raw_items.append((f"{lvl}_opt", opt["label"], q["id"]))
     for s in snd:
         for opt in s.get("options", []):
-            raw_items.append(("sound_opt", opt["label"]))
+            raw_items.append(("sound_opt", opt["label"], s["id"]))
 
     # Priority 2: Ontdekker (Lucas) & Avonturier (Lana) Quiz questions
     for lvl in ["ontdekker", "avonturier"]:
         for q in quiz:
             if q.get("level") == lvl:
-                raw_items.append((f"quiz_{lvl}", q.get("spokenPrompt") or q["prompt"]))
+                raw_items.append((f"quiz_{lvl}", q.get("spokenPrompt") or q["prompt"], q["id"]))
 
     # Priority 3: Estimates, Pantomime, Sound prompts
     for e in est:
-        raw_items.append(("estimates", e.get("spokenPrompt") or e["prompt"]))
+        raw_items.append(("estimates", e.get("spokenPrompt") or e["prompt"], e["id"]))
     for p in panto:
         hint = p.get("hint", "")
-        raw_items.append(("pantomime", f"{p['prompt']}! {hint}".strip()))
+        raw_items.append(("pantomime", f"{p['prompt']}! {hint}".strip(), p["id"]))
     for s in snd:
-        raw_items.append(("sounds", s["prompt"]))
+        raw_items.append(("sounds", s["prompt"], s["id"]))
 
     # Priority 4: 30 Seconds words (ontdekker -> avonturier -> meester)
     for lvl in ["ontdekker", "avonturier", "meester"]:
         for c in ts:
             if c.get("level") == lvl:
                 for it in c.get("items", []):
-                    raw_items.append((f"30s_{lvl}", it["word"]))
+                    raw_items.append((f"30s_{lvl}", it["word"], c["id"]))
 
     # Priority 5: Meester (Papa & Mama) Quiz questions
     for q in quiz:
         if q.get("level") == "meester":
-            raw_items.append(("quiz_meester", q.get("spokenPrompt") or q["prompt"]))
+            raw_items.append(("quiz_meester", q.get("spokenPrompt") or q["prompt"], q["id"]))
 
     seen: set[str] = set()
-    ordered: list[tuple[str, str]] = []
-    for cat, text in raw_items:
+    ordered: list[tuple[str, str, str]] = []
+    for cat, text, item_id in raw_items:
         clean = text.strip()
         if not clean:
             continue
         h = fnv1a_64_hex(clean)
         if h not in seen:
             seen.add(h)
-            ordered.append((cat, clean))
+            ordered.append((cat, clean, item_id))
     return ordered
+
+
+def collect_texts(data_dir: pathlib.Path | None = None) -> list[tuple[str, str]]:
+    """Return ordered list of (category_label, text) deduplicated by hash, highest priority first."""
+    return [(cat, text) for cat, text, _ in collect_text_entries(data_dir)]
 
 
 def generate_one(api_key: str, text: str, out_path: pathlib.Path) -> tuple[int, dict]:
@@ -189,7 +203,7 @@ def generate_one(api_key: str, text: str, out_path: pathlib.Path) -> tuple[int, 
     for attempt in range(4):
         try:
             req = urllib.request.Request(
-                f"https://api.elevenlabs.io/v1/text-to-speech/{VOICE_ID}?output_format=mp3_44100_128",
+                f"{API_BASE}/v1/text-to-speech/{VOICE_ID}?output_format=mp3_44100_128",
                 data=payload,
                 headers={
                     "xi-api-key": api_key,
@@ -245,15 +259,33 @@ def main() -> None:
                     help="waar de mp3's heen gaan (standaard: <data-map>/tts)")
     ap.add_argument("--check", action="store_true",
                     help="alleen tonen welke teksten nog geen opname hebben; maakt niets en heeft geen sleutel nodig")
+    ap.add_argument("--json", action="store_true", help="bij --check: uitvoer als JSON (voor /admin)")
+    ap.add_argument("--limit", type=int, default=0, help="maak hooguit zoveel opnames (0 = alles wat ontbreekt)")
     args = ap.parse_args()
 
     data_dir = (args.data_dir or default_data_dir()).expanduser().resolve()
     out_dir = (args.out_dir or data_dir / "tts").expanduser().resolve()
-    print(f"Data-map:      {data_dir}\nOpnamen-map:   {out_dir}", flush=True)
+    if not args.json:
+        print(f"Data-map:      {data_dir}\nOpnamen-map:   {out_dir}", flush=True)
 
-    items = collect_texts(data_dir)
-    todo = [(cat, txt, fnv1a_64_hex(txt)) for cat, txt in items if not (out_dir / f"{fnv1a_64_hex(txt)}.mp3").exists()]
+    entries = collect_text_entries(data_dir)
+    items = [(cat, txt) for cat, txt, _ in entries]
+    missing = [(cat, txt, fnv1a_64_hex(txt), item_id) for cat, txt, item_id in entries
+               if not (out_dir / f"{fnv1a_64_hex(txt)}.mp3").exists()]
+    todo = [(cat, txt, h) for cat, txt, h, _ in missing]
     chars = sum(len(t) for _, t, _ in todo)
+
+    if args.check and args.json:
+        print(json.dumps({
+            "total": len(items),
+            "recorded": len(items) - len(todo),
+            "missingCount": len(todo),
+            "missingChars": chars,
+            "estimatedCredits": int(chars * CREDITS_PER_CHAR),
+            "keyConfigured": key_configured(),
+            "missing": [{"category": c, "text": t, "hash": h, "itemId": i} for c, t, h, i in missing],
+        }, ensure_ascii=False))
+        sys.exit(0)
     print(
         f"Teksten in totaal: {len(items)} | al opgenomen: {len(items) - len(todo)} | ontbreekt: {len(todo)} "
         f"({chars:,} tekens, ongeveer {int(chars * CREDITS_PER_CHAR):,} credits)",
@@ -266,6 +298,9 @@ def main() -> None:
         if len(todo) > 25:
             print(f"  ... en nog {len(todo) - 25}")
         sys.exit(1 if todo else 0)
+
+    if args.limit and args.limit > 0:
+        todo = todo[: args.limit]
 
     if not todo:
         print("Niets te doen: alle teksten hebben al een opname.")

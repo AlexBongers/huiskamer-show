@@ -390,11 +390,17 @@ def main() -> int:
             p.add_argument("--no-backup", action="store_true",
                            help=f"geen kopie van de originelen bewaren in <map>/{BACKUP_DIRNAME}")
     sub.add_parser("selftest", help="controleer de routine met synthetische klanken")
+    pr = sub.add_parser("process-raw", help="ruwe opname (mp3) voorbewerken en even hard maken")
+    pr.add_argument("src", type=pathlib.Path)
+    pr.add_argument("dst", type=pathlib.Path)
     args = ap.parse_args()
 
     try:
         if args.cmd == "selftest":
             return cmd_selftest()
+        if args.cmd == "process-raw":
+            print(json.dumps(normalize_file(args.src, args.dst, pre_filter=PRE_FILTER)))
+            return 0
         if not args.dir.is_dir():
             print(f"Map niet gevonden: {args.dir}", file=sys.stderr)
             return 2

@@ -2,6 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import { z } from 'zod';
 import { DataStore } from '../storage/DataStore';
+import { getTtsJob, getTtsStatus, startTtsGeneration } from '../tts/ttsAdmin';
 
 const categoryEnum = z.enum([
   'dieren_dinos',
@@ -444,8 +445,67 @@ export function createAdminRouter(
   // Non-destructive sync of newly shipped default seed content
   router.post('/admin/sync-seeds', (_req, res) => {
     const summary = store.syncMissingSeedItems();
+    const updated = store.syncUpdatedSeedItems();
     onConfigUpdated();
-    res.json({ status: 'synced', ...summary });
+    res.json({
+      status: 'synced',
+      ...summary,
+      updatedTotal: updated.total,
+      updated: updated.perFile,
+    });
+  });
+
+  // Roos-opnames: status, ontbrekende maken (kost ElevenLabs-credits) en voortgang
+  router.get('/admin/tts/status', async (_req, res) => {
+    try {
+      const status = await getTtsStatus(store.dataDir);
+      res.json({ ...status, missing: status.missing.slice(0, 300) });
+    } catch (err) {
+      res.status(500).json({ error: (err as Error).message });
+    }
+  });
+
+  router.post('/admin/tts/generate', async (req, res) => {
+    const limitRaw = req.body?.limit;
+    const limit =
+      typeof limitRaw === 'number' && Number.isFinite(limitRaw) && limitRaw > 0
+        ? Math.min(5000, Math.floor(limitRaw))
+        : undefined;
+    let status;
+    try {
+      status = await getTtsStatus(store.dataDir);
+    } catch (err) {
+      res.status(500).json({ error: (err as Error).message });
+      return;
+    }
+    if (!status.toolsAvailable) {
+      res.status(400).json({ error: status.toolsMessage || 'Benodigde programma\'s ontbreken op de server.' });
+      return;
+    }
+    if (!status.keyConfigured) {
+      res.status(400).json({
+        error:
+          'Er is geen ElevenLabs-sleutel ingesteld op de server. Zet ELEVENLABS_API_KEY in .env naast docker-compose.yml en herstart.',
+      });
+      return;
+    }
+    if (status.missingCount === 0) {
+      res.json({ started: false, message: 'Alle teksten hebben al een opname.' });
+      return;
+    }
+    const error = startTtsGeneration(store.dataDir, limit);
+    if (error) {
+      res.status(409).json({ error });
+      return;
+    }
+    res.status(202).json({
+      started: true,
+      todo: limit ? Math.min(limit, status.missingCount) : status.missingCount,
+    });
+  });
+
+  router.get('/admin/tts/job', (_req, res) => {
+    res.json(getTtsJob());
   });
 
   // Reset Played History

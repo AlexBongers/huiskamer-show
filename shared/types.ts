@@ -321,6 +321,8 @@ export interface ActiveRoundPublicInfo {
   zoomCurrentScale?: number;
   zoomPossiblePoints?: number;
   zoomBuzzedPlayerId?: string | null;
+  /** Seconden die de host nog heeft om een buzz (Zoom-in of Pantomime) goed of fout te rekenen. */
+  judgeRemainingSec?: number;
   zoomRevealedAnswer?: string;
   // Pantomime ("Wie of Wat ben ik?") public info
   pantomimeActorId?: string;

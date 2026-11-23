@@ -30,6 +30,10 @@ ENV NODE_ENV=production
 ENV PORT=3000
 ENV DATA_DIR=/app/data
 
+# python3 + ffmpeg: Roos-opnames maken en even hard maken vanuit /admin
+# bash + curl + tar: bij de eerste start de opnames ophalen (docker-entrypoint.sh)
+RUN apk add --no-cache bash curl tar python3 ffmpeg
+
 COPY package.json package-lock.json* ./
 COPY shared/package.json ./shared/
 COPY server/package.json ./server/
@@ -41,12 +45,17 @@ COPY --from=builder /app/shared/dist ./shared/dist
 COPY --from=builder /app/server/dist ./server/dist
 COPY --from=builder /app/server/seed ./server/seed
 COPY --from=builder /app/client/dist ./client/dist
+COPY scripts ./scripts
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 RUN mkdir -p /app/data
 
 EXPOSE 3000
 
-HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+# Bij de eerste start kan het ophalen van de opnames even duren
+HEALTHCHECK --interval=30s --timeout=5s --start-period=180s --retries=3 \
   CMD wget -qO- http://localhost:3000/api/health || exit 1
 
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["node", "server/dist/index.js"]

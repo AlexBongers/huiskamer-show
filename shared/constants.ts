@@ -321,6 +321,21 @@ export const LEVEL_META: Record<
   },
 };
 
+/**
+ * Welk seizoenspakket hoort bij een datum? Dezelfde grenzen als de seizoensthema's van de TV
+ * (client/src/theme/seasons.ts): Sinterklaas 12 nov t/m 7 dec, Kerst 8 dec t/m 14 jan, Zomer 21 jun t/m 22 sep.
+ */
+export function seasonalPackForDate(date: Date): ContentPackId | null {
+  const key = (date.getMonth() + 1) * 100 + date.getDate();
+  if (key >= 1112 && key <= 1207) return 'sinterklaas';
+  if (key >= 1208 || key <= 114) return 'kerst';
+  if (key >= 621 && key <= 922) return 'zomer';
+  return null;
+}
+
+/** De pakketten die altijd meedoen; het seizoenspakket komt er automatisch bij. */
+export const BASE_CONTENT_PACKS: ContentPackId[] = ['basis', 'kids_special'];
+
 export const TIMERS = {
   WHEEL_SPIN_SEC: 4,
   ROUND_INTRO_SEC: 3,
@@ -330,6 +345,8 @@ export const TIMERS = {
   PANTOMIME_DURATION_SEC: 40,
   ESTIMATE_DURATION_SEC: 25,
   ZOOM_LOCKOUT_MS: 4000,
+  /** Zo lang wacht de show op het oordeel van de host na een buzz; daarna is de buzzer weer vrij. */
+  JUDGE_TIMEOUT_SEC: 20,
   REVEAL_DURATION_SEC: 4,
   SCOREBOARD_DURATION_SEC: 5,
 };

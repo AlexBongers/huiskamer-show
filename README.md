@@ -17,7 +17,7 @@ Volwaardige, zelf-gehoste **TV-spelshow** met **6 rondetypes**, **adaptieve leef
 1. **🟣 Slimme Quiz** — Iedereen speelt tegelijk op eigen niveau (`ontdekker`, `avonturier`, `meester`).
 2. **⏱️ 30 Seconds Familie-editie** — Adaptieve tijd & kaarten (45s / 40s / 30s) met Host-hulpknop voor Lucas.
 3. **🔊 Wat hoor je?** — Geluiden-quiz met 46 lokale Web Audio synth-geluiden (+ eigen MP3/WAV uploads).
-4. **🔍 Zoom-in Foto** — Foto's en scènes zoomen vloeiend uit van `8×` naar `1×`; druk op de rode BUZZER!
+4. **🔍 Zoom-in Foto** — Foto's en scènes zoomen vloeiend uit van `8×` naar `1×`; druk op de rode BUZZER! Oordeelt de host niet binnen 20 seconden, dan komt de buzzer weer vrij (zonder straf).
 5. **🎭 Wie of Wat ben ik? (Pantomime)** — Uitbeelden zonder woorden; zowel rader (`+100`) als uitbeelder (`+75`) scoren!
 6. **🎯 Dichtstbij Wint! (Schattingen)** — Visuele schuifbalk met `+`/`−` knoppen; dichtstbijzijnde schatting wint (`+125`)!
 
@@ -39,6 +39,10 @@ docker compose up -d --build
   - ⚙️ **Gezins-Editor:** `http://<proxmox-ip>:3000/admin`
   - 🩺 **Healthcheck:** `http://<proxmox-ip>:3000/api/health`
 - Persistente opslag staat in `./data` (`/app/data`), inclusief uploads, `stats.json` (Hall of Fame), `played-history.json`, `active-session.json` (crash-recovery) en `/app/data/backups/` (max. 10 roterende snapshots).
+- Bij de eerste start haalt de container zelf de Roos-opnames op uit de GitHub Releases (uit te zetten met `TTS_AUTO_INSTALL=0`).
+  Lukt dat niet, dan start de show gewoon, met de computerstem.
+- Wil je vanuit `/admin` nieuwe Roos-opnames kunnen maken, zet dan `ELEVENLABS_API_KEY=...` in een bestand `.env` naast
+  `docker-compose.yml` (dat bestand gaat niet mee naar git) en start de container opnieuw.
 - Optionele eind-tot-eind Docker-controle:
   ```bash
   ./scripts/verify-docker.sh
@@ -64,6 +68,10 @@ De look wisselt automatisch op datum (de TV controleert dit elk uur, dus hij kan
 | 21 jun t/m 22 sep | Zomer |
 | 23 sep t/m 11 nov | Herfst |
 
+- **Seizoenspakket:** van 12 nov t/m 7 dec doet het Sinterklaas-pakket vanzelf mee, van 8 dec t/m 14 jan het Kerst-pakket en
+  van 21 jun t/m 22 sep het Zomer-pakket (dezelfde grenzen als de thema's). Seizoensvragen gaan dan voor, behalve als ze de
+  afgelopen 3 dagen al gespeeld zijn. Kiest de host in de lobby zelf pakketten, dan blijft die keuze staan; het seizoenspakket
+  heeft daar het label "nu".
 - Een thema vastzetten kan met `?thema=kerst` achter de URL (of via **Profielen & Backup** in `/admin`); `?thema=auto` gaat terug naar de datum. De keuze geldt alleen op dat apparaat.
 - Paletten en versiering staan in `client/src/styles/themes.css`, de datumregels in `client/src/theme/seasons.ts`. Kleuren gebruik je in code als Tailwind-klassen (`bg-studio-bg`, `bg-studio-card`, `text-studio-gold`), nooit als vaste hex-waarde. Alleen de vier antwoordkleuren (Rood, Blauw, Groen, Geel) staan bewust vast, omdat Lucas ze aan de stem koppelt.
 
@@ -71,6 +79,16 @@ De look wisselt automatisch op datum (de TV controleert dit elk uur, dus hij kan
 ```bash
 npm run dev    # Start Express/Socket.IO server (:3000) + Vite HMR (:5173)
 npm test       # Bouwt eerst het gedeelde pakket en draait dan de volledige Vitest unit-, integratie- & multi-client E2E testsuite
+```
+Bij elke push naar `main` en bij elke pull request draaien de tests ook op GitHub (`.github/workflows/ci.yml`), inclusief de
+zelftest van de geluidsbewerking.
+
+### Verbeterde standaardvragen
+Pas je een vraag in `server/seed` aan, dan bereikt die verbetering ook bestaande installaties: bij het starten (en via **Sync
+Vragen** in `/admin`) wordt een standaardvraag bijgewerkt als hij nog precies een eerdere versie is. Wie een vraag zelf heeft
+aangepast, houdt zijn eigen versie. Werk na een wijziging in `server/seed` de lijst met eerdere versies bij:
+```bash
+npx tsx scripts/build-seed-history.ts          # --check controleert alleen (dat doen de tests ook)
 ```
 
 ---
@@ -93,20 +111,23 @@ python3 scripts/generate-tts.py --check      # of: npm run tts:check
 ```
 **Ontbrekende opnames maken** (kost ElevenLabs-credits, alleen voor wat ontbreekt; zet `ELEVENLABS_API_KEY=...` in `.env`, die staat niet in git):
 ```bash
-python3 scripts/generate-tts.py
+python3 scripts/generate-tts.py              # --limit 5 om eerst een paar te proberen
 ```
-**Volume:** elke opname wordt op **-16 LUFS** gebracht (true peak hooguit -1,5 dBTP), ook losse woorden. ffmpeg's eigen `loudnorm`
+Dat kan ook vanuit **`/admin` → Profielen & Backup → Roos-opnames**: daar zie je hoeveel teksten nog geen opname hebben, wat het
+ongeveer kost, en met één knop (na bevestiging) maakt de server ze. Na het opslaan van een quizvraag zonder opname meldt het
+beheerscherm dat ook. Telefoons en tablets pikken nieuwe opnames binnen 5 minuten vanzelf op.
+**Volume:** elke opname wordt op **-16 LUFS** gebracht (true peak hooguit -1 dBTP), ook losse woorden. ffmpeg's eigen `loudnorm`
 meet korte opnames scheef, daarom meet `scripts/tts_audio.py` zelf. Bestaande opnames controleren of gelijk trekken:
 ```bash
 python3 scripts/tts_audio.py check data/tts     # meet en toont de verdeling
-python3 scripts/tts_audio.py fix data/tts       # maakt alles wat er te ver naast zit even hard
+python3 scripts/tts_audio.py fix data/tts       # maakt alles wat er te ver naast zit even hard (originelen in data/tts/_origineel)
 ```
 Vervang je opnames door een bewerkte versie, publiceer die dan als nieuwe release (`tts-vN+1`) en draai `install-tts.sh` op elke machine
 (ook op de Proxmox-host). Telefoons en tablets halen vervangen opnames vanzelf opnieuw op.
 
 ## 📦 Meegeleverde Start-Content (`server/seed/`)
-- **450 Quizvragen** (`150` `ontdekker`, `150` `avonturier`, `150` `meester` — 25 per categorie per niveau).
-- **180 30-Seconds Kaarten** (`60` per niveau, zonder dubbele begrippen binnen een niveau).
+- **480 Quizvragen** (`160` per niveau), waarvan 30 extra seizoensvragen voor Sinterklaas, Kerst en de zomer.
+- **186 30-Seconds Kaarten** (`62` per niveau, zonder dubbele begrippen binnen een niveau).
 - **46 "Wat hoor je?" Geluidsuitdagingen** (100% lokaal via Web Audio API + eigen MP3/WAV-uploads).
 - **46 "Zoom-in Foto" Uitdagingen** (+ Batch Familiefoto Wizard in `/admin` voor eigen foto's).
 - **30 "Wie of Wat ben ik?" Pantomime-opdrachten** (verdeeld over alle 3 niveaus).

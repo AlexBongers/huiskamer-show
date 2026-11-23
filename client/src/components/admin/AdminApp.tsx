@@ -39,6 +39,26 @@ import {
 } from '../illustrations/IllustrationLibrary';
 import { SOUND_PRESET_LIST, soundEngine } from '../../services/soundEngine';
 import { speechService } from '../../services/speechService';
+
+interface TtsMissingEntry {
+  category: string;
+  text: string;
+  hash: string;
+  itemId: string;
+}
+
+interface TtsStatus {
+  toolsAvailable: boolean;
+  toolsMessage?: string;
+  keyConfigured: boolean;
+  total: number;
+  recorded: number;
+  missingCount: number;
+  missingChars: number;
+  estimatedCredits: number;
+  missing: TtsMissingEntry[];
+  job: { running: boolean; exitCode?: number | null; lines: string[] };
+}
 import {
   THEMES,
   getThemeOverride,
@@ -188,6 +208,10 @@ export const AdminApp: React.FC = () => {
   const [newEstIllustration, setNewEstIllustration] = useState('star');
   const [newEstFunFact, setNewEstFunFact] = useState('');
 
+  const [ttsStatus, setTtsStatus] = useState<TtsStatus | null>(null);
+  const [ttsError, setTtsError] = useState('');
+  const [ttsPolling, setTtsPolling] = useState(false);
+
   const showNotice = (msg: string) => {
     setErrorToast('');
     setToast(msg);
@@ -257,6 +281,86 @@ export const AdminApp: React.FC = () => {
   useEffect(() => {
     fetchOverview();
   }, []);
+
+  // ---------------------------------------------------------------- Roos-opnames
+  const fetchTtsStatus = async (): Promise<TtsStatus | null> => {
+    try {
+      const res = await adminFetch('/api/admin/tts/status');
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data) {
+        setTtsError(data?.error || 'Kon de status van de opnames niet ophalen.');
+        return null;
+      }
+      setTtsError('');
+      setTtsStatus(data as TtsStatus);
+      if ((data as TtsStatus).job?.running) setTtsPolling(true);
+      return data as TtsStatus;
+    } catch {
+      setTtsError('Kon de status van de opnames niet ophalen.');
+      return null;
+    }
+  };
+
+  /** Na het opslaan van een vraag of opdracht: meld het als die nog geen Roos-opname heeft. */
+  const noticeWithTtsHint = async (msg: string, itemId?: string) => {
+    const st = await fetchTtsStatus();
+    const lacks = itemId && st?.missing.some((m) => m.itemId === itemId);
+    showNotice(
+      lacks
+        ? `${msg} Nog geen opname van Roos: maak die bij Profielen & Backup → Roos-opnames.`
+        : msg
+    );
+  };
+
+  const handleGenerateTts = async () => {
+    if (!ttsStatus) return;
+    const n = ttsStatus.missingCount;
+    if (
+      !window.confirm(
+        `Dit maakt ${n} opname${n === 1 ? '' : 's'} bij ElevenLabs en kost ongeveer ${ttsStatus.estimatedCredits} credits. Doorgaan?`
+      )
+    ) {
+      return;
+    }
+    const res = await adminFetch('/api/admin/tts/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({}),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.status === 202) {
+      showNotice(`🎙️ Roos maakt ${data.todo} opnames...`);
+      setTtsPolling(true);
+    } else if (res.ok) {
+      showNotice(data.message || 'Niets te doen.');
+    } else {
+      showError(data.error || 'Kon het maken van opnames niet starten.');
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === 'settings' && pinUnlocked) void fetchTtsStatus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTab, pinUnlocked]);
+
+  useEffect(() => {
+    if (!ttsPolling) return;
+    const timer = window.setInterval(async () => {
+      const res = await adminFetch('/api/admin/tts/job');
+      if (!res.ok) return;
+      const jobState = await res.json();
+      setTtsStatus((prev) => (prev ? { ...prev, job: jobState } : prev));
+      if (!jobState.running) {
+        setTtsPolling(false);
+        await fetchTtsStatus();
+        await speechService.refreshManifest();
+        if (jobState.exitCode === 0) showNotice('✅ Opnames klaar!');
+        else showError('Niet alle opnames zijn gelukt; zie de regels in het paneel.');
+      }
+    }, 2000);
+    return () => window.clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ttsPolling]);
 
   /**
    * Client-side canvas image resize to max 1600px JPEG so raw 12MB phone photos stay compact & fast!
@@ -409,10 +513,10 @@ export const AdminApp: React.FC = () => {
       const saved = (await res.json()) as QuizQuestion;
       if (editingQuizId) {
         setQuizList(quizList.map((q) => (q.id === saved.id ? saved : q)));
-        showNotice('✅ Quizvraag bijgewerkt!');
+        void noticeWithTtsHint('✅ Quizvraag bijgewerkt!', saved.id);
       } else {
         setQuizList([saved, ...quizList]);
-        showNotice('✅ Nieuwe quizvraag opgeslagen!');
+        void noticeWithTtsHint('✅ Nieuwe quizvraag opgeslagen!', saved.id);
       }
       resetQuizForm();
     } else {
@@ -855,10 +959,14 @@ export const AdminApp: React.FC = () => {
         (data.zoomAdded || 0) +
         (data.pantomimeAdded || 0) +
         (data.estimatesAdded || 0);
+      const totalUpdated = data.updatedTotal || 0;
       await fetchOverview();
+      const parts: string[] = [];
+      if (totalAdded > 0) parts.push(`${totalAdded} nieuwe standaardvragen/opdrachten toegevoegd`);
+      if (totalUpdated > 0) parts.push(`${totalUpdated} verbeterde standaardvragen bijgewerkt (eigen aanpassingen blijven staan)`);
       showNotice(
-        totalAdded > 0
-          ? `📥 ${totalAdded} nieuwe standaard vragen/opdrachten toegevoegd!`
+        parts.length > 0
+          ? `📥 ${parts.join(' en ')}.`
           : '✅ Alle standaard content is al volledig up-to-date!'
       );
     } else {
@@ -2727,6 +2835,78 @@ export const AdminApp: React.FC = () => {
                   </button>
                 ))}
               </div>
+            </div>
+            <div className="studio-panel rounded-3xl p-6 flex flex-col gap-3">
+              <h2 className="font-display text-2xl text-studio-gold">
+                🎙️ Roos-opnames
+              </h2>
+              {!ttsStatus ? (
+                <p className="text-sm text-slate-300">
+                  {ttsError || 'Status ophalen...'}
+                </p>
+              ) : (
+                <>
+                  <p className="text-sm text-slate-300">
+                    {ttsStatus.recorded} van {ttsStatus.total} teksten hebben een
+                    opname van Roos.
+                    {ttsStatus.missingCount > 0
+                      ? ` ${ttsStatus.missingCount} nog niet (ongeveer ${ttsStatus.estimatedCredits} credits); die klinken nu met de computerstem.`
+                      : ' Alles is ingesproken.'}
+                  </p>
+                  {!ttsStatus.toolsAvailable && (
+                    <p className="text-sm text-amber-300">{ttsStatus.toolsMessage}</p>
+                  )}
+                  {ttsStatus.toolsAvailable &&
+                    !ttsStatus.keyConfigured &&
+                    ttsStatus.missingCount > 0 && (
+                      <p className="text-sm text-amber-300">
+                        Er is nog geen ElevenLabs-sleutel ingesteld op de server. Zet{' '}
+                        <code>ELEVENLABS_API_KEY=...</code> in het bestand{' '}
+                        <code>.env</code> naast docker-compose.yml en herstart de server.
+                      </p>
+                    )}
+                  {ttsStatus.missing.length > 0 && (
+                    <ul className="text-xs text-slate-400 list-disc pl-5 max-h-32 overflow-auto">
+                      {ttsStatus.missing.slice(0, 8).map((m) => (
+                        <li key={m.hash}>{m.text}</li>
+                      ))}
+                      {ttsStatus.missingCount > 8 && (
+                        <li>... en nog {ttsStatus.missingCount - 8}</li>
+                      )}
+                    </ul>
+                  )}
+                  <div className="flex flex-wrap gap-2">
+                    {ttsStatus.missingCount > 0 && (
+                      <button
+                        type="button"
+                        onClick={handleGenerateTts}
+                        disabled={
+                          ttsStatus.job.running ||
+                          !ttsStatus.toolsAvailable ||
+                          !ttsStatus.keyConfigured
+                        }
+                        className="px-4 py-2 rounded-xl bg-studio-gold text-studio-bg font-display disabled:opacity-40"
+                      >
+                        {ttsStatus.job.running
+                          ? 'Bezig met opnemen...'
+                          : `Maak ontbrekende opnames (± ${ttsStatus.estimatedCredits} credits)`}
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => void fetchTtsStatus()}
+                      className="px-4 py-2 rounded-xl bg-studio-bg border border-white/20 text-white font-display"
+                    >
+                      Vernieuwen
+                    </button>
+                  </div>
+                  {ttsStatus.job.lines.length > 0 && (
+                    <pre className="text-xs text-slate-300 bg-studio-bg rounded-xl p-3 whitespace-pre-wrap max-h-40 overflow-auto">
+                      {ttsStatus.job.lines.slice(-8).join('\n')}
+                    </pre>
+                  )}
+                </>
+              )}
             </div>
             <form
               onSubmit={handleSaveConfig}

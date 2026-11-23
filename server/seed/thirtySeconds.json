@@ -4138,5 +4138,140 @@
         "word": "Familieknuffel"
       }
     ]
+  },
+  {
+    "id": "ts_ont_61",
+    "category": "films_magie",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_61_1",
+        "word": "Wit paard van Sinterklaas",
+        "illustrationId": "horse"
+      }
+    ],
+    "packId": "sinterklaas"
+  },
+  {
+    "id": "ts_ont_62",
+    "category": "dieren_dinos",
+    "level": "ontdekker",
+    "items": [
+      {
+        "id": "item_62_1",
+        "word": "Pinguïn op het ijs",
+        "illustrationId": "penguin"
+      }
+    ],
+    "packId": "kerst"
+  },
+  {
+    "id": "ts_avo_61",
+    "category": "films_magie",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_61_1",
+        "word": "Pakjes in de schoorsteen",
+        "illustrationId": "gift_box"
+      },
+      {
+        "id": "item_61_2",
+        "word": "Pepernoten strooien",
+        "illustrationId": "pepernoten"
+      },
+      {
+        "id": "item_61_3",
+        "word": "Paard op het dak",
+        "illustrationId": "horse"
+      },
+      {
+        "id": "item_61_4",
+        "word": "Mijter met een kruis"
+      }
+    ],
+    "packId": "sinterklaas"
+  },
+  {
+    "id": "ts_avo_62",
+    "category": "ons_gezin",
+    "level": "avonturier",
+    "items": [
+      {
+        "id": "item_62_1",
+        "word": "Kerstster bovenin de boom",
+        "illustrationId": "star"
+      },
+      {
+        "id": "item_62_2",
+        "word": "Rendier met een slee"
+      },
+      {
+        "id": "item_62_3",
+        "word": "Sterren aan de hemel",
+        "illustrationId": "moon_stars"
+      },
+      {
+        "id": "item_62_4",
+        "word": "Schaatsen op natuurijs"
+      }
+    ],
+    "packId": "kerst"
+  },
+  {
+    "id": "ts_mee_61",
+    "category": "ons_gezin",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_61_1",
+        "word": "Sinterklaasgedicht"
+      },
+      {
+        "id": "item_61_2",
+        "word": "Mijter"
+      },
+      {
+        "id": "item_61_3",
+        "word": "Kruidnoten"
+      },
+      {
+        "id": "item_61_4",
+        "word": "Lootjes trekken"
+      },
+      {
+        "id": "item_61_5",
+        "word": "Sinterklaasjournaal"
+      }
+    ],
+    "packId": "sinterklaas"
+  },
+  {
+    "id": "ts_mee_62",
+    "category": "sport_eten",
+    "level": "meester",
+    "items": [
+      {
+        "id": "item_62_1",
+        "word": "Maretak"
+      },
+      {
+        "id": "item_62_2",
+        "word": "Kerstmarkt"
+      },
+      {
+        "id": "item_62_3",
+        "word": "Driekoningen"
+      },
+      {
+        "id": "item_62_4",
+        "word": "Kerstdiner"
+      },
+      {
+        "id": "item_62_5",
+        "word": "Kerstpakket"
+      }
+    ],
+    "packId": "kerst"
   }
 ]

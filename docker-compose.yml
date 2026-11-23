@@ -12,6 +12,11 @@ services:
       # Optioneel: stel vast LAN-adres of lokaal domein in voor de QR-code op TV
       # Laat leeg om automatisch window.location.origin van de TV te gebruiken
       - PUBLIC_URL=
+      # Roos-opnames: bij de eerste start automatisch ophalen uit de GitHub Releases (0 = uit)
+      - TTS_AUTO_INSTALL=1
+      # Voor het maken van nieuwe opnames vanuit /admin: zet ELEVENLABS_API_KEY=... in een bestand .env
+      # naast dit bestand (dat bestand gaat niet mee naar git)
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY:-}
     volumes:
       - ./data:/app/data
     healthcheck:
@@ -19,3 +24,4 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
+      start_period: 180s

@@ -22,6 +22,8 @@ import {
   Team,
   TIMERS,
   ZoomPhotoChallenge,
+  BASE_CONTENT_PACKS,
+  seasonalPackForDate,
 } from '@huiskamer-show/shared';
 import { DataStore } from '../storage/DataStore';
 import { AwardsEngine } from './AwardsEngine';
@@ -164,6 +166,8 @@ export class GameEngine {
   private zoomPossiblePoints = 150;
   private zoomBuzzedPlayerId: string | null = null;
   private zoomRemainingTicks = 40;
+  /** Hoe lang de huidige buzz (Zoom-in of Pantomime) al op een oordeel van de host wacht. */
+  private judgeWaitSec = 0;
 
   // Pantomime ("Wie of Wat ben ik?") internal data
   private activePantomimeChallenge: PantomimeChallenge | null = null;
@@ -183,6 +187,10 @@ export class GameEngine {
   >();
 
   private autoAdvanceTimers = true;
+  /** Klok voor de seizoensregels (in tests te vervangen). */
+  public clock: () => Date = () => new Date();
+  /** Heeft de host zelf pakketten gekozen? Dan laten we die staan; anders kiest de datum het seizoenspakket. */
+  private packsChosenByHost = false;
   /** Waar als het spel vanzelf is gepauzeerd omdat niemand meer verbonden was (dan hervat het ook vanzelf). */
   private autoPausedForNobody = false;
 
@@ -200,6 +208,38 @@ export class GameEngine {
     this.autoAdvanceTimers = autoAdvanceTimers;
     this.deterministicMode = deterministicMode;
     this.ensureDefaultTeams();
+    this.settings.enabledPacks = this.defaultPacks();
+  }
+
+  /** Basis + Kids-Special, plus het seizoenspakket van vandaag (Sinterklaas, Kerst of Zomer). */
+  private defaultPacks(): ContentPackId[] {
+    const seasonal = seasonalPackForDate(this.clock());
+    return seasonal ? [...BASE_CONTENT_PACKS, seasonal] : [...BASE_CONTENT_PACKS];
+  }
+
+  /**
+   * Seizoens- en themavragen gaan voor als ze in de pot zitten, zodat je het seizoen echt merkt.
+   * Maar niet als ze de afgelopen 3 dagen al gespeeld zijn: anders komt elke avond dezelfde vraag terug.
+   */
+  /** Zelfde voorkeur als preferSpecialPacks, maar dan als volgorde: seizoenskaarten eerst. */
+  private preferSpecialFirst<T extends { id: string; packId?: ContentPackId }>(list: T[]): T[] {
+    const special = new Set(this.preferSpecialPacks(list));
+    if (special.size === list.length) return list;
+    return [...list.filter((it) => special.has(it)), ...list.filter((it) => !special.has(it))];
+  }
+
+  private preferSpecialPacks<T extends { id: string; packId?: ContentPackId }>(pool: T[]): T[] {
+    const recentMs = 3 * 24 * 60 * 60 * 1000;
+    const now = Date.now();
+    const special = pool.filter((it) => {
+      const pack = it.packId || 'basis';
+      return (
+        !BASE_CONTENT_PACKS.includes(pack) &&
+        this.matchesPack(pack) &&
+        now - this.store.getLastPlayedAt(it.id) > recentMs
+      );
+    });
+    return special.length > 0 ? special : pool;
   }
 
   private shuffleArray<T>(arr: T[]): T[] {
@@ -553,7 +593,10 @@ export class GameEngine {
       const packs = configPayload.enabledPacks.filter((p) =>
         VALID_PACKS.has(p)
       );
-      if (packs.length > 0) this.settings.enabledPacks = packs;
+      if (packs.length > 0) {
+        this.settings.enabledPacks = packs;
+        this.packsChosenByHost = true;
+      }
     }
     if (typeof configPayload.surpriseMode === 'boolean') {
       this.settings.surpriseMode = configPayload.surpriseMode;
@@ -666,6 +709,10 @@ export class GameEngine {
     if (this.players.length === 0) return;
     // Alleen vanuit de lobby of de finale: een dubbele tik mag een lopend spel niet opnieuw starten.
     if (this.phase !== 'LOBBY' && this.phase !== 'FINALE') return;
+
+    if (!this.packsChosenByHost) {
+      this.settings.enabledPacks = this.defaultPacks();
+    }
 
     this.clearTimers();
     this.store.clearActiveSession();
@@ -1357,7 +1404,9 @@ export class GameEngine {
     if (!this.autoAdvanceTimers) return;
 
     this.tickInterval = setInterval(() => {
-      if (this.phase !== 'ROUND_ACTIVE' || this.zoomBuzzedPlayerId !== null) {
+      if (this.phase !== 'ROUND_ACTIVE') return;
+      if (this.zoomBuzzedPlayerId !== null) {
+        this.advanceJudgeWait(0.5);
         return;
       }
 
@@ -1410,12 +1459,45 @@ export class GameEngine {
     }
 
     this.zoomBuzzedPlayerId = player.id;
+    this.judgeWaitSec = 0;
     const elapsedMs = Math.max(0, now - this.roundStartedAtMs);
     this.recordResponseTime(player, elapsedMs);
 
     this.onSfx('buzzer');
     this.onBroadcast();
     return true;
+  }
+
+  /**
+   * Na een buzz wacht de show op het oordeel van de host. Komt dat er niet binnen
+   * TIMERS.JUDGE_TIMEOUT_SEC (telefoon weggelegd, host even weg), dan komt de buzzer weer vrij en speelt
+   * de ronde verder, zonder straf voor wie buzzerde. Wordt aangeroepen vanuit de klok van de ronde
+   * (die tijdens een pauze stilstaat, dus dan loopt deze wachttijd ook niet door).
+   */
+  public advanceJudgeWait(seconds: number): void {
+    if (this.phase !== 'ROUND_ACTIVE') return;
+    const zoomWaiting =
+      this.currentRoundType === 'zoom_photo' && this.zoomBuzzedPlayerId !== null;
+    const pantomimeWaiting =
+      this.currentRoundType === 'pantomime' && this.pantomimeBuzzedPlayerId !== null;
+    if (!zoomWaiting && !pantomimeWaiting) return;
+
+    const shownBefore = Math.ceil(TIMERS.JUDGE_TIMEOUT_SEC - this.judgeWaitSec);
+    this.judgeWaitSec += seconds;
+    if (this.judgeWaitSec >= TIMERS.JUDGE_TIMEOUT_SEC) {
+      this.judgeWaitSec = 0;
+      if (zoomWaiting) this.zoomBuzzedPlayerId = null;
+      if (pantomimeWaiting) this.pantomimeBuzzedPlayerId = null;
+      this.onBroadcast();
+      return;
+    }
+    if (Math.ceil(TIMERS.JUDGE_TIMEOUT_SEC - this.judgeWaitSec) !== shownBefore) {
+      this.onBroadcast();
+    }
+  }
+
+  private judgeRemainingSec(): number {
+    return Math.max(0, Math.ceil(TIMERS.JUDGE_TIMEOUT_SEC - this.judgeWaitSec));
   }
 
   public handleHostJudgeZoom(correct: boolean): void {
@@ -1514,6 +1596,7 @@ export class GameEngine {
     }
 
     this.pantomimeBuzzedPlayerId = player.id;
+    this.judgeWaitSec = 0;
     const elapsedMs = Math.max(0, now - this.roundStartedAtMs);
     this.recordResponseTime(player, elapsedMs);
 
@@ -1998,7 +2081,7 @@ export class GameEngine {
       pool = all.filter((q) => q.level === level);
     }
 
-    const chosen = this.pickLeastRecentlyPlayed(pool);
+    const chosen = this.pickLeastRecentlyPlayed(this.preferSpecialPacks(pool));
     if (chosen) this.usedQuizIds.add(chosen.id);
     return chosen;
   }
@@ -2038,7 +2121,7 @@ export class GameEngine {
       }
 
       const combined = [
-        ...this.shuffleArray(unusedCat),
+        ...this.preferSpecialFirst(this.shuffleArray(unusedCat)),
         ...this.shuffleArray(unusedOther),
       ].slice(0, 10);
 
@@ -2076,7 +2159,7 @@ export class GameEngine {
     if (pool.length === 0) {
       pool = all.filter((c) => c.category === category && c.level === level);
     }
-    const card = this.pickLeastRecentlyPlayed(pool);
+    const card = this.pickLeastRecentlyPlayed(this.preferSpecialPacks(pool));
     if (!card) return [];
 
     this.usedThirtySecIds.add(card.id);
@@ -2106,7 +2189,7 @@ export class GameEngine {
       this.usedSoundIds.clear();
       pool = all;
     }
-    const chosen = this.pickLeastRecentlyPlayed(pool);
+    const chosen = this.pickLeastRecentlyPlayed(this.preferSpecialPacks(pool));
     if (chosen) this.usedSoundIds.add(chosen.id);
     return chosen;
   }
@@ -2128,7 +2211,7 @@ export class GameEngine {
       this.usedZoomIds.clear();
       pool = all;
     }
-    const chosen = this.pickLeastRecentlyPlayed(pool);
+    const chosen = this.pickLeastRecentlyPlayed(this.preferSpecialPacks(pool));
     if (chosen) this.usedZoomIds.add(chosen.id);
     return chosen;
   }
@@ -2154,7 +2237,7 @@ export class GameEngine {
       this.usedPantomimeIds.clear();
       pool = all;
     }
-    const chosen = this.pickLeastRecentlyPlayed(pool);
+    const chosen = this.pickLeastRecentlyPlayed(this.preferSpecialPacks(pool));
     if (chosen) this.usedPantomimeIds.add(chosen.id);
     return chosen;
   }
@@ -2174,7 +2257,7 @@ export class GameEngine {
       this.usedEstimateIds.clear();
       pool = all;
     }
-    const chosen = this.pickLeastRecentlyPlayed(pool);
+    const chosen = this.pickLeastRecentlyPlayed(this.preferSpecialPacks(pool));
     if (chosen) this.usedEstimateIds.add(chosen.id);
     return chosen;
   }
@@ -2209,6 +2292,7 @@ export class GameEngine {
         this.currentRoundType === 'pantomime' &&
         this.pantomimeBuzzedPlayerId !== null
       ) {
+        this.advanceJudgeWait(1);
         return;
       }
 
@@ -2359,6 +2443,9 @@ export class GameEngine {
           : this.zoomCurrentScale;
         activeRound.zoomPossiblePoints = this.zoomPossiblePoints;
         activeRound.zoomBuzzedPlayerId = this.zoomBuzzedPlayerId;
+        if (this.zoomBuzzedPlayerId) {
+          activeRound.judgeRemainingSec = this.judgeRemainingSec();
+        }
         if (isRevealOrLater) {
           activeRound.zoomRevealedAnswer = this.activeZoomChallenge.answer;
         }
@@ -2371,6 +2458,9 @@ export class GameEngine {
         activeRound.pantomimeActorId = this.pantomimeActorId || undefined;
         activeRound.pantomimeStarted = this.pantomimeStarted;
         activeRound.pantomimeBuzzedPlayerId = this.pantomimeBuzzedPlayerId;
+        if (this.pantomimeBuzzedPlayerId) {
+          activeRound.judgeRemainingSec = this.judgeRemainingSec();
+        }
         if (isRevealOrLater) {
           activeRound.pantomimeRevealedAnswer =
             this.activePantomimeChallenge.prompt;

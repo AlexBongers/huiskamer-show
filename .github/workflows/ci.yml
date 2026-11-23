@@ -1,0 +1,42 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # De controle van server/seed/seed-history.json heeft de git-geschiedenis nodig
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: ffmpeg (voor de tests van de Roos-opnames)
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+
+      - name: Afhankelijkheden
+        run: npm ci
+
+      - name: Bouwen
+        run: npm run build
+
+      - name: Tests
+        run: npm test
+
+      - name: Zelftest geluidsbewerking
+        run: python3 scripts/tts_audio.py selftest
+
+      - name: Scripts controleren
+        run: |
+          bash -n scripts/install-tts.sh
+          bash -n docker-entrypoint.sh
+          npx tsx scripts/build-seed-history.ts --check

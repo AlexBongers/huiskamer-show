@@ -14398,5 +14398,905 @@
     ],
     "correctOptionId": "c",
     "funFact": "Met 450+ vragen en 6 rondetypes staat het volgende potje altijd klaar!"
+  },
+  {
+    "id": "qz_ont_271",
+    "category": "dieren_dinos",
+    "level": "ontdekker",
+    "prompt": "Op welk dier rijdt Sinterklaas 's nachts over de daken?",
+    "spokenPrompt": "Op welk dier rijdt Sinterklaas 's nachts over de daken?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Een kameel",
+        "illustrationId": "camel"
+      },
+      {
+        "id": "b",
+        "label": "Een olifant",
+        "illustrationId": "elephant"
+      },
+      {
+        "id": "c",
+        "label": "Een wit paard",
+        "illustrationId": "horse"
+      },
+      {
+        "id": "d",
+        "label": "Een zebra",
+        "illustrationId": "zebra"
+      }
+    ],
+    "correctOptionId": "c",
+    "funFact": "Het paard van Sinterklaas heet Ozosnel. Het kan heel goed over de daken lopen!",
+    "packId": "sinterklaas"
+  },
+  {
+    "id": "qz_ont_272",
+    "category": "ons_gezin",
+    "level": "ontdekker",
+    "prompt": "Wat brengt Sinterklaas op pakjesavond mee voor alle kinderen?",
+    "spokenPrompt": "Wat brengt Sinterklaas op pakjesavond mee voor alle kinderen?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Cadeautjes",
+        "illustrationId": "gift_box"
+      },
+      {
+        "id": "b",
+        "label": "Een vulkaan",
+        "illustrationId": "volcano"
+      },
+      {
+        "id": "c",
+        "label": "Een haai",
+        "illustrationId": "shark"
+      },
+      {
+        "id": "d",
+        "label": "Een tractor",
+        "illustrationId": "tractor"
+      }
+    ],
+    "correctOptionId": "a",
+    "funFact": "Pakjesavond is op 5 december, de avond voor de verjaardag van Sinterklaas.",
+    "packId": "sinterklaas"
+  },
+  {
+    "id": "qz_ont_273",
+    "category": "wereld_raadsels",
+    "level": "ontdekker",
+    "prompt": "Uit welk warm land komt Sinterklaas elk jaar met de stoomboot?",
+    "spokenPrompt": "Uit welk warm land komt Sinterklaas elk jaar met de stoomboot?",
+    "options": [
+      {
+        "id": "a",
+        "label": "De Noordpool",
+        "illustrationId": "snowman"
+      },
+      {
+        "id": "b",
+        "label": "Spanje",
+        "illustrationId": "sun"
+      },
+      {
+        "id": "c",
+        "label": "De maan",
+        "illustrationId": "moon_stars"
+      },
+      {
+        "id": "d",
+        "label": "Een onbewoond eiland",
+        "illustrationId": "island"
+      }
+    ],
+    "correctOptionId": "b",
+    "funFact": "Volgens de verhalen woont Sinterklaas in Spanje. In november vaart hij met zijn stoomboot naar Nederland.",
+    "packId": "sinterklaas"
+  },
+  {
+    "id": "qz_ont_274",
+    "category": "films_magie",
+    "level": "ontdekker",
+    "prompt": "Waarover lopen Sinterklaas en zijn paard 's nachts om de pakjes te brengen?",
+    "spokenPrompt": "Waarover lopen Sinterklaas en zijn paard 's nachts om de pakjes te brengen?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Over de zeebodem",
+        "illustrationId": "submarine"
+      },
+      {
+        "id": "b",
+        "label": "Door de jungle",
+        "illustrationId": "jungle_ape"
+      },
+      {
+        "id": "c",
+        "label": "Langs een vulkaan",
+        "illustrationId": "volcano"
+      },
+      {
+        "id": "d",
+        "label": "Over de daken",
+        "illustrationId": "house_family"
+      }
+    ],
+    "correctOptionId": "d",
+    "funFact": "De Pieten laten de pakjes via de schoorsteen naar beneden zakken.",
+    "packId": "sinterklaas"
+  },
+  {
+    "id": "qz_avo_361",
+    "category": "ons_gezin",
+    "level": "avonturier",
+    "prompt": "Op welke datum vieren we pakjesavond?",
+    "spokenPrompt": "Op welke datum vieren we pakjesavond?",
+    "options": [
+      {
+        "id": "a",
+        "label": "25 december",
+        "illustrationId": "christmas_tree"
+      },
+      {
+        "id": "b",
+        "label": "11 november",
+        "illustrationId": "moon_stars"
+      },
+      {
+        "id": "c",
+        "label": "5 december",
+        "illustrationId": "gift_box"
+      },
+      {
+        "id": "d",
+        "label": "31 december",
+        "illustrationId": "star"
+      }
+    ],
+    "correctOptionId": "c",
+    "funFact": "Op 6 december is de verjaardag van Sinterklaas; daarom krijgen we de avond ervoor onze pakjes.",
+    "packId": "sinterklaas"
+  },
+  {
+    "id": "qz_avo_362",
+    "category": "dieren_dinos",
+    "level": "avonturier",
+    "prompt": "Hoe heet het witte paard van Sinterklaas sinds 2019?",
+    "spokenPrompt": "Hoe heet het witte paard van Sinterklaas sinds 2019?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Amerigo"
+      },
+      {
+        "id": "b",
+        "label": "Ozosnel"
+      },
+      {
+        "id": "c",
+        "label": "Bliksem"
+      },
+      {
+        "id": "d",
+        "label": "Sneeuwvlok"
+      }
+    ],
+    "correctOptionId": "b",
+    "funFact": "Daarvoor reed Sinterklaas jarenlang op het paard Amerigo.",
+    "packId": "sinterklaas"
+  },
+  {
+    "id": "qz_avo_363",
+    "category": "films_magie",
+    "level": "avonturier",
+    "prompt": "Wat staat er voorop de mijter van Sinterklaas?",
+    "spokenPrompt": "Wat staat er voorop de mijter van Sinterklaas?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Een gouden kruis"
+      },
+      {
+        "id": "b",
+        "label": "Een regenboog"
+      },
+      {
+        "id": "c",
+        "label": "Een kroon"
+      },
+      {
+        "id": "d",
+        "label": "Een pepernoot"
+      }
+    ],
+    "correctOptionId": "a",
+    "funFact": "Sinterklaas is een bisschop, en een bisschop draagt een mijter met een kruis erop.",
+    "packId": "sinterklaas"
+  },
+  {
+    "id": "qz_avo_364",
+    "category": "sport_eten",
+    "level": "avonturier",
+    "prompt": "Wat is een surprise bij Sinterklaas?",
+    "spokenPrompt": "Wat is een surprise bij Sinterklaas?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Een soort koekje",
+        "illustrationId": "pepernoten"
+      },
+      {
+        "id": "b",
+        "label": "Een liedje over de stoomboot",
+        "illustrationId": "steamboat"
+      },
+      {
+        "id": "c",
+        "label": "Een paard van chocolade",
+        "illustrationId": "horse"
+      },
+      {
+        "id": "d",
+        "label": "Een zelfgemaakt cadeau met een gedicht",
+        "illustrationId": "gift_box"
+      }
+    ],
+    "correctOptionId": "d",
+    "funFact": "Op school trekken kinderen vaak lootjes en maken ze voor elkaar een surprise.",
+    "packId": "sinterklaas"
+  },
+  {
+    "id": "qz_mee_451",
+    "category": "wereld_raadsels",
+    "level": "meester",
+    "prompt": "Van welke stad in het huidige Turkije was de echte Sint-Nicolaas bisschop?",
+    "spokenPrompt": "Van welke stad in het huidige Turkije was de echte Sint-Nicolaas bisschop?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Istanbul"
+      },
+      {
+        "id": "b",
+        "label": "Ankara"
+      },
+      {
+        "id": "c",
+        "label": "Myra"
+      },
+      {
+        "id": "d",
+        "label": "Izmir"
+      }
+    ],
+    "correctOptionId": "c",
+    "funFact": "Sint-Nicolaas leefde in de 4e eeuw. Myra heet tegenwoordig Demre.",
+    "packId": "sinterklaas"
+  },
+  {
+    "id": "qz_mee_452",
+    "category": "sport_eten",
+    "level": "meester",
+    "prompt": "Hoe heten de kleine, harde, ronde koekjes die veel mensen pepernoten noemen?",
+    "spokenPrompt": "Hoe heten de kleine, harde, ronde koekjes die veel mensen pepernoten noemen?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Kruidnoten"
+      },
+      {
+        "id": "b",
+        "label": "Speculaasjes"
+      },
+      {
+        "id": "c",
+        "label": "Taaitaai"
+      },
+      {
+        "id": "d",
+        "label": "Bitterkoekjes"
+      }
+    ],
+    "correctOptionId": "a",
+    "funFact": "Echte pepernoten zijn taaier, platter en zitten vol anijs.",
+    "packId": "sinterklaas"
+  },
+  {
+    "id": "qz_mee_453",
+    "category": "ons_gezin",
+    "level": "meester",
+    "prompt": "Op welke dag viert Sinterklaas zijn verjaardag?",
+    "spokenPrompt": "Op welke dag viert Sinterklaas zijn verjaardag?",
+    "options": [
+      {
+        "id": "a",
+        "label": "5 december"
+      },
+      {
+        "id": "b",
+        "label": "6 december"
+      },
+      {
+        "id": "c",
+        "label": "25 december"
+      },
+      {
+        "id": "d",
+        "label": "6 januari"
+      }
+    ],
+    "correctOptionId": "b",
+    "funFact": "Pakjesavond is de avond ervoor; op 6 januari is het Driekoningen.",
+    "packId": "sinterklaas"
+  },
+  {
+    "id": "qz_mee_454",
+    "category": "sport_eten",
+    "level": "meester",
+    "prompt": "Wat is taaitaai?",
+    "spokenPrompt": "Wat is taaitaai?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Een taaie koek met anijs, vaak in de vorm van een poppetje"
+      },
+      {
+        "id": "b",
+        "label": "Een warme drank met slagroom"
+      },
+      {
+        "id": "c",
+        "label": "Een soort marsepein"
+      },
+      {
+        "id": "d",
+        "label": "Een harde snoepstok"
+      }
+    ],
+    "correctOptionId": "a",
+    "funFact": "Taaitaai wordt gemaakt met honing en anijs; daardoor is het lekker taai.",
+    "packId": "sinterklaas"
+  },
+  {
+    "id": "qz_ont_275",
+    "category": "ons_gezin",
+    "level": "ontdekker",
+    "prompt": "Wat ligt er met kerst vaak onder de kerstboom?",
+    "spokenPrompt": "Wat ligt er met kerst vaak onder de kerstboom?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Een haai",
+        "illustrationId": "shark"
+      },
+      {
+        "id": "b",
+        "label": "Een vulkaan",
+        "illustrationId": "volcano"
+      },
+      {
+        "id": "c",
+        "label": "Cadeautjes",
+        "illustrationId": "gift_box"
+      },
+      {
+        "id": "d",
+        "label": "Een tractor",
+        "illustrationId": "tractor"
+      }
+    ],
+    "correctOptionId": "c",
+    "funFact": "Op eerste kerstdag pakken veel families samen de cadeautjes uit.",
+    "packId": "kerst"
+  },
+  {
+    "id": "qz_ont_276",
+    "category": "films_magie",
+    "level": "ontdekker",
+    "prompt": "Wat zetten we helemaal bovenin de kerstboom?",
+    "spokenPrompt": "Wat zetten we helemaal bovenin de kerstboom?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Een ster",
+        "illustrationId": "star"
+      },
+      {
+        "id": "b",
+        "label": "Een pannenkoek",
+        "illustrationId": "pancake"
+      },
+      {
+        "id": "c",
+        "label": "Een banaan",
+        "illustrationId": "banana"
+      },
+      {
+        "id": "d",
+        "label": "Een voetbal",
+        "illustrationId": "soccer_ball"
+      }
+    ],
+    "correctOptionId": "a",
+    "funFact": "De ster in de kerstboom doet denken aan de heldere ster uit het kerstverhaal.",
+    "packId": "kerst"
+  },
+  {
+    "id": "qz_ont_277",
+    "category": "dieren_dinos",
+    "level": "ontdekker",
+    "prompt": "Welk dier woont op het koude ijs, kan niet vliegen en glijdt op zijn buik?",
+    "spokenPrompt": "Welk dier woont op het koude ijs, kan niet vliegen en glijdt op zijn buik?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Kameel",
+        "illustrationId": "camel"
+      },
+      {
+        "id": "b",
+        "label": "Leeuw",
+        "illustrationId": "lion"
+      },
+      {
+        "id": "c",
+        "label": "Giraf",
+        "illustrationId": "giraffe"
+      },
+      {
+        "id": "d",
+        "label": "Pinguïn",
+        "illustrationId": "penguin"
+      }
+    ],
+    "correctOptionId": "d",
+    "funFact": "Pinguïns kunnen niet vliegen, maar onder water zwemmen ze supersnel.",
+    "packId": "kerst"
+  },
+  {
+    "id": "qz_ont_278",
+    "category": "wereld_raadsels",
+    "level": "ontdekker",
+    "prompt": "Wat zie je op kerstavond aan de donkere hemel twinkelen?",
+    "spokenPrompt": "Wat zie je op kerstavond aan de donkere hemel twinkelen?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Een regenboog",
+        "illustrationId": "rainbow"
+      },
+      {
+        "id": "b",
+        "label": "Sterren",
+        "illustrationId": "moon_stars"
+      },
+      {
+        "id": "c",
+        "label": "Een luchtballon",
+        "illustrationId": "hot_air_balloon"
+      },
+      {
+        "id": "d",
+        "label": "Een vuurtoren",
+        "illustrationId": "lighthouse"
+      }
+    ],
+    "correctOptionId": "b",
+    "funFact": "In het kerstverhaal wees een heldere ster de drie wijzen de weg.",
+    "packId": "kerst"
+  },
+  {
+    "id": "qz_avo_365",
+    "category": "ons_gezin",
+    "level": "avonturier",
+    "prompt": "Op welke datum is het Eerste Kerstdag?",
+    "spokenPrompt": "Op welke datum is het Eerste Kerstdag?",
+    "options": [
+      {
+        "id": "a",
+        "label": "5 december",
+        "illustrationId": "gift_box"
+      },
+      {
+        "id": "b",
+        "label": "14 februari",
+        "illustrationId": "heart_family"
+      },
+      {
+        "id": "c",
+        "label": "25 december",
+        "illustrationId": "christmas_tree"
+      },
+      {
+        "id": "d",
+        "label": "31 december",
+        "illustrationId": "star"
+      }
+    ],
+    "correctOptionId": "c",
+    "funFact": "Tweede Kerstdag is op 26 december: in Nederland hebben we twee kerstdagen.",
+    "packId": "kerst"
+  },
+  {
+    "id": "qz_avo_366",
+    "category": "dieren_dinos",
+    "level": "avonturier",
+    "prompt": "Hoeveel rendieren trekken de slee van de Kerstman in het bekende verhaal, zonder Rudolf mee te tellen?",
+    "spokenPrompt": "Hoeveel rendieren trekken de slee van de Kerstman in het bekende verhaal, zonder Rudolf mee te tellen?",
+    "options": [
+      {
+        "id": "a",
+        "label": "2"
+      },
+      {
+        "id": "b",
+        "label": "4"
+      },
+      {
+        "id": "c",
+        "label": "8"
+      },
+      {
+        "id": "d",
+        "label": "12"
+      }
+    ],
+    "correctOptionId": "c",
+    "funFact": "Met Rudolf erbij, het rendier met de lichtgevende neus, zijn het er negen.",
+    "packId": "kerst"
+  },
+  {
+    "id": "qz_avo_367",
+    "category": "sport_eten",
+    "level": "avonturier",
+    "prompt": "Wat is een kerststol?",
+    "spokenPrompt": "Wat is een kerststol?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Een zoet brood met rozijnen en amandelspijs"
+      },
+      {
+        "id": "b",
+        "label": "Een kerstlied"
+      },
+      {
+        "id": "c",
+        "label": "Een slee"
+      },
+      {
+        "id": "d",
+        "label": "Een stoel voor de Kerstman"
+      }
+    ],
+    "correctOptionId": "a",
+    "funFact": "In het midden van de kerststol zit vaak een dikke rol amandelspijs.",
+    "packId": "kerst"
+  },
+  {
+    "id": "qz_avo_368",
+    "category": "ons_gezin",
+    "level": "avonturier",
+    "prompt": "Waarvoor stuur je in december een kerstkaart?",
+    "spokenPrompt": "Waarvoor stuur je in december een kerstkaart?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Om iemand fijne feestdagen te wensen"
+      },
+      {
+        "id": "b",
+        "label": "Om de kerstboom te bestellen"
+      },
+      {
+        "id": "c",
+        "label": "Om sneeuw te laten vallen"
+      },
+      {
+        "id": "d",
+        "label": "Om een pakje terug te sturen"
+      }
+    ],
+    "correctOptionId": "a",
+    "funFact": "Op een kerstkaart schrijf je bijvoorbeeld: fijne feestdagen en een gelukkig nieuwjaar!",
+    "packId": "kerst"
+  },
+  {
+    "id": "qz_mee_455",
+    "category": "wereld_raadsels",
+    "level": "meester",
+    "prompt": "Uit welk land komt de traditie van de versierde kerstboom in huis?",
+    "spokenPrompt": "Uit welk land komt de traditie van de versierde kerstboom in huis?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Italië"
+      },
+      {
+        "id": "b",
+        "label": "Duitsland"
+      },
+      {
+        "id": "c",
+        "label": "Spanje"
+      },
+      {
+        "id": "d",
+        "label": "IJsland"
+      }
+    ],
+    "correctOptionId": "b",
+    "funFact": "Al in de 16e eeuw zetten mensen in Duitsland een versierde dennenboom in huis.",
+    "packId": "kerst"
+  },
+  {
+    "id": "qz_mee_456",
+    "category": "films_magie",
+    "level": "meester",
+    "prompt": "Wie schreef het verhaal 'A Christmas Carol' over de vrekkige Ebenezer Scrooge?",
+    "spokenPrompt": "Wie schreef het verhaal 'A Christmas Carol' over de vrekkige Ebenezer Scrooge?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Charles Dickens"
+      },
+      {
+        "id": "b",
+        "label": "William Shakespeare"
+      },
+      {
+        "id": "c",
+        "label": "Roald Dahl"
+      },
+      {
+        "id": "d",
+        "label": "Jules Verne"
+      }
+    ],
+    "correctOptionId": "a",
+    "funFact": "Het verhaal verscheen in 1843 en is talloze keren verfilmd, ook met de Muppets.",
+    "packId": "kerst"
+  },
+  {
+    "id": "qz_mee_457",
+    "category": "ons_gezin",
+    "level": "meester",
+    "prompt": "Op welke datum valt Driekoningen, het traditionele einde van de kersttijd?",
+    "spokenPrompt": "Op welke datum valt Driekoningen, het traditionele einde van de kersttijd?",
+    "options": [
+      {
+        "id": "a",
+        "label": "1 januari"
+      },
+      {
+        "id": "b",
+        "label": "26 december"
+      },
+      {
+        "id": "c",
+        "label": "2 februari"
+      },
+      {
+        "id": "d",
+        "label": "6 januari"
+      }
+    ],
+    "correctOptionId": "d",
+    "funFact": "In sommige streken gaan kinderen dan met een lichtje langs de deuren om te zingen.",
+    "packId": "kerst"
+  },
+  {
+    "id": "qz_mee_458",
+    "category": "dieren_dinos",
+    "level": "meester",
+    "prompt": "Onder welke plant met witte besjes geef je elkaar volgens de traditie een kus?",
+    "spokenPrompt": "Onder welke plant met witte besjes geef je elkaar volgens de traditie een kus?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Hulst"
+      },
+      {
+        "id": "b",
+        "label": "Klimop"
+      },
+      {
+        "id": "c",
+        "label": "Maretak"
+      },
+      {
+        "id": "d",
+        "label": "Den"
+      }
+    ],
+    "correctOptionId": "c",
+    "funFact": "Hulst heeft juist rode besjes en stekelige bladeren; die zie je veel in kerststukjes.",
+    "packId": "kerst"
+  },
+  {
+    "id": "qz_ont_279",
+    "category": "sport_eten",
+    "level": "ontdekker",
+    "prompt": "Wat bouw je op het strand, met torens en een gracht eromheen?",
+    "spokenPrompt": "Wat bouw je op het strand, met torens en een gracht eromheen?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Een sneeuwpop",
+        "illustrationId": "snowman"
+      },
+      {
+        "id": "b",
+        "label": "Een kerstboom",
+        "illustrationId": "christmas_tree"
+      },
+      {
+        "id": "c",
+        "label": "Een raket",
+        "illustrationId": "rocket"
+      },
+      {
+        "id": "d",
+        "label": "Een zandkasteel",
+        "illustrationId": "castle"
+      }
+    ],
+    "correctOptionId": "d",
+    "funFact": "Met nat zand blijft je zandkasteel het best staan!",
+    "packId": "zomer"
+  },
+  {
+    "id": "qz_ont_280",
+    "category": "ons_gezin",
+    "level": "ontdekker",
+    "prompt": "Waarin slaap je als je gaat kamperen?",
+    "spokenPrompt": "Waarin slaap je als je gaat kamperen?",
+    "options": [
+      {
+        "id": "a",
+        "label": "In een tent",
+        "illustrationId": "tent_camp"
+      },
+      {
+        "id": "b",
+        "label": "In een duikboot",
+        "illustrationId": "submarine"
+      },
+      {
+        "id": "c",
+        "label": "In een vulkaan",
+        "illustrationId": "volcano"
+      },
+      {
+        "id": "d",
+        "label": "In een vuurtoren",
+        "illustrationId": "lighthouse"
+      }
+    ],
+    "correctOptionId": "a",
+    "funFact": "Bij kamperen slaap je bijna buiten: alleen het tentdoek zit tussen jou en de sterren.",
+    "packId": "zomer"
+  },
+  {
+    "id": "qz_avo_369",
+    "category": "sport_eten",
+    "level": "avonturier",
+    "prompt": "Waarom smeer je in de zomer zonnebrandcrème op je huid?",
+    "spokenPrompt": "Waarom smeer je in de zomer zonnebrandcrème op je huid?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Zodat je sneller kunt zwemmen",
+        "illustrationId": "swimming"
+      },
+      {
+        "id": "b",
+        "label": "Zodat je niet verbrandt in de zon",
+        "illustrationId": "sun"
+      },
+      {
+        "id": "c",
+        "label": "Omdat het naar aardbeien ruikt",
+        "illustrationId": "strawberry"
+      },
+      {
+        "id": "d",
+        "label": "Zodat de muggen weggaan",
+        "illustrationId": "bee"
+      }
+    ],
+    "correctOptionId": "b",
+    "funFact": "Smeer opnieuw na het zwemmen, want water spoelt de crème weg.",
+    "packId": "zomer"
+  },
+  {
+    "id": "qz_avo_370",
+    "category": "dieren_dinos",
+    "level": "avonturier",
+    "prompt": "Welk zeedier heeft acht armen?",
+    "spokenPrompt": "Welk zeedier heeft acht armen?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Dolfijn",
+        "illustrationId": "dolphin"
+      },
+      {
+        "id": "b",
+        "label": "Haai",
+        "illustrationId": "shark"
+      },
+      {
+        "id": "c",
+        "label": "Octopus",
+        "illustrationId": "octopus"
+      },
+      {
+        "id": "d",
+        "label": "Schildpad",
+        "illustrationId": "turtle"
+      }
+    ],
+    "correctOptionId": "c",
+    "funFact": "Een octopus heeft drie harten en blauw bloed!",
+    "packId": "zomer"
+  },
+  {
+    "id": "qz_mee_459",
+    "category": "wereld_raadsels",
+    "level": "meester",
+    "prompt": "Rond welke datum begint de astronomische zomer op het noordelijk halfrond?",
+    "spokenPrompt": "Rond welke datum begint de astronomische zomer op het noordelijk halfrond?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Rond 21 maart"
+      },
+      {
+        "id": "b",
+        "label": "Rond 21 juni"
+      },
+      {
+        "id": "c",
+        "label": "Rond 1 juli"
+      },
+      {
+        "id": "d",
+        "label": "Rond 21 september"
+      }
+    ],
+    "correctOptionId": "b",
+    "funFact": "Dan is het de langste dag van het jaar: de zon komt nooit hoger aan de hemel.",
+    "packId": "zomer"
+  },
+  {
+    "id": "qz_mee_460",
+    "category": "wereld_raadsels",
+    "level": "meester",
+    "prompt": "Wat is het grootste Nederlandse Waddeneiland?",
+    "spokenPrompt": "Wat is het grootste Nederlandse Waddeneiland?",
+    "options": [
+      {
+        "id": "a",
+        "label": "Vlieland"
+      },
+      {
+        "id": "b",
+        "label": "Terschelling"
+      },
+      {
+        "id": "c",
+        "label": "Ameland"
+      },
+      {
+        "id": "d",
+        "label": "Texel"
+      }
+    ],
+    "correctOptionId": "d",
+    "funFact": "Texel is het grootste en ook het meest westelijke Waddeneiland.",
+    "packId": "zomer"
   }
 ]

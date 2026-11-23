@@ -4,6 +4,7 @@ import {
   CATEGORIES,
   CATEGORY_MAP,
   CONTENT_PACKS,
+  seasonalPackForDate,
   ContentPackId,
   DifficultyLevel,
   FamilyProfile,
@@ -1103,6 +1104,11 @@ export const PlayerApp: React.FC = () => {
                         >
                           <span>{pk.emoji}</span>
                           <span className="truncate">{pk.name}</span>
+                          {seasonalPackForDate(new Date()) === pk.id && (
+                            <span className="ml-auto flex-shrink-0 rounded-full bg-studio-gold/20 px-1.5 text-[10px] uppercase">
+                              nu
+                            </span>
+                          )}
                         </button>
                       );
                     })}
@@ -1863,6 +1869,11 @@ export const PlayerApp: React.FC = () => {
                     }{' '}
                     het goed geroepen?
                   </div>
+                  {typeof activeRound.judgeRemainingSec === 'number' && (
+                    <div className="text-xs text-slate-400 mb-3">
+                      Nog {activeRound.judgeRemainingSec} s, daarna is de buzzer weer vrij.
+                    </div>
+                  )}
                   <div className="grid grid-cols-2 gap-3">
                     <button
                       onClick={() => {
@@ -2034,6 +2045,11 @@ export const PlayerApp: React.FC = () => {
                         <div className="font-display text-2xl text-white my-1">
                           {privateView.myPantomimeState.hostSecretAnswer}
                         </div>
+                        {typeof activeRound.judgeRemainingSec === 'number' && (
+                          <div className="text-xs text-slate-400">
+                            Nog {activeRound.judgeRemainingSec} s, daarna is de buzzer weer vrij.
+                          </div>
+                        )}
                         <div className="grid grid-cols-2 gap-3 mt-3">
                           <button
                             onClick={() =>
