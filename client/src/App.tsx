@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Tv, Smartphone, Settings, Sparkles } from 'lucide-react';
+import { Tv, Smartphone, Settings } from 'lucide-react';
 import { TvApp } from './components/tv/TvApp';
 import { PlayerApp } from './components/player/PlayerApp';
 import { AdminApp } from './components/admin/AdminApp';
@@ -84,20 +84,9 @@ export const App: React.FC = () => {
           />
         </div>
 
-        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-studio-cardLight border border-studio-gold/50 text-studio-gold font-display text-lg">
-          <Sparkles className="w-5 h-5" /> Zaterdagavond Familie Spelshow
-        </div>
-
-        <div>
-          <h1 className="font-display text-5xl md:text-6xl text-white mb-3">
-            🎬 De Grote Familie Bongers Show
-          </h1>
-          <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-            Kies welk scherm je op dit apparaat wilt openen: het grote 65&quot;
-            OLED TV-podium, jouw eigen telefoon/tablet controller, of de
-            Gezins-Editor.
-          </p>
-        </div>
+        <h1 className="font-display text-5xl md:text-6xl text-white">
+          🎬 De Grote Familie Bongers Show
+        </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
           <button
