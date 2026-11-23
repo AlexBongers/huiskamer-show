@@ -130,6 +130,33 @@ export async function createAppServer(options?: {
     express.static(store.uploadsDir)
   );
 
+  // Pre-recorded ElevenLabs Dutch studio TTS audio clips (loudness-normalized -16 LUFS)
+  const ttsDir = path.join(store.dataDir, 'tts');
+  app.use(
+    '/tts',
+    (_req, res, next) => {
+      res.setHeader('X-Content-Type-Options', 'nosniff');
+      next();
+    },
+    express.static(ttsDir, { maxAge: '365d', immutable: true })
+  );
+
+  app.get('/api/tts/manifest', (_req, res) => {
+    const manifestPath = path.join(ttsDir, 'manifest.json');
+    if (fs.existsSync(manifestPath)) {
+      try {
+        const raw = fs.readFileSync(manifestPath, 'utf-8');
+        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Cache-Control', 'no-cache');
+        res.send(raw);
+        return;
+      } catch {
+        // fall through to empty manifest
+      }
+    }
+    res.json({ count: 0, hashes: [] });
+  });
+
   // Admin & Health API
   app.use('/api', createAdminRouter(store, () => broadcastState()));
 
@@ -138,7 +165,11 @@ export async function createAppServer(options?: {
   if (fs.existsSync(clientDistPath)) {
     app.use(express.static(clientDistPath));
     app.get('*', (req, res, next) => {
-      if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) {
+      if (
+        req.path.startsWith('/api') ||
+        req.path.startsWith('/uploads') ||
+        req.path.startsWith('/tts')
+      ) {
         next();
         return;
       }

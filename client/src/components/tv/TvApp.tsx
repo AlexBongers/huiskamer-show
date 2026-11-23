@@ -34,8 +34,20 @@ import {
 } from 'lucide-react';
 import { socketService } from '../../services/socket';
 import { soundEngine } from '../../services/soundEngine';
+import { speechService } from '../../services/speechService';
 import { IllustrationView } from '../illustrations/IllustrationLibrary';
 import { CategoryWheel } from './CategoryWheel';
+
+const TV_ROUND_INTRO_VOICE: Record<string, string> = {
+  quiz: 'Tijd voor de Slimme Quiz! Kijk snel op je eigen scherm!',
+  thirty_seconds:
+    'Tijd voor Dertig Seconden! Omschrijf zoveel mogelijk woorden zonder het woord te zeggen!',
+  sound: 'Spits je oren! Het is tijd voor de Geluidsronde!',
+  zoom_photo: 'Ogen op de televisie! Wat zie je op deze ingezoomde foto?',
+  pantomime: 'Tijd voor Pantomime! Uitbeelden maar, zonder geluid!',
+  estimate:
+    'Tijd voor de Schattingsvraag! Wie zit het dichtst bij het juiste getal?',
+};
 
 export const TvApp: React.FC = () => {
   const [started, setStarted] = useState<boolean>(() =>
@@ -237,7 +249,13 @@ export const TvApp: React.FC = () => {
 
   const handleStartShowClick = async () => {
     await soundEngine.unlock();
+    speechService.unlock();
     setStarted(true);
+    if (!gameState?.tvMuted) {
+      speechService.speak(
+        'Welkom bij De Grote Familie Bongers Show! Pak jullie telefoons en maak je klaar!'
+      );
+    }
     try {
       if (
         typeof document !== 'undefined' &&
@@ -249,6 +267,43 @@ export const TvApp: React.FC = () => {
       // ignore
     }
   };
+
+  // Studio Showmaster voice announcements on TV phase transitions (respects tvMuted)
+  const lastSpokenPhaseKeyRef = useRef<string>('');
+  useEffect(() => {
+    if (!started || !gameState) return;
+    if (gameState.tvMuted) {
+      speechService.stop();
+      return;
+    }
+
+    const phase = gameState.phase;
+    const roundNum = gameState.activeRound?.roundNumber || 0;
+    const roundType = gameState.activeRound?.roundType || '';
+    const key = `${phase}:${roundNum}:${roundType}`;
+    if (key === lastSpokenPhaseKeyRef.current) return;
+
+    const prevKey = lastSpokenPhaseKeyRef.current;
+    lastSpokenPhaseKeyRef.current = key;
+
+    if (phase === 'ROUND_INTRO' && TV_ROUND_INTRO_VOICE[roundType]) {
+      speechService.speak(TV_ROUND_INTRO_VOICE[roundType]);
+    } else if (phase === 'PAUSED') {
+      speechService.speak('Even pauze! Alle klokken staan netjes stil.');
+    } else if (prevKey.startsWith('PAUSED:') && phase !== 'LOBBY') {
+      speechService.speak('We gaan weer verder! Veel succes allemaal!');
+    } else if (phase === 'FINALE') {
+      speechService.speak(
+        'En dat was de grote finale! Wat een fantastische show, applaus voor iedereen!'
+      );
+    }
+  }, [
+    started,
+    gameState?.phase,
+    gameState?.tvMuted,
+    gameState?.activeRound?.roundNumber,
+    gameState?.activeRound?.roundType,
+  ]);
 
   // Auto-focus primary CTA for LG Magic Remote D-pad / OK button
   useEffect(() => {

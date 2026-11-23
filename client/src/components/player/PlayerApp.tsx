@@ -184,10 +184,7 @@ export const PlayerApp: React.FC = () => {
     const q = privateView.myQuizQuestion;
     if (shouldAutoSpeak && lastSpokenQuestionIdRef.current !== q.id) {
       lastSpokenQuestionIdRef.current = q.id;
-      const optionLabels = q.options.map((o) => o.label).join(', of ');
-      speechService.speak(
-        `${q.spokenPrompt || q.prompt}. Kies uit: ${optionLabels}`
-      );
+      speechService.speak(q.spokenPrompt || q.prompt);
     }
   }, [myPlayer, shouldAutoSpeak, privateView?.myQuizQuestion, gameState?.phase]);
 
@@ -1105,30 +1102,24 @@ export const PlayerApp: React.FC = () => {
                   {privateView.myQuizQuestion.prompt}
                 </h2>
 
-                {(isOntdekker || isAvonturier) && (
-                  <button
-                    onClick={() => {
-                      setHasUserInteracted(true);
-                      const q = privateView.myQuizQuestion!;
-                      const optionLabels = q.options.map((o) => o.label).join(', of ');
-                      speechService.speak(
-                        isOntdekker
-                          ? `${q.spokenPrompt || q.prompt}. Kies uit: ${optionLabels}`
-                          : q.spokenPrompt || q.prompt
-                      );
-                    }}
-                    className={`mt-3 w-full py-3 rounded-2xl bg-[#3B82F6] text-white font-display text-xl flex items-center justify-center gap-2 shadow-md active:scale-95 ${
-                      isOntdekker && !hasUserInteracted
-                        ? 'ring-4 ring-[#F5C542] animate-pulse'
-                        : ''
-                    }`}
-                  >
-                    <Volume2 className="w-7 h-7" />{' '}
-                    {isOntdekker && !hasUserInteracted
-                      ? '🔊 TIK HIER OM DE VRAAG TE HOREN!'
-                      : '🔊 LEES VRAAG VOOR'}
-                  </button>
-                )}
+                <button
+                  onClick={() => {
+                    setHasUserInteracted(true);
+                    speechService.unlock();
+                    const q = privateView.myQuizQuestion!;
+                    speechService.speak(q.spokenPrompt || q.prompt);
+                  }}
+                  className={`mt-3 w-full py-3 rounded-2xl bg-[#3B82F6] text-white font-display text-xl flex items-center justify-center gap-2 shadow-md active:scale-95 ${
+                    isOntdekker && !hasUserInteracted
+                      ? 'ring-4 ring-[#F5C542] animate-pulse'
+                      : ''
+                  }`}
+                >
+                  <Volume2 className="w-7 h-7" />{' '}
+                  {isOntdekker && !hasUserInteracted
+                    ? '🔊 TIK HIER OM DE VRAAG TE HOREN!'
+                    : '🔊 LEES VRAAG VOOR'}
+                </button>
               </div>
 
               {/* 4 Answer Buttons (Giant >= 120px picture cards for Lucas & Lana!) */}
@@ -1832,11 +1823,12 @@ export const PlayerApp: React.FC = () => {
                         )}
                         {(isOntdekker || isAvonturier) && (
                           <button
-                            onClick={() =>
+                            onClick={() => {
+                              speechService.unlock();
                               speechService.speak(
-                                `${privateView.myPantomimeState?.secretPrompt}. ${privateView.myPantomimeState?.secretHint || ''}`
-                              )
-                            }
+                                `${privateView.myPantomimeState?.secretPrompt}! ${privateView.myPantomimeState?.secretHint || ''}`.trim()
+                              );
+                            }}
                             className="px-5 py-2.5 rounded-2xl bg-[#3B82F6] text-white font-display text-lg flex items-center gap-2"
                           >
                             <Volume2 className="w-5 h-5" /> 🔊 Fluister opdracht
