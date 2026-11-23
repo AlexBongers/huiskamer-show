@@ -1455,6 +1455,14 @@ const STUDIO_ART_MAP: Record<string, string> = {
   clock_alarm: '/art/ill-clock-alarm.jpg',
   owl: '/art/ill-owl.jpg',
   soccer_ball: '/art/ill-soccer-ball.jpg',
+  firetruck: '/art/ill-firetruck.jpg',
+  toothbrush: '/art/ill-toothbrush.jpg',
+  rocket: '/art/ill-rocket.jpg',
+  island: '/art/ill-island.jpg',
+  frog: '/art/ill-frog.jpg',
+  pancake: '/art/ill-pancake.jpg',
+  cake: '/art/ill-cake.jpg',
+  penguin: '/art/ill-penguin.jpg',
 };
 
 export const IllustrationView: React.FC<IllustrationViewProps> = ({

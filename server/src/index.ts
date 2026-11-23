@@ -141,6 +141,40 @@ export async function createAppServer(options?: {
     express.static(ttsDir, { maxAge: '365d', immutable: true })
   );
 
+  // Per-question generated 3D artwork (served from data/qart/<questionId>.jpg or client/dist/qart/)
+  const qartDir = path.join(store.dataDir, 'qart');
+  const clientDistPath = path.resolve(__dirname, '../../client/dist');
+  const bundledQartDir = path.join(clientDistPath, 'qart');
+
+  app.use(
+    '/qart',
+    (_req, res, next) => {
+      res.setHeader('X-Content-Type-Options', 'nosniff');
+      next();
+    },
+    express.static(qartDir, { maxAge: '365d', immutable: true }),
+    express.static(bundledQartDir, { maxAge: '365d', immutable: true })
+  );
+
+  app.get('/api/qart/manifest', (_req, res) => {
+    const idSet = new Set<string>();
+    for (const dir of [bundledQartDir, qartDir]) {
+      try {
+        if (fs.existsSync(dir)) {
+          for (const f of fs.readdirSync(dir)) {
+            if (/\.(jpg|webp|png)$/i.test(f)) {
+              idSet.add(f.replace(/\.(jpg|webp|png)$/i, ''));
+            }
+          }
+        }
+      } catch {
+        // ignore
+      }
+    }
+    res.setHeader('Cache-Control', 'no-cache');
+    res.json({ count: idSet.size, ids: Array.from(idSet) });
+  });
+
   app.get('/api/tts/manifest', (_req, res) => {
     const manifestPath = path.join(ttsDir, 'manifest.json');
     if (fs.existsSync(manifestPath)) {
@@ -161,14 +195,14 @@ export async function createAppServer(options?: {
   app.use('/api', createAdminRouter(store, () => broadcastState()));
 
   // Serve built client in production
-  const clientDistPath = path.resolve(__dirname, '../../client/dist');
   if (fs.existsSync(clientDistPath)) {
     app.use(express.static(clientDistPath));
     app.get('*', (req, res, next) => {
       if (
         req.path.startsWith('/api') ||
         req.path.startsWith('/uploads') ||
-        req.path.startsWith('/tts')
+        req.path.startsWith('/tts') ||
+        req.path.startsWith('/qart')
       ) {
         next();
         return;

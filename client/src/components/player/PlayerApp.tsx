@@ -68,6 +68,18 @@ export const PlayerApp: React.FC = () => {
   const lastTapTimeRef = useRef<number>(0);
   const lastSpokenQuestionIdRef = useRef<string>('');
   const lastVibratedSecondRef = useRef<number>(-1);
+  const [qartIds, setQartIds] = useState<Set<string>>(() => new Set());
+
+  useEffect(() => {
+    fetch('/api/qart/manifest')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { ids?: string[] } | null) => {
+        if (d && Array.isArray(d.ids)) {
+          setQartIds(new Set(d.ids));
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const sock = socketService.socket;
@@ -1090,6 +1102,17 @@ export const PlayerApp: React.FC = () => {
                     ⏱️ {activeRound.timerRemainingSec}s
                   </span>
                 </div>
+
+                {/* Optional per-question generated 3D scene illustration */}
+                {qartIds.has(privateView.myQuizQuestion.id) && (
+                  <div className="mb-3 rounded-2xl overflow-hidden border border-[#F5C542]/40 bg-[#070B18] aspect-video max-h-44 w-full shadow-lg">
+                    <img
+                      src={`/qart/${privateView.myQuizQuestion.id}.jpg`}
+                      alt="Vraag-illustratie"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
 
                 {/* Prompt text (or big TTS button for Lucas!) */}
                 <h2
