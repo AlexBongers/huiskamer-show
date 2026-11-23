@@ -37,10 +37,10 @@ import { speechService } from '../../services/speechService';
 import { IllustrationView } from '../illustrations/IllustrationLibrary';
 
 const OPTION_COLORS = [
-  'from-emerald-600 to-emerald-800 border-emerald-400',
-  'from-purple-600 to-purple-800 border-purple-400',
-  'from-blue-600 to-blue-800 border-blue-400',
-  'from-amber-500 to-orange-700 border-amber-300',
+  'bg-studio-ans1 border-studio-ans1 text-studio-bg',
+  'bg-studio-ans2 border-studio-ans2 text-studio-bg',
+  'bg-studio-ans3 border-studio-ans3 text-studio-bg',
+  'bg-studio-ans4 border-studio-ans4 text-studio-bg',
 ];
 
 export const PlayerApp: React.FC = () => {
@@ -307,7 +307,7 @@ export const PlayerApp: React.FC = () => {
   if (!gameState) {
     return (
       <div className="min-h-screen studio-stage-bg flex items-center justify-center p-6 text-center">
-        <div className="font-display text-2xl text-[#F5C542]">
+        <div className="font-display text-2xl text-studio-gold">
           Verbinden met De Grote Huiskamer Show...
         </div>
       </div>
@@ -322,7 +322,7 @@ export const PlayerApp: React.FC = () => {
       <div className="min-h-screen w-full studio-stage-bg select-none">
         <div className="min-h-screen p-4 md:p-8 flex flex-col justify-between max-w-3xl mx-auto">
           <header className="text-center py-3">
-          <div className="text-[#F5C542] font-display text-lg uppercase tracking-wider">
+          <div className="text-studio-gold font-display text-lg uppercase tracking-wider">
             🎬 {gameState.showTitle}
           </div>
           <h1 className="font-display text-3xl md:text-4xl text-white mt-1">
@@ -347,8 +347,8 @@ export const PlayerApp: React.FC = () => {
                     onClick={() => setSelectedAvatar(avId)}
                     className={`rounded-2xl p-4 border-4 flex flex-col items-center gap-2 transition-all ${
                       isChosen
-                        ? 'bg-[#1B2752] border-[#F5C542] scale-105 shadow-[0_0_20px_rgba(245,197,66,0.4)]'
-                        : 'bg-[#070B18]/70 border-white/15'
+                        ? 'bg-studio-cardLight border-studio-gold scale-105'
+                        : 'bg-studio-bg/70 border-white/15'
                     }`}
                   >
                     <div className="w-24 h-24 rounded-xl overflow-hidden">
@@ -377,7 +377,7 @@ export const PlayerApp: React.FC = () => {
                     selectedAvatar || selectedProfile.defaultAvatarId
                   )
                 }
-                className="flex-[2] py-4 rounded-2xl bg-gradient-to-r from-[#F5C542] to-[#F59E0B] text-[#070B18] font-display text-2xl font-bold shadow-lg"
+                className="flex-[2] py-4 rounded-2xl bg-studio-gold text-studio-bg font-display text-2xl font-bold shadow-lg"
               >
                 🚀 STAP OP HET PODIUM!
               </button>
@@ -409,10 +409,10 @@ export const PlayerApp: React.FC = () => {
                       <div className="font-display text-3xl text-white">
                         {prof.name}
                       </div>
-                      <div className="text-sm font-bold text-[#F5C542]">
+                      <div className="text-sm font-bold text-studio-gold">
                         {prof.ageLabel}
                       </div>
-                      <div className="mt-2 inline-block px-4 py-1.5 rounded-xl bg-[#22C55E] text-[#070B18] font-display text-lg font-bold">
+                      <div className="mt-2 inline-block px-4 py-1.5 rounded-xl bg-[#22C55E] text-studio-bg font-display text-lg font-bold">
                         ▶ Direct Meespelen
                       </div>
                     </div>
@@ -426,7 +426,7 @@ export const PlayerApp: React.FC = () => {
                         setSelectedProfile(prof);
                         setSelectedAvatar(prof.defaultAvatarId);
                       }}
-                      className="text-xs text-[#F5C542] underline underline-offset-2"
+                      className="text-xs text-studio-gold underline underline-offset-2"
                     >
                       🎨 Kies grote avatar
                     </button>
@@ -435,7 +435,7 @@ export const PlayerApp: React.FC = () => {
                         <button
                           key={avId}
                           onClick={() => handleJoinFamilyProfile(prof, avId)}
-                          className="w-9 h-9 rounded-lg bg-[#070B18] border border-white/20 flex items-center justify-center text-lg hover:border-[#F5C542]"
+                          className="w-9 h-9 rounded-lg bg-studio-bg border border-white/20 flex items-center justify-center text-lg hover:border-studio-gold"
                           title={AVATAR_CATALOG[avId]?.label}
                         >
                           {AVATAR_CATALOG[avId]?.emoji || '⭐'}
@@ -454,7 +454,7 @@ export const PlayerApp: React.FC = () => {
           {!showGuestModal ? (
             <button
               onClick={() => setShowGuestModal(true)}
-              className="px-6 py-3 rounded-2xl bg-[#111936] border border-[#F5C542]/50 text-[#F5C542] font-display text-lg inline-flex items-center gap-2"
+              className="px-6 py-3 rounded-2xl bg-studio-card border border-studio-gold/50 text-studio-gold font-display text-lg inline-flex items-center gap-2"
             >
               <UserPlus className="w-5 h-5" /> + Gast toevoegen (Opa, Oma of
               Vriendje)
@@ -464,7 +464,7 @@ export const PlayerApp: React.FC = () => {
               onSubmit={handleJoinGuest}
               className="studio-panel rounded-2xl p-5 text-left flex flex-col gap-4"
             >
-              <div className="font-display text-2xl text-[#F5C542]">
+              <div className="font-display text-2xl text-studio-gold">
                 ✨ Gast-speler toevoegen
               </div>
               <input
@@ -472,7 +472,7 @@ export const PlayerApp: React.FC = () => {
                 value={guestName}
                 onChange={(e) => setGuestName(e.target.value)}
                 placeholder="Naam van gast..."
-                className="w-full px-4 py-3 rounded-xl bg-[#070B18] border border-white/20 text-white text-lg"
+                className="w-full px-4 py-3 rounded-xl bg-studio-bg border border-white/20 text-white text-lg"
                 required
               />
               <div className="grid grid-cols-3 gap-2">
@@ -489,8 +489,8 @@ export const PlayerApp: React.FC = () => {
                     onClick={() => setGuestLevel(lvl.id)}
                     className={`py-2.5 rounded-xl font-bold text-sm border ${
                       guestLevel === lvl.id
-                        ? 'bg-[#F5C542] text-[#070B18] border-[#F5C542]'
-                        : 'bg-[#070B18] text-slate-300 border-white/15'
+                        ? 'bg-studio-gold text-studio-bg border-studio-gold'
+                        : 'bg-studio-bg text-slate-300 border-white/15'
                     }`}
                   >
                     {lvl.label}
@@ -510,8 +510,8 @@ export const PlayerApp: React.FC = () => {
                         onClick={() => setGuestAvatar(avId)}
                         className={`w-11 h-11 rounded-xl border-2 text-xl flex items-center justify-center ${
                           guestAvatar === avId
-                            ? 'bg-[#1B2752] border-[#F5C542] scale-110'
-                            : 'bg-[#070B18] border-white/15'
+                            ? 'bg-studio-cardLight border-studio-gold scale-110'
+                            : 'bg-studio-bg border-white/15'
                         }`}
                       >
                         {AVATAR_CATALOG[avId]?.emoji || '⭐'}
@@ -530,7 +530,7 @@ export const PlayerApp: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-3 rounded-xl bg-[#22C55E] text-[#070B18] font-display text-xl font-bold"
+                  className="flex-1 py-3 rounded-xl bg-[#22C55E] text-studio-bg font-display text-xl font-bold"
                 >
                   Meedoen!
                 </button>
@@ -580,16 +580,16 @@ export const PlayerApp: React.FC = () => {
       )}
       {/* 1. HOST CONTROL BAR (Always open for Papa, 1-tap toggleable for Co-Host Mama!) */}
       {myPlayer.isHost ? (
-        <div className="studio-panel rounded-2xl p-2.5 mb-3 border border-[#F5C542]/50">
+        <div className="studio-panel rounded-2xl p-2.5 mb-3 border border-studio-gold/50">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-display uppercase tracking-wider text-[#F5C542] px-2">
+              <span className="text-xs font-display uppercase tracking-wider text-studio-gold px-2">
                 {myPlayer.isCoHost ? '👑 Co-Host Regie' : '🎩 Host Regie'}
               </span>
               {myPlayer.isCoHost && (
                 <button
                   onClick={() => setCoHostBarExpanded((v) => !v)}
-                  className="px-3 py-1 rounded-xl bg-[#1B2752] border border-[#F5C542]/40 text-xs font-bold text-[#F5C542]"
+                  className="px-3 py-1 rounded-xl bg-studio-cardLight border border-studio-gold/40 text-xs font-bold text-studio-gold"
                 >
                   {coHostBarExpanded ? 'Verberg regiebalk' : 'Toon regiebalk'}
                 </button>
@@ -603,14 +603,14 @@ export const PlayerApp: React.FC = () => {
                     {gameState.phase === 'PAUSED' ? (
                       <button
                         onClick={() => sendHostControl('resume')}
-                        className="px-3 py-1.5 rounded-xl bg-[#22C55E] text-[#070B18] font-bold text-xs flex items-center gap-1"
+                        className="px-3 py-1.5 rounded-xl bg-[#22C55E] text-studio-bg font-bold text-xs flex items-center gap-1"
                       >
                         <Play className="w-3.5 h-3.5" /> Hervat
                       </button>
                     ) : (
                       <button
                         onClick={() => sendHostControl('pause')}
-                        className="px-3 py-1.5 rounded-xl bg-amber-500 text-[#070B18] font-bold text-xs flex items-center gap-1"
+                        className="px-3 py-1.5 rounded-xl bg-amber-500 text-studio-bg font-bold text-xs flex items-center gap-1"
                       >
                         <Pause className="w-3.5 h-3.5" /> Pauze
                       </button>
@@ -618,14 +618,14 @@ export const PlayerApp: React.FC = () => {
 
                     <button
                       onClick={() => sendHostControl('addTime')}
-                      className="px-3 py-1.5 rounded-xl bg-[#1B2752] border border-white/20 text-white font-bold text-xs flex items-center gap-1"
+                      className="px-3 py-1.5 rounded-xl bg-studio-cardLight border border-white/20 text-white font-bold text-xs flex items-center gap-1"
                     >
-                      <PlusCircle className="w-3.5 h-3.5 text-[#F5C542]" /> +15s
+                      <PlusCircle className="w-3.5 h-3.5 text-studio-gold" /> +15s
                     </button>
 
                     <button
                       onClick={() => sendHostControl('skip')}
-                      className="px-3 py-1.5 rounded-xl bg-[#1B2752] border border-white/20 text-white font-bold text-xs flex items-center gap-1"
+                      className="px-3 py-1.5 rounded-xl bg-studio-cardLight border border-white/20 text-white font-bold text-xs flex items-center gap-1"
                     >
                       <SkipForward className="w-3.5 h-3.5 text-[#38BDF8]" />{' '}
                       Overslaan
@@ -638,7 +638,7 @@ export const PlayerApp: React.FC = () => {
                   className={`px-3 py-1.5 rounded-xl font-bold text-xs border ${
                     gameState.tvMuted
                       ? 'bg-red-950 border-red-400 text-red-200'
-                      : 'bg-[#1B2752] border-white/20 text-white'
+                      : 'bg-studio-cardLight border-white/20 text-white'
                   }`}
                 >
                   {gameState.tvMuted ? '🔇 TV Stil' : '🔊 Geluid TV'}
@@ -646,10 +646,10 @@ export const PlayerApp: React.FC = () => {
 
                 <button
                   onClick={() => setShowPlayerPauseMenu((v) => !v)}
-                  className="px-3 py-1.5 rounded-xl bg-[#1B2752] border border-white/20 text-white font-bold text-xs flex items-center gap-1"
+                  className="px-3 py-1.5 rounded-xl bg-studio-cardLight border border-white/20 text-white font-bold text-xs flex items-center gap-1"
                   title="Zet een speler tijdelijk op 'Even weg'"
                 >
-                  <Users className="w-3.5 h-3.5 text-[#F5C542]" /> Spelers
+                  <Users className="w-3.5 h-3.5 text-studio-gold" /> Spelers
                 </button>
 
                 {gameState.phase !== 'LOBBY' && (
@@ -693,7 +693,7 @@ export const PlayerApp: React.FC = () => {
                     className={`px-2.5 py-1 rounded-lg text-xs font-bold border ${
                       pl.paused
                         ? 'bg-amber-900 border-amber-400 text-amber-200'
-                        : 'bg-[#070B18] border-white/20 text-white'
+                        : 'bg-studio-bg border-white/20 text-white'
                     }`}
                   >
                     {pl.paused ? `⏸️ ${pl.name} (Even weg)` : `✅ ${pl.name}`}
@@ -724,7 +724,7 @@ export const PlayerApp: React.FC = () => {
             </span>
             <button
               onClick={() => socketService.socket.emit('player:claimHost')}
-              className="px-3 py-1.5 rounded-xl bg-[#F5C542] text-[#070B18] font-bold text-xs"
+              className="px-3 py-1.5 rounded-xl bg-studio-gold text-studio-bg font-bold text-xs"
             >
               🎩 Neem Host-regie over
             </button>
@@ -735,7 +735,7 @@ export const PlayerApp: React.FC = () => {
       {/* 2. PLAYER TOP STATUS HEADER */}
       <header className="studio-panel rounded-2xl px-4 py-2.5 flex items-center justify-between mb-3">
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-xl overflow-hidden border border-[#F5C542]">
+          <div className="w-11 h-11 rounded-xl overflow-hidden border border-studio-gold">
             <IllustrationView
               illustrationId={
                 AVATAR_CATALOG[myPlayer.avatarId]?.illustrationId ||
@@ -768,7 +768,7 @@ export const PlayerApp: React.FC = () => {
 
         <div className="flex items-center gap-4">
           <div className="text-right">
-            <div className="font-display text-2xl text-[#F5C542]">
+            <div className="font-display text-2xl text-studio-gold">
               {myPlayer.score} ptn
             </div>
           </div>
@@ -804,7 +804,7 @@ export const PlayerApp: React.FC = () => {
               <div className="flex flex-col gap-4 pt-3 border-t border-white/15">
                 {/* 1. Spelduur */}
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-wider text-[#F5C542] block mb-2">
+                  <label className="text-xs font-bold uppercase tracking-wider text-studio-gold block mb-2">
                     1. Spelduur kiezen
                   </label>
                   <div className="grid grid-cols-3 gap-2">
@@ -822,8 +822,8 @@ export const PlayerApp: React.FC = () => {
                         }
                         className={`py-3 px-2 rounded-xl font-display text-base border-2 transition-all ${
                           gameState.settings.totalRounds === opt.rounds
-                            ? 'bg-[#F5C542] text-[#070B18] border-white font-bold'
-                            : 'bg-[#070B18] text-white border-white/15'
+                            ? 'bg-studio-gold text-studio-bg border-white font-bold'
+                            : 'bg-studio-bg text-white border-white/15'
                         }`}
                       >
                         {opt.label}
@@ -834,7 +834,7 @@ export const PlayerApp: React.FC = () => {
 
                 {/* 2. Spelvorm */}
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-wider text-[#F5C542] block mb-2">
+                  <label className="text-xs font-bold uppercase tracking-wider text-studio-gold block mb-2">
                     2. Spelvorm kiezen (Alle 3 + Wisselende Duo&apos;s)
                   </label>
                   <div className="grid grid-cols-2 gap-2">
@@ -853,8 +853,8 @@ export const PlayerApp: React.FC = () => {
                           }
                           className={`p-3 rounded-xl text-left border-2 transition-all ${
                             active
-                              ? 'bg-[#1B2752] border-[#F5C542]'
-                              : 'bg-[#070B18]/70 border-white/15'
+                              ? 'bg-studio-cardLight border-studio-gold'
+                              : 'bg-studio-bg/70 border-white/15'
                           }`}
                         >
                           <div className="font-display text-lg text-white">
@@ -871,8 +871,8 @@ export const PlayerApp: React.FC = () => {
 
                 {/* Vaste Duo-Teams Indeling (1-tap switch team) */}
                 {gameState.settings.gameMode === 'duo_fixed' && (
-                  <div className="bg-[#070B18]/80 rounded-2xl p-3 border border-[#F5C542]/40">
-                    <div className="text-xs font-bold uppercase text-[#F5C542] mb-2">
+                  <div className="bg-studio-bg/80 rounded-2xl p-3 border border-studio-gold/40">
+                    <div className="text-xs font-bold uppercase text-studio-gold mb-2">
                       🤝 Tik op een speler om van Duo-Team te wisselen:
                     </div>
                     <div className="grid grid-cols-2 gap-2">
@@ -890,7 +890,7 @@ export const PlayerApp: React.FC = () => {
                             }
                             className={`px-3 py-2 rounded-xl border text-left flex items-center justify-between ${
                               isGold
-                                ? 'bg-amber-950/60 border-[#F5C542] text-[#F5C542]'
+                                ? 'bg-amber-950/60 border-studio-gold text-studio-gold'
                                 : 'bg-purple-950/60 border-[#A855F7] text-purple-200'
                             }`}
                           >
@@ -909,7 +909,7 @@ export const PlayerApp: React.FC = () => {
 
                 {/* 3. Rondemix (Alle 6 Rondetypes!) */}
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-wider text-[#F5C542] block mb-2">
+                  <label className="text-xs font-bold uppercase tracking-wider text-studio-gold block mb-2">
                     3. Rondetypes aan/uit (6 Spelvormen)
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -942,8 +942,8 @@ export const PlayerApp: React.FC = () => {
                           }}
                           className={`py-2.5 px-3 rounded-xl font-bold text-sm border-2 flex items-center justify-center gap-1.5 ${
                             enabled
-                              ? 'bg-[#1B2752] border-[#22C55E] text-white'
-                              : 'bg-[#070B18]/50 border-white/10 text-slate-500'
+                              ? 'bg-studio-cardLight border-[#22C55E] text-white'
+                              : 'bg-studio-bg/50 border-white/10 text-slate-500'
                           }`}
                         >
                           <span>{rMeta.emoji}</span>
@@ -956,7 +956,7 @@ export const PlayerApp: React.FC = () => {
 
                 {/* 4. Themapakketten & Seizoensmodi */}
                 <div>
-                  <label className="text-xs font-bold uppercase tracking-wider text-[#F5C542] block mb-2">
+                  <label className="text-xs font-bold uppercase tracking-wider text-studio-gold block mb-2">
                     4. Themapakketten & Seizoenen
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -981,8 +981,8 @@ export const PlayerApp: React.FC = () => {
                           }}
                           className={`py-2 px-2.5 rounded-xl font-bold text-xs border-2 flex items-center gap-1.5 ${
                             enabled
-                              ? 'bg-amber-950/60 border-[#F5C542] text-[#F5C542]'
-                              : 'bg-[#070B18]/50 border-white/10 text-slate-400'
+                              ? 'bg-amber-950/60 border-studio-gold text-studio-gold'
+                              : 'bg-studio-bg/50 border-white/10 text-slate-400'
                           }`}
                         >
                           <span>{pk.emoji}</span>
@@ -1005,7 +1005,7 @@ export const PlayerApp: React.FC = () => {
                     className={`py-2.5 px-3 rounded-xl font-bold text-xs border-2 ${
                       gameState.settings.surpriseMode
                         ? 'bg-purple-950/70 border-[#A855F7] text-purple-200'
-                        : 'bg-[#070B18]/50 border-white/10 text-slate-400'
+                        : 'bg-studio-bg/50 border-white/10 text-slate-400'
                     }`}
                   >
                     {gameState.settings.surpriseMode
@@ -1015,7 +1015,7 @@ export const PlayerApp: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => sendHostControl('testSound')}
-                    className="py-2.5 px-3 rounded-xl bg-[#1B2752] border border-[#38BDF8] text-[#38BDF8] font-bold text-xs"
+                    className="py-2.5 px-3 rounded-xl bg-studio-cardLight border border-[#38BDF8] text-[#38BDF8] font-bold text-xs"
                   >
                     🔊 Test TV-Geluid
                   </button>
@@ -1029,7 +1029,7 @@ export const PlayerApp: React.FC = () => {
                         vibrateDevice(50);
                         socketService.socket.emit('host:resumeSavedSession');
                       }}
-                      className="w-full py-3.5 rounded-2xl bg-emerald-600 border-2 border-white text-[#070B18] font-display text-xl font-bold shadow-lg"
+                      className="w-full py-3.5 rounded-2xl bg-emerald-600 border-2 border-white text-studio-bg font-display text-xl font-bold shadow-lg"
                     >
                       🔄 VORIG POTJE HERVATTEN (Ronde{' '}
                       {gameState.resumableSessionInfo.roundNumber} /{' '}
@@ -1043,7 +1043,7 @@ export const PlayerApp: React.FC = () => {
                     vibrateDevice(50);
                     socketService.socket.emit('host:startGame');
                   }}
-                  className="w-full py-5 rounded-2xl bg-gradient-to-r from-[#F5C542] to-[#F59E0B] text-[#070B18] font-display text-3xl font-bold shadow-[0_0_30px_rgba(245,197,66,0.5)] active:scale-95 transition-transform"
+                  className="w-full py-5 rounded-2xl bg-studio-gold text-studio-bg font-display text-3xl font-bold active:scale-95 transition-transform"
                 >
                   🎬 START DE SHOW OP TV!
                 </button>
@@ -1059,7 +1059,7 @@ export const PlayerApp: React.FC = () => {
             <div className="text-6xl animate-bounce">
               {gameState.phase === 'WHEEL_SPIN' ? '🎡' : activeCat.emoji}
             </div>
-            <h2 className="font-display text-3xl text-[#F5C542]">
+            <h2 className="font-display text-3xl text-studio-gold">
               {gameState.phase === 'WHEEL_SPIN'
                 ? 'Het grote rad draait op de TV...'
                 : `${activeCat.name}!`}
@@ -1071,7 +1071,7 @@ export const PlayerApp: React.FC = () => {
                   {ROUND_TYPE_META[activeRound.roundType].name}
                 </div>
                 {activeRound.bonusType && activeRound.bonusType !== 'none' && (
-                  <div className="px-4 py-2 rounded-2xl bg-gradient-to-r from-[#F5C542] to-amber-500 text-[#070B18] font-display text-lg font-bold">
+                  <div className="px-4 py-2 rounded-2xl bg-studio-gold text-studio-bg font-display text-lg font-bold">
                     {ROUND_BONUS_META[activeRound.bonusType].emoji}{' '}
                     {ROUND_BONUS_META[activeRound.bonusType].label}
                   </div>
@@ -1098,14 +1098,14 @@ export const PlayerApp: React.FC = () => {
                   >
                     {activeCat.emoji} {activeCat.shortName}
                   </span>
-                  <span className="font-display text-2xl text-[#F5C542]">
+                  <span className="font-display text-2xl text-studio-gold">
                     ⏱️ {activeRound.timerRemainingSec}s
                   </span>
                 </div>
 
                 {/* Optional per-question generated 3D scene illustration */}
                 {qartIds.has(privateView.myQuizQuestion.id) && (
-                  <div className="mb-3 rounded-2xl overflow-hidden border border-[#F5C542]/40 bg-[#070B18] aspect-video max-h-44 w-full shadow-lg">
+                  <div className="mb-3 rounded-2xl overflow-hidden border border-studio-gold/40 bg-studio-bg aspect-video max-h-44 w-full shadow-lg">
                     <img
                       src={`/qart/${privateView.myQuizQuestion.id}.jpg`}
                       alt="Vraag-illustratie"
@@ -1134,7 +1134,7 @@ export const PlayerApp: React.FC = () => {
                   }}
                   className={`mt-3 w-full py-3 rounded-2xl bg-[#3B82F6] text-white font-display text-xl flex items-center justify-center gap-2 shadow-md active:scale-95 ${
                     isOntdekker && !hasUserInteracted
-                      ? 'ring-4 ring-[#F5C542] animate-pulse'
+                      ? 'ring-4 ring-studio-gold animate-pulse'
                       : ''
                   }`}
                 >
@@ -1154,7 +1154,7 @@ export const PlayerApp: React.FC = () => {
                   const isSelected = selectedId === opt.id;
                   const isReveal = gameState.phase === 'ROUND_REVEAL';
 
-                  let btnStyle = `bg-gradient-to-br ${
+                  let btnStyle = `${
                     OPTION_COLORS[idx % OPTION_COLORS.length]
                   }`;
                   if (isReveal) {
@@ -1168,7 +1168,7 @@ export const PlayerApp: React.FC = () => {
                     }
                   } else if (selectedId) {
                     btnStyle = isSelected
-                      ? 'bg-[#F5C542] text-[#070B18] border-4 border-white scale-[1.03] shadow-[0_0_25px_rgba(245,197,66,0.6)]'
+                      ? 'bg-studio-gold text-studio-bg border-4 border-white scale-[1.03]'
                       : 'bg-slate-900/70 border-white/10 opacity-45';
                   }
 
@@ -1206,8 +1206,8 @@ export const PlayerApp: React.FC = () => {
                       <span
                         className={`font-display text-center leading-tight ${
                           isOntdekker
-                            ? 'text-xl sm:text-2xl'
-                            : 'text-lg sm:text-xl'
+                            ? 'text-2xl sm:text-3xl'
+                            : 'text-xl sm:text-2xl'
                         }`}
                       >
                         {opt.label}
@@ -1223,11 +1223,11 @@ export const PlayerApp: React.FC = () => {
                   className={`rounded-2xl p-4 border-2 text-center ${
                     myPlayer.lastAnswerCorrect
                       ? 'bg-emerald-950/90 border-[#22C55E]'
-                      : 'bg-[#111936] border-[#F5C542]/50'
+                      : 'bg-studio-card border-studio-gold/50'
                   }`}
                 >
                   {activeRound.familyBonusAwarded && (
-                    <div className="mb-2 px-3 py-1 rounded-xl bg-[#F5C542] text-[#070B18] font-display text-base font-bold">
+                    <div className="mb-2 px-3 py-1 rounded-xl bg-studio-gold text-studio-bg font-display text-base font-bold">
                       🤝 GEZINS-BONUS! +50 EXTRA PUNTEN VOOR IEDEREEN!
                     </div>
                   )}
@@ -1274,7 +1274,7 @@ export const PlayerApp: React.FC = () => {
                           vibrateDevice(60);
                           socketService.socket.emit('thirtySeconds:start');
                         }}
-                        className="w-full py-6 rounded-3xl bg-gradient-to-r from-[#22C55E] to-emerald-600 text-[#070B18] font-display text-3xl font-bold shadow-[0_0_30px_rgba(34,197,94,0.5)] active:scale-95"
+                        className="w-full py-6 rounded-3xl bg-[#22C55E] text-studio-bg font-display text-3xl font-bold active:scale-95"
                       >
                         🚀 START! ({activeRound.timerTotalSec} SEC)
                       </button>
@@ -1283,7 +1283,7 @@ export const PlayerApp: React.FC = () => {
                     /* Active 30 Seconds Turn */
                     <>
                       <div className="flex items-center justify-between border-b border-white/15 pb-3">
-                        <span className="font-display text-xl text-[#F5C542]">
+                        <span className="font-display text-xl text-studio-gold">
                           ⭐ {activeRound.thirtySecondsGuessedCount || 0}{' '}
                           geraden!
                         </span>
@@ -1291,7 +1291,7 @@ export const PlayerApp: React.FC = () => {
                           className={`font-display text-3xl px-4 py-1 rounded-xl ${
                             activeRound.timerRemainingSec <= 10
                               ? 'bg-red-600 text-white animate-pulse'
-                              : 'bg-[#070B18] text-[#F5C542]'
+                              : 'bg-studio-bg text-studio-gold'
                           }`}
                         >
                           ⏱️ {activeRound.timerRemainingSec}s
@@ -1312,7 +1312,7 @@ export const PlayerApp: React.FC = () => {
                             <div className="flex flex-col items-center gap-4">
                               {privateView.myThirtySecondsTurn.isActor ? (
                                 <>
-                                  <div className="w-56 h-56 sm:w-64 sm:h-64 rounded-3xl overflow-hidden border-4 border-[#F5C542] shadow-2xl">
+                                  <div className="w-56 h-56 sm:w-64 sm:h-64 rounded-3xl overflow-hidden border-4 border-studio-gold shadow-2xl">
                                     <IllustrationView
                                       illustrationId={
                                         currentItem.illustrationId
@@ -1368,7 +1368,7 @@ export const PlayerApp: React.FC = () => {
                                       }
                                     );
                                   }}
-                                  className="min-h-[110px] rounded-3xl bg-gradient-to-b from-[#22C55E] to-emerald-700 border-4 border-white text-[#070B18] font-display text-3xl font-bold shadow-xl active:scale-95"
+                                  className="min-h-[110px] rounded-3xl bg-[#22C55E] border-4 border-white text-studio-bg font-display text-3xl font-bold shadow-xl active:scale-95"
                                 >
                                   ✅ GERADEN!
                                 </button>
@@ -1384,7 +1384,7 @@ export const PlayerApp: React.FC = () => {
                                       }
                                     );
                                   }}
-                                  className="min-h-[110px] rounded-3xl bg-gradient-to-b from-[#F5C542] to-amber-600 border-4 border-white text-[#070B18] font-display text-3xl font-bold shadow-xl active:scale-95"
+                                  className="min-h-[110px] rounded-3xl bg-studio-gold border-4 border-white text-studio-bg font-display text-3xl font-bold shadow-xl active:scale-95"
                                 >
                                   ⏭️ VOLGENDE
                                 </button>
@@ -1413,7 +1413,7 @@ export const PlayerApp: React.FC = () => {
                                 className={`w-full p-3.5 rounded-2xl border-2 flex items-center justify-between transition-all ${
                                   isGuessed
                                     ? 'bg-emerald-700 border-emerald-300 text-white scale-[0.99]'
-                                    : 'bg-[#1B2752] border-[#F5C542]/60 text-white'
+                                    : 'bg-studio-cardLight border-studio-gold/60 text-white'
                                 }`}
                               >
                                 <div className="flex items-center gap-3.5">
@@ -1434,7 +1434,7 @@ export const PlayerApp: React.FC = () => {
                                   className={`w-11 h-11 rounded-xl flex items-center justify-center border-2 ${
                                     isGuessed
                                       ? 'bg-white text-emerald-700 border-white'
-                                      : 'bg-[#070B18] border-white/30 text-transparent'
+                                      : 'bg-studio-bg border-white/30 text-transparent'
                                   }`}
                                 >
                                   <Check className="w-7 h-7 stroke-[3]" />
@@ -1451,7 +1451,7 @@ export const PlayerApp: React.FC = () => {
                 /* Guessing player view during 30 Seconds (plus optional Host guesser picker!) */
                 <div className="studio-panel-gold rounded-3xl p-7 text-center flex flex-col items-center gap-4">
                   <div className="text-6xl animate-bounce">👂</div>
-                  <h2 className="font-display text-3xl text-[#F5C542]">
+                  <h2 className="font-display text-3xl text-studio-gold">
                     Luister & Kijk goed en RAAD MEE!
                   </h2>
                   <p className="text-xl text-white">
@@ -1466,7 +1466,7 @@ export const PlayerApp: React.FC = () => {
                     (gameState.settings.gameMode === 'solo' ||
                       gameState.settings.gameMode === 'coop') && (
                       <div className="w-full pt-4 border-t border-white/15 text-left">
-                        <div className="text-xs text-[#F5C542] font-bold uppercase mb-2">
+                        <div className="text-xs text-studio-gold font-bold uppercase mb-2">
                           🎩 Wie mag er raden? (optioneel aanpassen)
                         </div>
                         <div className="flex flex-wrap gap-2">
@@ -1480,7 +1480,7 @@ export const PlayerApp: React.FC = () => {
                                   .map((pl) => pl.id),
                               })
                             }
-                            className="px-3 py-1.5 rounded-xl bg-[#1B2752] border border-[#F5C542]/40 text-xs font-bold text-white"
+                            className="px-3 py-1.5 rounded-xl bg-studio-cardLight border border-studio-gold/40 text-xs font-bold text-white"
                           >
                             👨‍👩‍👧‍👦 Iedereen
                           </button>
@@ -1503,8 +1503,8 @@ export const PlayerApp: React.FC = () => {
                                   }
                                   className={`px-3 py-1.5 rounded-xl text-xs font-bold border ${
                                     selected
-                                      ? 'bg-[#22C55E] text-[#070B18] border-white'
-                                      : 'bg-[#070B18] text-slate-200 border-white/20'
+                                      ? 'bg-[#22C55E] text-studio-bg border-white'
+                                      : 'bg-studio-bg text-slate-200 border-white/20'
                                   }`}
                                 >
                                   Alleen {pl.name}
@@ -1524,7 +1524,7 @@ export const PlayerApp: React.FC = () => {
           activeRound?.roundType === 'thirty_seconds' && (
             <div className="studio-panel-gold rounded-3xl p-6 text-center flex flex-col items-center gap-4">
               <div className="text-5xl">🎉</div>
-              <h2 className="font-display text-3xl text-[#F5C542]">
+              <h2 className="font-display text-3xl text-studio-gold">
                 ⭐ {activeRound.thirtySecondsGuessedCount || 0} kaartjes geraden!
               </h2>
               <div className="grid grid-cols-2 gap-2 w-full">
@@ -1551,7 +1551,7 @@ export const PlayerApp: React.FC = () => {
         {gameState.phase === 'PAUSED' && (
           <div className="studio-panel-gold rounded-3xl p-8 text-center flex flex-col items-center gap-4">
             <div className="text-6xl">⏸️</div>
-            <h2 className="font-display text-3xl text-[#F5C542]">
+            <h2 className="font-display text-3xl text-studio-gold">
               PAUZE — Zo weer verder!
             </h2>
             <p className="text-lg text-slate-300">
@@ -1560,7 +1560,7 @@ export const PlayerApp: React.FC = () => {
             {myPlayer.isHost && (
               <button
                 onClick={() => sendHostControl('resume')}
-                className="mt-2 px-8 py-4 rounded-2xl bg-[#22C55E] text-[#070B18] font-display text-2xl font-bold"
+                className="mt-2 px-8 py-4 rounded-2xl bg-[#22C55E] text-studio-bg font-display text-2xl font-bold"
               >
                 ▶️ HERVAT DE SHOW
               </button>
@@ -1604,7 +1604,7 @@ export const PlayerApp: React.FC = () => {
                   const isSelected = selectedId === opt.id;
                   const isReveal = gameState.phase === 'ROUND_REVEAL';
 
-                  let btnStyle = `bg-gradient-to-br ${
+                  let btnStyle = `${
                     OPTION_COLORS[idx % OPTION_COLORS.length]
                   }`;
                   if (isReveal) {
@@ -1616,7 +1616,7 @@ export const PlayerApp: React.FC = () => {
                     }
                   } else if (selectedId) {
                     btnStyle = isSelected
-                      ? 'bg-[#F5C542] text-[#070B18] border-4 border-white scale-105'
+                      ? 'bg-studio-gold text-studio-bg border-4 border-white scale-105'
                       : 'bg-slate-900 opacity-40';
                   }
 
@@ -1656,11 +1656,11 @@ export const PlayerApp: React.FC = () => {
                   className={`rounded-2xl p-4 border-2 text-center ${
                     myPlayer.lastAnswerCorrect
                       ? 'bg-emerald-950/90 border-[#22C55E]'
-                      : 'bg-[#111936] border-[#F5C542]/50'
+                      : 'bg-studio-card border-studio-gold/50'
                   }`}
                 >
                   {activeRound.familyBonusAwarded && (
-                    <div className="mb-2 px-3 py-1 rounded-xl bg-[#F5C542] text-[#070B18] font-display text-base font-bold">
+                    <div className="mb-2 px-3 py-1 rounded-xl bg-studio-gold text-studio-bg font-display text-base font-bold">
                       🤝 GEZINS-BONUS! +50 EXTRA PUNTEN VOOR IEDEREEN!
                     </div>
                   )}
@@ -1684,8 +1684,8 @@ export const PlayerApp: React.FC = () => {
             <div className="flex flex-col items-center gap-5">
               {/* Host Secret Judge Panel when someone has buzzed! */}
               {myPlayer.isHost && activeRound.zoomBuzzedPlayerId && (
-                <div className="studio-panel-gold rounded-3xl p-5 w-full border-4 border-[#F5C542]">
-                  <div className="text-xs font-bold uppercase text-[#F5C542]">
+                <div className="studio-panel-gold rounded-3xl p-5 w-full border-4 border-studio-gold">
+                  <div className="text-xs font-bold uppercase text-studio-gold">
                     🎩 Host Jury — Geheim antwoord alleen voor jou:
                   </div>
                   <div className="font-display text-3xl text-white my-1">
@@ -1708,7 +1708,7 @@ export const PlayerApp: React.FC = () => {
                           correct: true,
                         });
                       }}
-                      className="py-4 rounded-2xl bg-[#22C55E] text-[#070B18] font-display text-2xl font-bold shadow-lg"
+                      className="py-4 rounded-2xl bg-[#22C55E] text-studio-bg font-display text-2xl font-bold shadow-lg"
                     >
                       ✅ GOED!
                     </button>
@@ -1730,7 +1730,7 @@ export const PlayerApp: React.FC = () => {
               {/* The Giant Pulsing Red BUZZER */}
               {gameState.phase === 'ROUND_ACTIVE' ? (
                 <div className="flex flex-col items-center gap-4 py-4">
-                  <div className="font-display text-2xl text-[#F5C542]">
+                  <div className="font-display text-2xl text-studio-gold">
                     Nu waard:{' '}
                     {(activeRound.zoomPossiblePoints || 150) *
                       (activeRound.bonusType === 'double_points' ? 2 : 1)}{' '}
@@ -1746,12 +1746,12 @@ export const PlayerApp: React.FC = () => {
                     }}
                     className={`w-64 h-64 sm:w-72 sm:h-72 rounded-full border-8 flex flex-col items-center justify-center gap-2 transition-all ${
                       privateView.myZoomState.isBuzzedPlayer
-                        ? 'bg-[#22C55E] border-white text-[#070B18] scale-105 shadow-[0_0_60px_rgba(34,197,94,0.8)]'
+                        ? 'bg-[#22C55E] border-white text-studio-bg scale-105'
                         : privateView.myZoomState.lockedOutRemainingSec > 0
                         ? 'bg-slate-800 border-slate-600 text-slate-400 opacity-60'
                         : activeRound.zoomBuzzedPlayerId
                         ? 'bg-amber-900/60 border-amber-500/50 text-amber-200'
-                        : 'bg-gradient-to-b from-red-500 to-red-700 border-white text-white shadow-[0_0_50px_rgba(239,68,68,0.75)] active:scale-90 animate-pulse'
+                        : 'bg-red-500 border-white text-white active:scale-90 animate-pulse'
                     }`}
                   >
                     <span className="text-6xl">
@@ -1811,7 +1811,7 @@ export const PlayerApp: React.FC = () => {
                             vibrateDevice(50);
                             socketService.socket.emit('pantomime:start');
                           }}
-                          className="w-full py-5 rounded-3xl bg-gradient-to-r from-[#22C55E] to-emerald-600 text-[#070B18] font-display text-3xl font-bold shadow-xl"
+                          className="w-full py-5 rounded-3xl bg-[#22C55E] text-studio-bg font-display text-3xl font-bold shadow-xl"
                         >
                           🚀 START UITBEELDING ({activeRound.timerTotalSec}s)
                         </button>
@@ -1822,11 +1822,11 @@ export const PlayerApp: React.FC = () => {
                           <span className="text-xs font-display uppercase text-[#22C55E]">
                             🤫 Geheim — Beeld dit uit!
                           </span>
-                          <span className="font-display text-2xl text-[#F5C542]">
+                          <span className="font-display text-2xl text-studio-gold">
                             ⏱️ {activeRound.timerRemainingSec}s
                           </span>
                         </div>
-                        <div className="w-48 h-48 rounded-3xl overflow-hidden border-4 border-[#F5C542]">
+                        <div className="w-48 h-48 rounded-3xl overflow-hidden border-4 border-studio-gold">
                           <IllustrationView
                             illustrationId={
                               privateView.myPantomimeState.secretIllustrationId
@@ -1840,7 +1840,7 @@ export const PlayerApp: React.FC = () => {
                           {privateView.myPantomimeState.secretPrompt}
                         </div>
                         {privateView.myPantomimeState.secretHint && (
-                          <div className="text-sm text-[#F5C542] bg-[#070B18]/80 px-4 py-2 rounded-xl">
+                          <div className="text-sm text-studio-gold bg-studio-bg/80 px-4 py-2 rounded-xl">
                             💡 Tip: {privateView.myPantomimeState.secretHint}
                           </div>
                         )}
@@ -1864,8 +1864,8 @@ export const PlayerApp: React.FC = () => {
                   /* Guesser & Host Judge View for Pantomime */
                   <div className="flex flex-col items-center gap-4 w-full">
                     {myPlayer.isHost && activeRound.pantomimeBuzzedPlayerId && (
-                      <div className="studio-panel-gold rounded-3xl p-5 w-full border-4 border-[#F5C542]">
-                        <div className="text-xs font-bold uppercase text-[#F5C542]">
+                      <div className="studio-panel-gold rounded-3xl p-5 w-full border-4 border-studio-gold">
+                        <div className="text-xs font-bold uppercase text-studio-gold">
                           🎩 Host Jury — Geheim antwoord:
                         </div>
                         <div className="font-display text-2xl text-white my-1">
@@ -1878,7 +1878,7 @@ export const PlayerApp: React.FC = () => {
                                 correct: true,
                               })
                             }
-                            className="py-4 rounded-2xl bg-[#22C55E] text-[#070B18] font-display text-2xl font-bold"
+                            className="py-4 rounded-2xl bg-[#22C55E] text-studio-bg font-display text-2xl font-bold"
                           >
                             ✅ GOED!
                           </button>
@@ -1901,7 +1901,7 @@ export const PlayerApp: React.FC = () => {
                         onClick={() =>
                           socketService.socket.emit('pantomime:start')
                         }
-                        className="w-full py-3 rounded-2xl bg-[#1B2752] border border-[#F5C542] text-[#F5C542] font-display text-lg"
+                        className="w-full py-3 rounded-2xl bg-studio-cardLight border border-studio-gold text-studio-gold font-display text-lg"
                       >
                         🚀 Start beurt van{' '}
                         {privateView.myPantomimeState.actorName}
@@ -1916,13 +1916,13 @@ export const PlayerApp: React.FC = () => {
                       }}
                       className={`w-60 h-60 rounded-full border-8 flex flex-col items-center justify-center gap-2 transition-all ${
                         privateView.myPantomimeState.isBuzzedPlayer
-                          ? 'bg-[#22C55E] border-white text-[#070B18] scale-105'
+                          ? 'bg-[#22C55E] border-white text-studio-bg scale-105'
                           : !privateView.myPantomimeState.started
                           ? 'bg-slate-900 border-slate-700 text-slate-400 opacity-60'
                           : privateView.myPantomimeState.lockedOutRemainingSec >
                             0
                           ? 'bg-slate-800 border-slate-600 text-slate-400 opacity-60'
-                          : 'bg-gradient-to-b from-red-500 to-red-700 border-white text-white shadow-[0_0_50px_rgba(239,68,68,0.75)] active:scale-90 animate-pulse'
+                          : 'bg-red-500 border-white text-white active:scale-90 animate-pulse'
                       }`}
                     >
                       <span className="text-5xl">
@@ -1952,7 +1952,7 @@ export const PlayerApp: React.FC = () => {
                     {activeRound.pantomimeRevealedAnswer}
                   </div>
                   {(myPlayer.lastPointsAwarded || 0) > 0 && (
-                    <div className="mt-2 font-display text-2xl text-[#F5C542]">
+                    <div className="mt-2 font-display text-2xl text-studio-gold">
                       🎉 +{myPlayer.lastPointsAwarded} punten verdiend!
                     </div>
                   )}
@@ -1973,7 +1973,7 @@ export const PlayerApp: React.FC = () => {
                 <span className="text-xs font-display uppercase text-[#F97316]">
                   🎯 Dichtstbij Wint!
                 </span>
-                <span className="font-display text-2xl text-[#F5C542]">
+                <span className="font-display text-2xl text-studio-gold">
                   ⏱️ {activeRound.timerRemainingSec}s
                 </span>
               </div>
@@ -2008,11 +2008,11 @@ export const PlayerApp: React.FC = () => {
 
               {gameState.phase === 'ROUND_ACTIVE' ? (
                 privateView.myEstimateChallenge.submittedValue !== undefined ? (
-                  <div className="py-6 text-center bg-[#070B18]/80 rounded-2xl border-2 border-[#22C55E]">
+                  <div className="py-6 text-center bg-studio-bg/80 rounded-2xl border-2 border-[#22C55E]">
                     <div className="text-sm text-emerald-300 uppercase">
                       Jouw gekozen schatting:
                     </div>
-                    <div className="font-display text-5xl text-[#F5C542] my-1">
+                    <div className="font-display text-5xl text-studio-gold my-1">
                       {privateView.myEstimateChallenge.submittedValue}{' '}
                       {privateView.myEstimateChallenge.unit}
                     </div>
@@ -2023,7 +2023,7 @@ export const PlayerApp: React.FC = () => {
                 ) : (
                   <div className="flex flex-col gap-4">
                     {/* Giant Live Number Display + -/+ Buttons */}
-                    <div className="flex items-center justify-between bg-[#070B18] rounded-2xl p-4 border-2 border-[#F5C542]">
+                    <div className="flex items-center justify-between bg-studio-bg rounded-2xl p-4 border-2 border-studio-gold">
                       <button
                         type="button"
                         onClick={() => {
@@ -2032,12 +2032,12 @@ export const PlayerApp: React.FC = () => {
                             Math.max(c.min, v - c.step)
                           );
                         }}
-                        className="w-14 h-14 rounded-xl bg-[#1B2752] text-white font-display text-3xl font-bold"
+                        className="w-14 h-14 rounded-xl bg-studio-cardLight text-white font-display text-3xl font-bold"
                       >
                         −
                       </button>
                       <div className="text-center">
-                        <div className="font-display text-5xl text-[#F5C542]">
+                        <div className="font-display text-5xl text-studio-gold">
                           {estimateDraft}
                         </div>
                         <div className="text-sm text-slate-300">
@@ -2052,7 +2052,7 @@ export const PlayerApp: React.FC = () => {
                             Math.min(c.max, v + c.step)
                           );
                         }}
-                        className="w-14 h-14 rounded-xl bg-[#1B2752] text-white font-display text-3xl font-bold"
+                        className="w-14 h-14 rounded-xl bg-studio-cardLight text-white font-display text-3xl font-bold"
                       >
                         +
                       </button>
@@ -2065,7 +2065,7 @@ export const PlayerApp: React.FC = () => {
                       step={privateView.myEstimateChallenge.step}
                       value={estimateDraft}
                       onChange={(e) => setEstimateDraft(Number(e.target.value))}
-                      className="w-full h-4 accent-[#F5C542] cursor-pointer"
+                      className="w-full h-4 accent-studio-gold cursor-pointer"
                     />
 
                     <div className="flex justify-between text-xs text-slate-400">
@@ -2086,7 +2086,7 @@ export const PlayerApp: React.FC = () => {
                           value: estimateDraft,
                         });
                       }}
-                      className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#22C55E] to-emerald-600 text-[#070B18] font-display text-2xl font-bold shadow-lg"
+                      className="w-full py-4 rounded-2xl bg-[#22C55E] text-studio-bg font-display text-2xl font-bold shadow-lg"
                     >
                       🔒 BEVESTIG SCHATTING ({estimateDraft}{' '}
                       {privateView.myEstimateChallenge.unit})
@@ -2103,7 +2103,7 @@ export const PlayerApp: React.FC = () => {
                     {privateView.myEstimateChallenge.unit}
                   </div>
                   {(myPlayer.lastPointsAwarded || 0) > 0 && (
-                    <div className="font-display text-2xl text-[#F5C542] mb-1">
+                    <div className="font-display text-2xl text-studio-gold mb-1">
                       🎉 +{myPlayer.lastPointsAwarded} punten verdiend!
                     </div>
                   )}
@@ -2121,13 +2121,13 @@ export const PlayerApp: React.FC = () => {
         {(gameState.phase === 'SCOREBOARD' ||
           gameState.phase === 'FINALE') && (
           <div className="studio-panel-gold rounded-3xl p-6 text-center flex flex-col items-center gap-4">
-            <Sparkles className="w-12 h-12 text-[#F5C542]" />
+            <Sparkles className="w-12 h-12 text-studio-gold" />
             <h2 className="font-display text-3xl text-white">
               {gameState.phase === 'FINALE'
                 ? '🏆 De Grote Finale op TV!'
                 : 'Tussenstand op de TV!'}
             </h2>
-            <div className="text-2xl font-display text-[#F5C542]">
+            <div className="text-2xl font-display text-studio-gold">
               Jouw score: {myPlayer.score} punten ({myPlayer.stars.length} / 6 ⭐)
             </div>
             {gameState.phase === 'FINALE' &&
@@ -2136,10 +2136,10 @@ export const PlayerApp: React.FC = () => {
                 .map((aw) => (
                   <div
                     key={aw.id}
-                    className="w-full p-4 rounded-2xl bg-[#070B18] border-2 border-[#F5C542]"
+                    className="w-full p-4 rounded-2xl bg-studio-bg border-2 border-studio-gold"
                   >
                     <div className="text-4xl mb-1">{aw.icon}</div>
-                    <div className="font-display text-2xl text-[#F5C542]">
+                    <div className="font-display text-2xl text-studio-gold">
                       {aw.title}
                     </div>
                     <div className="text-sm text-slate-300">{aw.subtitle}</div>

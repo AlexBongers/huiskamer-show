@@ -52,12 +52,12 @@ export const CategoryWheel: React.FC<CategoryWheelProps> = ({
       <div className="relative w-[380px] h-[380px] xl:w-[450px] xl:h-[450px] flex items-center justify-center">
         {/* Top Golden Pointer */}
         <div className="absolute -top-5 z-20 flex flex-col items-center">
-          <div className="w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent border-t-[36px] border-t-[#F5C542] drop-shadow-[0_4px_12px_rgba(245,197,66,0.9)]" />
+          <div className="w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent border-t-[36px] border-t-studio-gold drop-shadow-[0_4px_12px_rgba(255, 210, 63,0.9)]" />
         </div>
 
         {/* Spinning SVG Wheel */}
         <div
-          className="w-full h-full rounded-full border-8 border-[#F5C542] shadow-[0_0_50px_rgba(245,197,66,0.35)] overflow-hidden transition-transform duration-[3600ms] ease-[cubic-bezier(0.15,0.85,0.25,1)]"
+          className="w-full h-full rounded-full border-8 border-studio-gold overflow-hidden transition-transform duration-[3600ms] ease-[cubic-bezier(0.15,0.85,0.25,1)]"
           style={{ transform: `rotate(${rotation}deg)` }}
         >
           <svg viewBox="0 0 200 200" className="w-full h-full">
@@ -80,7 +80,7 @@ export const CategoryWheel: React.FC<CategoryWheelProps> = ({
                   <path
                     d={`M100,100 L${x1},${y1} A100,100 0 0,1 ${x2},${y2} Z`}
                     fill={cat.color}
-                    stroke="#070B18"
+                    stroke="rgb(var(--studio-bg-rgb))"
                     strokeWidth="2.5"
                   />
                   <text
@@ -101,8 +101,8 @@ export const CategoryWheel: React.FC<CategoryWheelProps> = ({
               cx="100"
               cy="100"
               r="22"
-              fill="#111936"
-              stroke="#F5C542"
+              fill="rgb(var(--studio-card-rgb))"
+              stroke="rgb(var(--studio-gold-rgb))"
               strokeWidth="5"
             />
             <text
@@ -120,7 +120,7 @@ export const CategoryWheel: React.FC<CategoryWheelProps> = ({
 
       {/* Category Legend on Right */}
       <div className="flex flex-col gap-3 max-w-lg">
-        <div className="text-[#F5C542] font-display text-2xl tracking-wide">
+        <div className="text-studio-gold font-display text-2xl tracking-wide">
           {landed
             ? `✨ GEKOZEN CATEGORIE: ${activeCat.name.toUpperCase()}!`
             : '🎡 HET GROTE CATEGORIE-RAD DRAAIT...'}
@@ -134,10 +134,10 @@ export const CategoryWheel: React.FC<CategoryWheelProps> = ({
                 key={cat.id}
                 className={`flex items-center gap-4 px-5 py-3 rounded-2xl border-2 transition-all duration-300 ${
                   isTarget
-                    ? 'bg-[#1B2752] border-[#F5C542] scale-105 shadow-[0_0_28px_rgba(245,197,66,0.45)]'
+                    ? 'bg-studio-cardLight border-studio-gold scale-105'
                     : isScanning
-                    ? 'bg-[#1B2752]/80 border-white/40 scale-[1.02]'
-                    : 'bg-[#111936]/75 border-white/10 opacity-75'
+                    ? 'bg-studio-cardLight/80 border-white/40 scale-[1.02]'
+                    : 'bg-studio-card/75 border-white/10 opacity-75'
                 }`}
               >
                 <span

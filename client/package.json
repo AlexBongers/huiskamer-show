@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fontsource/fredoka": "^5.0.18",
-    "@fontsource/nunito": "^5.0.18",
+    "@fontsource/sora": "^5.0.18",
+    "@fontsource/inter": "^5.0.18",
     "@huiskamer-show/shared": "*",
     "canvas-confetti": "^1.9.3",
     "lucide-react": "^0.394.0",

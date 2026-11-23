@@ -38,6 +38,12 @@ import {
   IllustrationView,
 } from '../illustrations/IllustrationLibrary';
 import { SOUND_PRESET_LIST, soundEngine } from '../../services/soundEngine';
+import {
+  THEMES,
+  getThemeOverride,
+  setThemeOverride,
+  type ThemeId,
+} from '../../theme/seasons';
 
 type AdminTab =
   | 'quiz'
@@ -50,6 +56,7 @@ type AdminTab =
 
 export const AdminApp: React.FC = () => {
   const [activeTab, setActiveTab] = useState<AdminTab>('quiz');
+  const [themeChoice, setThemeChoice] = useState<ThemeId | null>(() => getThemeOverride());
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState<string>('');
   const [errorToast, setErrorToast] = useState<string>('');
@@ -972,7 +979,7 @@ export const AdminApp: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen studio-stage-bg flex items-center justify-center font-display text-3xl text-[#F5C542]">
+      <div className="min-h-screen studio-stage-bg flex items-center justify-center font-display text-3xl text-studio-gold">
         Gezins-Editor laden...
       </div>
     );
@@ -985,7 +992,7 @@ export const AdminApp: React.FC = () => {
           onSubmit={handleVerifyPin}
           className="studio-panel-gold rounded-3xl p-8 max-w-md w-full flex flex-col items-center text-center gap-4"
         >
-          <Lock className="w-12 h-12 text-[#F5C542]" />
+          <Lock className="w-12 h-12 text-studio-gold" />
           <h1 className="font-display text-3xl text-white">
             🔒 Ouder-PIN Vereist
           </h1>
@@ -1007,12 +1014,12 @@ export const AdminApp: React.FC = () => {
               setPinInput(e.target.value.replace(/\D/g, '').slice(0, 4))
             }
             placeholder="••••"
-            className="w-44 text-center tracking-[0.5em] font-display text-3xl py-3 rounded-2xl bg-[#070B18] border-2 border-[#F5C542] text-[#F5C542]"
+            className="w-44 text-center tracking-[0.5em] font-display text-3xl py-3 rounded-2xl bg-studio-bg border-2 border-studio-gold text-studio-gold"
             autoFocus
           />
           <button
             type="submit"
-            className="w-full py-3.5 rounded-2xl bg-[#F5C542] text-[#070B18] font-display text-xl font-bold"
+            className="w-full py-3.5 rounded-2xl bg-studio-gold text-studio-bg font-display text-xl font-bold"
           >
             Ontgrendel Gezins-Editor
           </button>
@@ -1046,7 +1053,7 @@ export const AdminApp: React.FC = () => {
       <div className="p-4 md:p-8 max-w-7xl mx-auto">
         {/* Toast Notifications */}
       {toast && (
-        <div className="fixed bottom-6 right-6 z-50 px-6 py-4 rounded-2xl bg-[#22C55E] text-[#070B18] font-display text-xl font-bold shadow-2xl flex items-center gap-2">
+        <div className="fixed bottom-6 right-6 z-50 px-6 py-4 rounded-2xl bg-[#22C55E] text-studio-bg font-display text-xl font-bold shadow-2xl flex items-center gap-2">
           <CheckCircle2 className="w-6 h-6" /> {toast}
         </div>
       )}
@@ -1059,7 +1066,7 @@ export const AdminApp: React.FC = () => {
       {/* Header */}
       <header className="studio-panel-gold rounded-3xl p-6 mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <div className="text-[#F5C542] font-display text-sm uppercase tracking-wider">
+          <div className="text-studio-gold font-display text-sm uppercase tracking-wider">
             ⚙️ Lokale Familie Studio Beheer (/app/data)
           </div>
           <h1 className="font-display text-3xl md:text-4xl text-white">
@@ -1079,13 +1086,13 @@ export const AdminApp: React.FC = () => {
           )}
           <a
             href="/tv"
-            className="px-4 py-2.5 rounded-xl bg-[#1B2752] border border-[#F5C542]/50 font-display text-base text-white"
+            className="px-4 py-2.5 rounded-xl bg-studio-cardLight border border-studio-gold/50 font-display text-base text-white"
           >
             📺 Open TV (/tv)
           </a>
           <a
             href="/play"
-            className="px-4 py-2.5 rounded-xl bg-[#F5C542] text-[#070B18] font-display text-base font-bold"
+            className="px-4 py-2.5 rounded-xl bg-studio-gold text-studio-bg font-display text-base font-bold"
           >
             📱 Open Controller (/play)
           </a>
@@ -1113,8 +1120,8 @@ export const AdminApp: React.FC = () => {
             onClick={() => setActiveTab(tab.id)}
             className={`px-3.5 py-2.5 rounded-2xl font-display text-sm xl:text-base whitespace-nowrap border-2 transition-all ${
               activeTab === tab.id
-                ? 'bg-[#F5C542] text-[#070B18] border-white font-bold shadow-lg'
-                : 'bg-[#111936] text-white border-white/15 hover:border-[#F5C542]/50'
+                ? 'bg-studio-gold text-studio-bg border-white font-bold shadow-lg'
+                : 'bg-studio-card text-white border-white/15 hover:border-studio-gold/50'
             }`}
           >
             {tab.label}
@@ -1132,7 +1139,7 @@ export const AdminApp: React.FC = () => {
             className="lg:col-span-5 studio-panel-gold rounded-3xl p-6 flex flex-col gap-4 h-fit"
           >
             <div className="flex items-center justify-between">
-              <h2 className="font-display text-2xl text-[#F5C542] flex items-center gap-2">
+              <h2 className="font-display text-2xl text-studio-gold flex items-center gap-2">
                 {editingQuizId ? (
                   <>
                     <Pencil className="w-5 h-5" /> Quizvraag Bewerken
@@ -1162,7 +1169,7 @@ export const AdminApp: React.FC = () => {
                 <select
                   value={newQCat}
                   onChange={(e) => setNewQCat(e.target.value as CategoryId)}
-                  className="w-full px-2.5 py-2.5 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                  className="w-full px-2.5 py-2.5 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
                 >
                   {CATEGORIES.map((c) => (
                     <option key={c.id} value={c.id}>
@@ -1180,7 +1187,7 @@ export const AdminApp: React.FC = () => {
                   onChange={(e) =>
                     setNewQLevel(e.target.value as DifficultyLevel)
                   }
-                  className="w-full px-2.5 py-2.5 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                  className="w-full px-2.5 py-2.5 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
                 >
                   <option value="ontdekker">🦖 Lucas (5j)</option>
                   <option value="avonturier">🦄 Lana (7j)</option>
@@ -1194,7 +1201,7 @@ export const AdminApp: React.FC = () => {
                 <select
                   value={newQPack}
                   onChange={(e) => setNewQPack(e.target.value as ContentPackId)}
-                  className="w-full px-2.5 py-2.5 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                  className="w-full px-2.5 py-2.5 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
                 >
                   {CONTENT_PACKS.map((pk) => (
                     <option key={pk.id} value={pk.id}>
@@ -1214,7 +1221,7 @@ export const AdminApp: React.FC = () => {
                 value={newQPrompt}
                 onChange={(e) => setNewQPrompt(e.target.value)}
                 placeholder="Bijv. Wat eet onze familie het liefst op zaterdag?"
-                className="w-full px-4 py-2.5 rounded-xl bg-[#070B18] border border-white/20 text-white"
+                className="w-full px-4 py-2.5 rounded-xl bg-studio-bg border border-white/20 text-white"
                 required
               />
             </div>
@@ -1230,7 +1237,7 @@ export const AdminApp: React.FC = () => {
                   className={`p-3 rounded-2xl border ${
                     newQCorrectId === opt.id
                       ? 'bg-emerald-950/60 border-[#22C55E]'
-                      : 'bg-[#070B18]/70 border-white/15'
+                      : 'bg-studio-bg/70 border-white/15'
                   }`}
                 >
                   <div className="flex items-center gap-2 mb-2">
@@ -1249,7 +1256,7 @@ export const AdminApp: React.FC = () => {
                         setNewQOptions(next);
                       }}
                       placeholder={`Optie ${opt.id.toUpperCase()}...`}
-                      className="flex-1 px-3 py-1.5 rounded-lg bg-[#111936] border border-white/20 text-white text-sm"
+                      className="flex-1 px-3 py-1.5 rounded-lg bg-studio-card border border-white/20 text-white text-sm"
                       required
                     />
                   </div>
@@ -1268,7 +1275,7 @@ export const AdminApp: React.FC = () => {
                         next[idx].imageUrl = '';
                         setNewQOptions(next);
                       }}
-                      className="flex-1 px-2 py-1.5 rounded-lg bg-[#111936] border border-white/20 text-white text-xs"
+                      className="flex-1 px-2 py-1.5 rounded-lg bg-studio-card border border-white/20 text-white text-xs"
                     >
                       {ILLUSTRATION_LIST.map((il) => (
                         <option key={il.id} value={il.id}>
@@ -1276,7 +1283,7 @@ export const AdminApp: React.FC = () => {
                         </option>
                       ))}
                     </select>
-                    <label className="px-2.5 py-1.5 rounded-lg bg-[#1B2752] text-xs cursor-pointer flex items-center gap-1">
+                    <label className="px-2.5 py-1.5 rounded-lg bg-studio-cardLight text-xs cursor-pointer flex items-center gap-1">
                       <Upload className="w-3.5 h-3.5" /> Foto
                       <input
                         type="file"
@@ -1308,13 +1315,13 @@ export const AdminApp: React.FC = () => {
                 value={newQFunFact}
                 onChange={(e) => setNewQFunFact(e.target.value)}
                 placeholder="Wist je dat..."
-                className="w-full px-4 py-2 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                className="w-full px-4 py-2 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
               />
             </div>
 
             <button
               type="submit"
-              className="py-3.5 rounded-2xl bg-[#22C55E] text-[#070B18] font-display text-xl font-bold"
+              className="py-3.5 rounded-2xl bg-[#22C55E] text-studio-bg font-display text-xl font-bold"
             >
               {editingQuizId ? '💾 Wijzigingen Opslaan' : '💾 Vraag Opslaan'}
             </button>
@@ -1334,13 +1341,13 @@ export const AdminApp: React.FC = () => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Zoek vraag of antwoord..."
-                    className="pl-9 pr-3 py-1.5 rounded-xl bg-[#070B18] border border-white/20 text-sm text-white w-48"
+                    className="pl-9 pr-3 py-1.5 rounded-xl bg-studio-bg border border-white/20 text-sm text-white w-48"
                   />
                 </div>
                 <select
                   value={filterCat}
                   onChange={(e) => setFilterCat(e.target.value)}
-                  className="px-3 py-1.5 rounded-xl bg-[#070B18] border border-white/20 text-sm"
+                  className="px-3 py-1.5 rounded-xl bg-studio-bg border border-white/20 text-sm"
                 >
                   <option value="ALL">Alle categorieën</option>
                   {CATEGORIES.map((c) => (
@@ -1352,7 +1359,7 @@ export const AdminApp: React.FC = () => {
                 <select
                   value={filterLevel}
                   onChange={(e) => setFilterLevel(e.target.value)}
-                  className="px-3 py-1.5 rounded-xl bg-[#070B18] border border-white/20 text-sm"
+                  className="px-3 py-1.5 rounded-xl bg-studio-bg border border-white/20 text-sm"
                 >
                   <option value="ALL">Alle niveaus</option>
                   <option value="ontdekker">Ontdekker (5j)</option>
@@ -1362,7 +1369,7 @@ export const AdminApp: React.FC = () => {
                 <select
                   value={filterPack}
                   onChange={(e) => setFilterPack(e.target.value)}
-                  className="px-3 py-1.5 rounded-xl bg-[#070B18] border border-white/20 text-sm"
+                  className="px-3 py-1.5 rounded-xl bg-studio-bg border border-white/20 text-sm"
                 >
                   <option value="ALL">Alle pakketten</option>
                   {CONTENT_PACKS.map((pk) => (
@@ -1378,11 +1385,11 @@ export const AdminApp: React.FC = () => {
               {filteredQuiz.map((q) => (
                 <div
                   key={q.id}
-                  className="p-4 rounded-2xl bg-[#070B18]/80 border border-white/15 flex items-start justify-between gap-4"
+                  className="p-4 rounded-2xl bg-studio-bg/80 border border-white/15 flex items-start justify-between gap-4"
                 >
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs px-2 py-0.5 rounded bg-[#1B2752] text-[#F5C542] font-bold">
+                      <span className="text-xs px-2 py-0.5 rounded bg-studio-cardLight text-studio-gold font-bold">
                         {q.level.toUpperCase()}
                       </span>
                       <span className="text-xs text-slate-400">
@@ -1410,7 +1417,7 @@ export const AdminApp: React.FC = () => {
                   <div className="flex items-center gap-1.5 flex-shrink-0">
                     <button
                       onClick={() => startEditQuiz(q)}
-                      className="p-2 rounded-xl bg-[#1B2752] text-[#F5C542] hover:bg-amber-900/50"
+                      className="p-2 rounded-xl bg-studio-cardLight text-studio-gold hover:bg-amber-900/50"
                       title="Bewerk vraag"
                     >
                       <Pencil className="w-4 h-4" />
@@ -1440,7 +1447,7 @@ export const AdminApp: React.FC = () => {
             className="lg:col-span-5 studio-panel-gold rounded-3xl p-6 flex flex-col gap-4 h-fit"
           >
             <div className="flex items-center justify-between">
-              <h2 className="font-display text-2xl text-[#F5C542]">
+              <h2 className="font-display text-2xl text-studio-gold">
                 {editingTSId
                   ? '✏️ 30 Seconds Kaart Bewerken'
                   : '⏱️ Nieuwe 30 Seconds Kaart'}
@@ -1467,7 +1474,7 @@ export const AdminApp: React.FC = () => {
                 <select
                   value={newTSCat}
                   onChange={(e) => setNewTSCat(e.target.value as CategoryId)}
-                  className="w-full px-3 py-2.5 rounded-xl bg-[#070B18] border border-white/20 text-white"
+                  className="w-full px-3 py-2.5 rounded-xl bg-studio-bg border border-white/20 text-white"
                 >
                   {CATEGORIES.map((c) => (
                     <option key={c.id} value={c.id}>
@@ -1485,7 +1492,7 @@ export const AdminApp: React.FC = () => {
                   onChange={(e) =>
                     handleTSLevelChange(e.target.value as DifficultyLevel)
                   }
-                  className="w-full px-3 py-2.5 rounded-xl bg-[#070B18] border border-white/20 text-white"
+                  className="w-full px-3 py-2.5 rounded-xl bg-studio-bg border border-white/20 text-white"
                 >
                   <option value="ontdekker">🦖 Lucas (1 groot plaatje)</option>
                   <option value="avonturier">
@@ -1500,7 +1507,7 @@ export const AdminApp: React.FC = () => {
               {newTSWords.map((item, idx) => (
                 <div
                   key={idx}
-                  className="p-3 rounded-2xl bg-[#070B18]/80 border border-white/15 flex flex-col gap-2"
+                  className="p-3 rounded-2xl bg-studio-bg/80 border border-white/15 flex flex-col gap-2"
                 >
                   <input
                     type="text"
@@ -1511,7 +1518,7 @@ export const AdminApp: React.FC = () => {
                       setNewTSWords(next);
                     }}
                     placeholder={`Begrip / Plaatje #${idx + 1}...`}
-                    className="w-full px-3 py-2 rounded-xl bg-[#111936] border border-white/20 text-white"
+                    className="w-full px-3 py-2 rounded-xl bg-studio-card border border-white/20 text-white"
                     required
                   />
                   {newTSLevel !== 'meester' && (
@@ -1530,7 +1537,7 @@ export const AdminApp: React.FC = () => {
                           next[idx].imageUrl = undefined;
                           setNewTSWords(next);
                         }}
-                        className="flex-1 px-2 py-1.5 rounded-lg bg-[#111936] border border-white/20 text-xs"
+                        className="flex-1 px-2 py-1.5 rounded-lg bg-studio-card border border-white/20 text-xs"
                       >
                         {ILLUSTRATION_LIST.map((il) => (
                           <option key={il.id} value={il.id}>
@@ -1538,7 +1545,7 @@ export const AdminApp: React.FC = () => {
                           </option>
                         ))}
                       </select>
-                      <label className="px-2.5 py-1.5 rounded-lg bg-[#1B2752] text-xs cursor-pointer">
+                      <label className="px-2.5 py-1.5 rounded-lg bg-studio-cardLight text-xs cursor-pointer">
                         📷 Foto
                         <input
                           type="file"
@@ -1564,7 +1571,7 @@ export const AdminApp: React.FC = () => {
 
             <button
               type="submit"
-              className="py-3.5 rounded-2xl bg-[#22C55E] text-[#070B18] font-display text-xl font-bold"
+              className="py-3.5 rounded-2xl bg-[#22C55E] text-studio-bg font-display text-xl font-bold"
             >
               {editingTSId
                 ? '💾 Kaart Bijwerken'
@@ -1580,10 +1587,10 @@ export const AdminApp: React.FC = () => {
               {filteredThirty.map((c) => (
                 <div
                   key={c.id}
-                  className="p-4 rounded-2xl bg-[#070B18]/80 border border-white/15 flex justify-between items-start gap-2"
+                  className="p-4 rounded-2xl bg-studio-bg/80 border border-white/15 flex justify-between items-start gap-2"
                 >
                   <div>
-                    <span className="text-xs px-2 py-0.5 rounded bg-[#1B2752] text-[#F5C542] font-bold">
+                    <span className="text-xs px-2 py-0.5 rounded bg-studio-cardLight text-studio-gold font-bold">
                       {c.level.toUpperCase()} · {c.category}
                     </span>
                     <ul className="mt-2 space-y-1">
@@ -1600,7 +1607,7 @@ export const AdminApp: React.FC = () => {
                   <div className="flex items-center gap-1">
                     <button
                       onClick={() => startEditTS(c)}
-                      className="p-2 rounded-xl bg-[#1B2752] text-[#F5C542]"
+                      className="p-2 rounded-xl bg-studio-cardLight text-studio-gold"
                       title="Bewerk kaart"
                     >
                       <Pencil className="w-4 h-4" />
@@ -1634,7 +1641,7 @@ export const AdminApp: React.FC = () => {
             className="lg:col-span-5 studio-panel-gold rounded-3xl p-6 flex flex-col gap-4 h-fit"
           >
             <div className="flex items-center justify-between">
-              <h2 className="font-display text-2xl text-[#F5C542]">
+              <h2 className="font-display text-2xl text-studio-gold">
                 {editingZoomId
                   ? '✏️ Zoom-in Foto Bewerken'
                   : '🔍 Nieuwe Zoom-in Familiefoto'}
@@ -1663,7 +1670,7 @@ export const AdminApp: React.FC = () => {
                 value={newZoomAnswer}
                 onChange={(e) => setNewZoomAnswer(e.target.value)}
                 placeholder="Bijv. Knuffel van Lucas op vakantie..."
-                className="w-full px-4 py-2.5 rounded-xl bg-[#070B18] border border-white/20 text-white"
+                className="w-full px-4 py-2.5 rounded-xl bg-studio-bg border border-white/20 text-white"
                 required
               />
             </div>
@@ -1676,7 +1683,7 @@ export const AdminApp: React.FC = () => {
                 <select
                   value={newZoomCat}
                   onChange={(e) => setNewZoomCat(e.target.value as CategoryId)}
-                  className="w-full px-3 py-2.5 rounded-xl bg-[#070B18] border border-white/20 text-white"
+                  className="w-full px-3 py-2.5 rounded-xl bg-studio-bg border border-white/20 text-white"
                 >
                   {CATEGORIES.map((c) => (
                     <option key={c.id} value={c.id}>
@@ -1695,7 +1702,7 @@ export const AdminApp: React.FC = () => {
                     setNewZoomIllustration(e.target.value);
                     setNewZoomImageUrl('');
                   }}
-                  className="w-full px-3 py-2.5 rounded-xl bg-[#070B18] border border-white/20 text-white"
+                  className="w-full px-3 py-2.5 rounded-xl bg-studio-bg border border-white/20 text-white"
                 >
                   {ILLUSTRATION_LIST.map((il) => (
                     <option key={il.id} value={il.id}>
@@ -1706,7 +1713,7 @@ export const AdminApp: React.FC = () => {
               </div>
             </div>
 
-            <label className="w-full py-3 rounded-2xl bg-[#1B2752] border-2 border-dashed border-[#F5C542] text-center cursor-pointer font-display text-lg text-[#F5C542] flex items-center justify-center gap-2">
+            <label className="w-full py-3 rounded-2xl bg-studio-cardLight border-2 border-dashed border-studio-gold text-center cursor-pointer font-display text-lg text-studio-gold flex items-center justify-center gap-2">
               <Upload className="w-5 h-5" /> 📷 Eigen Familiefoto Uploaden
               <input
                 type="file"
@@ -1725,9 +1732,9 @@ export const AdminApp: React.FC = () => {
             </label>
 
             {/* Live Interactive 8x -> 1x Zoom Preview */}
-            <div className="bg-[#070B18] rounded-2xl p-4 border border-white/15">
+            <div className="bg-studio-bg rounded-2xl p-4 border border-white/15">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs text-[#F5C542] font-bold flex items-center gap-1">
+                <span className="text-xs text-studio-gold font-bold flex items-center gap-1">
                   <Eye className="w-4 h-4" /> Live Zoom Preview (
                   {previewZoomScale.toFixed(1)}×)
                 </span>
@@ -1777,7 +1784,7 @@ export const AdminApp: React.FC = () => {
 
             <button
               type="submit"
-              className="py-3.5 rounded-2xl bg-[#22C55E] text-[#070B18] font-display text-xl font-bold"
+              className="py-3.5 rounded-2xl bg-[#22C55E] text-studio-bg font-display text-xl font-bold"
             >
               {editingZoomId
                 ? '💾 Foto Bijwerken'
@@ -1790,7 +1797,7 @@ export const AdminApp: React.FC = () => {
             <div className="studio-panel-gold rounded-3xl p-6 flex flex-col gap-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <h3 className="font-display text-2xl text-[#F5C542] flex items-center gap-2">
+                  <h3 className="font-display text-2xl text-studio-gold flex items-center gap-2">
                     <Images className="w-6 h-6" /> Batch Familiefoto Wizard
                   </h3>
                   <p className="text-xs text-slate-300">
@@ -1798,7 +1805,7 @@ export const AdminApp: React.FC = () => {
                     worden automatisch verkleind naar 1600px JPEG!
                   </p>
                 </div>
-                <label className="px-4 py-2.5 rounded-2xl bg-[#F5C542] text-[#070B18] font-display text-base font-bold cursor-pointer flex items-center gap-2">
+                <label className="px-4 py-2.5 rounded-2xl bg-studio-gold text-studio-bg font-display text-base font-bold cursor-pointer flex items-center gap-2">
                   <Upload className="w-4 h-4" />{' '}
                   {batchUploading ? 'Bezig...' : 'Meerdere Foto’s Kiezen'}
                   <input
@@ -1820,7 +1827,7 @@ export const AdminApp: React.FC = () => {
                     {batchPhotos.map((bp, idx) => (
                       <div
                         key={idx}
-                        className="p-3 rounded-2xl bg-[#070B18]/85 border border-white/15 flex gap-3 items-center"
+                        className="p-3 rounded-2xl bg-studio-bg/85 border border-white/15 flex gap-3 items-center"
                       >
                         <div
                           onClick={(e) => {
@@ -1836,7 +1843,7 @@ export const AdminApp: React.FC = () => {
                             next[idx] = { ...bp, focalPoint: { x, y } };
                             setBatchPhotos(next);
                           }}
-                          className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 relative cursor-crosshair border border-[#F5C542]/40"
+                          className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 relative cursor-crosshair border border-studio-gold/40"
                           title="Klik voor zoom-startpunt"
                         >
                           <img
@@ -1845,7 +1852,7 @@ export const AdminApp: React.FC = () => {
                             className="w-full h-full object-cover"
                           />
                           <div
-                            className="w-3 h-3 rounded-full bg-[#F5C542] border border-black absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                            className="w-3 h-3 rounded-full bg-studio-gold border border-black absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none"
                             style={{
                               left: `${bp.focalPoint.x}%`,
                               top: `${bp.focalPoint.y}%`,
@@ -1862,7 +1869,7 @@ export const AdminApp: React.FC = () => {
                               setBatchPhotos(next);
                             }}
                             placeholder="Wat staat er op de foto?"
-                            className="w-full px-2.5 py-1.5 rounded-lg bg-[#111936] border border-white/20 text-white text-sm"
+                            className="w-full px-2.5 py-1.5 rounded-lg bg-studio-card border border-white/20 text-white text-sm"
                           />
                           <div className="flex items-center justify-between">
                             <span className="text-[11px] text-slate-400">
@@ -1887,7 +1894,7 @@ export const AdminApp: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleSaveBatchPhotos}
-                    className="py-3 rounded-2xl bg-[#22C55E] text-[#070B18] font-display text-lg font-bold"
+                    className="py-3 rounded-2xl bg-[#22C55E] text-studio-bg font-display text-lg font-bold"
                   >
                     💾 Alle {batchPhotos.length} Foto&apos;s Opslaan voor Ronde
                     4
@@ -1904,7 +1911,7 @@ export const AdminApp: React.FC = () => {
                 {zoomList.map((z) => (
                   <div
                     key={z.id}
-                    className="p-3 rounded-2xl bg-[#070B18]/80 border border-white/15 flex flex-col items-center text-center gap-2 relative"
+                    className="p-3 rounded-2xl bg-studio-bg/80 border border-white/15 flex flex-col items-center text-center gap-2 relative"
                   >
                     <div className="w-28 h-28 rounded-xl overflow-hidden">
                       <IllustrationView
@@ -1918,7 +1925,7 @@ export const AdminApp: React.FC = () => {
                     <div className="absolute top-2 right-2 flex gap-1">
                       <button
                         onClick={() => startEditZoom(z)}
-                        className="p-1.5 rounded-lg bg-[#1B2752] text-[#F5C542]"
+                        className="p-1.5 rounded-lg bg-studio-cardLight text-studio-gold"
                         title="Bewerken"
                       >
                         <Pencil className="w-3.5 h-3.5" />
@@ -1954,7 +1961,7 @@ export const AdminApp: React.FC = () => {
             className="lg:col-span-5 studio-panel-gold rounded-3xl p-6 flex flex-col gap-4 h-fit"
           >
             <div className="flex items-center justify-between">
-              <h2 className="font-display text-2xl text-[#F5C542]">
+              <h2 className="font-display text-2xl text-studio-gold">
                 {editingSoundId
                   ? '✏️ Geluid Bewerken'
                   : '🔊 Nieuw Geluid Toevoegen'}
@@ -1977,7 +1984,7 @@ export const AdminApp: React.FC = () => {
               <select
                 value={newSndCat}
                 onChange={(e) => setNewSndCat(e.target.value as CategoryId)}
-                className="w-full px-3 py-2.5 rounded-xl bg-[#070B18] border border-white/20 text-white"
+                className="w-full px-3 py-2.5 rounded-xl bg-studio-bg border border-white/20 text-white"
               >
                 {CATEGORIES.map((c) => (
                   <option key={c.id} value={c.id}>
@@ -1995,7 +2002,7 @@ export const AdminApp: React.FC = () => {
                 type="text"
                 value={newSndPrompt}
                 onChange={(e) => setNewSndPrompt(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#070B18] border border-white/20 text-white"
+                className="w-full px-4 py-2.5 rounded-xl bg-studio-bg border border-white/20 text-white"
                 required
               />
             </div>
@@ -2007,7 +2014,7 @@ export const AdminApp: React.FC = () => {
                   setNewSndType('synth');
                   setNewSndKey(e.target.value);
                 }}
-                className="flex-1 px-3 py-2.5 rounded-xl bg-[#070B18] border border-white/20 text-white"
+                className="flex-1 px-3 py-2.5 rounded-xl bg-studio-bg border border-white/20 text-white"
               >
                 {newSndType === 'file' && (
                   <option value="">🎙️ Eigen upload: {newSndKey}</option>
@@ -2030,7 +2037,7 @@ export const AdminApp: React.FC = () => {
               </button>
             </div>
 
-            <label className="w-full py-2.5 rounded-xl bg-[#1B2752] border border-dashed border-[#38BDF8] text-center cursor-pointer text-sm text-[#38BDF8]">
+            <label className="w-full py-2.5 rounded-xl bg-studio-cardLight border border-dashed border-[#38BDF8] text-center cursor-pointer text-sm text-[#38BDF8]">
               🎙️ Of upload eigen MP3/WAV geluidsbestand
               <input
                 type="file"
@@ -2060,7 +2067,7 @@ export const AdminApp: React.FC = () => {
                   className={`p-2.5 rounded-2xl border ${
                     newSndCorrectId === opt.id
                       ? 'bg-emerald-950/60 border-[#22C55E]'
-                      : 'bg-[#070B18]/70 border-white/15'
+                      : 'bg-studio-bg/70 border-white/15'
                   }`}
                 >
                   <div className="flex items-center gap-2 mb-1.5">
@@ -2079,7 +2086,7 @@ export const AdminApp: React.FC = () => {
                         setNewSndOptions(next);
                       }}
                       placeholder={`Antwoord ${opt.id.toUpperCase()}...`}
-                      className="flex-1 px-3 py-1 rounded-lg bg-[#111936] border border-white/20 text-white text-sm"
+                      className="flex-1 px-3 py-1 rounded-lg bg-studio-card border border-white/20 text-white text-sm"
                       required
                     />
                   </div>
@@ -2098,7 +2105,7 @@ export const AdminApp: React.FC = () => {
                         next[idx].imageUrl = '';
                         setNewSndOptions(next);
                       }}
-                      className="flex-1 px-2 py-1 rounded-lg bg-[#111936] border border-white/20 text-white text-xs"
+                      className="flex-1 px-2 py-1 rounded-lg bg-studio-card border border-white/20 text-white text-xs"
                     >
                       {ILLUSTRATION_LIST.map((il) => (
                         <option key={il.id} value={il.id}>
@@ -2113,7 +2120,7 @@ export const AdminApp: React.FC = () => {
 
             <button
               type="submit"
-              className="py-3.5 rounded-2xl bg-[#22C55E] text-[#070B18] font-display text-xl font-bold"
+              className="py-3.5 rounded-2xl bg-[#22C55E] text-studio-bg font-display text-xl font-bold"
             >
               {editingSoundId
                 ? '💾 Geluid Bijwerken'
@@ -2129,13 +2136,13 @@ export const AdminApp: React.FC = () => {
               {soundList.map((s) => (
                 <div
                   key={s.id}
-                  className="p-4 rounded-2xl bg-[#070B18]/80 border border-white/15 flex items-center justify-between gap-3"
+                  className="p-4 rounded-2xl bg-studio-bg/80 border border-white/15 flex items-center justify-between gap-3"
                 >
                   <div>
                     <div className="font-display text-lg text-white">
                       {s.prompt}
                     </div>
-                    <div className="text-xs text-[#F5C542]">
+                    <div className="text-xs text-studio-gold">
                       Antwoord:{' '}
                       {s.options.find((o) => o.id === s.correctOptionId)?.label}
                     </div>
@@ -2150,7 +2157,7 @@ export const AdminApp: React.FC = () => {
                     </button>
                     <button
                       onClick={() => startEditSound(s)}
-                      className="p-2 rounded-xl bg-[#1B2752] text-[#F5C542]"
+                      className="p-2 rounded-xl bg-studio-cardLight text-studio-gold"
                       title="Bewerken"
                     >
                       <Pencil className="w-4 h-4" />
@@ -2184,7 +2191,7 @@ export const AdminApp: React.FC = () => {
             className="lg:col-span-5 studio-panel-gold rounded-3xl p-6 flex flex-col gap-4 h-fit"
           >
             <div className="flex items-center justify-between">
-              <h2 className="font-display text-2xl text-[#F5C542]">
+              <h2 className="font-display text-2xl text-studio-gold">
                 {editingPantoId
                   ? '✏️ Pantomime Bewerken'
                   : '🎭 Nieuwe Pantomime-opdracht'}
@@ -2208,7 +2215,7 @@ export const AdminApp: React.FC = () => {
                 <select
                   value={newPantoCat}
                   onChange={(e) => setNewPantoCat(e.target.value as CategoryId)}
-                  className="w-full px-2.5 py-2 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                  className="w-full px-2.5 py-2 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
                 >
                   {CATEGORIES.map((c) => (
                     <option key={c.id} value={c.id}>
@@ -2226,7 +2233,7 @@ export const AdminApp: React.FC = () => {
                   onChange={(e) =>
                     setNewPantoLevel(e.target.value as DifficultyLevel)
                   }
-                  className="w-full px-2.5 py-2 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                  className="w-full px-2.5 py-2 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
                 >
                   <option value="ontdekker">🦖 Lucas (5j)</option>
                   <option value="avonturier">🦄 Lana (7j)</option>
@@ -2242,7 +2249,7 @@ export const AdminApp: React.FC = () => {
                   onChange={(e) =>
                     setNewPantoPack(e.target.value as ContentPackId)
                   }
-                  className="w-full px-2.5 py-2 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                  className="w-full px-2.5 py-2 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
                 >
                   {CONTENT_PACKS.map((pk) => (
                     <option key={pk.id} value={pk.id}>
@@ -2262,7 +2269,7 @@ export const AdminApp: React.FC = () => {
                 value={newPantoPrompt}
                 onChange={(e) => setNewPantoPrompt(e.target.value)}
                 placeholder="Bijv. Brullende T-Rex met korte armpjes"
-                className="w-full px-4 py-2.5 rounded-xl bg-[#070B18] border border-white/20 text-white"
+                className="w-full px-4 py-2.5 rounded-xl bg-studio-bg border border-white/20 text-white"
                 required
               />
             </div>
@@ -2276,7 +2283,7 @@ export const AdminApp: React.FC = () => {
                 value={newPantoHint}
                 onChange={(e) => setNewPantoHint(e.target.value)}
                 placeholder="Bijv. Stamp met je voeten en houd kleine armpjes voor je!"
-                className="w-full px-4 py-2.5 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                className="w-full px-4 py-2.5 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
                 required
               />
             </div>
@@ -2292,7 +2299,7 @@ export const AdminApp: React.FC = () => {
                 <select
                   value={newPantoIllustration}
                   onChange={(e) => setNewPantoIllustration(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                  className="w-full px-3 py-2 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
                 >
                   {ILLUSTRATION_LIST.map((il) => (
                     <option key={il.id} value={il.id}>
@@ -2305,7 +2312,7 @@ export const AdminApp: React.FC = () => {
 
             <button
               type="submit"
-              className="py-3.5 rounded-2xl bg-[#22C55E] text-[#070B18] font-display text-xl font-bold"
+              className="py-3.5 rounded-2xl bg-[#22C55E] text-studio-bg font-display text-xl font-bold"
             >
               {editingPantoId
                 ? '💾 Pantomime Bijwerken'
@@ -2321,7 +2328,7 @@ export const AdminApp: React.FC = () => {
               {pantomimeList.map((p) => (
                 <div
                   key={p.id}
-                  className="p-4 rounded-2xl bg-[#070B18]/80 border border-white/15 flex items-start justify-between gap-3"
+                  className="p-4 rounded-2xl bg-studio-bg/80 border border-white/15 flex items-start justify-between gap-3"
                 >
                   <div className="flex items-start gap-3 min-w-0">
                     <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0">
@@ -2331,7 +2338,7 @@ export const AdminApp: React.FC = () => {
                       />
                     </div>
                     <div className="min-w-0">
-                      <div className="text-[11px] text-[#F5C542] font-bold uppercase">
+                      <div className="text-[11px] text-studio-gold font-bold uppercase">
                         {p.level} · {p.packId || 'basis'}
                       </div>
                       <div className="font-display text-base text-white">
@@ -2345,7 +2352,7 @@ export const AdminApp: React.FC = () => {
                   <div className="flex items-center gap-1 flex-shrink-0">
                     <button
                       onClick={() => startEditPanto(p)}
-                      className="p-2 rounded-xl bg-[#1B2752] text-[#F5C542]"
+                      className="p-2 rounded-xl bg-studio-cardLight text-studio-gold"
                       title="Bewerken"
                     >
                       <Pencil className="w-4 h-4" />
@@ -2389,7 +2396,7 @@ export const AdminApp: React.FC = () => {
             className="lg:col-span-5 studio-panel-gold rounded-3xl p-6 flex flex-col gap-4 h-fit"
           >
             <div className="flex items-center justify-between">
-              <h2 className="font-display text-2xl text-[#F5C542]">
+              <h2 className="font-display text-2xl text-studio-gold">
                 {editingEstId
                   ? '✏️ Schattingsvraag Bewerken'
                   : '🎯 Nieuwe Schattingsvraag'}
@@ -2413,7 +2420,7 @@ export const AdminApp: React.FC = () => {
                 <select
                   value={newEstCat}
                   onChange={(e) => setNewEstCat(e.target.value as CategoryId)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                  className="w-full px-3 py-2 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
                 >
                   {CATEGORIES.map((c) => (
                     <option key={c.id} value={c.id}>
@@ -2431,7 +2438,7 @@ export const AdminApp: React.FC = () => {
                   onChange={(e) =>
                     setNewEstPack(e.target.value as ContentPackId)
                   }
-                  className="w-full px-3 py-2 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                  className="w-full px-3 py-2 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
                 >
                   {CONTENT_PACKS.map((pk) => (
                     <option key={pk.id} value={pk.id}>
@@ -2451,7 +2458,7 @@ export const AdminApp: React.FC = () => {
                 value={newEstPrompt}
                 onChange={(e) => setNewEstPrompt(e.target.value)}
                 placeholder="Bijv. Hoeveel tanden had een volwassen T-Rex?"
-                className="w-full px-4 py-2.5 rounded-xl bg-[#070B18] border border-white/20 text-white"
+                className="w-full px-4 py-2.5 rounded-xl bg-studio-bg border border-white/20 text-white"
                 required
               />
             </div>
@@ -2465,7 +2472,7 @@ export const AdminApp: React.FC = () => {
                   type="text"
                   value={newEstUnit}
                   onChange={(e) => setNewEstUnit(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                  className="w-full px-3 py-2 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
                   required
                 />
               </div>
@@ -2490,7 +2497,7 @@ export const AdminApp: React.FC = () => {
                   type="number"
                   value={newEstMin}
                   onChange={(e) => setNewEstMin(Number(e.target.value))}
-                  className="w-full px-3 py-2 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                  className="w-full px-3 py-2 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
                   required
                 />
               </div>
@@ -2500,7 +2507,7 @@ export const AdminApp: React.FC = () => {
                   type="number"
                   value={newEstMax}
                   onChange={(e) => setNewEstMax(Number(e.target.value))}
-                  className="w-full px-3 py-2 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                  className="w-full px-3 py-2 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
                   required
                 />
               </div>
@@ -2513,7 +2520,7 @@ export const AdminApp: React.FC = () => {
                   min={1}
                   value={newEstStep}
                   onChange={(e) => setNewEstStep(Number(e.target.value))}
-                  className="w-full px-3 py-2 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                  className="w-full px-3 py-2 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
                   required
                 />
               </div>
@@ -2526,7 +2533,7 @@ export const AdminApp: React.FC = () => {
               <select
                 value={newEstIllustration}
                 onChange={(e) => setNewEstIllustration(e.target.value)}
-                className="flex-1 px-3 py-2 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                className="flex-1 px-3 py-2 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
               >
                 {ILLUSTRATION_LIST.map((il) => (
                   <option key={il.id} value={il.id}>
@@ -2545,13 +2552,13 @@ export const AdminApp: React.FC = () => {
                 value={newEstFunFact}
                 onChange={(e) => setNewEstFunFact(e.target.value)}
                 placeholder="Wist je dat..."
-                className="w-full px-4 py-2 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                className="w-full px-4 py-2 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
               />
             </div>
 
             <button
               type="submit"
-              className="py-3.5 rounded-2xl bg-[#22C55E] text-[#070B18] font-display text-xl font-bold"
+              className="py-3.5 rounded-2xl bg-[#22C55E] text-studio-bg font-display text-xl font-bold"
             >
               {editingEstId
                 ? '💾 Schattingsvraag Bijwerken'
@@ -2567,14 +2574,14 @@ export const AdminApp: React.FC = () => {
               {estimateList.map((est) => (
                 <div
                   key={est.id}
-                  className="p-4 rounded-2xl bg-[#070B18]/80 border border-white/15 flex items-start justify-between gap-4"
+                  className="p-4 rounded-2xl bg-studio-bg/80 border border-white/15 flex items-start justify-between gap-4"
                 >
                   <div className="flex items-start gap-3">
                     <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
                       <IllustrationView illustrationId={est.illustrationId} />
                     </div>
                     <div>
-                      <div className="text-xs text-[#F5C542] font-bold">
+                      <div className="text-xs text-studio-gold font-bold">
                         🎯 Antwoord: {est.correctValue} {est.unit} (Schaal:{' '}
                         {est.min}–{est.max}, stap {est.step})
                       </div>
@@ -2591,7 +2598,7 @@ export const AdminApp: React.FC = () => {
                   <div className="flex items-center gap-1.5 flex-shrink-0">
                     <button
                       onClick={() => startEditEst(est)}
-                      className="p-2 rounded-xl bg-[#1B2752] text-[#F5C542]"
+                      className="p-2 rounded-xl bg-studio-cardLight text-studio-gold"
                       title="Bewerken"
                     >
                       <Pencil className="w-4 h-4" />
@@ -2631,11 +2638,54 @@ export const AdminApp: React.FC = () => {
       {activeTab === 'settings' && config && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-7 flex flex-col gap-6">
+            <div className="studio-panel rounded-3xl p-6 flex flex-col gap-4">
+              <h2 className="font-display text-2xl text-studio-gold">
+                🎨 Look van de show
+              </h2>
+              <p className="text-sm text-slate-300">
+                Standaard wisselt de look automatisch per seizoen
+                (nu: {THEMES.find((t) => t.id === document.documentElement.dataset.theme)?.label ?? 'Winter'}).
+                Kies hier een vaste look; dit geldt alleen voor dit apparaat.
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setThemeOverride('auto');
+                    setThemeChoice(null);
+                  }}
+                  className={`px-4 py-3 rounded-xl border-2 font-display text-lg ${
+                    themeChoice === null
+                      ? 'bg-studio-gold text-studio-bg border-studio-gold'
+                      : 'bg-studio-bg border-white/20 text-white'
+                  }`}
+                >
+                  Automatisch
+                </button>
+                {THEMES.map((t) => (
+                  <button
+                    key={t.id}
+                    type="button"
+                    onClick={() => {
+                      setThemeOverride(t.id as ThemeId);
+                      setThemeChoice(t.id);
+                    }}
+                    className={`px-4 py-3 rounded-xl border-2 font-display text-lg ${
+                      themeChoice === t.id
+                        ? 'bg-studio-gold text-studio-bg border-studio-gold'
+                        : 'bg-studio-bg border-white/20 text-white'
+                    }`}
+                  >
+                    {t.label.split(' (')[0]}
+                  </button>
+                ))}
+              </div>
+            </div>
             <form
               onSubmit={handleSaveConfig}
               className="studio-panel-gold rounded-3xl p-6 flex flex-col gap-5"
             >
-              <h2 className="font-display text-2xl text-[#F5C542]">
+              <h2 className="font-display text-2xl text-studio-gold">
                 👨‍👩‍👧‍👦 Show-Titel & Gezinsprofielen
               </h2>
 
@@ -2650,7 +2700,7 @@ export const AdminApp: React.FC = () => {
                     onChange={(e) =>
                       setConfig({ ...config, showTitle: e.target.value })
                     }
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#070B18] border border-white/20 text-white"
+                    className="w-full px-4 py-2.5 rounded-xl bg-studio-bg border border-white/20 text-white"
                   />
                 </div>
                 <div>
@@ -2663,7 +2713,7 @@ export const AdminApp: React.FC = () => {
                     onChange={(e) =>
                       setConfig({ ...config, subtitle: e.target.value })
                     }
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#070B18] border border-white/20 text-white"
+                    className="w-full px-4 py-2.5 rounded-xl bg-studio-bg border border-white/20 text-white"
                   />
                 </div>
               </div>
@@ -2672,7 +2722,7 @@ export const AdminApp: React.FC = () => {
                 {config.profiles.map((prof, idx) => (
                   <div
                     key={prof.id}
-                    className="p-4 rounded-2xl bg-[#070B18]/80 border border-white/15 flex flex-col gap-3 min-w-0 overflow-hidden"
+                    className="p-4 rounded-2xl bg-studio-bg/80 border border-white/15 flex flex-col gap-3 min-w-0 overflow-hidden"
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 border border-white/20">
@@ -2691,7 +2741,7 @@ export const AdminApp: React.FC = () => {
                           next[idx] = { ...prof, name: e.target.value };
                           setConfig({ ...config, profiles: next });
                         }}
-                        className="flex-1 min-w-0 w-full px-3 py-1.5 rounded-xl bg-[#111936] border border-white/20 font-display text-xl text-white"
+                        className="flex-1 min-w-0 w-full px-3 py-1.5 rounded-xl bg-studio-card border border-white/20 font-display text-xl text-white"
                       />
                     </div>
 
@@ -2706,7 +2756,7 @@ export const AdminApp: React.FC = () => {
                           };
                           setConfig({ ...config, profiles: next });
                         }}
-                        className="min-w-0 w-full px-2.5 py-1.5 rounded-xl bg-[#111936] border border-white/20 text-xs text-[#F5C542]"
+                        className="min-w-0 w-full px-2.5 py-1.5 rounded-xl bg-studio-card border border-white/20 text-xs text-studio-gold"
                       >
                         <option value="ontdekker">Ontdekker (5j)</option>
                         <option value="avonturier">Avonturier (7j)</option>
@@ -2723,7 +2773,7 @@ export const AdminApp: React.FC = () => {
                           };
                           setConfig({ ...config, profiles: next });
                         }}
-                        className="min-w-0 w-full px-2.5 py-1.5 rounded-xl bg-[#111936] border border-white/20 text-xs text-white"
+                        className="min-w-0 w-full px-2.5 py-1.5 rounded-xl bg-studio-card border border-white/20 text-xs text-white"
                       >
                         {Object.values(AVATAR_CATALOG).map((av) => (
                           <option key={av.id} value={av.id}>
@@ -2751,7 +2801,7 @@ export const AdminApp: React.FC = () => {
 
               <button
                 type="submit"
-                className="py-4 rounded-2xl bg-[#22C55E] text-[#070B18] font-display text-xl font-bold flex items-center justify-center gap-2"
+                className="py-4 rounded-2xl bg-[#22C55E] text-studio-bg font-display text-xl font-bold flex items-center justify-center gap-2"
               >
                 <Save className="w-5 h-5" /> Instellingen Opslaan
               </button>
@@ -2761,11 +2811,11 @@ export const AdminApp: React.FC = () => {
             {hallOfFame && (
               <div className="studio-panel rounded-3xl p-6 flex flex-col gap-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-display text-2xl text-[#F5C542] flex items-center gap-2">
+                  <h3 className="font-display text-2xl text-studio-gold flex items-center gap-2">
                     <Trophy className="w-6 h-6" /> Familie Eregalerij (Hall of
                     Fame)
                   </h3>
-                  <span className="text-xs px-3 py-1 rounded-full bg-[#1B2752] text-[#F5C542] font-bold">
+                  <span className="text-xs px-3 py-1 rounded-full bg-studio-cardLight text-studio-gold font-bold">
                     {hallOfFame.totalGamesPlayed} shows gespeeld
                   </span>
                 </div>
@@ -2780,12 +2830,12 @@ export const AdminApp: React.FC = () => {
                       ([key, p]) => (
                         <div
                           key={key}
-                          className="p-3 rounded-2xl bg-[#070B18]/80 border border-white/15 text-center"
+                          className="p-3 rounded-2xl bg-studio-bg/80 border border-white/15 text-center"
                         >
                           <div className="font-display text-lg text-white">
                             {p.name}
                           </div>
-                          <div className="text-xs text-[#F5C542] font-bold mt-1">
+                          <div className="text-xs text-studio-gold font-bold mt-1">
                             🏆 {p.wins}× gewonnen · ⭐ {p.totalStars}
                           </div>
                           <div className="text-[11px] text-slate-400 mt-0.5">
@@ -2804,7 +2854,7 @@ export const AdminApp: React.FC = () => {
             {/* Ouder-PIN & Herhalingsgeheugen */}
             <div className="studio-panel rounded-3xl p-6 flex flex-col gap-4">
               <h3 className="font-display text-2xl text-white flex items-center gap-2">
-                <Lock className="w-5 h-5 text-[#F5C542]" /> Ouder-PIN &
+                <Lock className="w-5 h-5 text-studio-gold" /> Ouder-PIN &
                 Vragengeheugen
               </h3>
               <p className="text-xs text-slate-300">
@@ -2826,13 +2876,13 @@ export const AdminApp: React.FC = () => {
                   placeholder={
                     pinRequired ? 'Nieuwe 4-cijfer PIN' : 'Bijv. 1234'
                   }
-                  className="flex-1 min-w-0 w-full px-3 py-2 rounded-xl bg-[#070B18] border border-white/20 text-white text-sm"
+                  className="flex-1 min-w-0 w-full px-3 py-2 rounded-xl bg-studio-bg border border-white/20 text-white text-sm"
                 />
                 <button
                   type="button"
                   onClick={() => handleUpdatePinSetting(newPinSetting)}
                   disabled={newPinSetting.length !== 4}
-                  className="px-4 py-2 rounded-xl bg-[#F5C542] text-[#070B18] font-display text-sm font-bold disabled:opacity-40 flex-shrink-0"
+                  className="px-4 py-2 rounded-xl bg-studio-gold text-studio-bg font-display text-sm font-bold disabled:opacity-40 flex-shrink-0"
                 >
                   PIN Instellen
                 </button>
@@ -2860,7 +2910,7 @@ export const AdminApp: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleResetPlayedHistory}
-                  className="px-3.5 py-2 rounded-xl bg-[#1B2752] border border-white/20 text-xs font-display text-[#F5C542]"
+                  className="px-3.5 py-2 rounded-xl bg-studio-cardLight border border-white/20 text-xs font-display text-studio-gold"
                 >
                   🧹 Wis Geheugen
                 </button>
@@ -2879,7 +2929,7 @@ export const AdminApp: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleSyncSeeds}
-                  className="px-3.5 py-2 rounded-xl bg-[#1B2752] border border-[#22C55E]/50 text-xs font-display text-[#4ADE80] flex items-center gap-1.5 flex-shrink-0"
+                  className="px-3.5 py-2 rounded-xl bg-studio-cardLight border border-[#22C55E]/50 text-xs font-display text-[#4ADE80] flex items-center gap-1.5 flex-shrink-0"
                 >
                   <RefreshCw className="w-3.5 h-3.5" /> Sync Vragen
                 </button>
@@ -2899,12 +2949,12 @@ export const AdminApp: React.FC = () => {
               <button
                 type="button"
                 onClick={handleDownloadBackup}
-                className="py-3.5 px-5 rounded-2xl bg-[#F5C542] text-[#070B18] font-display text-lg font-bold flex items-center justify-center gap-2"
+                className="py-3.5 px-5 rounded-2xl bg-studio-gold text-studio-bg font-display text-lg font-bold flex items-center justify-center gap-2"
               >
                 <Download className="w-5 h-5" /> Download JSON Backup
               </button>
 
-              <label className="py-3.5 px-5 rounded-2xl bg-[#1B2752] border-2 border-dashed border-[#38BDF8] text-[#38BDF8] font-display text-lg font-bold flex items-center justify-center gap-2 cursor-pointer">
+              <label className="py-3.5 px-5 rounded-2xl bg-studio-cardLight border-2 border-dashed border-[#38BDF8] text-[#38BDF8] font-display text-lg font-bold flex items-center justify-center gap-2 cursor-pointer">
                 <Upload className="w-5 h-5" /> Herstel JSON Backup Importeren
                 <input
                   type="file"
@@ -2920,7 +2970,7 @@ export const AdminApp: React.FC = () => {
 
               <div className="pt-3 border-t border-white/15 flex flex-col gap-2">
                 <div className="flex items-center justify-between">
-                  <span className="font-display text-base text-[#F5C542] flex items-center gap-1.5">
+                  <span className="font-display text-base text-studio-gold flex items-center gap-1.5">
                     <History className="w-4 h-4" /> Lokale Snapshots (
                     {backupSnapshots.length}/10)
                   </span>
@@ -2941,7 +2991,7 @@ export const AdminApp: React.FC = () => {
                     {backupSnapshots.map((snap) => (
                       <div
                         key={snap.filename}
-                        className="px-3 py-2 rounded-xl bg-[#070B18]/80 border border-white/10 flex items-center justify-between gap-2 text-xs"
+                        className="px-3 py-2 rounded-xl bg-studio-bg/80 border border-white/10 flex items-center justify-between gap-2 text-xs"
                       >
                         <div className="truncate">
                           <div className="text-white font-mono truncate">
@@ -2954,7 +3004,7 @@ export const AdminApp: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => handleRestoreSnapshot(snap.filename)}
-                          className="px-2.5 py-1 rounded-lg bg-[#1B2752] text-[#F5C542] font-bold flex-shrink-0"
+                          className="px-2.5 py-1 rounded-lg bg-studio-cardLight text-studio-gold font-bold flex-shrink-0"
                         >
                           Herstel
                         </button>

@@ -209,7 +209,7 @@ export const TvApp: React.FC = () => {
         const ctx = cvs.getContext('2d');
         if (ctx) {
           ctx.clearRect(0, 0, 16, 16);
-          ctx.fillStyle = `rgba(245, 197, 66, ${0.15 + Math.sin(tick) * 0.1})`;
+          ctx.fillStyle = `rgba(255, 210, 63, ${0.15 + Math.sin(tick) * 0.1})`;
           ctx.fillRect(0, 0, 16, 16);
         }
       }
@@ -452,7 +452,7 @@ export const TvApp: React.FC = () => {
         className="min-h-screen w-full studio-stage-bg flex flex-col items-center justify-center p-8 text-center select-none"
       >
         <div className="studio-panel-gold rounded-3xl p-12 max-w-3xl w-full flex flex-col items-center gap-8">
-          <div className="w-36 h-36 rounded-3xl overflow-hidden border-2 border-[#F5C542] shadow-[0_0_40px_rgba(245,197,66,0.5)]">
+          <div className="w-36 h-36 rounded-3xl overflow-hidden border-2 border-studio-gold">
             <img
               src="/art/show-trophy.jpg"
               alt="De Grote Familie Bongers Show Trofee"
@@ -460,7 +460,7 @@ export const TvApp: React.FC = () => {
             />
           </div>
           <div>
-            <div className="text-[#F5C542] font-display text-2xl tracking-wider uppercase mb-2">
+            <div className="text-studio-gold font-display text-2xl tracking-wider uppercase mb-2">
               65&quot; LG OLED Studio Podium
             </div>
             <h1 className="font-display text-6xl text-white mb-4">
@@ -468,7 +468,7 @@ export const TvApp: React.FC = () => {
             </h1>
             <p className="text-2xl text-slate-300 max-w-xl mx-auto">
               Richt de LG Magic Remote en klik één keer — of druk direct op{' '}
-              <span className="text-[#F5C542] font-bold">OK (wiel)</span> — om
+              <span className="text-studio-gold font-bold">OK (wiel)</span> — om
               het TV-geluid en het showpodium op volledig scherm te starten!
             </p>
           </div>
@@ -476,12 +476,12 @@ export const TvApp: React.FC = () => {
             ref={startBtnRef}
             autoFocus
             onClick={handleStartShowClick}
-            className="tv-focusable px-14 py-7 rounded-2xl bg-gradient-to-r from-[#F5C542] to-[#F59E0B] text-[#070B18] font-display text-4xl font-bold shadow-[0_0_40px_rgba(245,197,66,0.6)] hover:scale-105 active:scale-95 transition-transform"
+            className="tv-focusable px-14 py-7 rounded-2xl bg-studio-gold text-studio-bg font-display text-4xl font-bold hover:scale-105 active:scale-95 transition-transform"
           >
             🎬 START DE SHOW
           </button>
           <div className="text-lg text-slate-300 flex flex-wrap items-center justify-center gap-4 pt-2 border-t border-white/10 w-full">
-            <span className="px-3 py-1 rounded-lg bg-white/10 text-[#F5C542] font-semibold">
+            <span className="px-3 py-1 rounded-lg bg-white/10 text-studio-gold font-semibold">
               ✨ OK / Klik = Starten
             </span>
             <span>🔴 Pauze</span>
@@ -496,7 +496,7 @@ export const TvApp: React.FC = () => {
 
   if (!gameState) {
     return (
-      <div className="min-h-screen studio-stage-bg flex items-center justify-center font-display text-4xl text-[#F5C542]">
+      <div className="min-h-screen studio-stage-bg flex items-center justify-center font-display text-4xl text-studio-gold">
         Verbinden met de Huiskamer Show Studio...
       </div>
     );
@@ -527,7 +527,7 @@ export const TvApp: React.FC = () => {
     >
       {/* LG Magic Remote Action Toast */}
       {remoteToast && (
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 px-7 py-3 rounded-2xl bg-[#070B18]/95 border-2 border-[#F5C542] text-[#F5C542] font-display text-2xl shadow-[0_0_30px_rgba(245,197,66,0.55)] pointer-events-none">
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 px-7 py-3 rounded-2xl bg-studio-bg/95 border-2 border-studio-gold text-studio-gold font-display text-2xl pointer-events-none">
           {remoteToast}
         </div>
       )}
@@ -576,7 +576,7 @@ export const TvApp: React.FC = () => {
             <h1 className="font-display text-3xl text-white leading-tight">
               {gameState.showTitle}
             </h1>
-            <div className="text-lg text-[#F5C542] font-semibold">
+            <div className="text-lg text-studio-gold font-semibold">
               {gameState.subtitle}
             </div>
           </div>
@@ -584,7 +584,7 @@ export const TvApp: React.FC = () => {
 
         {/* Center Status Badges */}
         <div className="flex items-center gap-4">
-          <div className="px-5 py-2 rounded-xl bg-[#1B2752] border border-[#F5C542]/40 flex items-center gap-2.5">
+          <div className="px-5 py-2 rounded-xl bg-studio-cardLight border border-studio-gold/40 flex items-center gap-2.5">
             <span className="text-2xl">{modeMeta.emoji}</span>
             <span className="font-display text-xl text-white">
               {modeMeta.name}
@@ -592,7 +592,7 @@ export const TvApp: React.FC = () => {
           </div>
 
           {activeRound && (
-            <div className="px-5 py-2 rounded-xl bg-[#F5C542] text-[#070B18] font-display text-2xl font-bold">
+            <div className="px-5 py-2 rounded-xl bg-studio-gold text-studio-bg font-display text-2xl font-bold">
               Ronde {activeRound.roundNumber} / {activeRound.totalRounds}
             </div>
           )}
@@ -610,7 +610,7 @@ export const TvApp: React.FC = () => {
           {activeRound &&
             activeRound.bonusType &&
             activeRound.bonusType !== 'none' && (
-              <div className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#F5C542] to-amber-500 text-[#070B18] font-display text-xl font-bold animate-pulse">
+              <div className="px-4 py-2 rounded-xl bg-studio-gold text-studio-bg font-display text-xl font-bold animate-pulse">
                 {ROUND_BONUS_META[activeRound.bonusType].emoji}{' '}
                 {ROUND_BONUS_META[activeRound.bonusType].label}
               </div>
@@ -626,9 +626,9 @@ export const TvApp: React.FC = () => {
         {/* Co-op Family Crown + LG Magic Remote Controls */}
         <div className="flex items-center gap-3">
           {settings.gameMode === 'coop' && (
-            <div className="flex items-center gap-2 bg-[#1B2752] px-4 py-2 rounded-xl border border-[#F5C542]">
-              <Crown className="w-6 h-6 text-[#F5C542]" />
-              <span className="font-display text-lg text-[#F5C542] mr-1">
+            <div className="flex items-center gap-2 bg-studio-cardLight px-4 py-2 rounded-xl border border-studio-gold">
+              <Crown className="w-6 h-6 text-studio-gold" />
+              <span className="font-display text-lg text-studio-gold mr-1">
                 Gezins-Kroon:
               </span>
               <div className="flex items-center gap-1.5">
@@ -639,7 +639,7 @@ export const TvApp: React.FC = () => {
                       key={cat.id}
                       className={`w-7 h-7 rounded-full flex items-center justify-center text-sm border ${
                         hasStar
-                          ? 'scale-110 border-white shadow-[0_0_10px_rgba(245,197,66,0.8)]'
+                          ? 'scale-110 border-white'
                           : 'opacity-25 border-white/30 bg-slate-900'
                       }`}
                       style={{
@@ -663,7 +663,7 @@ export const TvApp: React.FC = () => {
                 sendTvControl('testSound', '🔊 Geluidstest afgespeeld!')
               }
               title="Geluidstest (Groene knop)"
-              className="tv-focusable min-h-[48px] px-4 py-2 rounded-xl bg-[#1B2752] border border-emerald-400/50 text-emerald-300 font-display text-lg flex items-center gap-2 hover:bg-emerald-500/20"
+              className="tv-focusable min-h-[48px] px-4 py-2 rounded-xl bg-studio-cardLight border border-emerald-400/50 text-emerald-300 font-display text-lg flex items-center gap-2 hover:bg-emerald-500/20"
             >
               <BellRing className="w-5 h-5" />
               <span>Test</span>
@@ -681,7 +681,7 @@ export const TvApp: React.FC = () => {
                     : sendTvControl('pause', '⏸️ Show gepauzeerd')
                 }
                 title="Pauze / Hervat (Rode knop)"
-                className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-[#1B2752] border border-rose-400/50 text-white font-display text-lg flex items-center gap-1.5 hover:bg-rose-500/20"
+                className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-studio-cardLight border border-rose-400/50 text-white font-display text-lg flex items-center gap-1.5 hover:bg-rose-500/20"
               >
                 {phase === 'PAUSED' ? (
                   <Play className="w-5 h-5 text-[#4ADE80]" />
@@ -697,7 +697,7 @@ export const TvApp: React.FC = () => {
                   sendTvControl('addTime', '⏱️ +15 seconden extra!')
                 }
                 title="+15 seconden (Groene knop)"
-                className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-[#1B2752] border border-emerald-400/50 text-emerald-300 font-display text-lg flex items-center gap-1 hover:bg-emerald-500/20"
+                className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-studio-cardLight border border-emerald-400/50 text-emerald-300 font-display text-lg flex items-center gap-1 hover:bg-emerald-500/20"
               >
                 <PlusCircle className="w-5 h-5" />
                 <span>15s</span>
@@ -711,7 +711,7 @@ export const TvApp: React.FC = () => {
                     sendTvControl('replaySound', '🔊 Geluid opnieuw!')
                   }
                   title="Geluid opnieuw (Terugspoelen)"
-                  className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-[#1B2752] border border-sky-400/50 text-sky-300 font-display text-lg flex items-center gap-1 hover:bg-sky-500/20"
+                  className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-studio-cardLight border border-sky-400/50 text-sky-300 font-display text-lg flex items-center gap-1 hover:bg-sky-500/20"
                 >
                   <RotateCcw className="w-5 h-5" />
                 </button>
@@ -722,7 +722,7 @@ export const TvApp: React.FC = () => {
                 data-tv-control="1"
                 onClick={() => sendTvControl('skip', '⏭️ Volgende stap')}
                 title="Volgende stap (Doorspoelen)"
-                className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-[#1B2752] border border-white/25 text-slate-200 font-display text-lg flex items-center gap-1 hover:bg-white/15"
+                className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-studio-cardLight border border-white/25 text-slate-200 font-display text-lg flex items-center gap-1 hover:bg-white/15"
               >
                 <SkipForward className="w-5 h-5" />
               </button>
@@ -741,7 +741,7 @@ export const TvApp: React.FC = () => {
               )
             }
             title="TV-geluid aan/uit (Gele knop)"
-            className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-[#1B2752] border border-amber-400/40 flex items-center justify-center hover:bg-amber-400/15"
+            className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-studio-cardLight border border-amber-400/40 flex items-center justify-center hover:bg-amber-400/15"
           >
             {gameState.tvMuted ? (
               <VolumeX className="w-6 h-6 text-red-400" />
@@ -755,7 +755,7 @@ export const TvApp: React.FC = () => {
             data-tv-control="1"
             onClick={toggleFullscreen}
             title="Volledig scherm (Blauwe knop)"
-            className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-[#1B2752] border border-sky-400/40 text-sky-300 flex items-center justify-center hover:bg-sky-400/15"
+            className="tv-focusable min-h-[48px] px-3.5 py-2 rounded-xl bg-studio-cardLight border border-sky-400/40 text-sky-300 flex items-center justify-center hover:bg-sky-400/15"
           >
             {isFullscreen ? (
               <Minimize2 className="w-6 h-6" />
@@ -773,7 +773,7 @@ export const TvApp: React.FC = () => {
           <div className="grid grid-cols-12 gap-8 w-full h-full items-center">
             {/* QR & Join Card */}
             <div className="col-span-5 studio-panel-gold rounded-3xl p-7 flex flex-col items-center text-center gap-5">
-              <div className="text-[#F5C542] font-display text-2xl">
+              <div className="text-studio-gold font-display text-2xl">
                 📱 STAP IN MET TELEFOON OF TABLET
               </div>
               {gameState.qrDataUrl && (
@@ -789,7 +789,7 @@ export const TvApp: React.FC = () => {
                 <div className="text-slate-300 text-lg mb-1">
                   Open op telefoon of tablet:
                 </div>
-                <div className="px-6 py-2.5 rounded-xl bg-[#070B18] border-2 border-[#F5C542] font-display text-3xl text-[#F5C542] tracking-wide">
+                <div className="px-6 py-2.5 rounded-xl bg-studio-bg border-2 border-studio-gold font-display text-3xl text-studio-gold tracking-wide">
                   {gameState.qrUrl}
                 </div>
               </div>
@@ -804,7 +804,7 @@ export const TvApp: React.FC = () => {
               <div className="studio-panel rounded-3xl p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="font-display text-3xl text-white flex items-center gap-3">
-                    <Sparkles className="w-8 h-8 text-[#F5C542]" />
+                    <Sparkles className="w-8 h-8 text-studio-gold" />
                     Onze Sterren in de Studio
                   </h2>
                   <span className="px-4 py-1.5 rounded-full bg-[#22C55E]/20 border border-[#22C55E] text-[#4ADE80] font-bold text-lg">
@@ -829,8 +829,8 @@ export const TvApp: React.FC = () => {
                         key={prof.id}
                         className={`rounded-2xl p-4 border-2 flex items-center gap-4 transition-all duration-300 ${
                           isReady
-                            ? 'bg-[#1B2752] border-[#F5C542] shadow-[0_0_24px_rgba(245,197,66,0.3)] scale-[1.02]'
-                            : 'bg-[#070B18]/60 border-white/10 opacity-65'
+                            ? 'bg-studio-cardLight border-studio-gold scale-[1.02]'
+                            : 'bg-studio-bg/60 border-white/10 opacity-65'
                         }`}
                       >
                         <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 border-2 border-white/20">
@@ -846,7 +846,7 @@ export const TvApp: React.FC = () => {
                               {joinedPlayer?.name || prof.name}
                             </span>
                             {joinedPlayer?.isHost && (
-                              <span className="px-2.5 py-0.5 text-xs rounded-full bg-[#F5C542] text-[#070B18] font-bold">
+                              <span className="px-2.5 py-0.5 text-xs rounded-full bg-studio-gold text-studio-bg font-bold">
                                 HOST
                               </span>
                             )}
@@ -877,7 +877,7 @@ export const TvApp: React.FC = () => {
                       .map((guest) => (
                         <div
                           key={guest.id}
-                          className="px-4 py-2 rounded-xl bg-[#1B2752] border border-[#F5C542] flex items-center gap-3"
+                          className="px-4 py-2 rounded-xl bg-studio-cardLight border border-studio-gold flex items-center gap-3"
                         >
                           <span className="text-2xl">
                             {AVATAR_CATALOG[guest.avatarId]?.emoji || '⭐'}
@@ -900,7 +900,7 @@ export const TvApp: React.FC = () => {
                   <div className="text-base text-slate-300 uppercase tracking-wider">
                     Gekozen Spelvorm
                   </div>
-                  <div className="font-display text-2xl text-[#F5C542]">
+                  <div className="font-display text-2xl text-studio-gold">
                     {modeMeta.emoji} {modeMeta.name}
                   </div>
                 </div>
@@ -920,7 +920,7 @@ export const TvApp: React.FC = () => {
                     {settings.enabledRoundTypes.map((rt) => (
                       <span
                         key={rt}
-                        className="px-2.5 py-1 rounded-lg bg-[#1B2752] text-sm font-bold text-white"
+                        className="px-2.5 py-1 rounded-lg bg-studio-cardLight text-sm font-bold text-white"
                       >
                         {ROUND_TYPE_META[rt].emoji} {ROUND_TYPE_META[rt].name.split(' ')[0]}
                       </span>
@@ -930,7 +930,7 @@ export const TvApp: React.FC = () => {
                       return pm ? (
                         <span
                           key={pk}
-                          className="px-2.5 py-1 rounded-lg bg-[#F5C542]/20 border border-[#F5C542]/50 text-sm font-bold text-[#F5C542]"
+                          className="px-2.5 py-1 rounded-lg bg-studio-gold/20 border border-studio-gold/50 text-sm font-bold text-studio-gold"
                         >
                           {pm.emoji} {pm.name.split(' ')[0]}
                         </span>
@@ -944,7 +944,7 @@ export const TvApp: React.FC = () => {
               {gameState.hallOfFame &&
                 gameState.hallOfFame.totalGamesPlayed > 0 && (
                   <div className="studio-panel-gold rounded-2xl px-6 py-3 flex items-center justify-between text-lg">
-                    <span className="font-display text-xl text-[#F5C542]">
+                    <span className="font-display text-xl text-studio-gold">
                       🏆 Gezins Hall of Fame:
                     </span>
                     <span className="text-white font-semibold">
@@ -973,7 +973,7 @@ export const TvApp: React.FC = () => {
 
               {/* LG Magic Remote Sneltoetsen Legend */}
               <div className="studio-panel rounded-2xl px-5 py-2.5 flex flex-wrap items-center justify-between gap-3 text-base text-slate-200">
-                <span className="font-display text-lg text-[#F5C542]">
+                <span className="font-display text-lg text-studio-gold">
                   📺 LG Magic Remote:
                 </span>
                 <span>🔴 Pauze / Hervat</span>
@@ -998,7 +998,7 @@ export const TvApp: React.FC = () => {
         {phase === 'ROUND_INTRO' && activeRound && (
           <div className="studio-panel-gold rounded-3xl p-12 max-w-4xl w-full text-center flex flex-col items-center gap-6 animate-bounce-soft">
             {activeRound.bonusType && activeRound.bonusType !== 'none' && (
-              <div className="px-8 py-2.5 rounded-2xl bg-gradient-to-r from-[#F5C542] to-amber-500 text-[#070B18] font-display text-3xl font-bold shadow-lg">
+              <div className="px-8 py-2.5 rounded-2xl bg-studio-gold text-studio-bg font-display text-3xl font-bold shadow-lg">
                 {ROUND_BONUS_META[activeRound.bonusType].emoji}{' '}
                 {ROUND_BONUS_META[activeRound.bonusType].label} —{' '}
                 {ROUND_BONUS_META[activeRound.bonusType].description}
@@ -1012,7 +1012,7 @@ export const TvApp: React.FC = () => {
               <span>{activeCat.name}</span>
             </div>
             <div className="text-7xl my-2">{roundMeta.emoji}</div>
-            <h2 className="font-display text-6xl text-[#F5C542]">
+            <h2 className="font-display text-6xl text-studio-gold">
               {roundMeta.name}
             </h2>
             <p className="text-3xl text-slate-200 max-w-2xl">
@@ -1035,7 +1035,7 @@ export const TvApp: React.FC = () => {
                     {activeCat.emoji}
                   </div>
                   <div>
-                    <div className="text-[#F5C542] font-display text-xl uppercase">
+                    <div className="text-studio-gold font-display text-xl uppercase">
                       🟣 Slimme Quiz op Eigen Niveau
                     </div>
                     <h2 className="font-display text-4xl text-white">
@@ -1048,10 +1048,8 @@ export const TvApp: React.FC = () => {
 
                 {phase === 'ROUND_ACTIVE' && (
                   <div
-                    className={`w-24 h-24 rounded-full border-4 flex items-center justify-center font-display text-5xl ${
-                      activeRound.timerRemainingSec <= 5
-                        ? 'border-red-500 bg-red-950/90 text-red-200 ring-4 ring-red-500/70 animate-pulse'
-                        : 'border-[#F5C542] bg-[#070B18] text-[#F5C542]'
+                    className={`studio-clock ${
+                      activeRound.timerRemainingSec <= 5 ? 'studio-clock-urgent' : ''
                     }`}
                   >
                     {activeRound.timerRemainingSec}
@@ -1060,7 +1058,7 @@ export const TvApp: React.FC = () => {
               </div>
 
               {phase === 'ROUND_REVEAL' && activeRound.familyBonusAwarded && (
-                <div className="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#F5C542] via-amber-400 to-[#F5C542] text-[#070B18] font-display text-3xl font-bold text-center shadow-[0_0_30px_rgba(245,197,66,0.6)]">
+                <div className="px-6 py-3 rounded-2xl bg-studio-gold text-studio-bg font-display text-3xl font-bold text-center">
                   🤝 GEZINS-BONUS GEWONNEN! Iedereen had het goed: +50 EXTRA PUNTEN!
                 </div>
               )}
@@ -1077,11 +1075,11 @@ export const TvApp: React.FC = () => {
                       className={`rounded-3xl p-5 border-2 flex flex-col justify-between transition-all ${
                         phase === 'ROUND_REVEAL'
                           ? rev?.isCorrect
-                            ? 'bg-emerald-950/70 border-[#22C55E] shadow-[0_0_30px_rgba(34,197,94,0.35)]'
+                            ? 'bg-emerald-950/70 border-[#22C55E]'
                             : 'bg-rose-950/50 border-rose-500/60'
                           : p.hasAnswered
-                          ? 'bg-[#1B2752] border-[#F5C542] shadow-[0_0_25px_rgba(245,197,66,0.3)]'
-                          : 'bg-[#111936]/90 border-white/15'
+                          ? 'bg-studio-cardLight border-studio-gold'
+                          : 'bg-studio-card/90 border-white/15'
                       }`}
                     >
                       <div className="flex items-center gap-3 border-b border-white/10 pb-3">
@@ -1097,7 +1095,7 @@ export const TvApp: React.FC = () => {
                           <div className="font-display text-3xl text-white">
                             {p.name}
                           </div>
-                          <div className="text-lg text-[#F5C542]">
+                          <div className="text-lg text-studio-gold">
                             {levelInfo.label}
                           </div>
                         </div>
@@ -1144,17 +1142,17 @@ export const TvApp: React.FC = () => {
                             </div>
                           )}
 
-                          <div className="bg-[#070B18]/70 rounded-xl p-3 text-center">
+                          <div className="bg-studio-bg/70 rounded-xl p-3 text-center">
                             <div className="text-base text-slate-300 uppercase">
                               Juiste antwoord:
                             </div>
-                            <div className="font-display text-2xl text-[#F5C542]">
+                            <div className="font-display text-2xl text-studio-gold">
                               {rev?.correctOptionLabel}
                             </div>
                           </div>
 
                           {rev?.funFact && (
-                            <div className="text-base text-slate-200 bg-[#1B2752]/70 rounded-xl px-3 py-2 line-clamp-2">
+                            <div className="text-base text-slate-200 bg-studio-cardLight/70 rounded-xl px-3 py-2 line-clamp-2">
                               💡 {rev.funFact}
                             </div>
                           )}
@@ -1169,7 +1167,7 @@ export const TvApp: React.FC = () => {
                                 <XCircle className="w-7 h-7" /> Helaas
                               </span>
                             )}
-                            <span className="font-display text-2xl text-[#F5C542]">
+                            <span className="font-display text-2xl text-studio-gold">
                               +{rev?.pointsEarned || 0} ptn
                             </span>
                           </div>
@@ -1198,7 +1196,7 @@ export const TvApp: React.FC = () => {
                   <div className="studio-panel-gold rounded-3xl p-8 max-w-5xl w-full flex flex-col items-center gap-6">
                     <div className="flex items-center justify-between w-full border-b border-white/15 pb-4">
                       <div className="flex items-center gap-4">
-                        <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-[#F5C542]">
+                        <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-studio-gold">
                           <IllustrationView
                             illustrationId={
                               actor
@@ -1209,7 +1207,7 @@ export const TvApp: React.FC = () => {
                           />
                         </div>
                         <div>
-                          <div className="text-[#F5C542] font-display text-xl uppercase">
+                          <div className="text-studio-gold font-display text-xl uppercase">
                             🎭 De Verteller & Uitbeelder in de Spotlight
                           </div>
                           <div className="font-display text-5xl text-white">
@@ -1238,7 +1236,7 @@ export const TvApp: React.FC = () => {
                             </div>
                             <div className="font-display text-4xl text-white mb-2">
                               Wachten tot {actor?.name} op{' '}
-                              <span className="text-[#F5C542]">[START]</span>{' '}
+                              <span className="text-studio-gold">[START]</span>{' '}
                               drukt...
                             </div>
                             <div className="text-2xl text-slate-300">
@@ -1254,10 +1252,8 @@ export const TvApp: React.FC = () => {
                             {/* Giant Neon Countdown Clock */}
                             <div className="flex flex-col items-center">
                               <div
-                                className={`w-48 h-48 rounded-full border-8 flex flex-col items-center justify-center shadow-[0_0_50px_rgba(245,197,66,0.4)] ${
-                                  activeRound.timerRemainingSec <= 10
-                                    ? 'border-red-500 bg-red-950/70 text-red-300 animate-pulse'
-                                    : 'border-[#F5C542] bg-[#070B18] text-[#F5C542]'
+                                className={`studio-clock flex-col ${
+                                  activeRound.timerRemainingSec <= 10 ? 'studio-clock-urgent' : ''
                                 }`}
                               >
                                 <span className="font-display text-7xl">
@@ -1270,7 +1266,7 @@ export const TvApp: React.FC = () => {
                             </div>
 
                             {/* Live Guessed Counter */}
-                            <div className="bg-[#070B18]/80 border-2 border-[#22C55E] rounded-3xl px-12 py-8 text-center">
+                            <div className="bg-studio-bg/80 border-2 border-[#22C55E] rounded-3xl px-12 py-8 text-center">
                               <div className="text-2xl text-slate-300 mb-2">
                                 Live Score deze beurt:
                               </div>
@@ -1278,7 +1274,7 @@ export const TvApp: React.FC = () => {
                                 ⭐ {activeRound.thirtySecondsGuessedCount || 0}{' '}
                                 geraden!
                               </div>
-                              <div className="text-xl text-[#F5C542] mt-2">
+                              <div className="text-xl text-studio-gold mt-2">
                                 +
                                 {(activeRound.thirtySecondsGuessedCount || 0) *
                                   (activeRound.bonusType === 'double_points'
@@ -1293,7 +1289,7 @@ export const TvApp: React.FC = () => {
                     ) : (
                       /* Reveal of Guessed & Skipped cards */
                       <div className="w-full">
-                        <div className="font-display text-3xl text-[#F5C542] mb-4 text-center">
+                        <div className="font-display text-3xl text-studio-gold mb-4 text-center">
                           ⭐ {activeRound.thirtySecondsGuessedCount || 0}{' '}
                           kaartjes geraden door het team! (+
                           {(activeRound.thirtySecondsGuessedCount || 0) *
@@ -1363,7 +1359,7 @@ export const TvApp: React.FC = () => {
                   ].map((delay, idx) => (
                     <div
                       key={idx}
-                      className="w-2.5 bg-gradient-to-t from-[#3B82F6] via-[#A855F7] to-[#F5C542] rounded-full eq-bar"
+                      className="w-2.5 bg-gradient-to-t from-[#3B82F6] via-[#A855F7] to-studio-gold rounded-full eq-bar"
                       style={{
                         height: '100%',
                         animationDelay: `${idx * 0.09}s`,
@@ -1374,14 +1370,14 @@ export const TvApp: React.FC = () => {
                 </div>
 
                 {phase === 'ROUND_ACTIVE' && (
-                  <div className="w-20 h-20 rounded-full border-4 border-[#F5C542] bg-[#070B18] flex items-center justify-center font-display text-4xl text-[#F5C542]">
+                  <div className="studio-clock">
                     {activeRound.timerRemainingSec}
                   </div>
                 )}
               </div>
 
               {phase === 'ROUND_REVEAL' && activeRound.familyBonusAwarded && (
-                <div className="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#F5C542] via-amber-400 to-[#F5C542] text-[#070B18] font-display text-3xl font-bold text-center shadow-[0_0_30px_rgba(245,197,66,0.6)]">
+                <div className="px-6 py-3 rounded-2xl bg-studio-gold text-studio-bg font-display text-3xl font-bold text-center">
                   🤝 GEZINS-BONUS GEWONNEN! Iedereen had het geluid goed: +50 EXTRA PUNTEN!
                 </div>
               )}
@@ -1401,10 +1397,10 @@ export const TvApp: React.FC = () => {
                       key={opt.id}
                       className={`rounded-3xl p-5 border-4 flex flex-col items-center justify-center gap-4 transition-all ${
                         isCorrect
-                          ? 'bg-emerald-950/90 border-[#22C55E] scale-105 shadow-[0_0_40px_rgba(34,197,94,0.5)]'
+                          ? 'bg-emerald-950/90 border-[#22C55E] scale-105'
                           : isDimmed
-                          ? 'bg-[#111936]/40 border-white/10 opacity-40'
-                          : 'bg-[#111936] border-[#3B82F6]/50'
+                          ? 'bg-studio-card/40 border-white/10 opacity-40'
+                          : 'bg-studio-card border-[#3B82F6]/50'
                       }`}
                     >
                       <div className="w-40 h-40 rounded-2xl overflow-hidden">
@@ -1418,7 +1414,7 @@ export const TvApp: React.FC = () => {
                         {opt.label}
                       </div>
                       {isCorrect && (
-                        <div className="px-4 py-1 rounded-full bg-[#22C55E] text-[#070B18] font-display text-xl font-bold">
+                        <div className="px-4 py-1 rounded-full bg-[#22C55E] text-studio-bg font-display text-xl font-bold">
                           ✅ JUISTE GELUID!
                         </div>
                       )}
@@ -1434,7 +1430,7 @@ export const TvApp: React.FC = () => {
           activeRound?.roundType === 'zoom_photo' && (
             <div className="w-full h-full grid grid-cols-12 gap-8 items-center">
               {/* Zooming Picture Stage */}
-              <div className="col-span-8 h-full max-h-[54vh] studio-panel-gold rounded-3xl overflow-hidden relative flex items-center justify-center bg-[#070B18]">
+              <div className="col-span-8 h-full max-h-[54vh] studio-panel-gold rounded-3xl overflow-hidden relative flex items-center justify-center bg-studio-bg">
                 <div
                   className="w-full h-full flex items-center justify-center transition-transform duration-500 ease-linear"
                   style={{
@@ -1453,20 +1449,20 @@ export const TvApp: React.FC = () => {
                 </div>
 
                 {/* Live Zoom Badge */}
-                <div className="absolute top-4 left-4 px-5 py-2 rounded-xl bg-[#070B18]/85 border border-[#F5C542] font-display text-2xl text-[#F5C542]">
+                <div className="absolute top-4 left-4 px-5 py-2 rounded-xl bg-studio-bg/85 border border-studio-gold font-display text-2xl text-studio-gold">
                   🔍 Zoom: {(activeRound.zoomCurrentScale || 1).toFixed(1)}×
                 </div>
 
                 {/* Buzzer Spotlight Overlay when someone buzzes! */}
                 {phase === 'ROUND_ACTIVE' && activeRound.zoomBuzzedPlayerId && (
-                  <div className="absolute inset-0 bg-[#070B18]/88 backdrop-blur-sm flex flex-col items-center justify-center p-8 text-center animate-fade-in">
+                  <div className="absolute inset-0 bg-studio-bg/88 backdrop-blur-sm flex flex-col items-center justify-center p-8 text-center animate-fade-in">
                     {(() => {
                       const buzzerPlayer = players.find(
                         (p) => p.id === activeRound.zoomBuzzedPlayerId
                       );
                       return (
                         <div className="studio-panel-gold rounded-3xl p-8 flex flex-col items-center gap-4 max-w-xl">
-                          <div className="w-28 h-28 rounded-3xl overflow-hidden border-4 border-[#F5C542]">
+                          <div className="w-28 h-28 rounded-3xl overflow-hidden border-4 border-studio-gold">
                             <IllustrationView
                               illustrationId={
                                 buzzerPlayer
@@ -1482,7 +1478,7 @@ export const TvApp: React.FC = () => {
                           <div className="font-display text-6xl text-white">
                             {buzzerPlayer?.name} mag het zeggen!
                           </div>
-                          <div className="text-2xl text-[#F5C542]">
+                          <div className="text-2xl text-studio-gold">
                             Roep je antwoord hardop! De Host keurt op de
                             telefoon...
                           </div>
@@ -1504,15 +1500,15 @@ export const TvApp: React.FC = () => {
                       <div className="text-slate-300 text-xl mb-2">
                         Druk op je rode BUZZER zodra je het herkent!
                       </div>
-                      <div className="my-4 py-4 rounded-2xl bg-[#070B18] border-2 border-[#F5C542]">
+                      <div className="my-4 py-4 rounded-2xl bg-studio-bg border-2 border-studio-gold">
                         <div className="text-base text-slate-400 uppercase">
                           Nu waard:
                         </div>
-                        <div className="font-display text-7xl text-[#F5C542]">
+                        <div className="font-display text-7xl text-studio-gold">
                           {(activeRound.zoomPossiblePoints || 150) *
                             (activeRound.bonusType === 'double_points' ? 2 : 1)}
                         </div>
-                        <div className="text-lg text-[#F5C542]">
+                        <div className="text-lg text-studio-gold">
                           {activeRound.bonusType === 'double_points'
                             ? 'punten (2× DUBBEL!)'
                             : 'punten'}
@@ -1549,7 +1545,7 @@ export const TvApp: React.FC = () => {
                 return (
                   <div className="studio-panel-gold rounded-3xl p-10 max-w-5xl w-full flex flex-col items-center gap-6 text-center">
                     <div className="flex items-center gap-5">
-                      <div className="w-24 h-24 rounded-3xl overflow-hidden border-4 border-[#F5C542]">
+                      <div className="w-24 h-24 rounded-3xl overflow-hidden border-4 border-studio-gold">
                         <IllustrationView
                           illustrationId={
                             actor
@@ -1575,7 +1571,7 @@ export const TvApp: React.FC = () => {
                           <div className="text-6xl mb-3 animate-bounce">🤫</div>
                           <div className="font-display text-4xl text-white">
                             Wachten tot {actor?.name} op{' '}
-                            <span className="text-[#F5C542]">[START]</span>{' '}
+                            <span className="text-studio-gold">[START]</span>{' '}
                             drukt...
                           </div>
                           <div className="text-2xl text-slate-300 mt-2">
@@ -1591,14 +1587,14 @@ export const TvApp: React.FC = () => {
                           <div className="font-display text-5xl text-white">
                             {buzzerPlayer.name} mag het zeggen!
                           </div>
-                          <div className="text-2xl text-[#F5C542]">
+                          <div className="text-2xl text-studio-gold">
                             Roep hardop wat {actor?.name} uitbeeldt!
                           </div>
                         </div>
                       ) : (
                         <div className="flex items-center justify-around w-full py-4">
-                          <div className="w-40 h-40 rounded-full border-8 border-[#F5C542] bg-[#070B18] flex flex-col items-center justify-center">
-                            <span className="font-display text-6xl text-[#F5C542]">
+                          <div className="studio-clock flex-col">
+                            <span className="font-display text-6xl">
                               {activeRound.timerRemainingSec}
                             </span>
                             <span className="text-base text-slate-300 uppercase">
@@ -1651,7 +1647,7 @@ export const TvApp: React.FC = () => {
             <div className="w-full h-full flex flex-col justify-between gap-6">
               <div className="studio-panel-gold rounded-3xl px-8 py-5 flex items-center justify-between gap-6">
                 <div className="flex items-center gap-5">
-                  <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0 border-2 border-[#F5C542]">
+                  <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0 border-2 border-studio-gold">
                     <IllustrationView
                       illustrationId={activeRound.estimateIllustrationId}
                     />
@@ -1669,7 +1665,7 @@ export const TvApp: React.FC = () => {
                 </div>
 
                 {phase === 'ROUND_ACTIVE' && (
-                  <div className="w-24 h-24 rounded-full border-4 border-[#F5C542] bg-[#070B18] flex items-center justify-center font-display text-5xl text-[#F5C542]">
+                  <div className="studio-clock">
                     {activeRound.timerRemainingSec}
                   </div>
                 )}
@@ -1682,8 +1678,8 @@ export const TvApp: React.FC = () => {
                       key={p.id}
                       className={`rounded-3xl p-6 border-2 flex flex-col items-center justify-center text-center gap-4 ${
                         p.hasAnswered
-                          ? 'bg-[#1B2752] border-[#F5C542]'
-                          : 'bg-[#111936]/90 border-white/15'
+                          ? 'bg-studio-cardLight border-studio-gold'
+                          : 'bg-studio-card/90 border-white/15'
                       }`}
                     >
                       <div className="w-20 h-20 rounded-2xl overflow-hidden">
@@ -1733,13 +1729,13 @@ export const TvApp: React.FC = () => {
                           className={`rounded-2xl p-4 border-2 text-center ${
                             res?.isWinner
                               ? 'bg-emerald-950/90 border-[#22C55E] scale-105 shadow-xl'
-                              : 'bg-[#070B18]/80 border-white/15'
+                              : 'bg-studio-bg/80 border-white/15'
                           }`}
                         >
                           <div className="font-display text-2xl text-white">
                             {p.name}
                           </div>
-                          <div className="font-display text-4xl text-[#F5C542] my-1">
+                          <div className="font-display text-4xl text-studio-gold my-1">
                             {res ? `${res.value} ${activeRound.estimateUnit}` : '—'}
                           </div>
                           <div className="text-lg text-slate-300">
@@ -1748,7 +1744,7 @@ export const TvApp: React.FC = () => {
                               : 'Geen schatting'}
                           </div>
                           {res?.isWinner && (
-                            <div className="mt-1 inline-block px-3 py-0.5 rounded-full bg-[#22C55E] text-[#070B18] font-display text-lg font-bold">
+                            <div className="mt-1 inline-block px-3 py-0.5 rounded-full bg-[#22C55E] text-studio-bg font-display text-lg font-bold">
                               🏆 DICHTSTBIJ!
                             </div>
                           )}
@@ -1765,7 +1761,7 @@ export const TvApp: React.FC = () => {
         {phase === 'SCOREBOARD' && (
           <div className="studio-panel-gold rounded-3xl p-8 max-w-5xl w-full flex flex-col gap-6">
             <div className="flex items-center justify-between border-b border-white/15 pb-4">
-              <h2 className="font-display text-4xl text-[#F5C542] flex items-center gap-3">
+              <h2 className="font-display text-4xl text-studio-gold flex items-center gap-3">
                 <Trophy className="w-10 h-10" />
                 Tussenstand na Ronde {activeRound?.roundNumber}
               </h2>
@@ -1780,7 +1776,7 @@ export const TvApp: React.FC = () => {
                 {teams.map((t) => (
                   <div
                     key={t.id}
-                    className="rounded-2xl p-5 bg-[#070B18]/80 border-2 flex items-center justify-between"
+                    className="rounded-2xl p-5 bg-studio-bg/80 border-2 flex items-center justify-between"
                     style={{ borderColor: t.color }}
                   >
                     <div>
@@ -1801,7 +1797,7 @@ export const TvApp: React.FC = () => {
                       <div className="font-display text-4xl text-white">
                         {t.score} ptn
                       </div>
-                      <div className="text-base text-[#F5C542]">
+                      <div className="text-base text-studio-gold">
                         {t.stars.length} / 6 ⭐
                       </div>
                     </div>
@@ -1816,10 +1812,10 @@ export const TvApp: React.FC = () => {
                 .map((p, idx) => (
                   <div
                     key={p.id}
-                    className="rounded-2xl p-4 bg-[#1B2752] border border-white/15 flex items-center justify-between"
+                    className="rounded-2xl p-4 bg-studio-cardLight border border-white/15 flex items-center justify-between"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-[#F5C542] text-[#070B18] font-display text-2xl font-bold flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full bg-studio-gold text-studio-bg font-display text-2xl font-bold flex items-center justify-center">
                         #{idx + 1}
                       </div>
                       <div className="w-14 h-14 rounded-xl overflow-hidden">
@@ -1839,7 +1835,7 @@ export const TvApp: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="font-display text-4xl text-[#F5C542]">
+                    <div className="font-display text-4xl text-studio-gold">
                       {p.score} ptn
                     </div>
                   </div>
@@ -1857,7 +1853,7 @@ export const TvApp: React.FC = () => {
                 <div className="flex items-center gap-5">
                   <div className="text-7xl">🏆</div>
                   <div>
-                    <div className="text-[#F5C542] font-display text-2xl uppercase">
+                    <div className="text-studio-gold font-display text-2xl uppercase">
                       🎆 SAMEN-MODUS GROTE FINALE 🎆
                     </div>
                     <h2 className="font-display text-4xl text-white">
@@ -1875,7 +1871,7 @@ export const TvApp: React.FC = () => {
                         key={cat.id}
                         className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl border-2 ${
                           has
-                            ? 'border-white shadow-[0_0_16px_rgba(245,197,66,0.85)]'
+                            ? 'border-white'
                             : 'opacity-25 border-white/20 bg-slate-900'
                         }`}
                         style={{ backgroundColor: has ? cat.color : undefined }}
@@ -1889,7 +1885,7 @@ export const TvApp: React.FC = () => {
             ) : settings.gameMode === 'duo_fixed' ? (
               /* Duo Fixed Team Victory Banner */
               <div className="studio-panel-gold rounded-3xl p-5 flex flex-col gap-3">
-                <div className="text-center text-[#F5C542] font-display text-2xl uppercase">
+                <div className="text-center text-studio-gold font-display text-2xl uppercase">
                   🎆 DE GROTE FINALE — DUO-TEAM KAMPIOENEN 🎆
                 </div>
                 <div className="grid grid-cols-2 gap-6">
@@ -1898,11 +1894,11 @@ export const TvApp: React.FC = () => {
                     .map((team, idx) => (
                       <div
                         key={team.id}
-                        className="rounded-2xl p-5 bg-[#070B18]/85 border-4 flex items-center justify-between"
+                        className="rounded-2xl p-5 bg-studio-bg/85 border-4 flex items-center justify-between"
                         style={{ borderColor: team.color }}
                       >
                         <div>
-                          <div className="font-display text-2xl text-[#F5C542]">
+                          <div className="font-display text-2xl text-studio-gold">
                             {idx === 0 ? '🏆 WINNEND TEAM!' : '🥈 2e PLEK'}
                           </div>
                           <div
@@ -1922,7 +1918,7 @@ export const TvApp: React.FC = () => {
                           <div className="font-display text-5xl text-white">
                             {team.score}
                           </div>
-                          <div className="text-xl text-[#F5C542]">
+                          <div className="text-xl text-studio-gold">
                             {team.stars.length} / 6 ⭐
                           </div>
                         </div>
@@ -1933,7 +1929,7 @@ export const TvApp: React.FC = () => {
             ) : (
               /* Ranked 1e - 4e Podium */
               <div className="studio-panel-gold rounded-3xl p-5 flex flex-col gap-3">
-                <div className="text-center text-[#F5C542] font-display text-2xl uppercase">
+                <div className="text-center text-studio-gold font-display text-2xl uppercase">
                   🎆 DE GROTE FINALE — HET ERE-PODIUM 🎆
                 </div>
                 <div className="grid grid-cols-4 gap-4 items-end">
@@ -1941,7 +1937,7 @@ export const TvApp: React.FC = () => {
                     .sort((a, b) => b.score - a.score || b.stars.length - a.stars.length)
                     .map((pl, idx) => {
                       const medals = ['🥇 1e plek', '🥈 2e plek', '🥉 3e plek', '⭐ 4e plek'];
-                      const heights = ['py-5 bg-amber-500/20 border-[#F5C542]', 'py-4 bg-slate-300/10 border-slate-300', 'py-3 bg-orange-900/25 border-orange-400', 'py-3 bg-[#111936] border-white/20'];
+                      const heights = ['py-5 bg-amber-500/20 border-studio-gold', 'py-4 bg-slate-300/10 border-slate-300', 'py-3 bg-orange-900/25 border-orange-400', 'py-3 bg-studio-card border-white/20'];
                       return (
                         <div
                           key={pl.id}
@@ -1957,7 +1953,7 @@ export const TvApp: React.FC = () => {
                               />
                             </div>
                             <div className="min-w-0">
-                              <div className="font-display text-lg text-[#F5C542]">
+                              <div className="font-display text-lg text-studio-gold">
                                 {medals[idx] || `#${idx + 1}`}
                               </div>
                               <div className="font-display text-3xl text-white truncate">
@@ -1969,7 +1965,7 @@ export const TvApp: React.FC = () => {
                             <div className="font-display text-3xl text-white">
                               {pl.score}
                             </div>
-                            <div className="text-base text-[#F5C542]">
+                            <div className="text-base text-studio-gold">
                               {pl.stars.length} ⭐
                             </div>
                           </div>
@@ -1989,7 +1985,7 @@ export const TvApp: React.FC = () => {
                 >
                   <div className="text-5xl">{aw.icon}</div>
                   <div>
-                    <div className="text-base text-[#F5C542] uppercase font-bold tracking-wider">
+                    <div className="text-base text-studio-gold uppercase font-bold tracking-wider">
                       Persoonlijke Medaille
                     </div>
                     <div className="font-display text-3xl text-white mt-0.5">
@@ -1997,7 +1993,7 @@ export const TvApp: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-[#F5C542]">
+                  <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-studio-gold">
                     <IllustrationView
                       illustrationId={
                         AVATAR_CATALOG[aw.avatarId]?.illustrationId ||
@@ -2007,7 +2003,7 @@ export const TvApp: React.FC = () => {
                   </div>
 
                   <div>
-                    <div className="font-display text-3xl text-[#F5C542]">
+                    <div className="font-display text-3xl text-studio-gold">
                       {aw.playerName}
                     </div>
                     <div className="text-lg text-slate-200 mt-0.5 leading-snug">
@@ -2015,7 +2011,7 @@ export const TvApp: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="px-4 py-1.5 rounded-xl bg-[#070B18] border border-[#F5C542]/50 font-display text-xl text-[#4ADE80] w-full">
+                  <div className="px-4 py-1.5 rounded-xl bg-studio-bg border border-studio-gold/50 font-display text-xl text-[#4ADE80] w-full">
                     {aw.valueLabel}
                   </div>
                 </div>
@@ -2026,15 +2022,15 @@ export const TvApp: React.FC = () => {
 
         {/* PAUSE OVERLAY */}
         {phase === 'PAUSED' && (
-          <div className="absolute inset-0 bg-[#070B18]/90 backdrop-blur-md z-40 flex items-center justify-center">
+          <div className="absolute inset-0 bg-studio-bg/90 backdrop-blur-md z-40 flex items-center justify-center">
             <div className="studio-panel-gold rounded-3xl p-12 text-center max-w-2xl flex flex-col items-center gap-6">
               <div className="text-7xl">⏸️</div>
-              <h2 className="font-display text-6xl text-[#F5C542]">
+              <h2 className="font-display text-6xl text-studio-gold">
                 PAUZE — Zo weer verder!
               </h2>
               <p className="text-2xl text-slate-300">
                 Alle klokken staan netjes stil. Druk op de Host-telefoon of op
-                de LG Magic Remote (<span className="text-[#F5C542] font-bold">OK</span> of{' '}
+                de LG Magic Remote (<span className="text-studio-gold font-bold">OK</span> of{' '}
                 <span className="text-rose-400 font-bold">Rood</span>) zodra
                 iedereen weer zit!
               </p>
@@ -2043,7 +2039,7 @@ export const TvApp: React.FC = () => {
                 type="button"
                 autoFocus
                 onClick={() => sendTvControl('resume', '▶️ Show hervat!')}
-                className="tv-focusable px-10 py-5 rounded-2xl bg-gradient-to-r from-[#22C55E] to-emerald-500 text-[#070B18] font-display text-3xl font-bold shadow-[0_0_30px_rgba(34,197,94,0.5)] hover:scale-105 transition-transform"
+                className="tv-focusable px-10 py-5 rounded-2xl bg-[#22C55E] text-studio-bg font-display text-3xl font-bold hover:scale-105 transition-transform"
               >
                 ▶️ HERVAT DE SHOW
               </button>
@@ -2077,7 +2073,7 @@ export const TvApp: React.FC = () => {
                 p.paused
                   ? 'studio-panel opacity-60 border-amber-400/50'
                   : isTurn
-                  ? 'bg-[#1B2752] border-[#F5C542] shadow-[0_0_25px_rgba(245,197,66,0.45)]'
+                  ? 'bg-studio-cardLight border-studio-gold'
                   : 'studio-panel'
               }`}
             >
@@ -2113,7 +2109,7 @@ export const TvApp: React.FC = () => {
                           key={cat.id}
                           className={`w-6 h-6 rounded-full flex items-center justify-center text-xs border transition-transform ${
                             earned
-                              ? 'scale-110 border-white shadow-[0_0_8px_rgba(245,197,66,0.8)]'
+                              ? 'scale-110 border-white'
                               : 'opacity-25 border-white/20 bg-slate-900'
                           }`}
                           style={{
@@ -2130,7 +2126,7 @@ export const TvApp: React.FC = () => {
               </div>
 
               <div className="text-right">
-                <div className="font-display text-4xl text-[#F5C542]">
+                <div className="font-display text-4xl text-studio-gold">
                   {p.score}
                 </div>
                 <div className="text-base text-slate-300 uppercase">punten</div>

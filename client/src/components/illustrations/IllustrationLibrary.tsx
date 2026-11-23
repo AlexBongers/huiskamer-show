@@ -34,12 +34,12 @@ export const ILLUSTRATION_LIST: IllustrationMeta[] = [
   { id: 'guitar', label: 'Gitaar', bg1: '#7C2D12', bg2: '#F59E0B' },
   { id: 'piano', label: 'Piano', bg1: '#1E293B', bg2: '#64748B' },
   { id: 'drums', label: 'Drumstel', bg1: '#7F1D1D', bg2: '#F87171' },
-  { id: 'trumpet', label: 'Gouden Trompet', bg1: '#713F12', bg2: '#F5C542' },
+  { id: 'trumpet', label: 'Gouden Trompet', bg1: '#713F12', bg2: '#FFD23F' },
   { id: 'castle', label: 'Sprookjeskasteel', bg1: '#4C1D95', bg2: '#F472B6' },
-  { id: 'crown', label: 'Gouden Kroon', bg1: '#78350F', bg2: '#F5C542' },
+  { id: 'crown', label: 'Gouden Kroon', bg1: '#78350F', bg2: '#FFD23F' },
   { id: 'popcorn', label: 'Bioscoop Popcorn', bg1: '#7F1D1D', bg2: '#FBBF24' },
   { id: 'sonic_hedgehog', label: 'Blauwe Egel (Sonic)', bg1: '#1E3A8A', bg2: '#3B82F6' },
-  { id: 'golden_ring', label: 'Gouden Ring', bg1: '#1E3A8A', bg2: '#F5C542' },
+  { id: 'golden_ring', label: 'Gouden Ring', bg1: '#1E3A8A', bg2: '#FFD23F' },
   { id: 'tails_fox', label: 'Tails (2 Staarten)', bg1: '#78350F', bg2: '#F59E0B' },
   { id: 'knuckles_red', label: 'Knuckles', bg1: '#7F1D1D', bg2: '#EF4444' },
   { id: 'eggman_robot', label: 'Dokter Eggman Robot', bg1: '#450A0A', bg2: '#F97316' },
@@ -47,8 +47,8 @@ export const ILLUSTRATION_LIST: IllustrationMeta[] = [
   { id: 'banana', label: 'Tros Gele Bananen', bg1: '#713F12', bg2: '#FACC15' },
   { id: 'barrel', label: 'Houten Jungle-Ton', bg1: '#451A03', bg2: '#B45309' },
   { id: 'mushroom', label: 'Power-Paddenstoel', bg1: '#7F1D1D', bg2: '#EF4444' },
-  { id: 'super_star', label: 'Gouden Superster', bg1: '#312E81', bg2: '#F5C542' },
-  { id: 'star', label: 'Gouden Ster', bg1: '#312E81', bg2: '#F5C542' },
+  { id: 'super_star', label: 'Gouden Superster', bg1: '#312E81', bg2: '#FFD23F' },
+  { id: 'star', label: 'Gouden Ster', bg1: '#312E81', bg2: '#FFD23F' },
   { id: 'yoshi_dino', label: 'Groene Dino Yoshi', bg1: '#14532D', bg2: '#4ADE80' },
   { id: 'race_kart', label: 'Snelle Raceauto / Kart', bg1: '#7F1D1D', bg2: '#EF4444' },
   { id: 'island', label: 'Animal Crossing Eiland', bg1: '#0369A1', bg2: '#34D399' },
@@ -64,18 +64,18 @@ export const ILLUSTRATION_LIST: IllustrationMeta[] = [
   { id: 'soccer_ball', label: 'Voetbal', bg1: '#14532D', bg2: '#22C55E' },
   { id: 'bicycle', label: 'Fiets', bg1: '#1E3A8A', bg2: '#38BDF8' },
   { id: 'swimming', label: 'Zwembad & Zwembril', bg1: '#0369A1', bg2: '#22D3EE' },
-  { id: 'trophy', label: 'Gouden Kampioensbeker', bg1: '#713F12', bg2: '#F5C542' },
+  { id: 'trophy', label: 'Gouden Kampioensbeker', bg1: '#713F12', bg2: '#FFD23F' },
   { id: 'firetruck', label: 'Rode Brandweerauto', bg1: '#7F1D1D', bg2: '#EF4444' },
   { id: 'train', label: 'Snelle Trein', bg1: '#1E3A8A', bg2: '#3B82F6' },
   { id: 'rocket', label: 'Ruimteraket', bg1: '#0F172A', bg2: '#6366F1' },
   { id: 'airplane', label: 'Vliegtuig', bg1: '#0C4A6E', bg2: '#38BDF8' },
   { id: 'planet_saturn', label: 'Planeet Saturnus', bg1: '#1E1B4B', bg2: '#A855F7' },
   { id: 'sun', label: 'Stralende Zon', bg1: '#7C2D12', bg2: '#FACC15' },
-  { id: 'moon_stars', label: 'Maan en Sterren', bg1: '#0F172A', bg2: '#F5C542' },
+  { id: 'moon_stars', label: 'Maan en Sterren', bg1: '#0F172A', bg2: '#FFD23F' },
   { id: 'house_family', label: 'Ons Familiehuis', bg1: '#1E3A8A', bg2: '#F43F5E' },
   { id: 'toothbrush', label: 'Tandenborstel', bg1: '#065F46', bg2: '#22D3EE' },
   { id: 'lighthouse', label: 'Vuurtoren aan Zee', bg1: '#0C4A6E', bg2: '#EF4444' },
-  { id: 'top_hat', label: 'Showmaster Hoge Hoed', bg1: '#1E1B4B', bg2: '#F5C542' },
+  { id: 'top_hat', label: 'Showmaster Hoge Hoed', bg1: '#1E1B4B', bg2: '#FFD23F' },
   { id: 'heart_family', label: 'Groot Gezinshart', bg1: '#831843', bg2: '#EC4899' },
   { id: 'clock_alarm', label: 'Rinkelende Wekker', bg1: '#7C2D12', bg2: '#F59E0B' },
   { id: 'police_car', label: 'Politieauto', bg1: '#1E3A8A', bg2: '#38BDF8' },
@@ -114,7 +114,7 @@ export const ILLUSTRATION_LIST: IllustrationMeta[] = [
   { id: 'shadow_hedgehog', label: 'Shadow de Egel', bg1: '#18181B', bg2: '#EF4444' },
   { id: 'amy_pink', label: 'Amy Rose', bg1: '#831843', bg2: '#F472B6' },
   { id: 'chaos_emerald', label: 'Chaos Emerald Diamant', bg1: '#064E3B', bg2: '#22C55E' },
-  { id: 'treasure_chest', label: 'Gouden Schatkist', bg1: '#451A03', bg2: '#F5C542' },
+  { id: 'treasure_chest', label: 'Gouden Schatkist', bg1: '#451A03', bg2: '#FFD23F' },
   { id: 'pirate_ship', label: 'Piratenschip', bg1: '#0C4A6E', bg2: '#B45309' },
   { id: 'helicopter', label: 'Helikopter', bg1: '#1E3A8A', bg2: '#38BDF8' },
   { id: 'tractor', label: 'Groene Tractor', bg1: '#14532D', bg2: '#22C55E' },
@@ -125,9 +125,9 @@ export const ILLUSTRATION_LIST: IllustrationMeta[] = [
   { id: 'excavator', label: 'Graafmachine', bg1: '#713F12', bg2: '#FACC15' },
   { id: 'snowman', label: 'Sneeuwpop', bg1: '#1E3A8A', bg2: '#E0F2FE' },
   { id: 'christmas_tree', label: 'Kerstboom', bg1: '#14532D', bg2: '#22C55E' },
-  { id: 'gift_box', label: 'Feestcadeau', bg1: '#7F1D1D', bg2: '#F5C542' },
+  { id: 'gift_box', label: 'Feestcadeau', bg1: '#7F1D1D', bg2: '#FFD23F' },
   { id: 'steamboat', label: 'Stoomboot van Sinterklaas', bg1: '#0C4A6E', bg2: '#EF4444' },
-  { id: 'pepernoten', label: 'Mijter & Pepernoten', bg1: '#7F1D1D', bg2: '#F5C542' },
+  { id: 'pepernoten', label: 'Mijter & Pepernoten', bg1: '#7F1D1D', bg2: '#FFD23F' },
   { id: 'tent_camp', label: 'Kampeertent', bg1: '#064E3B', bg2: '#F97316' },
   { id: 'sunglasses', label: 'Zonnebril & Zomer', bg1: '#0369A1', bg2: '#FACC15' },
   { id: 'watermelon', label: 'Watermeloen', bg1: '#14532D', bg2: '#F43F5E' },
@@ -158,15 +158,15 @@ function renderArtwork(id: string): React.ReactNode {
           <polygon points="128,80 133,90 138,80 143,90 148,80 153,90 158,80" fill="#FFFFFF" />
           {/* Eye */}
           <circle cx="115" cy="64" r="7" fill="#FEF08A" />
-          <circle cx="117" cy="64" r="3.5" fill="#070B18" />
+          <circle cx="117" cy="64" r="3.5" fill="#0F2A3A" />
           {/* Cute tiny arm */}
           <path d="M118 118 L134 124 L130 132" fill="none" stroke="#14532D" strokeWidth="5" strokeLinecap="round" />
           {/* Strong legs */}
           <rect x="75" y="148" width="16" height="24" rx="6" fill="#22C55E" stroke="#14532D" strokeWidth="4" />
           <rect x="102" y="148" width="16" height="24" rx="6" fill="#22C55E" stroke="#14532D" strokeWidth="4" />
           {/* Back spikes */}
-          <polygon points="65,112 75,96 85,112" fill="#F5C542" />
-          <polygon points="48,125 58,110 68,125" fill="#F5C542" />
+          <polygon points="65,112 75,96 85,112" fill="#FFD23F" />
+          <polygon points="48,125 58,110 68,125" fill="#FFD23F" />
         </g>
       );
 
@@ -184,7 +184,7 @@ function renderArtwork(id: string): React.ReactNode {
           <polygon points="34,122 16,102 44,114" fill="#FEF08A" stroke="#7C2D12" strokeWidth="2" />
           <polygon points="62,92 32,64 70,82" fill="#FEF08A" stroke="#7C2D12" strokeWidth="2" />
           <polygon points="74,84 48,54 82,76" fill="#FEF08A" stroke="#7C2D12" strokeWidth="2" />
-          <circle cx="62" cy="108" r="5" fill="#070B18" />
+          <circle cx="62" cy="108" r="5" fill="#0F2A3A" />
           <rect x="85" y="148" width="16" height="24" rx="5" fill="#EA580C" />
           <rect x="130" y="148" width="16" height="24" rx="5" fill="#EA580C" />
         </g>
@@ -198,7 +198,7 @@ function renderArtwork(id: string): React.ReactNode {
           <ellipse cx="95" cy="142" rx="45" ry="26" fill="#10B981" stroke="#064E3B" strokeWidth="4" />
           {/* Super Long Neck & Head */}
           <path d="M115 130 Q132 70 138 38 Q145 28 162 34 Q168 44 152 48 Q142 85 132 138 Z" fill="#34D399" stroke="#064E3B" strokeWidth="4" />
-          <circle cx="150" cy="37" r="4" fill="#070B18" />
+          <circle cx="150" cy="37" r="4" fill="#0F2A3A" />
           {/* Legs */}
           <rect x="65" y="152" width="15" height="24" rx="5" fill="#059669" />
           <rect x="112" y="152" width="15" height="24" rx="5" fill="#059669" />
@@ -220,7 +220,7 @@ function renderArtwork(id: string): React.ReactNode {
           <path d="M35 142 Q100 72 165 145 Z" fill="#84CC16" stroke="#365314" strokeWidth="4" />
           {/* Head */}
           <ellipse cx="34" cy="140" rx="18" ry="11" fill="#A3E635" stroke="#365314" strokeWidth="3" />
-          <circle cx="28" cy="138" r="3.5" fill="#070B18" />
+          <circle cx="28" cy="138" r="3.5" fill="#0F2A3A" />
           {/* Tail spikes */}
           <line x1="160" y1="140" x2="180" y2="122" stroke="#FEF08A" strokeWidth="5" strokeLinecap="round" />
           <line x1="166" y1="145" x2="186" y2="134" stroke="#FEF08A" strokeWidth="5" strokeLinecap="round" />
@@ -249,7 +249,7 @@ function renderArtwork(id: string): React.ReactNode {
       return (
         <g>
           {/* Sparkles */}
-          <circle cx="42" cy="48" r="5" fill="#F5C542" />
+          <circle cx="42" cy="48" r="5" fill="#FFD23F" />
           <circle cx="162" cy="56" r="6" fill="#38BDF8" />
           <circle cx="152" cy="145" r="5" fill="#F472B6" />
           {/* Rainbow mane */}
@@ -259,7 +259,7 @@ function renderArtwork(id: string): React.ReactNode {
           {/* White Unicorn Head & Neck */}
           <path d="M62 165 L75 72 Q82 52 105 62 L152 84 Q164 96 150 112 L112 110 L108 165 Z" fill="#FFFFFF" stroke="#F472B6" strokeWidth="4" />
           {/* Golden Magical Horn */}
-          <polygon points="102,60 148,18 118,72" fill="#F5C542" stroke="#B45309" strokeWidth="3" />
+          <polygon points="102,60 148,18 118,72" fill="#FFD23F" stroke="#B45309" strokeWidth="3" />
           {/* Eye & Smile */}
           <circle cx="114" cy="84" r="6" fill="#4C1D95" />
           <circle cx="116" cy="82" r="2" fill="#FFFFFF" />
@@ -290,10 +290,10 @@ function renderArtwork(id: string): React.ReactNode {
       return (
         <g>
           {/* Neon HUNTR/X Star & Glow */}
-          <polygon points="100,18 118,62 166,66 128,98 140,145 100,118 60,145 72,98 34,66 82,62" fill="#A855F7" stroke="#F5C542" strokeWidth="4" />
+          <polygon points="100,18 118,62 166,66 128,98 140,145 100,118 60,145 72,98 34,66 82,62" fill="#A855F7" stroke="#FFD23F" strokeWidth="4" />
           {/* Glitter Microphone */}
           <rect x="88" y="88" width="24" height="72" rx="10" fill="#F472B6" stroke="#FFFFFF" strokeWidth="3" />
-          <circle cx="100" cy="72" r="26" fill="#F5C542" stroke="#FFFFFF" strokeWidth="4" />
+          <circle cx="100" cy="72" r="26" fill="#FFD23F" stroke="#FFFFFF" strokeWidth="4" />
           <line x1="76" y1="72" x2="124" y2="72" stroke="#78350F" strokeWidth="3" />
           {/* Sparkles */}
           <circle cx="42" cy="40" r="6" fill="#22D3EE" />
@@ -305,7 +305,7 @@ function renderArtwork(id: string): React.ReactNode {
       return (
         <g>
           {/* Speed aura ring */}
-          <circle cx="100" cy="100" r="76" fill="none" stroke="#F5C542" strokeWidth="5" strokeDasharray="14 8" />
+          <circle cx="100" cy="100" r="76" fill="none" stroke="#FFD23F" strokeWidth="5" strokeDasharray="14 8" />
           {/* Iconic Blue Spikes */}
           <polygon points="85,42 22,56 72,88" fill="#2563EB" stroke="#1E3A8A" strokeWidth="4" />
           <polygon points="82,72 16,98 76,118" fill="#2563EB" stroke="#1E3A8A" strokeWidth="4" />
@@ -318,9 +318,9 @@ function renderArtwork(id: string): React.ReactNode {
           <ellipse cx="122" cy="114" rx="28" ry="18" fill="#FDE68A" />
           <ellipse cx="122" cy="84" rx="11" ry="16" fill="#FFFFFF" />
           <ellipse cx="126" cy="86" rx="6" ry="10" fill="#22C55E" />
-          <circle cx="127" cy="84" r="3" fill="#070B18" />
+          <circle cx="127" cy="84" r="3" fill="#0F2A3A" />
           {/* Nose & confident grin */}
-          <ellipse cx="148" cy="106" rx="7" ry="4.5" fill="#070B18" />
+          <ellipse cx="148" cy="106" rx="7" ry="4.5" fill="#0F2A3A" />
           <path d="M114 118 Q128 126 138 116" fill="none" stroke="#78350F" strokeWidth="3.5" strokeLinecap="round" />
         </g>
       );
@@ -329,7 +329,7 @@ function renderArtwork(id: string): React.ReactNode {
       return (
         <g>
           <circle cx="100" cy="100" r="64" fill="none" stroke="#B45309" strokeWidth="26" />
-          <circle cx="100" cy="100" r="64" fill="none" stroke="#F5C542" strokeWidth="20" />
+          <circle cx="100" cy="100" r="64" fill="none" stroke="#FFD23F" strokeWidth="20" />
           <circle cx="100" cy="100" r="64" fill="none" stroke="#FEF08A" strokeWidth="6" />
           {/* Shine */}
           <polygon points="148,36 154,50 168,56 154,62 148,76 142,62 128,56 142,50" fill="#FFFFFF" />
@@ -351,7 +351,7 @@ function renderArtwork(id: string): React.ReactNode {
           <ellipse cx="114" cy="116" rx="28" ry="18" fill="#FFFFFF" />
           <circle cx="102" cy="94" r="6" fill="#0284C7" />
           <circle cx="126" cy="94" r="6" fill="#0284C7" />
-          <circle cx="114" cy="108" r="5" fill="#070B18" />
+          <circle cx="114" cy="108" r="5" fill="#0F2A3A" />
         </g>
       );
 
@@ -367,11 +367,11 @@ function renderArtwork(id: string): React.ReactNode {
           {/* Eyes */}
           <circle cx="86" cy="78" r="7" fill="#FFFFFF" />
           <circle cx="114" cy="78" r="7" fill="#FFFFFF" />
-          <circle cx="86" cy="78" r="3.5" fill="#070B18" />
-          <circle cx="114" cy="78" r="3.5" fill="#070B18" />
+          <circle cx="86" cy="78" r="3.5" fill="#0F2A3A" />
+          <circle cx="114" cy="78" r="3.5" fill="#0F2A3A" />
           {/* Famous Red Tie */}
           <polygon points="92,126 108,126 114,174 100,186 86,174" fill="#EF4444" stroke="#7F1D1D" strokeWidth="3" />
-          <text x="100" y="166" textAnchor="middle" fill="#FACC15" fontSize="18" fontWeight="bold" fontFamily="Fredoka">DK</text>
+          <text x="100" y="166" textAnchor="middle" fill="#FACC15" fontSize="18" fontWeight="bold" fontFamily="Sora">DK</text>
         </g>
       );
 
@@ -401,8 +401,8 @@ function renderArtwork(id: string): React.ReactNode {
         <g>
           {/* Stem & Eyes */}
           <rect x="64" y="108" width="72" height="58" rx="22" fill="#FEF3C7" stroke="#78350F" strokeWidth="4" />
-          <ellipse cx="88" cy="134" rx="5" ry="10" fill="#070B18" />
-          <ellipse cx="112" cy="134" rx="5" ry="10" fill="#070B18" />
+          <ellipse cx="88" cy="134" rx="5" ry="10" fill="#0F2A3A" />
+          <ellipse cx="112" cy="134" rx="5" ry="10" fill="#0F2A3A" />
           {/* Red Cap with White Spots */}
           <path d="M28 114 C28 42 172 42 172 114 Z" fill="#EF4444" stroke="#7F1D1D" strokeWidth="4" />
           <circle cx="100" cy="74" r="18" fill="#FFFFFF" />
@@ -417,12 +417,12 @@ function renderArtwork(id: string): React.ReactNode {
         <g>
           <polygon
             points="100,18 123,68 178,74 136,112 148,166 100,138 52,166 64,112 22,74 77,68"
-            fill="#F5C542"
+            fill="#FFD23F"
             stroke="#B45309"
             strokeWidth="5"
           />
-          <ellipse cx="88" cy="94" rx="5" ry="11" fill="#070B18" />
-          <ellipse cx="112" cy="94" rx="5" ry="11" fill="#070B18" />
+          <ellipse cx="88" cy="94" rx="5" ry="11" fill="#0F2A3A" />
+          <ellipse cx="112" cy="94" rx="5" ry="11" fill="#0F2A3A" />
         </g>
       );
 
@@ -546,8 +546,8 @@ function renderArtwork(id: string): React.ReactNode {
           <circle cx="100" cy="94" r="40" fill="#93C5FD" stroke="#1E3A8A" strokeWidth="4" />
           {/* Long Trunk */}
           <path d="M90 104 Q88 158 118 162 Q132 162 130 146" fill="none" stroke="#93C5FD" strokeWidth="20" strokeLinecap="round" />
-          <circle cx="84" cy="84" r="6" fill="#070B18" />
-          <circle cx="116" cy="84" r="6" fill="#070B18" />
+          <circle cx="84" cy="84" r="6" fill="#0F2A3A" />
+          <circle cx="116" cy="84" r="6" fill="#0F2A3A" />
         </g>
       );
 
@@ -559,8 +559,8 @@ function renderArtwork(id: string): React.ReactNode {
           <circle cx="130" cy="74" r="20" fill="#22C55E" stroke="#14532D" strokeWidth="4" />
           <circle cx="70" cy="72" r="10" fill="#FFFFFF" />
           <circle cx="130" cy="72" r="10" fill="#FFFFFF" />
-          <circle cx="70" cy="72" r="5" fill="#070B18" />
-          <circle cx="130" cy="72" r="5" fill="#070B18" />
+          <circle cx="70" cy="72" r="5" fill="#0F2A3A" />
+          <circle cx="130" cy="72" r="5" fill="#0F2A3A" />
           <path d="M64 122 Q100 148 136 122" fill="none" stroke="#14532D" strokeWidth="5" strokeLinecap="round" />
         </g>
       );
@@ -570,8 +570,8 @@ function renderArtwork(id: string): React.ReactNode {
         <g>
           <circle cx="100" cy="100" r="62" fill="#B45309" stroke="#451A03" strokeWidth="5" />
           <circle cx="100" cy="100" r="44" fill="#FBBF24" stroke="#78350F" strokeWidth="4" />
-          <circle cx="84" cy="90" r="6" fill="#070B18" />
-          <circle cx="116" cy="90" r="6" fill="#070B18" />
+          <circle cx="84" cy="90" r="6" fill="#0F2A3A" />
+          <circle cx="116" cy="90" r="6" fill="#0F2A3A" />
           <polygon points="92,104 108,104 100,114" fill="#78350F" />
           <path d="M84 122 Q100 132 116 122" fill="none" stroke="#78350F" strokeWidth="4" strokeLinecap="round" />
         </g>
@@ -583,8 +583,8 @@ function renderArtwork(id: string): React.ReactNode {
           <polygon points="56,78 46,32 90,62" fill="#F472B6" stroke="#831843" strokeWidth="4" />
           <polygon points="144,78 154,32 110,62" fill="#F472B6" stroke="#831843" strokeWidth="4" />
           <circle cx="100" cy="106" r="48" fill="#F9A8D4" stroke="#831843" strokeWidth="4" />
-          <circle cx="82" cy="96" r="6" fill="#070B18" />
-          <circle cx="118" cy="96" r="6" fill="#070B18" />
+          <circle cx="82" cy="96" r="6" fill="#0F2A3A" />
+          <circle cx="118" cy="96" r="6" fill="#0F2A3A" />
           <polygon points="94,110 106,110 100,118" fill="#DB2777" />
           <line x1="36" y1="108" x2="70" y2="112" stroke="#831843" strokeWidth="3" />
           <line x1="36" y1="120" x2="70" y2="118" stroke="#831843" strokeWidth="3" />
@@ -599,9 +599,9 @@ function renderArtwork(id: string): React.ReactNode {
           <ellipse cx="48" cy="106" rx="18" ry="34" fill="#92400E" stroke="#451A03" strokeWidth="4" />
           <ellipse cx="152" cy="106" rx="18" ry="34" fill="#92400E" stroke="#451A03" strokeWidth="4" />
           <circle cx="100" cy="100" r="46" fill="#FBBF24" stroke="#78350F" strokeWidth="4" />
-          <circle cx="82" cy="88" r="6" fill="#070B18" />
-          <circle cx="118" cy="88" r="6" fill="#070B18" />
-          <ellipse cx="100" cy="106" rx="10" ry="7" fill="#070B18" />
+          <circle cx="82" cy="88" r="6" fill="#0F2A3A" />
+          <circle cx="118" cy="88" r="6" fill="#0F2A3A" />
+          <ellipse cx="100" cy="106" rx="10" ry="7" fill="#0F2A3A" />
           <path d="M92 124 Q100 144 108 124 Z" fill="#FB7185" />
         </g>
       );
@@ -624,8 +624,8 @@ function renderArtwork(id: string): React.ReactNode {
           <ellipse cx="100" cy="112" rx="48" ry="54" fill="#818CF8" stroke="#312E81" strokeWidth="4" />
           <circle cx="80" cy="88" r="18" fill="#FFFFFF" stroke="#312E81" strokeWidth="4" />
           <circle cx="120" cy="88" r="18" fill="#FFFFFF" stroke="#312E81" strokeWidth="4" />
-          <circle cx="80" cy="88" r="8" fill="#070B18" />
-          <circle cx="120" cy="88" r="8" fill="#070B18" />
+          <circle cx="80" cy="88" r="8" fill="#0F2A3A" />
+          <circle cx="120" cy="88" r="8" fill="#0F2A3A" />
           <polygon points="92,102 108,102 100,118" fill="#F59E0B" />
         </g>
       );
@@ -635,7 +635,7 @@ function renderArtwork(id: string): React.ReactNode {
         <g>
           <polygon
             points="28,144 40,64 76,102 100,48 124,102 160,64 172,144"
-            fill="#F5C542"
+            fill="#FFD23F"
             stroke="#B45309"
             strokeWidth="5"
           />
@@ -649,11 +649,11 @@ function renderArtwork(id: string): React.ReactNode {
     case 'trophy':
       return (
         <g>
-          <path d="M56 44 L144 44 L134 110 Q100 136 66 110 Z" fill="#F5C542" stroke="#B45309" strokeWidth="5" />
-          <path d="M56 56 Q28 56 36 88 Q44 104 64 100" fill="none" stroke="#F5C542" strokeWidth="8" />
-          <path d="M144 56 Q172 56 164 88 Q156 104 136 100" fill="none" stroke="#F5C542" strokeWidth="8" />
+          <path d="M56 44 L144 44 L134 110 Q100 136 66 110 Z" fill="#FFD23F" stroke="#B45309" strokeWidth="5" />
+          <path d="M56 56 Q28 56 36 88 Q44 104 64 100" fill="none" stroke="#FFD23F" strokeWidth="8" />
+          <path d="M144 56 Q172 56 164 88 Q156 104 136 100" fill="none" stroke="#FFD23F" strokeWidth="8" />
           <rect x="88" y="120" width="24" height="28" fill="#D97706" />
-          <rect x="64" y="148" width="72" height="20" rx="6" fill="#78350F" stroke="#F5C542" strokeWidth="3" />
+          <rect x="64" y="148" width="72" height="20" rx="6" fill="#78350F" stroke="#FFD23F" strokeWidth="3" />
           <polygon points="100,58 106,74 122,74 110,84 114,100 100,90 86,100 90,84 78,74 94,74" fill="#FFFFFF" />
         </g>
       );
@@ -674,8 +674,8 @@ function renderArtwork(id: string): React.ReactNode {
         <g>
           <circle cx="56" cy="130" r="28" fill="none" stroke="#F8FAFC" strokeWidth="7" />
           <circle cx="144" cy="130" r="28" fill="none" stroke="#F8FAFC" strokeWidth="7" />
-          <polyline points="56,130 88,86 134,86 100,130 56,130" fill="none" stroke="#F5C542" strokeWidth="7" strokeLinejoin="round" />
-          <line x1="134" y1="86" x2="144" y2="130" stroke="#F5C542" strokeWidth="7" />
+          <polyline points="56,130 88,86 134,86 100,130 56,130" fill="none" stroke="#FFD23F" strokeWidth="7" strokeLinejoin="round" />
+          <line x1="134" y1="86" x2="144" y2="130" stroke="#FFD23F" strokeWidth="7" />
           <line x1="126" y1="68" x2="146" y2="68" stroke="#EF4444" strokeWidth="7" strokeLinecap="round" />
           <line x1="76" y1="74" x2="98" y2="74" stroke="#1E293B" strokeWidth="8" strokeLinecap="round" />
         </g>
@@ -737,7 +737,7 @@ function renderArtwork(id: string): React.ReactNode {
             stroke="#FFFFFF"
             strokeWidth="5"
           />
-          <polygon points="100,72 107,88 124,90 111,102 115,118 100,109 85,118 89,102 76,90 93,88" fill="#F5C542" />
+          <polygon points="100,72 107,88 124,90 111,102 115,118 100,109 85,118 89,102 76,90 93,88" fill="#FFD23F" />
         </g>
       );
 
@@ -766,8 +766,8 @@ function renderArtwork(id: string): React.ReactNode {
     case 'clock_alarm':
       return (
         <g>
-          <circle cx="56" cy="52" r="18" fill="#F5C542" stroke="#78350F" strokeWidth="4" />
-          <circle cx="144" cy="52" r="18" fill="#F5C542" stroke="#78350F" strokeWidth="4" />
+          <circle cx="56" cy="52" r="18" fill="#FFD23F" stroke="#78350F" strokeWidth="4" />
+          <circle cx="144" cy="52" r="18" fill="#FFD23F" stroke="#78350F" strokeWidth="4" />
           <circle cx="100" cy="108" r="54" fill="#EF4444" stroke="#7F1D1D" strokeWidth="5" />
           <circle cx="100" cy="108" r="42" fill="#FFFFFF" />
           <line x1="100" y1="108" x2="100" y2="78" stroke="#0F172A" strokeWidth="6" strokeLinecap="round" />
@@ -781,7 +781,7 @@ function renderArtwork(id: string): React.ReactNode {
           <rect x="26" y="76" width="136" height="66" rx="14" fill="#3B82F6" stroke="#1E3A8A" strokeWidth="4" />
           <rect x="40" y="90" width="32" height="24" rx="4" fill="#BAE6FD" />
           <rect x="84" y="90" width="32" height="24" rx="4" fill="#BAE6FD" />
-          <polygon points="162,92 180,142 162,142" fill="#F5C542" />
+          <polygon points="162,92 180,142 162,142" fill="#FFD23F" />
           <circle cx="56" cy="148" r="14" fill="#1E293B" stroke="#CBD5E1" strokeWidth="4" />
           <circle cx="100" cy="148" r="14" fill="#1E293B" stroke="#CBD5E1" strokeWidth="4" />
           <circle cx="144" cy="148" r="14" fill="#1E293B" stroke="#CBD5E1" strokeWidth="4" />
@@ -815,8 +815,8 @@ function renderArtwork(id: string): React.ReactNode {
     case 'trumpet':
       return (
         <g>
-          <rect x="32" y="92" width="96" height="14" rx="5" fill="#F5C542" stroke="#B45309" strokeWidth="3" />
-          <polygon points="124,92 170,62 170,136 124,106" fill="#F5C542" stroke="#B45309" strokeWidth="4" />
+          <rect x="32" y="92" width="96" height="14" rx="5" fill="#FFD23F" stroke="#B45309" strokeWidth="3" />
+          <polygon points="124,92 170,62 170,136 124,106" fill="#FFD23F" stroke="#B45309" strokeWidth="4" />
           <rect x="66" y="74" width="8" height="18" fill="#FEF08A" />
           <rect x="82" y="74" width="8" height="18" fill="#FEF08A" />
           <rect x="98" y="74" width="8" height="18" fill="#FEF08A" />
@@ -827,7 +827,7 @@ function renderArtwork(id: string): React.ReactNode {
       return (
         <g>
           <line x1="42" y1="158" x2="126" y2="74" stroke="#F472B6" strokeWidth="12" strokeLinecap="round" />
-          <polygon points="134,34 145,58 172,62 152,80 156,106 134,92 112,106 116,80 96,62 123,58" fill="#F5C542" stroke="#FFFFFF" strokeWidth="3" />
+          <polygon points="134,34 145,58 172,62 152,80 156,106 134,92 112,106 116,80 96,62 123,58" fill="#FFD23F" stroke="#FFFFFF" strokeWidth="3" />
           <circle cx="72" cy="56" r="7" fill="#38BDF8" />
           <circle cx="152" cy="134" r="6" fill="#A855F7" />
         </g>
@@ -841,7 +841,7 @@ function renderArtwork(id: string): React.ReactNode {
           {/* Fish */}
           <ellipse cx="136" cy="134" rx="28" ry="16" fill="#38BDF8" stroke="#0284C7" strokeWidth="3" />
           <polygon points="106,134 88,120 88,148" fill="#38BDF8" />
-          <circle cx="150" cy="130" r="4" fill="#070B18" />
+          <circle cx="150" cy="130" r="4" fill="#0F2A3A" />
         </g>
       );
 
@@ -855,9 +855,9 @@ function renderArtwork(id: string): React.ReactNode {
           <ellipse cx="100" cy="96" rx="42" ry="18" fill="#451A03" />
           <circle cx="82" cy="96" r="8" fill="#FFFFFF" />
           <circle cx="118" cy="96" r="8" fill="#FFFFFF" />
-          <circle cx="82" cy="96" r="4" fill="#070B18" />
-          <circle cx="118" cy="96" r="4" fill="#070B18" />
-          <circle cx="100" cy="116" r="7" fill="#070B18" />
+          <circle cx="82" cy="96" r="4" fill="#0F2A3A" />
+          <circle cx="118" cy="96" r="4" fill="#0F2A3A" />
+          <circle cx="100" cy="116" r="7" fill="#0F2A3A" />
         </g>
       );
 
@@ -923,7 +923,7 @@ function renderArtwork(id: string): React.ReactNode {
         <g>
           <path
             d="M116 42 A56 56 0 1 0 156 138 A44 44 0 1 1 116 42 Z"
-            fill="#F5C542"
+            fill="#FFD23F"
             stroke="#FEF08A"
             strokeWidth="3"
           />
@@ -935,9 +935,9 @@ function renderArtwork(id: string): React.ReactNode {
     case 'top_hat':
       return (
         <g>
-          <ellipse cx="100" cy="144" rx="70" ry="16" fill="#1E293B" stroke="#F5C542" strokeWidth="4" />
+          <ellipse cx="100" cy="144" rx="70" ry="16" fill="#1E293B" stroke="#FFD23F" strokeWidth="4" />
           <rect x="58" y="48" width="84" height="96" rx="8" fill="#0F172A" stroke="#475569" strokeWidth="3" />
-          <rect x="58" y="118" width="84" height="18" fill="#F5C542" />
+          <rect x="58" y="118" width="84" height="18" fill="#FFD23F" />
         </g>
       );
 
@@ -949,8 +949,8 @@ function renderArtwork(id: string): React.ReactNode {
           <ellipse cx="72" cy="124" rx="26" ry="22" fill="#F472B6" stroke="#831843" strokeWidth="4" />
           <ellipse cx="128" cy="124" rx="26" ry="22" fill="#F472B6" stroke="#831843" strokeWidth="4" />
           <rect x="94" y="54" width="12" height="92" rx="6" fill="#1E1B4B" />
-          <circle cx="64" cy="78" r="10" fill="#F5C542" />
-          <circle cx="136" cy="78" r="10" fill="#F5C542" />
+          <circle cx="64" cy="78" r="10" fill="#FFD23F" />
+          <circle cx="136" cy="78" r="10" fill="#FFD23F" />
         </g>
       );
 
@@ -978,7 +978,7 @@ function renderArtwork(id: string): React.ReactNode {
             strokeWidth="4"
           />
           <polygon points="92,82 108,52 118,84" fill={id === 'shark' ? '#475569' : '#0284C7'} />
-          <circle cx="138" cy="98" r="5" fill="#070B18" />
+          <circle cx="138" cy="98" r="5" fill="#0F2A3A" />
         </g>
       );
 
@@ -986,7 +986,7 @@ function renderArtwork(id: string): React.ReactNode {
       return (
         <g>
           <path d="M62 165 L76 68 Q86 48 110 62 L152 86 Q162 98 148 112 L110 110 L108 165 Z" fill="#B45309" stroke="#451A03" strokeWidth="4" />
-          <circle cx="112" cy="84" r="6" fill="#070B18" />
+          <circle cx="112" cy="84" r="6" fill="#0F2A3A" />
           <path d="M72 68 Q52 92 58 130" stroke="#451A03" strokeWidth="12" strokeLinecap="round" fill="none" />
         </g>
       );
@@ -999,7 +999,7 @@ function renderArtwork(id: string): React.ReactNode {
           <rect x="136" y="64" width="28" height="102" fill="#EC4899" stroke="#831843" strokeWidth="4" />
           <polygon points="32,64 50,32 68,64" fill="#A855F7" />
           <polygon points="132,64 150,32 168,64" fill="#A855F7" />
-          <polygon points="78,86 100,44 122,86" fill="#F5C542" />
+          <polygon points="78,86 100,44 122,86" fill="#FFD23F" />
           <path d="M84 166 L84 128 A16 16 0 0 1 116 128 L116 166 Z" fill="#4C1D95" />
         </g>
       );
@@ -1045,7 +1045,7 @@ function renderArtwork(id: string): React.ReactNode {
           <circle cx="92" cy="82" r="32" fill="#4ADE80" stroke="#14532D" strokeWidth="4" />
           <circle cx="128" cy="94" r="28" fill="#4ADE80" stroke="#14532D" strokeWidth="4" />
           <circle cx="96" cy="64" r="10" fill="#FFFFFF" />
-          <circle cx="98" cy="64" r="5" fill="#070B18" />
+          <circle cx="98" cy="64" r="5" fill="#0F2A3A" />
           <ellipse cx="86" cy="136" rx="34" ry="26" fill="#FFFFFF" stroke="#22C55E" strokeWidth="6" />
         </g>
       );
@@ -1058,7 +1058,7 @@ function renderArtwork(id: string): React.ReactNode {
           <path d="M62 96 L80 68 L124 68 L142 96 Z" fill="#38BDF8" />
           <circle cx="62" cy="142" r="18" fill="#0F172A" stroke="#CBD5E1" strokeWidth="5" />
           <circle cx="138" cy="142" r="18" fill="#0F172A" stroke="#CBD5E1" strokeWidth="5" />
-          <rect x="92" y="56" width="16" height="12" rx="4" fill="#F5C542" />
+          <rect x="92" y="56" width="16" height="12" rx="4" fill="#FFD23F" />
         </g>
       );
 
@@ -1066,9 +1066,9 @@ function renderArtwork(id: string): React.ReactNode {
       return (
         <g>
           <rect x="24" y="106" width="152" height="58" rx="14" fill="#0284C7" />
-          <ellipse cx="72" cy="76" rx="24" ry="16" fill="#38BDF8" stroke="#F5C542" strokeWidth="5" />
-          <ellipse cx="128" cy="76" rx="24" ry="16" fill="#38BDF8" stroke="#F5C542" strokeWidth="5" />
-          <line x1="96" y1="76" x2="104" y2="76" stroke="#F5C542" strokeWidth="6" />
+          <ellipse cx="72" cy="76" rx="24" ry="16" fill="#38BDF8" stroke="#FFD23F" strokeWidth="5" />
+          <ellipse cx="128" cy="76" rx="24" ry="16" fill="#38BDF8" stroke="#FFD23F" strokeWidth="5" />
+          <line x1="96" y1="76" x2="104" y2="76" stroke="#FFD23F" strokeWidth="6" />
         </g>
       );
 
@@ -1123,7 +1123,7 @@ function renderArtwork(id: string): React.ReactNode {
         <g>
           {/* Colorful balloon */}
           <path d="M52 84 C52 34 148 34 148 84 C148 112 122 132 114 140 L86 140 C78 132 52 112 52 84 Z" fill="#EC4899" stroke="#831843" strokeWidth="4" />
-          <path d="M80 42 C72 80 82 118 92 140 L108 140 C118 118 128 80 120 42 Z" fill="#F5C542" />
+          <path d="M80 42 C72 80 82 118 92 140 L108 140 C118 118 128 80 120 42 Z" fill="#FFD23F" />
           {/* Ropes & Basket */}
           <line x1="88" y1="140" x2="88" y2="156" stroke="#E2E8F0" strokeWidth="3" />
           <line x1="112" y1="140" x2="112" y2="156" stroke="#E2E8F0" strokeWidth="3" />
@@ -1146,9 +1146,9 @@ function renderArtwork(id: string): React.ReactNode {
           />
           <ellipse cx="100" cy="132" rx="52" ry="26" fill="#22C55E" stroke="#14532D" strokeWidth="4" />
           <circle cx="44" cy="120" r="18" fill="#4ADE80" stroke="#14532D" strokeWidth="4" />
-          <circle cx="38" cy="116" r="4" fill="#070B18" />
+          <circle cx="38" cy="116" r="4" fill="#0F2A3A" />
           {/* Tail club for ankylosaurus */}
-          <circle cx="168" cy="128" r="14" fill="#F5C542" stroke="#78350F" strokeWidth="3" />
+          <circle cx="168" cy="128" r="14" fill="#FFD23F" stroke="#78350F" strokeWidth="3" />
         </g>
       );
 
@@ -1158,8 +1158,8 @@ function renderArtwork(id: string): React.ReactNode {
           <polygon points="18,86 92,102 64,132" fill="#38BDF8" stroke="#0C4A6E" strokeWidth="4" />
           <polygon points="182,86 108,102 136,132" fill="#38BDF8" stroke="#0C4A6E" strokeWidth="4" />
           <ellipse cx="100" cy="108" rx="18" ry="28" fill="#0284C7" />
-          <polygon points="100,40 86,86 134,74" fill="#F5C542" stroke="#78350F" strokeWidth="3" />
-          <circle cx="104" cy="74" r="4" fill="#070B18" />
+          <polygon points="100,40 86,86 134,74" fill="#FFD23F" stroke="#78350F" strokeWidth="3" />
+          <circle cx="104" cy="74" r="4" fill="#0F2A3A" />
         </g>
       );
 
@@ -1192,7 +1192,7 @@ function renderArtwork(id: string): React.ReactNode {
         <g>
           <rect x="86" y="48" width="24" height="112" rx="10" fill="#FACC15" stroke="#78350F" strokeWidth="4" />
           <ellipse cx="108" cy="48" rx="24" ry="16" fill="#FDE047" stroke="#78350F" strokeWidth="4" />
-          <circle cx="116" cy="44" r="4" fill="#070B18" />
+          <circle cx="116" cy="44" r="4" fill="#0F2A3A" />
           <circle cx="96" cy="82" r="7" fill="#92400E" />
           <circle cx="100" cy="112" r="8" fill="#92400E" />
           <circle cx="94" cy="140" r="7" fill="#92400E" />
@@ -1205,8 +1205,8 @@ function renderArtwork(id: string): React.ReactNode {
           <circle cx="100" cy="100" r="48" fill="#F8FAFC" stroke="#0F172A" strokeWidth="4" />
           <path d="M64 76 L96 92 M60 98 L92 108 M136 76 L108 92 M140 98 L108 108" stroke="#0F172A" strokeWidth="8" strokeLinecap="round" />
           <ellipse cx="100" cy="126" rx="26" ry="16" fill="#1E293B" />
-          <circle cx="82" cy="84" r="5" fill="#070B18" />
-          <circle cx="118" cy="84" r="5" fill="#070B18" />
+          <circle cx="82" cy="84" r="5" fill="#0F2A3A" />
+          <circle cx="118" cy="84" r="5" fill="#0F2A3A" />
         </g>
       );
 
@@ -1223,9 +1223,9 @@ function renderArtwork(id: string): React.ReactNode {
           <circle cx="144" cy="68" r="20" fill={id === 'panda' ? '#0F172A' : id === 'koala' ? '#94A3B8' : '#92400E'} />
           <circle cx="100" cy="104" r="48" fill={id === 'panda' ? '#FFFFFF' : id === 'koala' ? '#CBD5E1' : '#B45309'} stroke="#451A03" strokeWidth="4" />
           <ellipse cx="100" cy="118" rx="28" ry="18" fill="#FDE68A" />
-          <circle cx="82" cy="92" r="7" fill="#070B18" />
-          <circle cx="118" cy="92" r="7" fill="#070B18" />
-          <ellipse cx="100" cy="112" rx="9" ry="6" fill="#070B18" />
+          <circle cx="82" cy="92" r="7" fill="#0F2A3A" />
+          <circle cx="118" cy="92" r="7" fill="#0F2A3A" />
+          <ellipse cx="100" cy="112" rx="9" ry="6" fill="#0F2A3A" />
         </g>
       );
 
@@ -1234,7 +1234,7 @@ function renderArtwork(id: string): React.ReactNode {
         <g>
           <ellipse cx="100" cy="108" rx="54" ry="40" fill="#15803D" stroke="#052E16" strokeWidth="5" />
           <circle cx="162" cy="104" r="18" fill="#4ADE80" stroke="#14532D" strokeWidth="4" />
-          <circle cx="168" cy="100" r="4" fill="#070B18" />
+          <circle cx="168" cy="100" r="4" fill="#0F2A3A" />
           <ellipse cx="64" cy="148" rx="12" ry="8" fill="#4ADE80" />
           <ellipse cx="136" cy="148" rx="12" ry="8" fill="#4ADE80" />
         </g>
@@ -1245,8 +1245,8 @@ function renderArtwork(id: string): React.ReactNode {
         <g>
           <circle cx="100" cy="82" r="42" fill="#E879F9" stroke="#701A75" strokeWidth="4" />
           <path d="M62 114 Q42 156 64 164 M84 120 Q76 166 92 168 M116 120 Q124 166 108 168 M138 114 Q158 156 136 164" fill="none" stroke="#E879F9" strokeWidth="12" strokeLinecap="round" />
-          <circle cx="86" cy="78" r="6" fill="#070B18" />
-          <circle cx="114" cy="78" r="6" fill="#070B18" />
+          <circle cx="86" cy="78" r="6" fill="#0F2A3A" />
+          <circle cx="114" cy="78" r="6" fill="#0F2A3A" />
         </g>
       );
 
@@ -1255,7 +1255,7 @@ function renderArtwork(id: string): React.ReactNode {
         <g>
           <path d="M28 126 C28 70 118 64 148 104 L176 86 L168 126 Z" fill="#38BDF8" stroke="#0C4A6E" strokeWidth="4" />
           <path d="M76 68 Q64 36 48 44 M76 68 Q88 36 104 44" fill="none" stroke="#BAE6FD" strokeWidth="6" strokeLinecap="round" />
-          <circle cx="62" cy="104" r="5" fill="#070B18" />
+          <circle cx="62" cy="104" r="5" fill="#0F2A3A" />
         </g>
       );
 
@@ -1268,7 +1268,7 @@ function renderArtwork(id: string): React.ReactNode {
           <ellipse cx="100" cy="108" rx="52" ry="38" fill={id === 'bee' ? '#FACC15' : '#EF4444'} stroke="#0F172A" strokeWidth="5" />
           <line x1="84" y1="72" x2="84" y2="144" stroke="#0F172A" strokeWidth="10" />
           <line x1="116" y1="72" x2="116" y2="144" stroke="#0F172A" strokeWidth="10" />
-          <circle cx="64" cy="102" r="5" fill="#070B18" />
+          <circle cx="64" cy="102" r="5" fill="#0F2A3A" />
         </g>
       );
 
@@ -1281,7 +1281,7 @@ function renderArtwork(id: string): React.ReactNode {
           <ellipse cx="100" cy="122" rx="44" ry="32" fill={id === 'flamingo' ? '#F472B6' : id === 'peacock' ? '#06B6D4' : '#FACC15'} stroke="#0F172A" strokeWidth="4" />
           <circle cx="132" cy="76" r="22" fill={id === 'flamingo' ? '#F472B6' : id === 'peacock' ? '#06B6D4' : '#FDE047'} stroke="#0F172A" strokeWidth="4" />
           <polygon points="152,72 176,80 152,88" fill="#F97316" />
-          <circle cx="138" cy="72" r="4" fill="#070B18" />
+          <circle cx="138" cy="72" r="4" fill="#0F2A3A" />
         </g>
       );
 
@@ -1297,8 +1297,8 @@ function renderArtwork(id: string): React.ReactNode {
             </>
           )}
           <circle cx="100" cy="112" r="46" fill={id === 'sheep' ? '#F8FAFC' : '#F472B6'} stroke="#831843" strokeWidth="4" />
-          <circle cx="84" cy="102" r="6" fill="#070B18" />
-          <circle cx="116" cy="102" r="6" fill="#070B18" />
+          <circle cx="84" cy="102" r="6" fill="#0F2A3A" />
+          <circle cx="116" cy="102" r="6" fill="#0F2A3A" />
           <ellipse cx="100" cy="122" rx="16" ry="11" fill="#FB7185" />
         </g>
       );
@@ -1307,7 +1307,7 @@ function renderArtwork(id: string): React.ReactNode {
     case 'amy_pink':
       return (
         <g>
-          <circle cx="100" cy="100" r="74" fill="none" stroke="#F5C542" strokeWidth="4" strokeDasharray="10 6" />
+          <circle cx="100" cy="100" r="74" fill="none" stroke="#FFD23F" strokeWidth="4" strokeDasharray="10 6" />
           <circle cx="104" cy="100" r="44" fill={id === 'shadow_hedgehog' ? '#18181B' : '#F472B6'} stroke="#EF4444" strokeWidth="5" />
           <ellipse cx="114" cy="116" rx="26" ry="16" fill="#FDE68A" />
           <circle cx="114" cy="90" r="7" fill="#EF4444" />
@@ -1325,9 +1325,9 @@ function renderArtwork(id: string): React.ReactNode {
     case 'treasure_chest':
       return (
         <g>
-          <rect x="36" y="76" width="128" height="84" rx="12" fill="#B45309" stroke="#F5C542" strokeWidth="6" />
-          <line x1="36" y1="112" x2="164" y2="112" stroke="#F5C542" strokeWidth="6" />
-          <rect x="88" y="98" width="24" height="28" rx="4" fill="#F5C542" />
+          <rect x="36" y="76" width="128" height="84" rx="12" fill="#B45309" stroke="#FFD23F" strokeWidth="6" />
+          <line x1="36" y1="112" x2="164" y2="112" stroke="#FFD23F" strokeWidth="6" />
+          <rect x="88" y="98" width="24" height="28" rx="4" fill="#FFD23F" />
         </g>
       );
 
@@ -1351,7 +1351,7 @@ function renderArtwork(id: string): React.ReactNode {
       return (
         <g>
           <rect x="42" y="82" width="116" height="58" rx="16" fill={id === 'tractor' ? '#22C55E' : id === 'excavator' ? '#FACC15' : '#38BDF8'} stroke="#0F172A" strokeWidth="4" />
-          <line x1="28" y1="62" x2="172" y2="62" stroke="#F5C542" strokeWidth="6" strokeLinecap="round" />
+          <line x1="28" y1="62" x2="172" y2="62" stroke="#FFD23F" strokeWidth="6" strokeLinecap="round" />
           <circle cx="64" cy="146" r="18" fill="#0F172A" stroke="#E2E8F0" strokeWidth="5" />
           <circle cx="136" cy="146" r="18" fill="#0F172A" stroke="#E2E8F0" strokeWidth="5" />
         </g>
@@ -1363,8 +1363,8 @@ function renderArtwork(id: string): React.ReactNode {
           <circle cx="100" cy="134" r="38" fill="#FFFFFF" stroke="#BAE6FD" strokeWidth="4" />
           <circle cx="100" cy="76" r="28" fill="#FFFFFF" stroke="#BAE6FD" strokeWidth="4" />
           <polygon points="100,76 132,82 100,86" fill="#F97316" />
-          <circle cx="90" cy="68" r="4" fill="#070B18" />
-          <circle cx="110" cy="68" r="4" fill="#070B18" />
+          <circle cx="90" cy="68" r="4" fill="#0F2A3A" />
+          <circle cx="110" cy="68" r="4" fill="#0F2A3A" />
           <rect x="78" y="34" width="44" height="20" fill="#1E293B" />
         </g>
       );
@@ -1375,9 +1375,9 @@ function renderArtwork(id: string): React.ReactNode {
           <rect x="86" y="146" width="28" height="28" fill="#78350F" />
           <polygon points="100,26 42,96 158,96" fill="#22C55E" stroke="#14532D" strokeWidth="4" />
           <polygon points="100,64 32,148 168,148" fill="#16A34A" stroke="#14532D" strokeWidth="4" />
-          <circle cx="100" cy="26" r="10" fill="#F5C542" />
+          <circle cx="100" cy="26" r="10" fill="#FFD23F" />
           <circle cx="82" cy="112" r="7" fill="#EF4444" />
-          <circle cx="122" cy="124" r="7" fill="#F5C542" />
+          <circle cx="122" cy="124" r="7" fill="#FFD23F" />
         </g>
       );
 
@@ -1386,10 +1386,10 @@ function renderArtwork(id: string): React.ReactNode {
       return (
         <g>
           <rect x="46" y="68" width="108" height="96" rx="10" fill="#EF4444" stroke="#7F1D1D" strokeWidth="4" />
-          <rect x="88" y="68" width="24" height="96" fill="#F5C542" />
-          <rect x="46" y="104" width="108" height="22" fill="#F5C542" />
-          <circle cx="88" cy="56" r="14" fill="none" stroke="#F5C542" strokeWidth="7" />
-          <circle cx="112" cy="56" r="14" fill="none" stroke="#F5C542" strokeWidth="7" />
+          <rect x="88" y="68" width="24" height="96" fill="#FFD23F" />
+          <rect x="46" y="104" width="108" height="22" fill="#FFD23F" />
+          <circle cx="88" cy="56" r="14" fill="none" stroke="#FFD23F" strokeWidth="7" />
+          <circle cx="112" cy="56" r="14" fill="none" stroke="#FFD23F" strokeWidth="7" />
         </g>
       );
 
@@ -1404,9 +1404,9 @@ function renderArtwork(id: string): React.ReactNode {
     case 'sunglasses':
       return (
         <g>
-          <rect x="28" y="82" width="62" height="44" rx="14" fill="#0F172A" stroke="#F5C542" strokeWidth="5" />
-          <rect x="110" y="82" width="62" height="44" rx="14" fill="#0F172A" stroke="#F5C542" strokeWidth="5" />
-          <line x1="90" y1="96" x2="110" y2="96" stroke="#F5C542" strokeWidth="6" />
+          <rect x="28" y="82" width="62" height="44" rx="14" fill="#0F172A" stroke="#FFD23F" strokeWidth="5" />
+          <rect x="110" y="82" width="62" height="44" rx="14" fill="#0F172A" stroke="#FFD23F" strokeWidth="5" />
+          <line x1="90" y1="96" x2="110" y2="96" stroke="#FFD23F" strokeWidth="6" />
         </g>
       );
 
@@ -1416,9 +1416,9 @@ function renderArtwork(id: string): React.ReactNode {
       return (
         <g>
           <path d="M32 86 A68 68 0 0 0 168 86 Z" fill={id === 'cheese' ? '#FACC15' : '#F43F5E'} stroke="#16A34A" strokeWidth="10" />
-          <circle cx="80" cy="110" r="4" fill="#070B18" />
-          <circle cx="100" cy="122" r="4" fill="#070B18" />
-          <circle cx="120" cy="110" r="4" fill="#070B18" />
+          <circle cx="80" cy="110" r="4" fill="#0F2A3A" />
+          <circle cx="100" cy="122" r="4" fill="#0F2A3A" />
+          <circle cx="120" cy="110" r="4" fill="#0F2A3A" />
         </g>
       );
 
@@ -1427,7 +1427,7 @@ function renderArtwork(id: string): React.ReactNode {
         <g>
           <polygon
             points="100,26 120,72 170,76 132,110 144,160 100,134 56,160 68,110 30,76 80,72"
-            fill="#F5C542"
+            fill="#FFD23F"
             stroke="#FFFFFF"
             strokeWidth="4"
           />
@@ -1526,8 +1526,8 @@ export const IllustrationView: React.FC<IllustrationViewProps> = ({
       />
       {/* Subtle decorative stars in corners for Zoom-in detail */}
       <circle cx="26" cy="28" r="2.5" fill="rgba(255,255,255,0.35)" />
-      <circle cx="174" cy="30" r="3" fill="rgba(245,197,66,0.4)" />
-      <circle cx="28" cy="172" r="2.5" fill="rgba(245,197,66,0.35)" />
+      <circle cx="174" cy="30" r="3" fill="rgba(255, 210, 63,0.4)" />
+      <circle cx="28" cy="172" r="2.5" fill="rgba(255, 210, 63,0.35)" />
       <circle cx="172" cy="170" r="2.5" fill="rgba(255,255,255,0.35)" />
       {renderArtwork(key)}
     </svg>

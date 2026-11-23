@@ -1,24 +1,25 @@
-@import '@fontsource/fredoka/600.css';
-@import '@fontsource/fredoka/700.css';
-@import '@fontsource/nunito/400.css';
-@import '@fontsource/nunito/600.css';
-@import '@fontsource/nunito/700.css';
-@import '@fontsource/nunito/800.css';
+@import '@fontsource/sora/600.css';
+@import '@fontsource/sora/700.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/inter/800.css';
+@import './themes.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --studio-bg: #070B18;
-  --studio-card: #111936;
-  --studio-gold: #F5C542;
+
+html {
+  font-size: 106.25%;
 }
 
 body {
-  background-color: #070B18;
+  background-color: rgb(var(--studio-bg-rgb));
   color: #FFFFFF;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
   -webkit-tap-highlight-color: transparent;
@@ -42,7 +43,7 @@ textarea {
 .tv-focusable:hover {
   outline: none;
   border-color: #FFFFFF !important;
-  box-shadow: 0 0 0 4px rgba(245, 197, 66, 0.95), 0 0 36px rgba(245, 197, 66, 0.55);
+  box-shadow: 0 0 0 5px rgb(var(--studio-gold-rgb));
   transform: scale(1.04);
 }
 
@@ -52,17 +53,13 @@ textarea {
 }
 
 h1, h2, h3, h4, .font-display {
-  font-family: 'Fredoka', sans-serif;
+  font-family: 'Sora', sans-serif;
 }
 
-/* OLED Studio Spotlights Background (with generated 3D TV studio stage backdrop) */
+/* Kleurvlakken-achtergrond: vlak inktblauw met een paar confetti-vormen aan de randen */
 .studio-stage-bg {
-  background-color: #070B18;
-  background-image:
-    radial-gradient(circle at 50% 42%, rgba(7, 11, 24, 0.56) 0%, rgba(7, 11, 24, 0.88) 78%),
-    radial-gradient(circle at 18% 15%, rgba(168, 85, 247, 0.14) 0%, transparent 45%),
-    radial-gradient(circle at 82% 18%, rgba(59, 130, 246, 0.14) 0%, transparent 45%),
-    url('/art/stage-backdrop.jpg');
+  background-color: rgb(var(--studio-bg-rgb));
+  background-image: var(--studio-deco);
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -95,17 +92,41 @@ h1, h2, h3, h4, .font-display {
   justify-content: space-between;
 }
 
-/* Studio Gold Card Border & Glow */
+/* Vlakke kaarten (geen verloop, geen neon) */
 .studio-panel {
-  background: linear-gradient(180deg, rgba(23, 33, 71, 0.94) 0%, rgba(17, 25, 54, 0.96) 100%);
-  border: 2px solid rgba(245, 197, 66, 0.28);
-  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.75);
+  background: rgb(var(--studio-card-rgb));
+  border: 2px solid rgb(var(--studio-card-light-rgb));
+  border-radius: 1.25rem;
 }
 
 .studio-panel-gold {
-  background: linear-gradient(180deg, rgba(28, 39, 82, 0.96) 0%, rgba(17, 25, 54, 0.98) 100%);
-  border: 2px solid #F5C542;
-  box-shadow: 0 0 28px rgba(245, 197, 66, 0.22), 0 12px 32px -8px rgba(0, 0, 0, 0.8);
+  background: rgb(var(--studio-card-rgb));
+  border: 3px solid rgb(var(--studio-gold-rgb));
+  border-radius: 1.25rem;
+}
+
+/* Grote klok: vlak, gouden ring, altijd goed leesbaar */
+.studio-clock {
+  width: 9rem;
+  height: 9rem;
+  border-radius: 9999px;
+  border: 6px solid rgb(var(--studio-gold-rgb));
+  background: rgb(var(--studio-card-rgb));
+  color: #FDF6E9;
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 4.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.studio-clock-urgent {
+  border-color: rgb(var(--studio-ans1-rgb));
+  background: rgb(var(--studio-ans1-rgb));
+  color: rgb(var(--studio-bg-rgb));
+  animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* Equalizer bars for Sound Challenge */

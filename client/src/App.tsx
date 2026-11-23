@@ -76,7 +76,7 @@ export const App: React.FC = () => {
   return (
     <div className="min-h-screen w-full studio-stage-bg flex flex-col items-center justify-center p-6 text-center select-none">
       <div className="studio-panel-gold rounded-3xl p-8 md:p-12 max-w-5xl w-full flex flex-col items-center gap-8">
-        <div className="w-28 h-28 rounded-3xl overflow-hidden border-2 border-[#F5C542] shadow-[0_0_35px_rgba(245,197,66,0.5)]">
+        <div className="w-28 h-28 rounded-3xl overflow-hidden border-2 border-studio-gold">
           <img
             src="/art/show-trophy.jpg"
             alt="De Grote Familie Bongers Show Trofee"
@@ -84,7 +84,7 @@ export const App: React.FC = () => {
           />
         </div>
 
-        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#1B2752] border border-[#F5C542]/50 text-[#F5C542] font-display text-lg">
+        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-studio-cardLight border border-studio-gold/50 text-studio-gold font-display text-lg">
           <Sparkles className="w-5 h-5" /> Zaterdagavond Familie Spelshow
         </div>
 
@@ -107,16 +107,16 @@ export const App: React.FC = () => {
             onMouseEnter={() => setFocusedIdx(0)}
             onFocus={() => setFocusedIdx(0)}
             onClick={() => navigate('/tv')}
-            className="tv-focusable p-7 rounded-3xl bg-gradient-to-b from-[#1B2752] to-[#111936] border-2 border-[#F5C542] flex flex-col items-center gap-4 shadow-xl"
+            className="tv-focusable p-7 rounded-3xl bg-studio-cardLight border-2 border-studio-gold flex flex-col items-center gap-4 shadow-xl"
           >
-            <div className="w-20 h-20 rounded-2xl bg-[#F5C542]/20 border border-[#F5C542] flex items-center justify-center text-[#F5C542]">
+            <div className="w-20 h-20 rounded-2xl bg-studio-gold/20 border border-studio-gold flex items-center justify-center text-studio-gold">
               <Tv className="w-10 h-10" />
             </div>
             <div>
               <div className="font-display text-2xl text-white">
                 TV-Showpodium
               </div>
-              <div className="text-sm text-[#F5C542] font-bold mt-0.5">
+              <div className="text-sm text-studio-gold font-bold mt-0.5">
                 /tv (65&quot; LG OLED)
               </div>
               <p className="text-sm text-slate-300 mt-2">
@@ -132,7 +132,7 @@ export const App: React.FC = () => {
             onMouseEnter={() => setFocusedIdx(1)}
             onFocus={() => setFocusedIdx(1)}
             onClick={() => navigate('/play')}
-            className="tv-focusable p-7 rounded-3xl bg-gradient-to-b from-emerald-800 to-emerald-950 border-2 border-[#22C55E] flex flex-col items-center gap-4 shadow-xl"
+            className="tv-focusable p-7 rounded-3xl bg-emerald-800 border-2 border-[#22C55E] flex flex-col items-center gap-4 shadow-xl"
           >
             <div className="w-20 h-20 rounded-2xl bg-[#22C55E]/20 border border-[#22C55E] flex items-center justify-center text-[#4ADE80]">
               <Smartphone className="w-10 h-10" />
@@ -157,7 +157,7 @@ export const App: React.FC = () => {
             onMouseEnter={() => setFocusedIdx(2)}
             onFocus={() => setFocusedIdx(2)}
             onClick={() => navigate('/admin')}
-            className="tv-focusable p-7 rounded-3xl bg-gradient-to-b from-purple-900 to-[#111936] border-2 border-[#A855F7] flex flex-col items-center gap-4 shadow-xl"
+            className="tv-focusable p-7 rounded-3xl bg-purple-900 border-2 border-[#A855F7] flex flex-col items-center gap-4 shadow-xl"
           >
             <div className="w-20 h-20 rounded-2xl bg-[#A855F7]/20 border border-[#A855F7] flex items-center justify-center text-purple-300">
               <Settings className="w-10 h-10" />
@@ -176,11 +176,11 @@ export const App: React.FC = () => {
           </button>
         </div>
 
-        <div className="px-5 py-2.5 rounded-2xl bg-[#070B18]/80 border border-white/15 text-base text-slate-300">
-          🪄 <span className="text-[#F5C542] font-bold">LG Magic Remote:</span>{' '}
-          wijs met de cursor of gebruik <kbd className="px-2 py-0.5 rounded bg-[#1B2752] text-white font-bold">◀</kbd>{' '}
-          <kbd className="px-2 py-0.5 rounded bg-[#1B2752] text-white font-bold">▶</kbd> +{' '}
-          <kbd className="px-2 py-0.5 rounded bg-[#F5C542] text-[#070B18] font-bold">OK</kbd>{' '}
+        <div className="px-5 py-2.5 rounded-2xl bg-studio-bg/80 border border-white/15 text-base text-slate-300">
+          🪄 <span className="text-studio-gold font-bold">LG Magic Remote:</span>{' '}
+          wijs met de cursor of gebruik <kbd className="px-2 py-0.5 rounded bg-studio-cardLight text-white font-bold">◀</kbd>{' '}
+          <kbd className="px-2 py-0.5 rounded bg-studio-cardLight text-white font-bold">▶</kbd> +{' '}
+          <kbd className="px-2 py-0.5 rounded bg-studio-gold text-studio-bg font-bold">OK</kbd>{' '}
           om direct te kiezen.
         </div>
       </div>

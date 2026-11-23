@@ -8,11 +8,15 @@ export default {
     extend: {
       colors: {
         studio: {
-          bg: '#070B18',
-          card: '#111936',
-          cardLight: '#1B2752',
-          gold: '#F5C542',
-          goldLight: '#FDE08D',
+          bg: 'rgb(var(--studio-bg-rgb) / <alpha-value>)',
+          card: 'rgb(var(--studio-card-rgb) / <alpha-value>)',
+          cardLight: 'rgb(var(--studio-card-light-rgb) / <alpha-value>)',
+          gold: 'rgb(var(--studio-gold-rgb) / <alpha-value>)',
+          goldLight: '#FFE88A',
+          ans1: 'rgb(var(--studio-ans1-rgb) / <alpha-value>)',
+          ans2: 'rgb(var(--studio-ans2-rgb) / <alpha-value>)',
+          ans3: 'rgb(var(--studio-ans3-rgb) / <alpha-value>)',
+          ans4: 'rgb(var(--studio-ans4-rgb) / <alpha-value>)',
           emerald: '#22C55E',
           purple: '#A855F7',
           blue: '#3B82F6',
@@ -22,8 +26,8 @@ export default {
         }
       },
       fontFamily: {
-        display: ['Fredoka', 'sans-serif'],
-        sans: ['Nunito', 'sans-serif'],
+        display: ['Sora', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
