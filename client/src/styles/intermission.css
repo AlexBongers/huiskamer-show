@@ -1,0 +1,647 @@
+/* ==========================================================================
+   Tussendoortjes: korte animaties van 3 seconden tussen de rondes.
+   Maten in --u (1/100 van de hoogte van een 16:9-vlak in het podium, zie
+   IntermissionStage.tsx). Alleen transform en opacity bewegen, zodat het ook op
+   de LG-TV soepel loopt.
+   ========================================================================== */
+
+.im-stage {
+  --u: 1vmin;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  color: #FDF6E9;
+}
+.im-stage *,
+.im-stage *::before,
+.im-stage *::after {
+  box-sizing: border-box;
+}
+
+/* Achtergrond: een paar grote, vlakke vormen in de accentkleur */
+.im-blob {
+  position: absolute;
+  width: var(--bs);
+  height: var(--bs);
+  border-radius: 50%;
+  background: var(--im-accent);
+  opacity: 0;
+  animation: im-blob 3s ease-out both;
+}
+.im-blob-small {
+  border-radius: 30%;
+}
+@keyframes im-blob {
+  0% { opacity: 0; transform: scale(0.6); }
+  25% { opacity: 0.16; }
+  100% { opacity: 0.12; transform: scale(1.12) rotate(20deg); }
+}
+
+/* Tekst in beeld */
+.im-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 6%;
+  padding: 0 4%;
+  text-align: center;
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: calc(var(--u) * 8.5);
+  line-height: 1.1;
+  color: #FDF6E9;
+  text-shadow: 0 calc(var(--u) * 0.7) 0 rgba(0, 0, 0, 0.28);
+  animation: im-caption 3s ease-out both;
+  z-index: 5;
+}
+@keyframes im-caption {
+  0% { opacity: 0; transform: translateY(-40%) scale(0.7); }
+  12% { opacity: 1; transform: translateY(0) scale(1.08); }
+  20% { transform: scale(1); }
+  86% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.96); }
+}
+
+/* Sticker: een illustratie met een witte rand */
+.im-sticker {
+  width: var(--s);
+  height: var(--s);
+  border-radius: 22%;
+  overflow: hidden;
+  border: calc(var(--u) * 0.7) solid #FDF6E9;
+  background: #FDF6E9;
+  box-shadow: 0 calc(var(--u) * 1) 0 rgba(0, 0, 0, 0.25);
+}
+.im-sticker > * {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* --------------------------------------------------------------- gedeeld */
+.im-track { position: absolute; left: 0; width: 100%; }
+.im-center { position: absolute; left: 50%; top: 57%; transform: translate(-50%, -50%); z-index: 2; }
+.im-hero-bottom { position: absolute; left: 50%; bottom: 7%; transform: translateX(-50%); z-index: 2; }
+
+.im-popin { animation: im-popin 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) var(--d, 0.05s) both; }
+@keyframes im-popin {
+  from { transform: scale(0) rotate(-12deg); opacity: 0; }
+  to { transform: scale(1) rotate(0); opacity: 1; }
+}
+.im-hop { display: inline-block; transform-origin: 50% 100%; animation: im-hop 0.42s ease-in-out var(--hd, 0s) infinite alternate; }
+@keyframes im-hop {
+  from { transform: translateY(0) rotate(-5deg); }
+  to { transform: translateY(-20%) rotate(5deg); }
+}
+.im-bob { animation: im-bob 0.6s ease-in-out 0.5s infinite alternate; }
+@keyframes im-bob {
+  from { transform: translateY(0); }
+  to { transform: translateY(-8%); }
+}
+.im-jump { animation: im-jump 0.45s cubic-bezier(0.3, 0, 0.6, 1) 0.5s infinite alternate; }
+@keyframes im-jump {
+  from { transform: translateY(0) scale(1.04, 0.96); }
+  to { transform: translateY(-22%) scale(0.98, 1.03); }
+}
+.im-pulse { animation: im-pulse 0.55s ease-in-out 0.5s infinite alternate; }
+@keyframes im-pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.08) rotate(3deg); }
+}
+@keyframes im-spin { to { transform: rotate(360deg); } }
+@keyframes im-spin-rev { to { transform: rotate(-360deg); } }
+
+/* Sterretjes */
+.im-twinkle {
+  position: absolute;
+  width: var(--sz);
+  height: var(--sz);
+  border-radius: 50%;
+  background: #FDF6E9;
+  animation: im-twinkle 0.7s ease-in-out var(--d) infinite alternate;
+}
+@keyframes im-twinkle {
+  from { opacity: 0.15; transform: scale(0.6); }
+  to { opacity: 0.95; transform: scale(1.3); }
+}
+
+/* Wolken */
+.im-cloud-track-v { position: absolute; top: 0; height: 100%; animation: im-cloud-v var(--dur) linear var(--d) both; }
+@keyframes im-cloud-v {
+  from { transform: translate3d(0, -25%, 0); }
+  to { transform: translate3d(0, 110%, 0); }
+}
+.im-cloud-track-h { position: absolute; left: 0; width: 100%; animation: im-cloud-h var(--dur) linear var(--d) both; }
+@keyframes im-cloud-h {
+  from { transform: translate3d(110%, 0, 0); }
+  to { transform: translate3d(-25%, 0, 0); }
+}
+.im-cloud {
+  position: relative;
+  width: var(--cs);
+  height: calc(var(--cs) * 0.42);
+  background: #FDF6E9;
+  opacity: 0.85;
+  border-radius: 999px;
+}
+.im-cloud::before,
+.im-cloud::after {
+  content: '';
+  position: absolute;
+  background: #FDF6E9;
+  border-radius: 50%;
+}
+.im-cloud::before { width: 46%; height: 110%; left: 16%; top: -55%; }
+.im-cloud::after { width: 36%; height: 85%; right: 14%; top: -38%; }
+
+/* Muzieknoten */
+.im-note {
+  position: absolute;
+  bottom: 26%;
+  font-size: calc(var(--u) * 7);
+  font-weight: 700;
+  color: var(--im-accent);
+  opacity: 0;
+  animation: im-note 1.5s ease-out var(--d) both;
+  z-index: 3;
+}
+@keyframes im-note {
+  0% { opacity: 0; transform: translateY(0) rotate(0) scale(0.6); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(calc(var(--u) * -42)) rotate(var(--r)) scale(1.1); }
+}
+
+/* Confetti uit één punt */
+.im-burst-origin { position: absolute; left: 50%; width: 0; height: 0; z-index: 1; }
+.im-confetti-arm { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+.im-confetti {
+  position: absolute;
+  left: calc(var(--u) * -1);
+  top: calc(var(--u) * -1.6);
+  width: calc(var(--u) * 2);
+  height: calc(var(--u) * 3.2);
+  border-radius: calc(var(--u) * 0.5);
+  opacity: 0;
+  animation: im-confetti 0.9s cubic-bezier(0.2, 0.7, 0.4, 1) var(--d) both;
+}
+@keyframes im-confetti {
+  0% { opacity: 0; transform: translateY(0) rotate(0) scale(0.4); }
+  6% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(calc(var(--dist) * -1)) rotate(260deg) scale(1); }
+}
+
+/* Snelheidsstrepen */
+.im-speed-track { position: absolute; left: 0; width: 100%; animation: im-speed 0.5s linear var(--d) infinite; }
+@keyframes im-speed {
+  from { transform: translate3d(110%, 0, 0); }
+  to { transform: translate3d(-30%, 0, 0); }
+}
+.im-speed { width: calc(var(--u) * 16); height: calc(var(--u) * 0.8); border-radius: 999px; opacity: 0.45; }
+
+/* --------------------------------------------------------------- parade */
+.im-ground {
+  position: absolute;
+  left: -5%;
+  right: -5%;
+  bottom: 6%;
+  height: 7%;
+  border-radius: 999px;
+  background: var(--im-accent);
+  opacity: 0.3;
+}
+.im-parade { bottom: 12%; animation: im-parade 2.15s linear var(--d) both; z-index: 2; }
+@keyframes im-parade {
+  from { transform: translate3d(-24%, 0, 0); }
+  to { transform: translate3d(112%, 0, 0); }
+}
+
+/* --------------------------------------------------------------- lancering */
+.im-vtrack {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  left: 50%;
+  width: calc(var(--u) * 24);
+  margin-left: calc(var(--u) * -12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+.im-launch { animation: im-launch 2.75s cubic-bezier(0.45, 0, 0.55, 1) 0.1s both; }
+@keyframes im-launch {
+  0% { transform: translate3d(0, 100%, 0); }
+  35% { transform: translate3d(0, 34%, 0); }
+  58% { transform: translate3d(0, 30%, 0); }
+  100% { transform: translate3d(0, -125%, 0); }
+}
+.im-wobble { animation: im-wobble 0.45s ease-in-out infinite alternate; }
+@keyframes im-wobble {
+  from { transform: rotate(-6deg); }
+  to { transform: rotate(6deg); }
+}
+.im-flame {
+  width: calc(var(--u) * 9);
+  height: calc(var(--u) * 13);
+  margin-top: calc(var(--u) * -1);
+  border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
+  transform-origin: 50% 0;
+  animation: im-flicker 0.1s ease-in-out infinite alternate;
+}
+@keyframes im-flicker {
+  from { transform: scaleY(0.7); opacity: 0.7; }
+  to { transform: scaleY(1.15); opacity: 1; }
+}
+.im-puff {
+  position: absolute;
+  bottom: 2%;
+  width: calc(var(--u) * 10);
+  height: calc(var(--u) * 10);
+  margin-left: calc(var(--u) * -5);
+  border-radius: 50%;
+  background: #FDF6E9;
+  opacity: 0;
+  animation: im-puff 1.2s ease-out var(--d) both;
+}
+@keyframes im-puff {
+  0% { opacity: 0; transform: scale(0.3); }
+  20% { opacity: 0.55; }
+  100% { opacity: 0; transform: scale(2.2) translateY(-20%); }
+}
+
+/* --------------------------------------------------------------- wegflitsen */
+.im-zoom { top: 45%; animation: im-zoom 2.05s cubic-bezier(0.55, 0.05, 0.35, 1) 0.3s both; z-index: 2; }
+@keyframes im-zoom {
+  from { transform: translate3d(-25%, 0, 0); }
+  to { transform: translate3d(120%, 0, 0); }
+}
+.im-run { display: inline-block; animation: im-run 0.2s ease-in-out infinite alternate; }
+@keyframes im-run {
+  from { transform: translateY(0) rotate(6deg); }
+  to { transform: translateY(-9%) rotate(11deg); }
+}
+.im-roll { display: inline-block; animation: im-spin 0.45s linear infinite; }
+.im-collect { position: absolute; top: 50%; margin-left: calc(var(--u) * -4.5); animation: im-collect 0.45s ease-out var(--pop) both; z-index: 1; }
+@keyframes im-collect {
+  0% { opacity: 1; transform: scale(1) translateY(0); }
+  45% { opacity: 1; transform: scale(1.5) translateY(-35%); }
+  100% { opacity: 0; transform: scale(0.3) translateY(-130%); }
+}
+.im-coin { animation: im-coin 0.45s ease-in-out infinite alternate; }
+@keyframes im-coin {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0.4); }
+}
+
+/* --------------------------------------------------------------- regen */
+.im-fall-track {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  margin-left: calc(var(--u) * -4);
+  animation: im-fall var(--dur) cubic-bezier(0.45, 0, 0.75, 1) var(--d) both;
+  z-index: 1;
+}
+@keyframes im-fall {
+  from { transform: translate3d(0, -18%, 0); }
+  to { transform: translate3d(0, 108%, 0); }
+}
+.im-fall-spin { animation: im-fall-spin var(--dur) linear var(--d) both; }
+@keyframes im-fall-spin {
+  from { transform: rotate(0); }
+  to { transform: rotate(var(--r)); }
+}
+.im-snow { width: var(--sz); height: var(--sz); border-radius: 50%; background: #FDF6E9; }
+.im-leaf { width: var(--sz); height: calc(var(--sz) * 0.62); border-radius: 0 85% 0 85%; }
+
+/* --------------------------------------------------------------- baan */
+.im-ring { position: absolute; left: 50%; top: 57%; width: 0; height: 0; animation: im-spin 3s linear both; z-index: 1; }
+.im-sat { position: absolute; left: calc(var(--u) * -7); top: calc(var(--u) * -7); }
+.im-sat-counter { animation: im-spin-rev 3s linear both; }
+
+/* --------------------------------------------------------------- raster */
+.im-grid {
+  position: absolute;
+  left: 50%;
+  top: 59%;
+  transform: translate(-50%, -50%);
+  width: calc(var(--u) * 76);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: calc(var(--u) * 3);
+}
+.im-wiggle { animation: im-wiggle 0.32s ease-in-out var(--w) 3 alternate; }
+@keyframes im-wiggle {
+  from { transform: rotate(-7deg) scale(1); }
+  to { transform: rotate(7deg) scale(1.06); }
+}
+
+/* --------------------------------------------------------------- podium met spots */
+.im-beam {
+  position: absolute;
+  top: -8%;
+  width: calc(var(--u) * 44);
+  height: 118%;
+  opacity: 0.2;
+  clip-path: polygon(44% 0, 56% 0, 100% 100%, 0 100%);
+  transform-origin: 50% 0;
+}
+.im-beam-l { left: 12%; animation: im-sweep-l 1.4s ease-in-out infinite alternate; }
+.im-beam-r { right: 12%; animation: im-sweep-r 1.4s ease-in-out infinite alternate; }
+@keyframes im-sweep-l {
+  from { transform: rotate(-28deg); }
+  to { transform: rotate(14deg); }
+}
+@keyframes im-sweep-r {
+  from { transform: rotate(28deg); }
+  to { transform: rotate(-14deg); }
+}
+.im-floor {
+  position: absolute;
+  left: 50%;
+  bottom: 7%;
+  width: calc(var(--u) * 60);
+  height: calc(var(--u) * 9);
+  margin-left: calc(var(--u) * -30);
+  border-radius: 50%;
+  opacity: 0.35;
+}
+.im-rise {
+  position: absolute;
+  left: 50%;
+  bottom: 11%;
+  margin-left: calc(var(--u) * -14);
+  animation: im-rise 0.6s cubic-bezier(0.3, 1.4, 0.5, 1) 0.1s both;
+  z-index: 2;
+}
+@keyframes im-rise {
+  from { transform: translateY(60%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.im-beat { animation: im-beat 0.3s ease-in-out 0.7s infinite alternate; }
+@keyframes im-beat {
+  from { transform: scale(1) rotate(-4deg); }
+  to { transform: scale(1.08) rotate(4deg); }
+}
+
+/* --------------------------------------------------------------- opgooien */
+.im-shadow {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  width: calc(var(--u) * 26);
+  height: calc(var(--u) * 4);
+  margin-left: calc(var(--u) * -13);
+  border-radius: 50%;
+  background: #000000;
+  opacity: 0.25;
+  animation: im-shadow 2.6s cubic-bezier(0.35, 0, 0.65, 1) 0.2s both;
+}
+@keyframes im-shadow {
+  0%, 10% { transform: scale(1); opacity: 0.25; }
+  45% { transform: scale(0.45); opacity: 0.1; }
+  80%, 100% { transform: scale(1); opacity: 0.25; }
+}
+.im-toss {
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  margin-left: calc(var(--u) * -13);
+  animation: im-toss 2.6s cubic-bezier(0.35, 0, 0.65, 1) 0.2s both;
+  z-index: 2;
+}
+@keyframes im-toss {
+  0% { transform: translateY(0) scale(1.1, 0.85); }
+  10% { transform: translateY(0) scale(0.95, 1.08); }
+  45% { transform: translateY(calc(var(--u) * -44)) scale(1); }
+  80% { transform: translateY(0) scale(1.12, 0.86); }
+  88% { transform: translateY(calc(var(--u) * -6)) scale(0.98, 1.04); }
+  100% { transform: translateY(0) scale(1); }
+}
+.im-toss-spin { animation: im-toss-spin 2.6s cubic-bezier(0.35, 0, 0.65, 1) 0.2s both; }
+@keyframes im-toss-spin {
+  0%, 10% { transform: rotate(0); }
+  80%, 100% { transform: rotate(720deg); }
+}
+
+/* --------------------------------------------------------------- regenboog */
+.im-rainbow {
+  position: absolute;
+  left: 50%;
+  bottom: 6%;
+  width: calc(var(--u) * 120);
+  height: calc(var(--u) * 60);
+  margin-left: calc(var(--u) * -60);
+  overflow: visible;
+}
+.im-draw { animation: im-draw 0.9s ease-out both; }
+@keyframes im-draw { to { stroke-dashoffset: 0; } }
+.im-arc-pivot { position: absolute; left: 50%; bottom: 6%; width: 0; height: 0; animation: im-arc 2.1s ease-in-out 0.6s both; z-index: 2; }
+@keyframes im-arc {
+  from { transform: rotate(-78deg); }
+  to { transform: rotate(78deg); }
+}
+.im-arc-rider { position: absolute; left: calc(var(--u) * -10); top: calc(var(--u) * -74); }
+
+/* --------------------------------------------------------------- golven */
+.im-waves { position: absolute; left: 0; width: 200%; height: 22%; }
+.im-waves-back { bottom: 7%; opacity: 0.55; animation: im-waves 2.4s linear infinite; }
+.im-waves-front { bottom: -2%; animation: im-waves 1.8s linear infinite reverse; z-index: 3; }
+@keyframes im-waves {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+.im-sail { bottom: 15%; animation: im-sail 3s ease-in-out both; z-index: 2; }
+@keyframes im-sail {
+  from { transform: translate3d(8%, 0, 0); }
+  to { transform: translate3d(52%, 0, 0); }
+}
+.im-bob-boat { display: inline-block; transform-origin: 50% 90%; animation: im-bob-boat 0.7s ease-in-out infinite alternate; }
+@keyframes im-bob-boat {
+  from { transform: rotate(-6deg) translateY(0); }
+  to { transform: rotate(6deg) translateY(-6%); }
+}
+.im-jump-pivot { position: absolute; left: 72%; bottom: 14%; width: 0; height: 0; animation: im-arc-jump 1.3s ease-in-out 0.8s both; z-index: 1; }
+@keyframes im-arc-jump {
+  from { transform: rotate(-70deg); }
+  to { transform: rotate(70deg); }
+}
+.im-jump-rider { position: absolute; left: calc(var(--u) * -7.5); top: calc(var(--u) * -40); opacity: 0; animation: im-jump-show 1.3s linear 0.8s both; }
+@keyframes im-jump-show {
+  0% { opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* --------------------------------------------------------------- ballonnen */
+.im-balloon-track { position: absolute; top: 0; height: 100%; width: calc(var(--u) * 12); animation: im-balloon var(--dur) ease-in var(--d) both; }
+@keyframes im-balloon {
+  from { transform: translate3d(0, 100%, 0); }
+  to { transform: translate3d(0, -70%, 0); }
+}
+.im-sway { display: flex; flex-direction: column; align-items: center; animation: im-sway 0.8s ease-in-out var(--sd) infinite alternate; }
+@keyframes im-sway {
+  from { transform: translateX(-12%) rotate(-5deg); }
+  to { transform: translateX(12%) rotate(5deg); }
+}
+.im-balloon {
+  position: relative;
+  width: calc(var(--u) * 12);
+  height: calc(var(--u) * 15);
+  border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.im-balloon::after {
+  content: '';
+  position: absolute;
+  bottom: calc(var(--u) * -1.2);
+  left: 50%;
+  margin-left: calc(var(--u) * -1);
+  border-left: calc(var(--u) * 1) solid transparent;
+  border-right: calc(var(--u) * 1) solid transparent;
+  border-bottom: calc(var(--u) * 1.6) solid #FDF6E9;
+}
+.im-balloon-ill .im-sticker { border-width: calc(var(--u) * 0.4); }
+.im-string { width: calc(var(--u) * 0.3); height: calc(var(--u) * 16); background: #FDF6E9; opacity: 0.7; }
+
+/* --------------------------------------------------------------- duo */
+.im-duo-l,
+.im-duo-r { bottom: 16%; height: calc(var(--u) * 26); z-index: 2; }
+.im-duo-l { animation: im-duo-l 0.9s cubic-bezier(0.3, 1.25, 0.5, 1) 0.1s both; }
+.im-duo-r { animation: im-duo-r 0.9s cubic-bezier(0.3, 1.25, 0.5, 1) 0.1s both; }
+.im-duo-l .im-duo-jump { position: absolute; top: 0; left: calc(50% - var(--u) * 29); }
+.im-duo-r .im-duo-jump { position: absolute; top: 0; left: calc(50% + var(--u) * 3); }
+@keyframes im-duo-l {
+  from { transform: translate3d(-70%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+@keyframes im-duo-r {
+  from { transform: translate3d(70%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+.im-duo-jump { animation: im-duo-jump 0.35s ease-in-out 1.05s 4 alternate; }
+@keyframes im-duo-jump {
+  from { transform: translateY(0) rotate(0); }
+  to { transform: translateY(-18%) rotate(4deg); }
+}
+.im-duo-pop {
+  position: absolute;
+  left: 50%;
+  bottom: 46%;
+  margin-left: calc(var(--u) * -7.5);
+  animation: im-pop-big 0.55s cubic-bezier(0.3, 1.6, 0.5, 1) 1.2s both;
+  z-index: 3;
+}
+@keyframes im-pop-big {
+  from { transform: scale(0) rotate(-30deg); opacity: 0; }
+  to { transform: scale(1) rotate(0); opacity: 1; }
+}
+.im-heart {
+  position: relative;
+  width: calc(var(--u) * 10);
+  height: calc(var(--u) * 10);
+  margin: calc(var(--u) * 3);
+  transform: rotate(-45deg);
+  background: var(--im-accent);
+}
+.im-heart::before,
+.im-heart::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--im-accent);
+}
+.im-heart::before { top: -50%; left: 0; }
+.im-heart::after { left: 50%; top: 0; }
+
+/* --------------------------------------------------------------- explosie */
+.im-rays { position: absolute; left: 50%; top: 57%; width: 0; height: 0; animation: im-rays 3s linear both; }
+@keyframes im-rays { to { transform: rotate(90deg); } }
+.im-ray { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+.im-ray-bar {
+  position: absolute;
+  left: calc(var(--u) * -1.6);
+  bottom: 0;
+  width: calc(var(--u) * 3.2);
+  height: calc(var(--u) * 58);
+  border-radius: calc(var(--u) * 2);
+  opacity: 0.3;
+  transform-origin: 50% 100%;
+  animation: im-ray 0.6s ease-out var(--d) both;
+}
+@keyframes im-ray {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+.im-reveal {
+  position: absolute;
+  left: 50%;
+  top: 57%;
+  margin: calc(var(--u) * -9) 0 0 calc(var(--u) * -9);
+  opacity: 0;
+  animation: im-reveal 0.9s cubic-bezier(0.3, 1.4, 0.5, 1) 1.15s both;
+  z-index: 1;
+}
+@keyframes im-reveal {
+  from { transform: translate(0, 0) scale(0.2); opacity: 0; }
+  to { transform: translate(calc(var(--u) * 26), calc(var(--u) * -6)) scale(1); opacity: 1; }
+}
+.im-spin-once { animation: im-spin-once 0.7s ease-in-out 1.7s both; }
+@keyframes im-spin-once {
+  from { transform: rotate(0); }
+  to { transform: rotate(360deg); }
+}
+
+/* --------------------------------------------------------------- vulkaan */
+.im-volcano { position: absolute; left: 50%; bottom: 4%; margin-left: calc(var(--u) * -16); z-index: 2; }
+.im-shake { animation: im-shake 0.09s linear infinite alternate; }
+@keyframes im-shake {
+  from { transform: translate(calc(var(--u) * -0.5), 0) rotate(-1deg); }
+  to { transform: translate(calc(var(--u) * 0.5), calc(var(--u) * -0.3)) rotate(1deg); }
+}
+.im-lava-x { position: absolute; left: 50%; bottom: 30%; width: 0; height: 0; animation: im-lava-x 1.25s linear var(--d) both; z-index: 1; }
+@keyframes im-lava-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(var(--dx)); }
+}
+.im-lava-y {
+  position: absolute;
+  left: calc(var(--u) * -2.4);
+  top: calc(var(--u) * -2.4);
+  width: calc(var(--u) * 4.8);
+  height: calc(var(--u) * 4.8);
+  border-radius: 50%;
+  opacity: 0;
+  animation: im-lava-y 1.25s var(--d) both;
+}
+@keyframes im-lava-y {
+  0% { opacity: 0; transform: translateY(0); animation-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1); }
+  6% { opacity: 1; }
+  45% { transform: translateY(calc(var(--h) * -1)); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.2); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(calc(var(--u) * 26)); }
+}
+.im-peek { position: absolute; right: 6%; bottom: 8%; animation: im-peek 0.6s cubic-bezier(0.3, 1.4, 0.5, 1) 0.9s both; z-index: 2; }
+@keyframes im-peek {
+  from { transform: translateX(160%); }
+  to { transform: translateX(0); }
+}
+.im-scared { animation: im-scared 0.25s ease-in-out 1.6s 4 alternate; }
+@keyframes im-scared {
+  from { transform: translateY(0) rotate(0); }
+  to { transform: translateY(-20%) rotate(-8deg); }
+}
+
+/* --------------------------------------------------------------- voorbeeldpagina */
+.im-gallery-frame { position: relative; width: 100%; max-width: 1100px; margin: 0 auto; }
+.im-gallery-frame::before { content: ''; display: block; padding-top: 56.25%; }
+.im-gallery-inner { position: absolute; top: 0; right: 0; bottom: 0; left: 0; }

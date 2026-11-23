@@ -37,6 +37,7 @@ import { soundEngine } from '../../services/soundEngine';
 import { speechService } from '../../services/speechService';
 import { IllustrationView } from '../illustrations/IllustrationLibrary';
 import { CategoryWheel } from './CategoryWheel';
+import { IntermissionStage } from '../intermission/IntermissionStage';
 
 const TV_ROUND_INTRO_VOICE: Record<string, string> = {
   quiz: 'Tijd voor de Slimme Quiz! Kijk snel op je eigen scherm!',
@@ -1003,6 +1004,17 @@ export const TvApp: React.FC = () => {
             targetIndex={activeRound.wheelTargetIndex || 0}
             selectedCategory={activeRound.category}
           />
+        )}
+
+        {/* TUSSENDOORTJE (3 s, elke 5 tot 10 vragen) */}
+        {phase === 'INTERMISSION' && gameState.intermissionId && (
+          // absoluut over de hele middenruimte: een h-full-blok krijgt in deze flex-rij geen hoogte
+          <div className="absolute inset-0">
+            <IntermissionStage
+              key={`${gameState.intermissionId}-${activeRound?.roundNumber ?? 0}`}
+              id={gameState.intermissionId}
+            />
+          </div>
         )}
 
         {/* 3. ROUND INTRO VIEW */}

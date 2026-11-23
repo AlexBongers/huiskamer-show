@@ -321,6 +321,121 @@ export const LEVEL_META: Record<
   },
 };
 
+/** Seizoen bij een datum; dezelfde grenzen als de TV-thema's (client/src/theme/seasons.ts). */
+export type SeasonThemeId = 'sint' | 'kerst' | 'winter' | 'lente' | 'zomer' | 'herfst';
+
+export function seasonThemeForDate(date: Date): SeasonThemeId {
+  const key = (date.getMonth() + 1) * 100 + date.getDate();
+  if (key >= 1112 && key <= 1207) return 'sint';
+  if (key >= 1208 || key <= 114) return 'kerst';
+  if (key < 320) return 'winter';
+  if (key < 621) return 'lente';
+  if (key < 923) return 'zomer';
+  return 'herfst';
+}
+
+/** De bewegingen waaruit de tussendoortjes zijn opgebouwd (client: components/intermission). */
+export type IntermissionTemplate =
+  | 'parade'
+  | 'launch'
+  | 'zoomby'
+  | 'rain'
+  | 'orbit'
+  | 'popgrid'
+  | 'spotlight'
+  | 'flip'
+  | 'rainbow'
+  | 'wave'
+  | 'balloons'
+  | 'duo'
+  | 'burst'
+  | 'volcano';
+
+export interface IntermissionDef {
+  id: string;
+  /** Korte, vrolijke tekst in beeld */
+  caption: string;
+  template: IntermissionTemplate;
+  /** Hoofdrolspelers (illustraties); de eerste is de ster */
+  cast: string[];
+  /** Bijrollen: wat valt, rondcirkelt, opgepakt wordt of tevoorschijn komt */
+  extras?: string[];
+  /** Losse deeltjes zonder illustratie */
+  particle?: 'snow' | 'leaf' | 'note' | 'star' | 'cloud';
+  /** Achtergrond- en accentkleur (vlak, in de stijl van de show) */
+  bg: string;
+  accent: string;
+  /** Variaties op de beweging */
+  variant?: 'spin';
+  /** Alleen in dit seizoen */
+  season?: SeasonThemeId;
+}
+
+/** Vijftig tussendoortjes van 3 seconden rond de thema's van de show. */
+export const INTERMISSIONS: IntermissionDef[] = [
+  // Dieren, dino's en natuur
+  { id: 'dino-parade', caption: 'Dino-parade!', template: 'parade', cast: ['trex', 'triceratops', 'stegosaurus', 'brachiosaurus'], bg: '#1E5B3A', accent: '#FFD23F' },
+  { id: 'dino-ei', caption: 'Krak! Een dino-ei!', template: 'burst', cast: ['dino_egg'], extras: ['velociraptor'], bg: '#2F4F1E', accent: '#F9D65C' },
+  { id: 'vulkaan', caption: 'Vulkaan-alarm!', template: 'volcano', cast: ['volcano', 'trex'], bg: '#3A1F1A', accent: '#FF8A5B' },
+  { id: 'pteranodon', caption: 'Zoef, een pteranodon!', template: 'zoomby', cast: ['pteranodon'], particle: 'cloud', bg: '#14506B', accent: '#FFD23F' },
+  { id: 'boerderij', caption: 'Op de boerderij!', template: 'parade', cast: ['cow', 'pig', 'sheep', 'chicken', 'horse'], bg: '#2E6B2F', accent: '#FFE88A' },
+  { id: 'jungle', caption: 'Welkom in de jungle!', template: 'popgrid', cast: ['jungle_ape', 'lion', 'giraffe', 'zebra', 'elephant', 'monkey'], bg: '#1F5132', accent: '#F9D65C' },
+  { id: 'zeedieren', caption: 'Spetter in de zee!', template: 'wave', cast: ['turtle'], extras: ['dolphin'], bg: '#0B3550', accent: '#4FE0D0' },
+  { id: 'vlindertuin', caption: 'Vlindertuin!', template: 'orbit', cast: ['butterfly'], extras: ['ladybug', 'bee', 'butterfly', 'ladybug', 'bee'], bg: '#23615D', accent: '#FF8FB1' },
+  // Films, muziek en magie
+  { id: 'eenhoorn', caption: 'Eenhoorn op de regenboog!', template: 'rainbow', cast: ['unicorn'], bg: '#2B2F6B', accent: '#FF8FB1' },
+  { id: 'kpop', caption: 'Op het K-pop podium!', template: 'spotlight', cast: ['kpop_mic'], particle: 'note', bg: '#1A1033', accent: '#FF4FA3' },
+  { id: 'toverstaf', caption: 'Abracadabra!', template: 'burst', cast: ['magic_wand'], extras: ['rabbit'], bg: '#3B2470', accent: '#B9A4FF' },
+  { id: 'drumsolo', caption: 'Drumsolo!', template: 'spotlight', cast: ['drums'], particle: 'note', bg: '#24133D', accent: '#FFD23F' },
+  { id: 'familieband', caption: 'De familieband speelt!', template: 'parade', cast: ['guitar', 'piano', 'trumpet', 'drums'], particle: 'note', bg: '#3B2470', accent: '#FFD23F' },
+  { id: 'sterrenregen', caption: 'Sterrenregen!', template: 'rain', cast: ['moon_stars'], extras: ['star', 'super_star'], bg: '#1A1F4D', accent: '#FFD23F' },
+  // Games en avontuur
+  { id: 'sonic', caption: 'Supersnelle Sonic!', template: 'zoomby', cast: ['sonic_hedgehog'], extras: ['golden_ring'], bg: '#1C4FA0', accent: '#FFD23F' },
+  { id: 'tails', caption: 'Tails vliegt mee!', template: 'launch', cast: ['tails_fox'], particle: 'cloud', bg: '#2A6FB5', accent: '#FFE88A' },
+  { id: 'chaos-emeralds', caption: 'Chaos Emeralds!', template: 'orbit', cast: ['knuckles_red'], extras: ['chaos_emerald', 'chaos_emerald', 'chaos_emerald', 'chaos_emerald', 'chaos_emerald', 'chaos_emerald'], bg: '#14274A', accent: '#6FE0B5' },
+  { id: 'superster', caption: 'Superster-kracht!', template: 'burst', cast: ['super_star'], bg: '#123F7A', accent: '#FFD23F' },
+  { id: 'tonnen', caption: 'Pas op, rollende ton!', template: 'zoomby', cast: ['barrel'], variant: 'spin', bg: '#5A3214', accent: '#FFD23F' },
+  { id: 'eiland', caption: 'Op je eigen eiland!', template: 'popgrid', cast: ['nook_raccoon', 'fishing_rod', 'island', 'tent_camp', 'apple', 'butterfly'], bg: '#1F6F6B', accent: '#FFE88A' },
+  { id: 'raceauto', caption: 'Vroem vroem!', template: 'zoomby', cast: ['race_kart'], extras: ['star'], bg: '#2B2F6B', accent: '#FF8A5B' },
+  // Sport, spel en lekker eten
+  { id: 'pannenkoek', caption: 'Pannenkoek omdraaien!', template: 'flip', cast: ['pancake'], bg: '#7A3A12', accent: '#FFD23F' },
+  { id: 'hooghouden', caption: 'Hooghouden!', template: 'flip', cast: ['soccer_ball'], bg: '#1F6B3A', accent: '#FDF6E9' },
+  { id: 'fruitregen', caption: 'Fruitregen!', template: 'rain', cast: [], extras: ['apple', 'banana', 'strawberry', 'watermelon', 'lemon'], bg: '#6B2346', accent: '#F9D65C' },
+  { id: 'smullen', caption: 'Smullen maar!', template: 'orbit', cast: ['pizza'], extras: ['fries', 'popcorn', 'cheese', 'ice_cream', 'carrot'], bg: '#7A3A12', accent: '#FFD23F' },
+  { id: 'kampioen', caption: 'Kampioen!', template: 'burst', cast: ['trophy'], bg: '#5A4210', accent: '#FFD23F' },
+  { id: 'popcorn', caption: 'Popcorn-tijd!', template: 'rain', cast: ['popcorn'], extras: ['popcorn'], bg: '#3B2470', accent: '#FFE88A' },
+  // De wereld en slimme raadsels
+  { id: 'raket', caption: '3, 2, 1... lancering!', template: 'launch', cast: ['rocket'], particle: 'star', bg: '#0E1A3A', accent: '#FF8A5B' },
+  { id: 'planeten', caption: 'Rondje om de zon!', template: 'orbit', cast: ['sun'], extras: ['planet_saturn', 'moon_stars', 'rocket', 'star'], bg: '#0E1A3A', accent: '#FFD23F' },
+  { id: 'luchtballon', caption: 'Hoog in de lucht!', template: 'launch', cast: ['hot_air_balloon'], particle: 'cloud', bg: '#2A6FB5', accent: '#FFE88A' },
+  { id: 'voertuigen', caption: 'Toet toet, daar gaan we!', template: 'parade', cast: ['train', 'bicycle', 'motorcycle', 'tractor'], bg: '#0F3D52', accent: '#FFD23F' },
+  { id: 'brandweer', caption: 'Brandweer met spoed!', template: 'zoomby', cast: ['firetruck'], extras: ['star'], bg: '#5A1414', accent: '#FFD23F' },
+  { id: 'piraten', caption: 'Ahoy, piraten!', template: 'wave', cast: ['pirate_ship'], extras: ['treasure_chest'], bg: '#0B3550', accent: '#FFD23F' },
+  { id: 'vuurtoren', caption: 'Licht op zee!', template: 'spotlight', cast: ['lighthouse'], particle: 'star', bg: '#0A1E33', accent: '#FFE88A' },
+  // Ons gezin
+  { id: 'high-five', caption: 'High five!', template: 'duo', cast: ['trex', 'unicorn'], extras: ['star'], bg: '#6B2346', accent: '#FFD23F' },
+  { id: 'team', caption: 'Wij zijn een team!', template: 'duo', cast: ['house_family', 'heart_family'], extras: ['heart_family'], bg: '#7A2E4F', accent: '#FF8FB1' },
+  { id: 'feest', caption: 'Hoera, feest!', template: 'balloons', cast: ['cake'], extras: ['gift_box', 'star'], bg: '#5A2A6B', accent: '#FFD23F' },
+  { id: 'slimme-familie', caption: 'Slimme familie!', template: 'popgrid', cast: ['crown', 'star', 'trophy', 'heart_family', 'magic_wand', 'super_star'], bg: '#6B2346', accent: '#FFD23F' },
+  // Seizoenen (alleen in hun eigen seizoen)
+  { id: 'sint-pepernoten', caption: 'Pepernotenregen!', template: 'rain', cast: ['steamboat'], extras: ['pepernoten'], bg: '#14274A', accent: '#E8434F', season: 'sint' },
+  { id: 'sint-stoomboot', caption: 'Daar is de stoomboot!', template: 'wave', cast: ['steamboat'], extras: ['gift_box'], bg: '#14274A', accent: '#FFC93C', season: 'sint' },
+  { id: 'kerst-boom', caption: 'Lichtjes in de boom!', template: 'orbit', cast: ['christmas_tree'], extras: ['star', 'gift_box', 'snowman', 'star'], bg: '#0E2E26', accent: '#F5C84C', season: 'kerst' },
+  { id: 'kerst-cadeaus', caption: 'Cadeautjesregen!', template: 'rain', cast: ['christmas_tree'], extras: ['gift_box'], bg: '#0E2E26', accent: '#E5484D', season: 'kerst' },
+  { id: 'winter-sneeuw', caption: 'Sneeuwpret!', template: 'rain', cast: ['snowman'], particle: 'snow', bg: '#0F2A3A', accent: '#FDF6E9', season: 'winter' },
+  { id: 'winter-pinguins', caption: 'Pinguïnparade!', template: 'parade', cast: ['penguin', 'penguin', 'penguin', 'penguin'], bg: '#0F2A3A', accent: '#6FE0B5', season: 'winter' },
+  { id: 'lente-tuin', caption: 'Lente in de tuin!', template: 'popgrid', cast: ['butterfly', 'ladybug', 'bee', 'rabbit', 'frog', 'rainbow'], bg: '#123A3A', accent: '#FF8FB1', season: 'lente' },
+  { id: 'lente-haas', caption: 'Haasje rap!', template: 'zoomby', cast: ['rabbit'], extras: ['carrot'], bg: '#1A4D4A', accent: '#F9D65C', season: 'lente' },
+  { id: 'zomer-zon', caption: 'Zonnige zomer!', template: 'orbit', cast: ['sun'], extras: ['ice_cream', 'sunglasses', 'watermelon', 'swimming'], bg: '#0B3550', accent: '#FFC83D', season: 'zomer' },
+  { id: 'zomer-strand', caption: 'Strandpret!', template: 'wave', cast: ['sailboat'], extras: ['dolphin'], bg: '#0B3550', accent: '#4FE0D0', season: 'zomer' },
+  { id: 'herfst-blaadjes', caption: 'Herfstwind!', template: 'rain', cast: ['squirrel'], particle: 'leaf', bg: '#2A2230', accent: '#F2A93B', season: 'herfst' },
+  { id: 'herfst-bos', caption: 'Wie woont er in het bos?', template: 'popgrid', cast: ['mushroom', 'squirrel', 'fox', 'owl', 'hedgehog', 'bear'], bg: '#2A2230', accent: '#F2A93B', season: 'herfst' },
+];
+
+export const INTERMISSION_MAP: Record<string, IntermissionDef> = Object.fromEntries(
+  INTERMISSIONS.map((d) => [d.id, d])
+);
+
 /**
  * Welk seizoenspakket hoort bij een datum? Dezelfde grenzen als de seizoensthema's van de TV
  * (client/src/theme/seasons.ts): Sinterklaas 12 nov t/m 7 dec, Kerst 8 dec t/m 14 jan, Zomer 21 jun t/m 22 sep.
@@ -347,6 +462,10 @@ export const TIMERS = {
   ZOOM_LOCKOUT_MS: 4000,
   /** Zo lang wacht de show op het oordeel van de host na een buzz; daarna is de buzzer weer vrij. */
   JUDGE_TIMEOUT_SEC: 20,
+  /** Tussendoortje: zo lang duurt het, en na hoeveel vragen (willekeurig tussen min en max) komt er een. */
+  INTERMISSION_SEC: 3,
+  INTERMISSION_EVERY_MIN: 5,
+  INTERMISSION_EVERY_MAX: 10,
   REVEAL_DURATION_SEC: 4,
   SCOREBOARD_DURATION_SEC: 5,
 };

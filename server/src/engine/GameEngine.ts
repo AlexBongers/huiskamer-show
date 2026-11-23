@@ -23,7 +23,9 @@ import {
   TIMERS,
   ZoomPhotoChallenge,
   BASE_CONTENT_PACKS,
+  INTERMISSIONS,
   seasonalPackForDate,
+  seasonThemeForDate,
 } from '@huiskamer-show/shared';
 import { DataStore } from '../storage/DataStore';
 import { AwardsEngine } from './AwardsEngine';
@@ -191,6 +193,11 @@ export class GameEngine {
   public clock: () => Date = () => new Date();
   /** Heeft de host zelf pakketten gekozen? Dan laten we die staan; anders kiest de datum het seizoenspakket. */
   private packsChosenByHost = false;
+  /** Tussendoortjes: na hoeveel vragen de volgende komt, en welke nog niet geweest zijn. */
+  private roundsSinceIntermission = 0;
+  private intermissionEvery = TIMERS.INTERMISSION_EVERY_MIN;
+  private intermissionBag: string[] = [];
+  public currentIntermissionId: string | null = null;
   /** Waar als het spel vanzelf is gepauzeerd omdat niemand meer verbonden was (dan hervat het ook vanzelf). */
   private autoPausedForNobody = false;
 
@@ -209,6 +216,59 @@ export class GameEngine {
     this.deterministicMode = deterministicMode;
     this.ensureDefaultTeams();
     this.settings.enabledPacks = this.defaultPacks();
+    this.intermissionEvery = this.drawIntermissionInterval();
+  }
+
+  /** Elke 5 tot 10 vragen een tussendoortje; elke keer opnieuw willekeurig (in tests vast op het minimum). */
+  private drawIntermissionInterval(): number {
+    const min = TIMERS.INTERMISSION_EVERY_MIN;
+    const max = TIMERS.INTERMISSION_EVERY_MAX;
+    if (this.deterministicMode) return min;
+    return min + Math.floor(Math.random() * (max - min + 1));
+  }
+
+  /** Volgende tussendoortje: pas herhalen als alle andere geweest zijn; seizoensanimaties alleen in hun seizoen. */
+  private nextIntermissionId(): string {
+    const season = seasonThemeForDate(this.clock());
+    const eligible = INTERMISSIONS.filter((a) => !a.season || a.season === season).map((a) => a.id);
+    this.intermissionBag = this.intermissionBag.filter((id) => eligible.includes(id));
+    if (this.intermissionBag.length === 0) {
+      const fresh = this.shuffleArray(eligible);
+      // niet dezelfde twee keer achter elkaar bij het opnieuw vullen
+      if (fresh.length > 1 && fresh[0] === this.currentIntermissionId) fresh.push(fresh.shift()!);
+      this.intermissionBag = fresh;
+    }
+    return this.intermissionBag.shift()!;
+  }
+
+  /** Na het scorebord: tussendoortje (als het weer tijd is) of meteen het rad. */
+  public afterScoreboard(): void {
+    this.roundsSinceIntermission += 1;
+    const gameOver =
+      this.currentRoundNumber >= this.settings.totalRounds ||
+      (this.settings.gameMode === 'coop' &&
+        this.coopStars.length >= CATEGORIES.length &&
+        this.currentRoundNumber > 0);
+    if (!gameOver && this.roundsSinceIntermission >= this.intermissionEvery) {
+      this.enterIntermission();
+      return;
+    }
+    this.startNextRoundWheel();
+  }
+
+  public enterIntermission(): void {
+    this.clearTimers();
+    this.roundsSinceIntermission = 0;
+    this.intermissionEvery = this.drawIntermissionInterval();
+    this.currentIntermissionId = this.nextIntermissionId();
+    this.phase = 'INTERMISSION';
+    this.timerTotalSec = TIMERS.INTERMISSION_SEC;
+    this.timerRemainingSec = TIMERS.INTERMISSION_SEC;
+    this.onSfx('join_sparkle');
+    this.onBroadcast();
+    this.schedulePhaseTransition(TIMERS.INTERMISSION_SEC * 1000, () => {
+      this.startNextRoundWheel();
+    });
   }
 
   /** Basis + Kids-Special, plus het seizoenspakket van vandaag (Sinterklaas, Kerst of Zomer). */
@@ -713,6 +773,8 @@ export class GameEngine {
     if (!this.packsChosenByHost) {
       this.settings.enabledPacks = this.defaultPacks();
     }
+    this.roundsSinceIntermission = 0;
+    this.intermissionEvery = this.drawIntermissionInterval();
 
     this.clearTimers();
     this.store.clearActiveSession();
@@ -1781,7 +1843,7 @@ export class GameEngine {
     this.onBroadcast();
 
     this.schedulePhaseTransition(TIMERS.SCOREBOARD_DURATION_SEC * 1000, () => {
-      this.startNextRoundWheel();
+      this.afterScoreboard();
     });
   }
 
@@ -1857,7 +1919,13 @@ export class GameEngine {
         break;
 
       case 'addTime':
-        if (this.phase === 'LOBBY' || this.phase === 'FINALE') break;
+        if (
+          this.phase === 'LOBBY' ||
+          this.phase === 'FINALE' ||
+          this.phase === 'INTERMISSION'
+        ) {
+          break;
+        }
         this.timerRemainingSec += 15;
         this.timerTotalSec += 15;
         if (this.currentRoundType === 'zoom_photo' && this.phase === 'ROUND_ACTIVE') {
@@ -1902,6 +1970,8 @@ export class GameEngine {
         } else if (effectivePhase === 'ROUND_REVEAL') {
           this.enterScoreboard();
         } else if (effectivePhase === 'SCOREBOARD') {
+          this.afterScoreboard();
+        } else if (effectivePhase === 'INTERMISSION') {
           this.startNextRoundWheel();
         }
         break;
@@ -2665,6 +2735,8 @@ export class GameEngine {
       qrUrl: this.qrUrl,
       qrDataUrl: this.qrDataUrl,
       phase: this.phase,
+      intermissionId:
+        this.phase === 'INTERMISSION' ? this.currentIntermissionId ?? undefined : undefined,
       previousPhaseBeforePause: this.previousPhaseBeforePause,
       tvMuted: this.tvMuted,
       noConnectedHost: !this.hasConnectedHost(),

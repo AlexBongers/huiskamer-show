@@ -93,6 +93,18 @@ npx tsx scripts/build-seed-history.ts          # --check controleert alleen (dat
 
 ---
 
+## 🎬 Tussendoortjes
+
+Elke 5 tot 10 vragen (elke keer opnieuw willekeurig) speelt er een animatie van 3 seconden op de TV en op de telefoons en
+tablets: 50 stuks rond de thema's van de show (dino's, Sonic, eenhoorns, K-pop, ruimte, eten, sport, de zee en het gezin).
+Twaalf horen bij een seizoen (Sinterklaas, Kerst, winter, lente, zomer, herfst) en komen alleen in dat seizoen langs.
+Een tussendoortje komt pas terug als alle andere geweest zijn, en nooit vlak voor de finale. Pauze en Overslaan werken gewoon.
+
+- **Allemaal bekijken** (zonder geluid): open `/animaties`. Pijltjes gaan naar de vorige of volgende, spatie pauzeert.
+- **Zelf toevoegen:** zet een regel in `INTERMISSIONS` in `shared/constants.ts` met een bestaande beweging (`parade`, `launch`,
+  `zoomby`, `rain`, `orbit`, `popgrid`, `spotlight`, `flip`, `rainbow`, `wave`, `balloons`, `duo`, `burst`, `volcano`) en
+  bestaande illustraties. De tests controleren dat alles klopt.
+
 ## 🔊 Roos-stem (opnamen)
 
 Alle voorleestekst wordt voorgelezen door **Roos** (ElevenLabs Flash v2.5, Nederlands). De opnames zijn mp3's in `<data-map>/tts`

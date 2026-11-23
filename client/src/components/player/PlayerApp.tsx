@@ -39,6 +39,7 @@ import {
   SpeechSequenceStep,
 } from '../../services/speechService';
 import { IllustrationView } from '../illustrations/IllustrationLibrary';
+import { IntermissionStage } from '../intermission/IntermissionStage';
 
 // 4 fixed, unmistakable primary colors matching TV & Roos's spoken color names (ideal for non-readers like Lucas!)
 const ANSWER_COLOR_META = [
@@ -1171,6 +1172,21 @@ export const PlayerApp: React.FC = () => {
                 </button>
               </div>
             )}
+          </div>
+        )}
+
+        {/* PHASE: TUSSENDOORTJE (zelfde animatie als op de TV) */}
+        {gameState.phase === 'INTERMISSION' && gameState.intermissionId && (
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-full h-64 sm:h-80">
+              <IntermissionStage
+                key={`${gameState.intermissionId}-${activeRound?.roundNumber ?? 0}`}
+                id={gameState.intermissionId}
+              />
+            </div>
+            <div className="font-display text-xl text-studio-gold">
+              Tussendoortje! Zo gaan we verder.
+            </div>
           </div>
         )}
 

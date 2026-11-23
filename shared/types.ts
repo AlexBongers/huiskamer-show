@@ -37,6 +37,8 @@ export type GamePhase =
   | 'PAUSED'
   | 'ROUND_REVEAL'
   | 'SCOREBOARD'
+  /** Kort tussendoortje (animatie van 3 s) tussen twee rondes, elke 5 tot 10 vragen. */
+  | 'INTERMISSION'
   | 'FINALE';
 
 export type SfxCue =
@@ -442,6 +444,8 @@ export interface PlayerPrivateView {
 }
 
 export interface GameStatePayload {
+  /** Welk tussendoortje er nu speelt (alleen in de fase INTERMISSION). */
+  intermissionId?: string;
   roomCode: string;
   showTitle: string;
   subtitle: string;

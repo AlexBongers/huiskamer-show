@@ -3,6 +3,7 @@ import { Tv, Smartphone, Settings } from 'lucide-react';
 import { TvApp } from './components/tv/TvApp';
 import { PlayerApp } from './components/player/PlayerApp';
 import { AdminApp } from './components/admin/AdminApp';
+import { IntermissionGallery } from './components/intermission/IntermissionGallery';
 
 const LAUNCHER_ROUTES = ['/tv', '/play', '/admin'] as const;
 
@@ -27,7 +28,8 @@ export const App: React.FC = () => {
   const isLauncher =
     !pathname.startsWith('/tv') &&
     !pathname.startsWith('/play') &&
-    !pathname.startsWith('/admin');
+    !pathname.startsWith('/admin') &&
+    !pathname.startsWith('/animaties');
 
   // LG Magic Remote D-pad (ArrowLeft/ArrowRight + OK/Enter) on Home Launcher
   useEffect(() => {
@@ -66,6 +68,10 @@ export const App: React.FC = () => {
 
   if (pathname.startsWith('/play')) {
     return <PlayerApp />;
+  }
+
+  if (pathname.startsWith('/animaties')) {
+    return <IntermissionGallery />;
   }
 
   if (pathname.startsWith('/admin')) {

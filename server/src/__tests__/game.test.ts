@@ -4,7 +4,14 @@ import os from 'os';
 import path from 'path';
 import { io as ClientIO, Socket as ClientSocket } from 'socket.io-client';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { GameStatePayload, TIMERS, seasonalPackForDate } from '@huiskamer-show/shared';
+import {
+  GameStatePayload,
+  INTERMISSIONS,
+  INTERMISSION_MAP,
+  TIMERS,
+  seasonThemeForDate,
+  seasonalPackForDate,
+} from '@huiskamer-show/shared';
 import { AwardsEngine } from '../engine/AwardsEngine';
 import { GameEngine } from '../engine/GameEngine';
 import { createAppServer, readTtsClips } from '../index';
@@ -1710,4 +1717,94 @@ describe('De Grote Huiskamer Show — Complete Verification & Code-Check Suite',
       await new Promise<void>((resolve) => serverInstance.httpServer.close(() => resolve()));
     }
   }, 120_000);
+
+  it('20. Tussendoortjes: elke 5 tot 10 vragen een animatie van 3 s, niet voor de finale, zonder herhaling, seizoensanimaties alleen in hun seizoen', async () => {
+    // --- de catalogus
+    expect(INTERMISSIONS.length).toBeGreaterThanOrEqual(50);
+    expect(new Set(INTERMISSIONS.map((a) => a.id)).size).toBe(INTERMISSIONS.length);
+    const illSrc = fs.readFileSync(
+      path.resolve(__dirname, '../../../client/src/components/illustrations/IllustrationLibrary.tsx'),
+      'utf-8'
+    );
+    const illustrations = new Set([...illSrc.matchAll(/case '([a-z_]+)':/g)].map((m) => m[1]));
+    const stageSrc = fs.readFileSync(
+      path.resolve(__dirname, '../../../client/src/components/intermission/IntermissionStage.tsx'),
+      'utf-8'
+    );
+    for (const a of INTERMISSIONS) {
+      for (const id of [...a.cast, ...(a.extras ?? [])]) {
+        expect(illustrations.has(id), `${a.id}: illustratie ${id}`).toBe(true);
+      }
+      expect(stageSrc.includes(`  ${a.template}: `), `${a.id}: sjabloon ${a.template}`).toBe(true);
+      expect(a.caption.length, a.id).toBeLessThanOrEqual(26);
+    }
+    for (const season of ['sint', 'kerst', 'winter', 'lente', 'zomer', 'herfst']) {
+      expect(INTERMISSIONS.filter((a) => a.season === season).length).toBeGreaterThanOrEqual(2);
+    }
+    const { themeForDate } = await import('../../../client/src/theme/seasons');
+    for (let day = 0; day < 366; day++) {
+      const d = new Date(2028, 0, 1 + day, 12);
+      expect(seasonThemeForDate(d), d.toDateString()).toBe(themeForDate(d).id);
+    }
+
+    // --- in het spel (vast interval van 5 in tests)
+    const store = new DataStore(tmpDataDir, seedDir);
+    const engine = new GameEngine(store, () => {}, () => {}, false, true);
+    engine.clock = () => new Date(2026, 10, 25, 12); // Sinterklaas
+    engine.joinOrReconnectPlayer({ profileId: 'profile_papa', name: 'Papa', avatarId: 'showmaster', level: 'meester' });
+    engine.configureGame({ gameMode: 'solo', totalRounds: 12, enabledRoundTypes: ['quiz'] });
+    engine.startGame();
+
+    const after: string[] = [];
+    const seen: string[] = [];
+    for (let round = 1; round <= 12; round++) {
+      engine.enterRoundIntro();
+      engine.enterRoundActive();
+      engine.finishQuizRound();
+      engine.enterScoreboard();
+      engine.afterScoreboard();
+      after.push(engine.phase);
+      if (engine.phase === 'INTERMISSION') {
+        const st = engine.getStateForClient(undefined);
+        expect(st.intermissionId).toBeTruthy();
+        expect(st.activeRound?.timerTotalSec).toBe(TIMERS.INTERMISSION_SEC);
+        expect(engine.getStateForClient(engine.players[0].id).intermissionId).toBe(st.intermissionId);
+        seen.push(st.intermissionId!);
+        // eerste keer na 3 s vanzelf door, tweede keer met "Overslaan" van de host
+        if (seen.length === 1) engine.startNextRoundWheel();
+        else engine.handleHostControl('skip');
+        expect(engine.phase).toBe('WHEEL_SPIN');
+      }
+      if (engine.phase === 'FINALE') break;
+    }
+    expect(after.indexOf('INTERMISSION')).toBe(4); // na vraag 5
+    expect(after.filter((p) => p === 'INTERMISSION').length).toBe(2); // na 5 en 10
+    expect(after[after.length - 1]).toBe('FINALE'); // na de laatste vraag meteen de finale
+    expect(new Set(seen).size).toBe(seen.length);
+    for (const id of seen) {
+      const season = INTERMISSION_MAP[id].season;
+      expect(!season || season === 'sint').toBe(true);
+    }
+
+    // --- buiten de tests: elke keer willekeurig tussen 5 en 10
+    const live = new GameEngine(store, () => {}, () => {}, false, false);
+    const intervals = new Set<number>();
+    for (let i = 0; i < 400; i++) {
+      intervals.add((live as unknown as { drawIntermissionInterval(): number }).drawIntermissionInterval());
+    }
+    expect(Math.min(...intervals)).toBe(TIMERS.INTERMISSION_EVERY_MIN);
+    expect(Math.max(...intervals)).toBe(TIMERS.INTERMISSION_EVERY_MAX);
+
+    // --- geen herhaling tot alles geweest is, en seizoensanimaties alleen in hun seizoen
+    const winterEngine = new GameEngine(store, () => {}, () => {}, false, false);
+    winterEngine.clock = () => new Date(2027, 1, 1, 12); // winter
+    const picks: string[] = [];
+    const eligible = INTERMISSIONS.filter((a) => !a.season || a.season === 'winter').length;
+    for (let i = 0; i < eligible; i++) {
+      picks.push((winterEngine as unknown as { nextIntermissionId(): string }).nextIntermissionId());
+    }
+    expect(new Set(picks).size).toBe(eligible);
+    expect(picks.every((id) => !INTERMISSION_MAP[id].season || INTERMISSION_MAP[id].season === 'winter')).toBe(true);
+    expect(picks.some((id) => INTERMISSION_MAP[id].season === 'winter')).toBe(true);
+  });
 });
