@@ -1443,6 +1443,16 @@ export interface IllustrationViewProps {
   className?: string;
 }
 
+const STUDIO_ART_MAP: Record<string, string> = {
+  trex: '/art/avatar-trex.jpg',
+  unicorn: '/art/avatar-unicorn.jpg',
+  showmaster: '/art/avatar-showmaster.jpg',
+  crown: '/art/avatar-crown.jpg',
+  sonic_hedgehog: '/art/avatar-sonic.jpg',
+  jungle_ape: '/art/avatar-ape.jpg',
+  trophy: '/art/show-trophy.jpg',
+};
+
 export const IllustrationView: React.FC<IllustrationViewProps> = ({
   illustrationId,
   imageUrl,
@@ -1466,6 +1476,17 @@ export const IllustrationView: React.FC<IllustrationViewProps> = ({
     bg1: '#1E1B4B',
     bg2: '#6366F1',
   };
+
+  if (STUDIO_ART_MAP[key]) {
+    return (
+      <img
+        src={STUDIO_ART_MAP[key]}
+        alt={alt || meta.label}
+        loading="lazy"
+        className={`object-cover select-none ${className}`}
+      />
+    );
+  }
   const gradId = `grad_${meta.id}`;
 
   return (

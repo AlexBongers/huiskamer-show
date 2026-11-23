@@ -76,6 +76,14 @@ export const App: React.FC = () => {
   return (
     <div className="min-h-screen w-full studio-stage-bg flex flex-col items-center justify-center p-6 text-center select-none">
       <div className="studio-panel-gold rounded-3xl p-8 md:p-12 max-w-5xl w-full flex flex-col items-center gap-8">
+        <div className="w-28 h-28 rounded-3xl overflow-hidden border-2 border-[#F5C542] shadow-[0_0_35px_rgba(245,197,66,0.5)]">
+          <img
+            src="/art/show-trophy.jpg"
+            alt="De Grote Familie Bongers Show Trofee"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
         <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#1B2752] border border-[#F5C542]/50 text-[#F5C542] font-display text-lg">
           <Sparkles className="w-5 h-5" /> Zaterdagavond Familie Spelshow
         </div>

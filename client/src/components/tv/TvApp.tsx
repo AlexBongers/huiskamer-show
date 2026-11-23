@@ -452,8 +452,12 @@ export const TvApp: React.FC = () => {
         className="min-h-screen w-full studio-stage-bg flex flex-col items-center justify-center p-8 text-center select-none"
       >
         <div className="studio-panel-gold rounded-3xl p-12 max-w-3xl w-full flex flex-col items-center gap-8">
-          <div className="w-28 h-28 rounded-3xl bg-[#F5C542]/20 border-2 border-[#F5C542] flex items-center justify-center text-6xl shadow-[0_0_30px_rgba(245,197,66,0.4)]">
-            🎬
+          <div className="w-36 h-36 rounded-3xl overflow-hidden border-2 border-[#F5C542] shadow-[0_0_40px_rgba(245,197,66,0.5)]">
+            <img
+              src="/art/show-trophy.jpg"
+              alt="De Grote Familie Bongers Show Trofee"
+              className="w-full h-full object-cover"
+            />
           </div>
           <div>
             <div className="text-[#F5C542] font-display text-2xl tracking-wider uppercase mb-2">
