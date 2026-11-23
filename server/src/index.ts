@@ -87,7 +87,7 @@ export async function createAppServer(options?: {
 
   const broadcastState = () => {
     // 1. Send public show state to all TV clients
-    const tvState = engine.getStateForClient(undefined);
+    const tvState = engine.getStateForClient(undefined, true);
     for (const tvSid of tvSockets) {
       io.to(tvSid).emit('state:update', tvState);
     }
@@ -96,7 +96,7 @@ export async function createAppServer(options?: {
     for (const [sid, socket] of io.of('/').sockets) {
       if (tvSockets.has(sid)) continue;
       const pid = engine.roomManager.getPlayerIdBySocket(sid);
-      const clientState = engine.getStateForClient(pid);
+      const clientState = engine.getStateForClient(pid, false);
       socket.emit('state:update', clientState);
     }
   };
@@ -260,8 +260,8 @@ export async function createAppServer(options?: {
 
   // Socket.IO connection handling
   io.on('connection', (socket) => {
-    // Send initial state immediately
-    socket.emit('state:update', engine.getStateForClient(undefined));
+    // Send initial state immediately (meekijkers krijgen de TV-only gegevens niet)
+    socket.emit('state:update', engine.getStateForClient(undefined, false));
 
     socket.on('tv:join', async (payload?: { origin?: string }) => {
       tvSockets.add(socket.id);
@@ -275,7 +275,7 @@ export async function createAppServer(options?: {
       ) {
         await updateQrCode(payload.origin.trim());
       }
-      socket.emit('state:update', engine.getStateForClient(undefined));
+      socket.emit('state:update', engine.getStateForClient(undefined, true));
     });
 
     socket.on('player:join', (payload, ack?: (res: unknown) => void) => {

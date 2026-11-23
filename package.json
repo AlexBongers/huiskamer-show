@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "description": "De Grote Huiskamer Show - Zelf-gehoste TV-spelshow voor de hele familie (65 inch LG OLED + Android telefoons & tablets)",
+  "engines": {
+    "node": ">=20"
+  },
   "workspaces": [
     "shared",
     "server",

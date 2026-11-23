@@ -1120,4 +1120,212 @@ describe('De Grote Huiskamer Show — Complete Verification & Code-Check Suite',
       serverInstance.httpServer.close(() => resolve())
     );
   });
+
+  it('12. Tweede review: auto-pauze zonder spelers, geen TV-info voor meekijkers, schoonmaak bij reset & teamvalidatie', async () => {
+    const store = new DataStore(tmpDataDir, seedDir);
+    const engine = new GameEngine(store, () => {}, () => {}, false, true);
+
+    const papa = engine.joinOrReconnectPlayer({
+      profileId: 'profile_papa',
+      name: 'Papa',
+      avatarId: 'showmaster',
+      level: 'meester',
+    }).player;
+    const mama = engine.joinOrReconnectPlayer({
+      profileId: 'profile_mama',
+      name: 'Mama',
+      avatarId: 'crown',
+      level: 'meester',
+    }).player;
+    engine.configureGame({ gameMode: 'solo', totalRounds: 6, enabledRoundTypes: ['sound'] });
+    engine.startGame();
+    engine.enterRoundIntro();
+    engine.enterRoundActive();
+    expect(engine.phase).toBe('ROUND_ACTIVE');
+    expect(engine.currentRoundType).toBe('sound');
+
+    // --- Meekijkers (geen TV, geen speler) krijgen de naam van het geluid niet; de TV wel ---
+    expect(engine.getStateForClient(undefined, true).activeRound?.soundKey).toBeDefined();
+    expect(engine.getStateForClient(undefined, false).activeRound?.soundKey).toBeUndefined();
+    expect(engine.getStateForClient(undefined).activeRound?.soundKey).toBeDefined(); // standaard = TV
+    expect(engine.getStateForClient(papa.id).activeRound?.soundKey).toBeUndefined();
+
+    // --- Valt er één speler weg, dan gaat het spel gewoon door ---
+    engine.setPlayerConnected(papa.id, false);
+    expect(engine.phase).toBe('ROUND_ACTIVE');
+
+    // --- Vallen ze allemaal weg, dan pauzeert het spel vanzelf (en blijft het hervatbaar) ---
+    engine.setPlayerConnected(mama.id, false);
+    expect(engine.phase).toBe('PAUSED');
+    expect(engine.previousPhaseBeforePause).toBe('ROUND_ACTIVE');
+
+    // --- Komt er weer iemand terug, dan hervat het vanzelf ---
+    engine.joinOrReconnectPlayer({
+      profileId: 'profile_papa',
+      name: 'Papa',
+      avatarId: 'showmaster',
+      level: 'meester',
+    });
+    expect(engine.phase).toBe('ROUND_ACTIVE');
+
+    // --- Een pauze die de host zelf drukte wordt NIET vanzelf opgeheven ---
+    engine.handleHostControl('pause');
+    expect(engine.phase).toBe('PAUSED');
+    engine.setPlayerConnected(papa.id, false);
+    engine.joinOrReconnectPlayer({
+      profileId: 'profile_papa',
+      name: 'Papa',
+      avatarId: 'showmaster',
+      level: 'meester',
+    });
+    expect(engine.phase).toBe('PAUSED');
+    engine.handleHostControl('resume');
+    expect(engine.phase).toBe('ROUND_ACTIVE');
+
+    // --- In de lobby gebeurt er niets als iedereen wegvalt ---
+    engine.handleHostControl('reset');
+    expect(engine.phase).toBe('LOBBY');
+    engine.setPlayerConnected(papa.id, false);
+    expect(engine.phase).toBe('LOBBY');
+
+    // --- Nieuw spel: weggevallen spelers verdwijnen uit de lobby, aanwezige blijven ---
+    const lucas = engine.joinOrReconnectPlayer({
+      profileId: 'profile_lucas',
+      name: 'Lucas',
+      avatarId: 'trex',
+      level: 'ontdekker',
+    }).player;
+    engine.startGame();
+    engine.setPlayerConnected(lucas.id, true);
+    engine.setPlayerConnected(mama.id, false);
+    engine.handleHostControl('reset');
+    expect(engine.players.map((pl) => pl.id)).toContain(lucas.id);
+    expect(engine.players.map((pl) => pl.id)).not.toContain(mama.id);
+
+    // --- Ongeldige teamnamen worden genegeerd ---
+    const teamBefore = lucas.teamId;
+    engine.configureGame({ teamAssignments: { [lucas.id]: 'team_bestaat_niet' } });
+    expect(lucas.teamId).toBe(teamBefore);
+    engine.configureGame({ teamAssignments: { [lucas.id]: 'team_neon' } });
+    expect(lucas.teamId).toBe('team_neon');
+
+    // --- Socket-niveau: een kale verbinding (geen tv:join) krijgt geen TV-gegevens ---
+    const serverInstance = await createAppServer({
+      dataDir: tmpDataDir,
+      seedDir,
+      port: 0,
+      autoAdvanceTimers: false,
+      deterministicMode: true,
+    });
+    await new Promise<void>((resolve) => {
+      serverInstance.httpServer.listen(0, '127.0.0.1', () => resolve());
+    });
+    const address = serverInstance.httpServer.address() as { port: number };
+    const baseUrl = `http://127.0.0.1:${address.port}`;
+    const e2 = serverInstance.engine;
+    e2.joinOrReconnectPlayer({
+      profileId: 'profile_papa',
+      name: 'Papa',
+      avatarId: 'showmaster',
+      level: 'meester',
+    });
+    e2.configureGame({ gameMode: 'solo', enabledRoundTypes: ['sound'] });
+    e2.startGame();
+    e2.enterRoundIntro();
+    e2.enterRoundActive();
+
+    const spectator = ClientIO(baseUrl, { transports: ['websocket'] });
+    const tv = ClientIO(baseUrl, { transports: ['websocket'] });
+    let spectatorState: GameStatePayload | null = null;
+    let tvState: GameStatePayload | null = null;
+    spectator.on('state:update', (st: GameStatePayload) => {
+      spectatorState = st;
+    });
+    tv.on('state:update', (st: GameStatePayload) => {
+      tvState = st;
+    });
+    await new Promise<void>((resolve) => spectator.on('connect', () => resolve()));
+    await new Promise<void>((resolve) => tv.on('connect', () => resolve()));
+    tv.emit('tv:join', { origin: baseUrl });
+    await new Promise((r) => setTimeout(r, 150));
+    expect((spectatorState as GameStatePayload | null)?.activeRound?.soundKey).toBeUndefined();
+    expect((tvState as GameStatePayload | null)?.activeRound?.soundKey).toBeDefined();
+
+    // Een vreemd adres in tv:join mag de QR-code niet verleggen
+    const qrBefore = e2.qrUrl;
+    tv.emit('tv:join', { origin: 'http://evil.example.com' });
+    await new Promise((r) => setTimeout(r, 150));
+    expect(e2.qrUrl).toBe(qrBefore);
+
+    spectator.disconnect();
+    tv.disconnect();
+    await new Promise<void>((resolve) =>
+      serverInstance.httpServer.close(() => resolve())
+    );
+  });
+
+  it('13. Seed-integriteit: unieke id\'s, 4 unieke opties, antwoord niet in de vraag, geluidssleutels bestaan, schattingen op de schuifbalk-stap', () => {
+    const store = new DataStore(tmpDataDir, seedDir);
+
+    const uniqueIds = (name: string, items: Array<{ id: string }>) => {
+      const seen = new Set<string>();
+      const dups: string[] = [];
+      for (const it of items) {
+        if (seen.has(it.id)) dups.push(it.id);
+        seen.add(it.id);
+      }
+      expect(dups, `dubbele id's in ${name}`).toEqual([]);
+    };
+    uniqueIds('quiz', store.getQuizQuestions());
+    uniqueIds('thirtySeconds', store.getThirtySecondsCards());
+    uniqueIds('sounds', store.getSoundChallenges());
+    uniqueIds('zoomPhotos', store.getZoomPhotos());
+    uniqueIds('pantomime', store.getPantomimeChallenges());
+    uniqueIds('estimates', store.getEstimateChallenges());
+
+    const problems: string[] = [];
+
+    for (const q of store.getQuizQuestions()) {
+      if (q.options.length !== 4) problems.push(`quiz ${q.id}: ${q.options.length} opties`);
+      const labels = q.options.map((o) => o.label.trim().toLowerCase());
+      if (new Set(labels).size !== labels.length) problems.push(`quiz ${q.id}: dubbele optietekst`);
+      const correct = q.options.find((o) => o.id === q.correctOptionId);
+      if (!correct) {
+        problems.push(`quiz ${q.id}: correctOptionId niet in opties`);
+        continue;
+      }
+      if (
+        correct.label.length > 3 &&
+        q.prompt.toLowerCase().includes(correct.label.toLowerCase())
+      ) {
+        problems.push(`quiz ${q.id}: het antwoord "${correct.label}" staat in de vraag`);
+      }
+    }
+
+    const engineSrc = fs.readFileSync(
+      path.resolve(__dirname, '../../../client/src/services/soundEngine.ts'),
+      'utf-8'
+    );
+    const knownSoundKeys = new Set(
+      [...engineSrc.matchAll(/key:\s*'([a-z0-9_]+)'/g)].map((m) => m[1])
+    );
+    for (const sc of store.getSoundChallenges()) {
+      if (sc.options.length !== 4) problems.push(`geluid ${sc.id}: ${sc.options.length} opties`);
+      if (!sc.options.some((o) => o.id === sc.correctOptionId)) {
+        problems.push(`geluid ${sc.id}: correctOptionId niet in opties`);
+      }
+      if (sc.soundType === 'synth' && !knownSoundKeys.has(sc.soundKey)) {
+        problems.push(`geluid ${sc.id}: soundKey "${sc.soundKey}" bestaat niet in soundEngine`);
+      }
+    }
+
+    for (const e of store.getEstimateChallenges()) {
+      const steps = (e.correctValue - e.min) / e.step;
+      if (Math.abs(steps - Math.round(steps)) > 1e-6) {
+        problems.push(`schatting ${e.id}: antwoord ligt niet op de schuifbalk-stap`);
+      }
+    }
+
+    expect(problems).toEqual([]);
+  });
 });

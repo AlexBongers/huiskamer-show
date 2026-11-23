@@ -65,7 +65,7 @@ De look wisselt automatisch op datum (de TV controleert dit elk uur, dus hij kan
 | 23 sep t/m 11 nov | Herfst |
 
 - Een thema vastzetten kan met `?thema=kerst` achter de URL (of via **Profielen & Backup** in `/admin`); `?thema=auto` gaat terug naar de datum. De keuze geldt alleen op dat apparaat.
-- Paletten en versiering staan in `client/src/styles/themes.css`, de datumregels in `client/src/theme/seasons.ts`. Kleuren gebruik je in code als Tailwind-klassen (`bg-studio-bg`, `text-studio-gold`, `bg-studio-ans1`), nooit als vaste hex-waarde.
+- Paletten en versiering staan in `client/src/styles/themes.css`, de datumregels in `client/src/theme/seasons.ts`. Kleuren gebruik je in code als Tailwind-klassen (`bg-studio-bg`, `bg-studio-card`, `text-studio-gold`), nooit als vaste hex-waarde. Alleen de vier antwoordkleuren (Rood, Blauw, Groen, Geel) staan bewust vast, omdat Lucas ze aan de stem koppelt.
 
 ### Ontwikkelmodus & Tests
 ```bash

@@ -183,6 +183,8 @@ export class GameEngine {
   >();
 
   private autoAdvanceTimers = true;
+  /** Waar als het spel vanzelf is gepauzeerd omdat niemand meer verbonden was (dan hervat het ook vanzelf). */
+  private autoPausedForNobody = false;
 
   constructor(
     store: DataStore,
@@ -357,6 +359,7 @@ export class GameEngine {
         if (q) this.playerQuizQuestions.set(existingPlayer.id, q);
       }
       this.onSfx('join_sparkle');
+      this.resumeIfAutoPaused();
       this.onBroadcast();
       return { player: existingPlayer, sessionToken: sess.sessionToken };
     }
@@ -419,6 +422,7 @@ export class GameEngine {
       newPlayer.profileId
     );
     this.onSfx('join_sparkle');
+    this.resumeIfAutoPaused();
     this.onBroadcast();
     return { player: newPlayer, sessionToken: sess.sessionToken };
   }
@@ -433,6 +437,7 @@ export class GameEngine {
     } else {
       p.connected = false;
       this.checkAutoFinishAfterDisconnect();
+      this.autoPauseIfNobodyConnected();
     }
     this.onBroadcast();
   }
@@ -448,6 +453,7 @@ export class GameEngine {
       p.connected = false;
       p.paused = true;
       this.checkAutoFinishAfterDisconnect();
+      this.autoPauseIfNobodyConnected();
     }
     this.onBroadcast();
   }
@@ -458,6 +464,7 @@ export class GameEngine {
       p.connected = connected;
       if (!connected) {
         this.checkAutoFinishAfterDisconnect();
+        this.autoPauseIfNobodyConnected();
       }
       this.onBroadcast();
     }
@@ -484,6 +491,32 @@ export class GameEngine {
     ) {
       this.finishEstimateRound();
     }
+  }
+
+  /**
+   * Als tijdens een spel alle spelers wegvallen (bijvoorbeeld schermen die in slaapstand gaan),
+   * zou de show anders vanzelf doorspelen tot de finale: dan raakt het hervatbare spel kwijt en
+   * komt er een spel in de Eregalerij waar niemand aan meedeed. Daarom pauzeren we dan.
+   */
+  private autoPauseIfNobodyConnected(): void {
+    if (
+      this.phase === 'LOBBY' ||
+      this.phase === 'FINALE' ||
+      this.phase === 'PAUSED'
+    ) {
+      return;
+    }
+    if (this.players.some((p) => p.connected)) return;
+    this.handleHostControl('pause');
+    // handleHostControl verandert this.phase; TypeScript weet dat niet na de vroege return hierboven.
+    if ((this.phase as GamePhase) === 'PAUSED') this.autoPausedForNobody = true;
+  }
+
+  /** Hervat een automatische pauze zodra er weer iemand is. Een pauze die de host zelf drukte blijft staan. */
+  private resumeIfAutoPaused(): void {
+    if (!this.autoPausedForNobody) return;
+    this.autoPausedForNobody = false;
+    if (this.phase === 'PAUSED') this.handleHostControl('resume');
   }
 
   public configureGame(configPayload: {
@@ -529,7 +562,7 @@ export class GameEngine {
     if (configPayload.teamAssignments) {
       for (const [pid, tid] of Object.entries(configPayload.teamAssignments)) {
         const p = this.players.find((pl) => pl.id === pid);
-        if (p) p.teamId = tid;
+        if (p && this.teams.some((t) => t.id === tid)) p.teamId = tid;
       }
       this.rebuildTeamsFromPlayerAssignments();
     } else {
@@ -1723,6 +1756,7 @@ export class GameEngine {
         break;
 
       case 'resume':
+        this.autoPausedForNobody = false;
         if (this.phase === 'PAUSED' && this.previousPhaseBeforePause) {
           this.phase = this.previousPhaseBeforePause;
           this.previousPhaseBeforePause = undefined;
@@ -1759,6 +1793,7 @@ export class GameEngine {
         break;
 
       case 'skip': {
+        this.autoPausedForNobody = false;
         const effectivePhase =
           this.phase === 'PAUSED' && this.previousPhaseBeforePause
             ? this.previousPhaseBeforePause
@@ -1811,6 +1846,10 @@ export class GameEngine {
         this.previousPhaseBeforePause = undefined;
         this.currentRoundNumber = 0;
         this.awards = [];
+        this.autoPausedForNobody = false;
+        // Spelers die tijdens het vorige spel zijn weggevallen horen niet meer in de nieuwe lobby.
+        this.players = this.players.filter((p) => p.connected);
+        this.rebuildTeamsFromPlayerAssignments();
         this.onBroadcast();
         break;
     }
@@ -2209,9 +2248,17 @@ export class GameEngine {
   // ==========================================================================
   // STATE SERIALIZATION
   // ==========================================================================
-  public getStateForClient(playerId?: string): GameStatePayload {
+  /**
+   * @param asTv true = het TV-scherm, dat extra mag zien (de naam van het geluid, de foto bij Zoom-in).
+   *             Standaard is dat zo als er geen playerId is; de server geeft dit voor andere sockets
+   *             zonder speler (meekijkers) expliciet op als false.
+   */
+  public getStateForClient(
+    playerId?: string,
+    asTv: boolean = playerId === undefined
+  ): GameStatePayload {
     const config = this.store.getPublicConfig();
-    const isTv = !playerId;
+    const isTv = asTv;
     const nowMs = Date.now();
     const isRevealOrLater =
       this.phase === 'ROUND_REVEAL' ||

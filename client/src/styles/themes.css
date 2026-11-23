@@ -5,10 +5,6 @@
   --studio-card-rgb: 29 56 102;
   --studio-card-light-rgb: 38 74 128;
   --studio-gold-rgb: 255 201 60;
-  --studio-ans1-rgb: 232 67 79;
-  --studio-ans2-rgb: 255 201 60;
-  --studio-ans3-rgb: 242 227 196;
-  --studio-ans4-rgb: 127 182 255;
     --studio-deco: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 preserveAspectRatio=%22xMidYMid slice%22%3E%3Crect x=%22-30%22 y=%22690%22 width=%22130%22 height=%22130%22 rx=%2214%22 fill=%22%23E8434F%22 transform=%22rotate%2814 35 755%29%22/%3E%3Crect x=%22-30%22 y=%22735%22 width=%22130%22 height=%2222%22 fill=%22%23FFC93C%22 transform=%22rotate%2814 35 755%29%22/%3E%3Cpolygon points=%221530,610 1620,610 1575,735%22 fill=%22%23FFC93C%22 transform=%22rotate%28-12 1575 680%29%22/%3E%3Cellipse cx=%221560%22 cy=%22770%22 rx=%2226%22 ry=%2217%22 fill=%22%23A8683A%22/%3E%3Cellipse cx=%221500%22 cy=%22810%22 rx=%2222%22 ry=%2215%22 fill=%22%23A8683A%22 transform=%22rotate%2830 1500 810%29%22/%3E%3Cellipse cx=%2260%22 cy=%22520%22 rx=%2220%22 ry=%2214%22 fill=%22%23A8683A%22 transform=%22rotate%28-25 60 520%29%22/%3E%3Ccircle cx=%221568%22 cy=%22470%22 r=%2214%22 fill=%22%23E8434F%22/%3E%3Ccircle cx=%2234%22 cy=%22400%22 r=%2212%22 fill=%22%237FB6FF%22/%3E%3C/svg%3E");
 }
 
@@ -17,10 +13,6 @@
   --studio-card-rgb: 22 68 58;
   --studio-card-light-rgb: 30 90 76;
   --studio-gold-rgb: 245 200 76;
-  --studio-ans1-rgb: 229 72 77;
-  --studio-ans2-rgb: 245 200 76;
-  --studio-ans3-rgb: 123 211 164;
-  --studio-ans4-rgb: 244 235 217;
     --studio-deco: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 preserveAspectRatio=%22xMidYMid slice%22%3E%3Cpolygon points=%22-10,820 60,690 130,820%22 fill=%22%232E8B62%22/%3E%3Cpolygon points=%2210,740 60,650 110,740%22 fill=%22%233FA577%22/%3E%3Crect x=%2250%22 y=%22820%22 width=%2220%22 height=%2240%22 fill=%22%238A5A3C%22/%3E%3Ccircle cx=%221572%22 cy=%22720%22 r=%2252%22 fill=%22%23E5484D%22/%3E%3Crect x=%221560%22 y=%22660%22 width=%2224%22 height=%2212%22 fill=%22%23F5C84C%22/%3E%3Ccircle cx=%221510%22 cy=%22800%22 r=%2220%22 fill=%22%23F5C84C%22/%3E%3Cpolygon points=%2240,474 47,491 65,492 51,504 55,521 40,512 25,521 29,504 15,492 33,491%22 fill=%22%23F5C84C%22/%3E%3Ccircle cx=%2270%22 cy=%22300%22 r=%226%22 fill=%22%23FFF6E3%22 opacity=%22.35%22/%3E%3Ccircle cx=%221540%22 cy=%22540%22 r=%225%22 fill=%22%23FFF6E3%22 opacity=%22.35%22/%3E%3Ccircle cx=%2240%22 cy=%22610%22 r=%224%22 fill=%22%23FFF6E3%22 opacity=%22.35%22/%3E%3Ccircle cx=%221575%22 cy=%22330%22 r=%226%22 fill=%22%23FFF6E3%22 opacity=%22.35%22/%3E%3Ccircle cx=%22130%22 cy=%22860%22 r=%225%22 fill=%22%23FFF6E3%22 opacity=%22.35%22/%3E%3C/svg%3E");
 }
 
@@ -29,10 +21,6 @@
   --studio-card-rgb: 23 58 78;
   --studio-card-light-rgb: 31 69 96;
   --studio-gold-rgb: 255 210 63;
-  --studio-ans1-rgb: 255 138 91;
-  --studio-ans2-rgb: 255 210 63;
-  --studio-ans3-rgb: 111 224 181;
-  --studio-ans4-rgb: 185 164 255;
     --studio-deco: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 preserveAspectRatio=%22xMidYMid slice%22%3E%3Cpath d=%22M0,14 Q400,50 800,14 T1500,14%22 stroke=%22%2321506A%22 stroke-width=%223%22 fill=%22none%22/%3E%3Ccircle cx=%2240%22 cy=%2228%22 r=%2211%22 fill=%22%23FF8A5B%22/%3E%3Ccircle cx=%22132%22 cy=%2238%22 r=%2211%22 fill=%22%23FFD23F%22/%3E%3Ccircle cx=%22224%22 cy=%2228%22 r=%2211%22 fill=%22%236FE0B5%22/%3E%3Ccircle cx=%22316%22 cy=%2238%22 r=%2211%22 fill=%22%23B9A4FF%22/%3E%3Ccircle cx=%22408%22 cy=%2228%22 r=%2211%22 fill=%22%23FF8A5B%22/%3E%3Ccircle cx=%22500%22 cy=%2238%22 r=%2211%22 fill=%22%23FFD23F%22/%3E%3Ccircle cx=%22592%22 cy=%2228%22 r=%2211%22 fill=%22%236FE0B5%22/%3E%3Ccircle cx=%22684%22 cy=%2238%22 r=%2211%22 fill=%22%23B9A4FF%22/%3E%3Ccircle cx=%22776%22 cy=%2228%22 r=%2211%22 fill=%22%23FF8A5B%22/%3E%3Ccircle cx=%22868%22 cy=%2238%22 r=%2211%22 fill=%22%23FFD23F%22/%3E%3Ccircle cx=%22960%22 cy=%2228%22 r=%2211%22 fill=%22%236FE0B5%22/%3E%3Ccircle cx=%221052%22 cy=%2238%22 r=%2211%22 fill=%22%23B9A4FF%22/%3E%3Ccircle cx=%221144%22 cy=%2228%22 r=%2211%22 fill=%22%23FF8A5B%22/%3E%3Ccircle cx=%221236%22 cy=%2238%22 r=%2211%22 fill=%22%23FFD23F%22/%3E%3Ccircle cx=%221328%22 cy=%2228%22 r=%2211%22 fill=%22%236FE0B5%22/%3E%3Ccircle cx=%221420%22 cy=%2238%22 r=%2211%22 fill=%22%23B9A4FF%22/%3E%3Cpolygon points=%221560,684 1570,707 1594,709 1575,725 1581,749 1560,736 1539,749 1545,725 1526,709 1550,707%22 fill=%22%23FFD23F%22/%3E%3Cpolygon points=%2240,616 46,631 63,633 50,643 54,659 40,651 26,659 30,643 17,633 34,631%22 fill=%22%236FE0B5%22/%3E%3Ccircle cx=%2260%22 cy=%22300%22 r=%226%22 fill=%22%23FDF6E9%22 opacity=%22.4%22/%3E%3Ccircle cx=%221550%22 cy=%22500%22 r=%225%22 fill=%22%23FDF6E9%22 opacity=%22.4%22/%3E%3Ccircle cx=%2290%22 cy=%22820%22 r=%225%22 fill=%22%23FDF6E9%22 opacity=%22.4%22/%3E%3Ccircle cx=%221500%22 cy=%22840%22 r=%226%22 fill=%22%23FDF6E9%22 opacity=%22.4%22/%3E%3C/svg%3E");
 }
 
@@ -41,10 +29,6 @@
   --studio-card-rgb: 26 77 74;
   --studio-card-light-rgb: 35 97 93;
   --studio-gold-rgb: 249 214 92;
-  --studio-ans1-rgb: 255 143 177;
-  --studio-ans2-rgb: 249 214 92;
-  --studio-ans3-rgb: 142 224 142;
-  --studio-ans4-rgb: 169 214 255;
     --studio-deco: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 preserveAspectRatio=%22xMidYMid slice%22%3E%3Ccircle cx=%2294%22 cy=%22780%22 r=%2224%22 fill=%22%23FF8FB1%22/%3E%3Ccircle cx=%2271%22 cy=%22812%22 r=%2224%22 fill=%22%23FF8FB1%22/%3E%3Ccircle cx=%2232%22 cy=%22800%22 r=%2224%22 fill=%22%23FF8FB1%22/%3E%3Ccircle cx=%2232%22 cy=%22760%22 r=%2224%22 fill=%22%23FF8FB1%22/%3E%3Ccircle cx=%2271%22 cy=%22748%22 r=%2224%22 fill=%22%23FF8FB1%22/%3E%3Ccircle cx=%2260%22 cy=%22780%22 r=%2220%22 fill=%22%23F9D65C%22/%3E%3Ccircle cx=%221580%22 cy=%22730%22 r=%2228%22 fill=%22%23FF8FB1%22/%3E%3Ccircle cx=%221552%22 cy=%22768%22 r=%2228%22 fill=%22%23FF8FB1%22/%3E%3Ccircle cx=%221508%22 cy=%22754%22 r=%2228%22 fill=%22%23FF8FB1%22/%3E%3Ccircle cx=%221508%22 cy=%22706%22 r=%2228%22 fill=%22%23FF8FB1%22/%3E%3Ccircle cx=%221552%22 cy=%22692%22 r=%2228%22 fill=%22%23FF8FB1%22/%3E%3Ccircle cx=%221540%22 cy=%22730%22 r=%2224%22 fill=%22%23F9D65C%22/%3E%3Ccircle cx=%221522%22 cy=%22840%22 r=%2215%22 fill=%22%23A9D6FF%22/%3E%3Ccircle cx=%221507%22 cy=%22861%22 r=%2215%22 fill=%22%23A9D6FF%22/%3E%3Ccircle cx=%221482%22 cy=%22853%22 r=%2215%22 fill=%22%23A9D6FF%22/%3E%3Ccircle cx=%221482%22 cy=%22827%22 r=%2215%22 fill=%22%23A9D6FF%22/%3E%3Ccircle cx=%221507%22 cy=%22819%22 r=%2215%22 fill=%22%23A9D6FF%22/%3E%3Ccircle cx=%221500%22 cy=%22840%22 r=%2213%22 fill=%22%23F9D65C%22/%3E%3Cellipse cx=%22120%22 cy=%22850%22 rx=%2240%22 ry=%2214%22 fill=%22%238EE08E%22 transform=%22rotate%28-30 120 850%29%22/%3E%3Cellipse cx=%221580%22 cy=%22630%22 rx=%2234%22 ry=%2212%22 fill=%22%238EE08E%22 transform=%22rotate%2860 1580 630%29%22/%3E%3Cellipse cx=%2230%22 cy=%22560%22 rx=%2230%22 ry=%2211%22 fill=%22%238EE08E%22 transform=%22rotate%28-70 30 560%29%22/%3E%3C/svg%3E");
 }
 
@@ -53,10 +37,6 @@
   --studio-card-rgb: 18 74 107;
   --studio-card-light-rgb: 26 92 130;
   --studio-gold-rgb: 255 200 61;
-  --studio-ans1-rgb: 255 122 89;
-  --studio-ans2-rgb: 255 200 61;
-  --studio-ans3-rgb: 79 224 208;
-  --studio-ans4-rgb: 255 143 184;
     --studio-deco: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 preserveAspectRatio=%22xMidYMid slice%22%3E%3Cline x1=%221530%22 y1=%22760%22 x2=%221635%22 y2=%22760%22 stroke=%22%23FFC83D%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Cline x1=%221530%22 y1=%22760%22 x2=%221621%22 y2=%22813%22 stroke=%22%23FFC83D%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Cline x1=%221530%22 y1=%22760%22 x2=%221582%22 y2=%22851%22 stroke=%22%23FFC83D%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Cline x1=%221530%22 y1=%22760%22 x2=%221530%22 y2=%22865%22 stroke=%22%23FFC83D%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Cline x1=%221530%22 y1=%22760%22 x2=%221477%22 y2=%22851%22 stroke=%22%23FFC83D%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Cline x1=%221530%22 y1=%22760%22 x2=%221439%22 y2=%22812%22 stroke=%22%23FFC83D%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Cline x1=%221530%22 y1=%22760%22 x2=%221425%22 y2=%22760%22 stroke=%22%23FFC83D%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Cline x1=%221530%22 y1=%22760%22 x2=%221439%22 y2=%22707%22 stroke=%22%23FFC83D%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Cline x1=%221530%22 y1=%22760%22 x2=%221478%22 y2=%22669%22 stroke=%22%23FFC83D%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Cline x1=%221530%22 y1=%22760%22 x2=%221530%22 y2=%22655%22 stroke=%22%23FFC83D%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Cline x1=%221530%22 y1=%22760%22 x2=%221583%22 y2=%22669%22 stroke=%22%23FFC83D%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Cline x1=%221530%22 y1=%22760%22 x2=%221621%22 y2=%22708%22 stroke=%22%23FFC83D%22 stroke-width=%228%22 stroke-linecap=%22round%22/%3E%3Ccircle cx=%221530%22 cy=%22760%22 r=%2256%22 fill=%22%23FFC83D%22/%3E%3Cpath d=%22M-10,830 Q40,790 90,830 T190,830 L190,910 L-10,910Z%22 fill=%22%234FE0D0%22/%3E%3Ccircle cx=%2260%22 cy=%22520%22 r=%2216%22 fill=%22%23FF7A59%22/%3E%3Ccircle cx=%221568%22 cy=%22480%22 r=%2212%22 fill=%22%23FF8FB8%22/%3E%3C/svg%3E");
 }
 
@@ -65,9 +45,5 @@
   --studio-card-rgb: 58 47 66;
   --studio-card-light-rgb: 74 61 84;
   --studio-gold-rgb: 242 169 59;
-  --studio-ans1-rgb: 217 98 43;
-  --studio-ans2-rgb: 242 169 59;
-  --studio-ans3-rgb: 168 198 108;
-  --studio-ans4-rgb: 233 169 143;
     --studio-deco: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 preserveAspectRatio=%22xMidYMid slice%22%3E%3Cellipse cx=%2260%22 cy=%22780%22 rx=%2260%22 ry=%2226%22 fill=%22%23D9622B%22 transform=%22rotate%28-40 60 780%29%22/%3E%3Cellipse cx=%22130%22 cy=%22850%22 rx=%2246%22 ry=%2220%22 fill=%22%23F2A93B%22 transform=%22rotate%2820 130 850%29%22/%3E%3Cellipse cx=%221540%22 cy=%22730%22 rx=%2264%22 ry=%2228%22 fill=%22%23F2A93B%22 transform=%22rotate%2850 1540 730%29%22/%3E%3Cellipse cx=%221490%22 cy=%22840%22 rx=%2248%22 ry=%2220%22 fill=%22%23D9622B%22 transform=%22rotate%28-20 1490 840%29%22/%3E%3Cellipse cx=%2240%22 cy=%22520%22 rx=%2236%22 ry=%2215%22 fill=%22%23A8C66C%22 transform=%22rotate%28-70 40 520%29%22/%3E%3Ccircle cx=%221570%22 cy=%22520%22 r=%2214%22 fill=%22%238A5A3C%22/%3E%3C/svg%3E");
 }

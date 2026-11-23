@@ -5603,8 +5603,8 @@
     "id": "qz_mee_176",
     "category": "ons_gezin",
     "level": "meester",
-    "prompt": "Welk klassiek Nederlands bord- en gezinsspel heeft de bekende vakjes \"Ganzenbord\", \"De Put\" en \"De Gevangenis\"?",
-    "spokenPrompt": "Welk klassiek Nederlands bord- en gezinsspel heeft de bekende vakjes \"Ganzenbord\", \"De Put\" en \"De Gevangenis\"?",
+    "prompt": "Welk klassiek Nederlands bord- en gezinsspel heeft de bekende vakjes \"De Herberg\", \"De Put\" en \"De Gevangenis\"?",
+    "spokenPrompt": "Welk klassiek Nederlands bord- en gezinsspel heeft de bekende vakjes \"De Herberg\", \"De Put\" en \"De Gevangenis\"?",
     "options": [
       {
         "id": "a",
